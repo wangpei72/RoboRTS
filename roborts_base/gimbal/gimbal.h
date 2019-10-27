@@ -31,9 +31,9 @@ class Gimbal {
    * @param handle handler of sdk
    */
   Gimbal(std::shared_ptr<roborts_sdk::Handle> handle);
-    /**
-   * @brief Destructor of gimbal
-   */
+  /**
+ * @brief Destructor of gimbal
+ */
   ~Gimbal();
  private:
   /**
@@ -92,20 +92,19 @@ class Gimbal {
   //! sdk publisher for heartbeat
   std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_heartbeat>> heartbeat_pub_;
 
-
   //! sdk publisher for gimbal angle control
-  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_gimbal_angle>>     gimbal_angle_pub_;
+  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_gimbal_angle>> gimbal_angle_pub_;
   //! sdk publisher for gimbal mode set
-  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::gimbal_mode_e>>        gimbal_mode_pub_;
+  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::gimbal_mode_e>> gimbal_mode_pub_;
   //! sdk publisher for frcition wheel control
   std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_fric_wheel_speed>> fric_wheel_pub_;
   //! sdk publisher for gimbal shoot control
-  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_shoot_info>>       gimbal_shoot_pub_;
+  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_shoot_info>> gimbal_shoot_pub_;
 
   //! ros node handler
-  ros::NodeHandle    ros_nh_;
+  ros::NodeHandle ros_nh_;
   //! ros subscriber for gimbal angle control
-  ros::Subscriber    ros_sub_cmd_gimbal_angle_;
+  ros::Subscriber ros_sub_cmd_gimbal_angle_;
   //! ros service server for gimbal mode set
   ros::ServiceServer ros_gimbal_mode_srv_;
   //! ros service server for friction wheel control
@@ -115,7 +114,7 @@ class Gimbal {
   //! ros gimbal tf
   geometry_msgs::TransformStamped gimbal_tf_;
   //! ros gimbal tf broadcaster
-  tf::TransformBroadcaster        tf_broadcaster_;
+  tf::TransformBroadcaster tf_broadcaster_;
 
 };
 }

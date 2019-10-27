@@ -22,7 +22,6 @@ void RefereeSystem::SDK_Init() {
                                                                              this,
                                                                              std::placeholders::_1));
 
-
   handle_->CreateSubscriber<roborts_sdk::cmd_event_data>(REFEREE_BATTLEFIELD_CMD_SET, CMD_BATTLEFIELD_EVENT,
                                                          CHASSIS_ADDRESS, MANIFOLD2_ADDRESS,
                                                          std::bind(&RefereeSystem::GameEventCallback,
@@ -33,7 +32,6 @@ void RefereeSystem::SDK_Init() {
                                                                        std::bind(&RefereeSystem::SupplierStatusCallback,
                                                                                  this,
                                                                                  std::placeholders::_1));
-
 
   handle_->CreateSubscriber<roborts_sdk::cmd_game_robot_state>(REFEREE_ROBOT_CMD_SET, CMD_ROBOT_STATUS,
                                                                CHASSIS_ADDRESS, MANIFOLD2_ADDRESS,
@@ -61,13 +59,9 @@ void RefereeSystem::SDK_Init() {
                                                                    this,
                                                                    std::placeholders::_1));
 
-
-
   projectile_supply_pub_ =
       handle_->CreatePublisher<roborts_sdk::cmd_supply_projectile_booking>(REFEREE_SEND_CMD_SET, CMD_REFEREE_SEND_DATA,
                                                                            MANIFOLD2_ADDRESS, CHASSIS_ADDRESS);
-
-
 
 }
 void RefereeSystem::ROS_Init() {
@@ -86,74 +80,70 @@ void RefereeSystem::ROS_Init() {
   ros_robot_shoot_pub_ = ros_nh_.advertise<roborts_msgs::RobotShoot>("robot_shoot", 30);
 
   //ros subscriber
-  ros_sub_projectile_supply_ = ros_nh_.subscribe("projectile_supply", 1, &RefereeSystem::ProjectileSupplyCallback, this);
+  ros_sub_projectile_supply_ =
+      ros_nh_.subscribe("projectile_supply", 1, &RefereeSystem::ProjectileSupplyCallback, this);
 
 }
 
-void RefereeSystem::GameStateCallback(const std::shared_ptr<roborts_sdk::cmd_game_state> raw_game_status){
+void RefereeSystem::GameStateCallback(const std::shared_ptr<roborts_sdk::cmd_game_state> raw_game_status) {
   roborts_msgs::GameStatus game_status;
   game_status.game_status = raw_game_status->game_progress;
   game_status.remaining_time = raw_game_status->stage_remain_time;
   ros_game_status_pub_.publish(game_status);
 }
 
-void RefereeSystem::GameResultCallback(const std::shared_ptr<roborts_sdk::cmd_game_result> raw_game_result){
+void RefereeSystem::GameResultCallback(const std::shared_ptr<roborts_sdk::cmd_game_result> raw_game_result) {
   roborts_msgs::GameResult game_result;
   game_result.result = raw_game_result->winner;
   ros_game_result_pub_.publish(game_result);
 }
 
-void RefereeSystem::GameSurvivorCallback(const std::shared_ptr<roborts_sdk::cmd_game_robot_survivors> raw_game_survivor){
+void RefereeSystem::GameSurvivorCallback(const std::shared_ptr<roborts_sdk::cmd_game_robot_survivors> raw_game_survivor) {
   roborts_msgs::GameSurvivor game_survivor;
-  game_survivor.red3 = raw_game_survivor->robot_legion>>2&1;
-  game_survivor.red4 = raw_game_survivor->robot_legion>>3&1;
-  game_survivor.blue3 = raw_game_survivor->robot_legion>>10&1;
-  game_survivor.blue4 = raw_game_survivor->robot_legion>>11&1;
+  game_survivor.red3 = raw_game_survivor->robot_legion >> 2 & 1;
+  game_survivor.red4 = raw_game_survivor->robot_legion >> 3 & 1;
+  game_survivor.blue3 = raw_game_survivor->robot_legion >> 10 & 1;
+  game_survivor.blue4 = raw_game_survivor->robot_legion >> 11 & 1;
   ros_game_survival_pub_.publish(game_survivor);
 }
 
-void RefereeSystem::GameEventCallback(const std::shared_ptr<roborts_sdk::cmd_event_data> raw_game_event){
+void RefereeSystem::GameEventCallback(const std::shared_ptr<roborts_sdk::cmd_event_data> raw_game_event) {
   roborts_msgs::BonusStatus bonus_status;
-  bonus_status.red_bonus = raw_game_event->event_type>>12&3;
-  bonus_status.blue_bonus = raw_game_event->event_type>>14&3;
+  bonus_status.red_bonus = raw_game_event->event_type >> 12 & 3;
+  bonus_status.blue_bonus = raw_game_event->event_type >> 14 & 3;
   ros_bonus_status_pub_.publish(bonus_status);
 }
 
-void RefereeSystem::SupplierStatusCallback(const std::shared_ptr<roborts_sdk::cmd_supply_projectile_action> raw_supplier_status){
+void RefereeSystem::SupplierStatusCallback(const std::shared_ptr<roborts_sdk::cmd_supply_projectile_action> raw_supplier_status) {
   roborts_msgs::SupplierStatus supplier_status;
   supplier_status.status = raw_supplier_status->supply_projectile_step;
   ros_supplier_status_pub_.publish(supplier_status);
 }
 
-void RefereeSystem::RobotStatusCallback(const std::shared_ptr<roborts_sdk::cmd_game_robot_state> raw_robot_status){
+void RefereeSystem::RobotStatusCallback(const std::shared_ptr<roborts_sdk::cmd_game_robot_state> raw_robot_status) {
   roborts_msgs::RobotStatus robot_status;
 
-  if(robot_id_ != raw_robot_status->robot_id){
+  if (robot_id_ != raw_robot_status->robot_id) {
 
-    switch (raw_robot_status->robot_id){
-      case 3:
-        robot_status.id = 3;
+    switch (raw_robot_status->robot_id) {
+      case 3:robot_status.id = 3;
         robot_id_ = 3;
         break;
-      case 4:
-        robot_status.id = 4;
+      case 4:robot_status.id = 4;
         robot_id_ = 4;
         break;
-      case 13:
-        robot_status.id = 13;
+      case 13:robot_status.id = 13;
         robot_id_ = 13;
         break;
-      case 14:
-        robot_status.id = 14;
+      case 14:robot_status.id = 14;
         robot_id_ = 14;
         break;
-      default:
-        robot_status.id = raw_robot_status->robot_id;
-        LOG_ERROR<<"For AI challenge, please set robot id to Blue3/4 or Red3/4 in the referee system main control module";
+      default:robot_status.id = raw_robot_status->robot_id;
+        LOG_ERROR
+            << "For AI challenge, please set robot id to Blue3/4 or Red3/4 in the referee system main control module";
         return;
     }
-  }
-  else{
+  } else {
     robot_status.id = raw_robot_status->robot_id;
   }
 
@@ -168,7 +158,7 @@ void RefereeSystem::RobotStatusCallback(const std::shared_ptr<roborts_sdk::cmd_g
   ros_robot_status_pub_.publish(robot_status);
 }
 
-void RefereeSystem::RobotHeatCallback(const std::shared_ptr<roborts_sdk::cmd_power_heat_data> raw_robot_heat){
+void RefereeSystem::RobotHeatCallback(const std::shared_ptr<roborts_sdk::cmd_power_heat_data> raw_robot_heat) {
   roborts_msgs::RobotHeat robot_heat;
   robot_heat.chassis_volt = raw_robot_heat->chassis_volt;
   robot_heat.chassis_current = raw_robot_heat->chassis_current;
@@ -178,27 +168,27 @@ void RefereeSystem::RobotHeatCallback(const std::shared_ptr<roborts_sdk::cmd_pow
   ros_robot_heat_pub_.publish(robot_heat);
 }
 
-void RefereeSystem::RobotBonusCallback(const std::shared_ptr<roborts_sdk::cmd_buff_musk> raw_robot_bonus){
+void RefereeSystem::RobotBonusCallback(const std::shared_ptr<roborts_sdk::cmd_buff_musk> raw_robot_bonus) {
   roborts_msgs::RobotBonus robot_bonus;
-  robot_bonus.bonus = raw_robot_bonus->power_rune_buff>>2&1;
+  robot_bonus.bonus = raw_robot_bonus->power_rune_buff >> 2 & 1;
   ros_robot_bonus_pub_.publish(robot_bonus);
 }
 
-void RefereeSystem::RobotDamageCallback(const std::shared_ptr<roborts_sdk::cmd_robot_hurt> raw_robot_damage){
+void RefereeSystem::RobotDamageCallback(const std::shared_ptr<roborts_sdk::cmd_robot_hurt> raw_robot_damage) {
   roborts_msgs::RobotDamage robot_damage;
   robot_damage.damage_type = raw_robot_damage->hurt_type;
   robot_damage.damage_source = raw_robot_damage->armor_id;
   ros_robot_damage_pub_.publish(robot_damage);
 }
 
-void RefereeSystem::RobotShootCallback(const std::shared_ptr<roborts_sdk::cmd_shoot_data> raw_robot_shoot){
+void RefereeSystem::RobotShootCallback(const std::shared_ptr<roborts_sdk::cmd_shoot_data> raw_robot_shoot) {
   roborts_msgs::RobotShoot robot_shoot;
   robot_shoot.frequency = raw_robot_shoot->bullet_freq;
   robot_shoot.speed = raw_robot_shoot->bullet_speed;
   ros_robot_shoot_pub_.publish(robot_shoot);
 }
 
-void RefereeSystem::ProjectileSupplyCallback(const roborts_msgs::ProjectileSupply::ConstPtr projectile_supply){
+void RefereeSystem::ProjectileSupplyCallback(const roborts_msgs::ProjectileSupply::ConstPtr projectile_supply) {
   if (robot_id_ == 0xFF) {
     ROS_ERROR("Can not get robot id before requesting for projectile supply.");
     return;
@@ -206,7 +196,7 @@ void RefereeSystem::ProjectileSupplyCallback(const roborts_msgs::ProjectileSuppl
   roborts_sdk::cmd_supply_projectile_booking raw_projectile_booking;
   raw_projectile_booking.supply_projectile_id = 1;
   raw_projectile_booking.supply_robot_id = robot_id_;
-  raw_projectile_booking.supply_num = projectile_supply->number/50*50;
+  raw_projectile_booking.supply_num = projectile_supply->number / 50 * 50;
   projectile_supply_pub_->Publish(raw_projectile_booking);
 }
 

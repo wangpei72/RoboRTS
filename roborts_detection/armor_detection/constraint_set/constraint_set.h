@@ -54,8 +54,8 @@ struct LightInfo {
         std::pow(vertices[1].y - vertices[2].y, 2);
 
     if (edge_1 > edge_2) {
-      width_  = (float)std::sqrt(edge_1);
-      height_ = (float)std::sqrt(edge_2);
+      width_ = (float) std::sqrt(edge_1);
+      height_ = (float) std::sqrt(edge_2);
 
       if (vertices[0].y < vertices[1].y) {
         angle_ = std::atan2(vertices[1].y - vertices[0].y, vertices[1].x - vertices[0].x);
@@ -64,8 +64,8 @@ struct LightInfo {
       }
 
     } else {
-      width_  = (float)std::sqrt(edge_2);
-      height_ = (float)std::sqrt(edge_1);
+      width_ = (float) std::sqrt(edge_2);
+      height_ = (float) std::sqrt(edge_1);
 
       if (vertices[2].y < vertices[1].y) {
         angle_ = std::atan2(vertices[1].y - vertices[2].y, vertices[1].x - vertices[2].x);
@@ -75,7 +75,7 @@ struct LightInfo {
 
     }
 
-    angle_ = (float)(angle_*180.0 / 3.1415926);
+    angle_ = (float) (angle_ * 180.0 / 3.1415926);
     area_ = width_ * height_;
     aspect_ratio_ = width_ / height_;
     center_.x = (vertices[1].x + vertices[3].x) / 2;
@@ -170,7 +170,7 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param yaw
    * @param bullet_speed
    */
-  void CalcControlInfo(const ArmorInfo & armor, cv::Point3f &target_3d);
+  void CalcControlInfo(const ArmorInfo &armor, cv::Point3f &target_3d);
 
   /**
    * @brief Using two lights(left light and right light) to calculate four points of armor.
@@ -188,7 +188,7 @@ class ConstraintSet : public ArmorDetectionBase {
   /**
    *
    */
-  void SignalFilter(double &new_num, double &old_num,unsigned int &filter_count, double max_diff);
+  void SignalFilter(double &new_num, double &old_num, unsigned int &filter_count, double max_diff);
 
   void SetThreadState(bool thread_state) override;
   /**
