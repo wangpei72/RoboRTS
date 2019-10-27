@@ -28,7 +28,7 @@
 
 #include "../global_planner_base.h"
 
-namespace roborts_global_planner{
+namespace roborts_global_planner {
 
 /**
  * @brief Global planner alogorithm class for A star under the representation of costmap
@@ -50,8 +50,8 @@ class AStarPlanner : public GlobalPlannerBase {
    * @return ErrorInfo which is OK if succeed
    */
   roborts_common::ErrorInfo Plan(const geometry_msgs::PoseStamped &start,
-                               const geometry_msgs::PoseStamped &goal,
-                               std::vector<geometry_msgs::PoseStamped> &path);
+                                 const geometry_msgs::PoseStamped &goal,
+                                 std::vector<geometry_msgs::PoseStamped> &path);
 
  private:
   /**
@@ -70,8 +70,8 @@ class AStarPlanner : public GlobalPlannerBase {
    * @return ErrorInfo which is OK if succeed
    */
   roborts_common::ErrorInfo SearchPath(const int &start_index,
-                                     const int &goal_index,
-                                     std::vector<geometry_msgs::PoseStamped> &path);
+                                       const int &goal_index,
+                                       std::vector<geometry_msgs::PoseStamped> &path);
   /**
    * @brief Calculate the cost for the diagonal or parallel movement.
    * @param current_index Index of the current cell as input
@@ -80,8 +80,8 @@ class AStarPlanner : public GlobalPlannerBase {
    * @return ErrorInfo which is OK if succeed
    */
   roborts_common::ErrorInfo GetMoveCost(const int &current_index,
-                                      const int &neighbor_index,
-                                      int &move_cost) const;
+                                        const int &neighbor_index,
+                                        int &move_cost) const;
   /**
    * @brief Calculate the Manhattan distance between two cell index used as the heuristic function of A star algorithm.
    * @param index1 Index of the first cell as input
@@ -129,14 +129,13 @@ class AStarPlanner : public GlobalPlannerBase {
   //! vector that indicates the state of each cell
   std::vector<AStarPlanner::SearchState> state_;
 
-
 };
 
 std::vector<int> AStarPlanner::f_score_;
 roborts_common::REGISTER_ALGORITHM(GlobalPlannerBase,
-                                 "a_star_planner",
-                                 AStarPlanner,
-                                 std::shared_ptr<roborts_costmap::CostmapInterface>);
+                                   "a_star_planner",
+                                   AStarPlanner,
+                                   std::shared_ptr<roborts_costmap::CostmapInterface>);
 
 } //namespace roborts_global_planner
 
