@@ -91,22 +91,22 @@ void ObstacleLayer::OnInitialize() {
   global_frame_ = layered_costmap_->GetGlobalFrameID();
   ObstacleLayer::MatchSize();
   observation_buffers_.push_back(std::shared_ptr<ObservationBuffer>(new ObservationBuffer(topic_string,
-                                                                                            observation_keep_time,
-                                                                                            expected_update_rate,
-                                                                                            min_obstacle_height,
-                                                                                            max_obstacle_height,
-                                                                                            obstacle_range,
-                                                                                            raytrace_range,
-                                                                                            *tf_,
-                                                                                            global_frame_,
-                                                                                            sensor_frame,
-                                                                                            transform_tolerance)));
+                                                                                          observation_keep_time,
+                                                                                          expected_update_rate,
+                                                                                          min_obstacle_height,
+                                                                                          max_obstacle_height,
+                                                                                          obstacle_range,
+                                                                                          raytrace_range,
+                                                                                          *tf_,
+                                                                                          global_frame_,
+                                                                                          sensor_frame,
+                                                                                          transform_tolerance)));
   if (marking) {
     marking_buffers_.push_back(observation_buffers_.back());
   }
   if (clearing) {
     clearing_buffers_.push_back(observation_buffers_.back());
-  } 
+  }
   reset_time_ = std::chrono::system_clock::now();
   std::shared_ptr<message_filters::Subscriber<sensor_msgs::LaserScan>
   > sub(new message_filters::Subscriber<sensor_msgs::LaserScan>(nh, topic_string, 50));
@@ -150,6 +150,11 @@ void ObstacleLayer::LaserScanValidInfoCallback(const sensor_msgs::LaserScanConst
   sensor_msgs::LaserScan message = *raw_message;
   for (size_t i = 0; i < message.ranges.size(); i++) {
     range = message.ranges[i];
+    // TODO
+    if (range > 0 && range < 0.7 && ((i > 800 && i < 850) || (i > 610 && i < 635))) {
+      message.ranges[i] = message.range_max - epsilon;
+      // std::cout << "!!!!!!!!!!!!!!!!" << i << std::endl;
+    }
     if (!std::isfinite(range) && range > 0) {
       message.ranges[i] = message.range_max - epsilon;
     }
@@ -178,7 +183,8 @@ void ObstacleLayer::UpdateBounds(double robot_x,
                                  double *max_y) {
   if (rolling_window_) {
     UpdateOrigin(robot_x - GetSizeXWorld() / 2, robot_y - GetSizeYWorld() / 2);
-  } else if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - reset_time_) > std::chrono::seconds(2)){
+  } else if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - reset_time_)
+      > std::chrono::seconds(2)) {
     reset_time_ = std::chrono::system_clock::now();
     ResetMaps();
   }
