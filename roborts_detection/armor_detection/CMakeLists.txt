@@ -10,6 +10,11 @@ rrts_protobuf_generate_cpp(${CMAKE_CURRENT_SOURCE_DIR}/proto
   ${ProtoFiles})
 
 
+# For clion symbol updates
+include_directories(
+        ../../../devel/include
+)
+
 #armor detection node
 add_executable(${PROJECT_NAME}_node
   ${ArmorDetectionProtoSrc}

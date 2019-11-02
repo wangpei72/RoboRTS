@@ -11,6 +11,11 @@ find_package(catkin REQUIRED COMPONENTS
   roborts_msgs
   )
 
+# For clion symbol updates
+include_directories(
+        ../../../devel/include
+)
+
 catkin_package()
 
 add_executable(roborts_base_node

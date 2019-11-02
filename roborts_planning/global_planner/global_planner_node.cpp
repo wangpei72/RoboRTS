@@ -19,14 +19,14 @@
 
 #include "global_planner_node.h"
 
-namespace roborts_global_planner{
+namespace roborts_global_planner {
 
 using roborts_common::ErrorCode;
 using roborts_common::ErrorInfo;
 using roborts_common::NodeState;
 GlobalPlannerNode::GlobalPlannerNode() :
-    new_path_(false),pause_(false), node_state_(NodeState::IDLE), error_info_(ErrorCode::OK),
-    as_(nh_,"global_planner_node_action",boost::bind(&GlobalPlannerNode::GoalCallback,this,_1),false) {
+    new_path_(false), pause_(false), node_state_(NodeState::IDLE), error_info_(ErrorCode::OK),
+    as_(nh_, "global_planner_node_action", boost::bind(&GlobalPlannerNode::GoalCallback, this, _1), false) {
 
   if (Init().IsOK()) {
     ROS_INFO("Global planner initialization completed.");
@@ -43,14 +43,14 @@ ErrorInfo GlobalPlannerNode::Init() {
 
   // Load proto planning configuration parameters
   GlobalPlannerConfig global_planner_config;
-  std::string full_path = ros::package::getPath("roborts_planning") + "/global_planner/config/global_planner_config.prototxt";
+  std::string
+      full_path = ros::package::getPath("roborts_planning") + "/global_planner/config/global_planner_config.prototxt";
   if (!roborts_common::ReadProtoFromTextFile(full_path.c_str(),
-                                           &global_planner_config)) {
+                                             &global_planner_config)) {
     ROS_ERROR("Cannot load global planner protobuf configuration file.");
     return ErrorInfo(ErrorCode::GP_INITILIZATION_ERROR,
                      "Cannot load global planner protobuf configuration file.");
   }
-
 
   selected_algorithm_ = global_planner_config.selected_algorithm();
   cycle_duration_ = std::chrono::microseconds((int) (1e6 / global_planner_config.frequency()));
@@ -69,12 +69,12 @@ ErrorInfo GlobalPlannerNode::Init() {
   std::string map_path = ros::package::getPath("roborts_costmap") + \
       "/config/costmap_parameter_config_for_global_plan.prototxt";
   costmap_ptr_ = std::make_shared<roborts_costmap::CostmapInterface>("global_costmap",
-                                                                           *tf_ptr_,
-                                                                           map_path.c_str());
+                                                                     *tf_ptr_,
+                                                                     map_path.c_str());
   // Create the instance of the selected algorithm
-  global_planner_ptr_ = roborts_common::AlgorithmFactory<GlobalPlannerBase,CostmapPtr >::CreateAlgorithm(
+  global_planner_ptr_ = roborts_common::AlgorithmFactory<GlobalPlannerBase, CostmapPtr>::CreateAlgorithm(
       selected_algorithm_, costmap_ptr_);
-  if (global_planner_ptr_== nullptr) {
+  if (global_planner_ptr_ == nullptr) {
     ROS_ERROR("global planner algorithm instance can't be loaded");
     return ErrorInfo(ErrorCode::GP_INITILIZATION_ERROR,
                      "global planner algorithm instance can't be loaded");
@@ -108,8 +108,6 @@ void GlobalPlannerNode::GoalCallback(const roborts_msgs::GlobalPlannerGoal::Cons
     plan_condition_.notify_one();
   }
 
-
-
   while (ros::ok()) {
     // Preempted and Canceled
     if (as_.isPreemptRequested()) {
@@ -117,7 +115,7 @@ void GlobalPlannerNode::GoalCallback(const roborts_msgs::GlobalPlannerGoal::Cons
         as_.setPreempted();
         ROS_INFO("Override!");
         break;
-      }else{
+      } else {
         as_.setPreempted();
         SetNodeState(NodeState::IDLE);
         ROS_INFO("Cancel!");
@@ -129,7 +127,7 @@ void GlobalPlannerNode::GoalCallback(const roborts_msgs::GlobalPlannerGoal::Cons
     node_state = GetNodeState();
     error_info = GetErrorInfo();
     //TODO: seem useless to check state here, as it would never be IDLE state
-    if(node_state == NodeState::RUNNING || node_state == NodeState::SUCCESS || node_state == NodeState::FAILURE) {
+    if (node_state == NodeState::RUNNING || node_state == NodeState::SUCCESS || node_state == NodeState::FAILURE) {
       roborts_msgs::GlobalPlannerFeedback feedback;
       roborts_msgs::GlobalPlannerResult result;
       // If error occurs or planner produce new path, publish the feedback
@@ -147,15 +145,14 @@ void GlobalPlannerNode::GoalCallback(const roborts_msgs::GlobalPlannerGoal::Cons
       }
 
       // After get the result, deal with actionlib server and jump out of the loop
-      if(node_state == NodeState::SUCCESS){
+      if (node_state == NodeState::SUCCESS) {
         result.error_code = error_info.error_code();
-        as_.setSucceeded(result,error_info.error_msg());
+        as_.setSucceeded(result, error_info.error_msg());
         SetNodeState(NodeState::IDLE);
         break;
-      }
-      else if(node_state == NodeState::FAILURE){
+      } else if (node_state == NodeState::FAILURE) {
         result.error_code = error_info.error_code();
-        as_.setAborted(result,error_info.error_msg());
+        as_.setAborted(result, error_info.error_msg());
         SetNodeState(NodeState::IDLE);
         break;
       }
@@ -219,7 +216,7 @@ void GlobalPlannerNode::PlanThread() {
     ROS_INFO("Wait to plan!");
     std::unique_lock<std::mutex> plan_lock(plan_mutex_);
     plan_condition_.wait_for(plan_lock, sleep_time);
-    while (GetNodeState()!=NodeState::RUNNING){
+    while (GetNodeState() != NodeState::RUNNING) {
       std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
     ROS_INFO("Go on planning!");
@@ -269,17 +266,16 @@ void GlobalPlannerNode::PlanThread() {
       }
     } else if (max_retries_ > 0 && retries > max_retries_) {
       //When plan failed to max retries, return failure
-      ROS_ERROR("Can not get plan with max retries( %d )", max_retries_ );
+      ROS_ERROR("Can not get plan with max retries( %d )", max_retries_);
       error_info = ErrorInfo(ErrorCode::GP_MAX_RETRIES_FAILURE, "Over max retries.");
       SetNodeState(NodeState::FAILURE);
-      retries=0;
-    } else if (error_info == ErrorInfo(ErrorCode::GP_GOAL_INVALID_ERROR)){
+      retries = 0;
+    } else if (error_info == ErrorInfo(ErrorCode::GP_GOAL_INVALID_ERROR)) {
       //When goal is not reachable, return failure immediately
       ROS_ERROR("Current goal is not valid!");
       SetNodeState(NodeState::FAILURE);
-      retries=0;
-    }
-    else {
+      retries = 0;
+    } else {
       //Increase retries
       retries++;
       ROS_ERROR("Can not get plan for once. %s", error_info.error_msg().c_str());
@@ -302,7 +298,6 @@ void GlobalPlannerNode::PlanThread() {
       SetErrorInfo(ErrorInfo(ErrorCode::GP_TIME_OUT_ERROR, "Planning once time out."));
     }
   }
-
 
   ROS_INFO("Plan thread terminated!");
 }

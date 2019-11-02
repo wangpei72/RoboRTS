@@ -23,6 +23,10 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
 )
+# For clion symbol updates
+include_directories(
+        ../../../devel/include
+)
 
 #generate proto files
 file(GLOB ProtoFiles "${CMAKE_CURRENT_SOURCE_DIR}/proto/*.proto")
