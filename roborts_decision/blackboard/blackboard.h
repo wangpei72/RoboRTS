@@ -29,16 +29,16 @@
 #include "../proto/decision.pb.h"
 #include "costmap/costmap_interface.h"
 
-namespace roborts_decision{
+namespace roborts_decision {
 
 class Blackboard {
  public:
   typedef std::shared_ptr<Blackboard> Ptr;
   typedef roborts_costmap::CostmapInterface CostMap;
   typedef roborts_costmap::Costmap2D CostMap2D;
-  explicit Blackboard(const std::string &proto_file_path):
+  explicit Blackboard(const std::string &proto_file_path) :
       enemy_detected_(false),
-      armor_detection_actionlib_client_("armor_detection_node_action", true){
+      armor_detection_actionlib_client_("armor_detection_node_action", true) {
 
     tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
 
@@ -59,7 +59,7 @@ class Blackboard {
     roborts_decision::DecisionConfig decision_config;
     roborts_common::ReadProtoFromTextFile(proto_file_path, &decision_config);
 
-    if (!decision_config.simulate()){
+    if (!decision_config.simulate()) {
 
       armor_detection_actionlib_client_.waitForServer();
 
@@ -72,15 +72,13 @@ class Blackboard {
                                                  boost::bind(&Blackboard::ArmorDetectionFeedbackCallback, this, _1));
     }
 
-
   }
 
   ~Blackboard() = default;
 
-
   // Enemy
-  void ArmorDetectionFeedbackCallback(const roborts_msgs::ArmorDetectionFeedbackConstPtr& feedback){
-    if (feedback->detected){
+  void ArmorDetectionFeedbackCallback(const roborts_msgs::ArmorDetectionFeedbackConstPtr &feedback) {
+    if (feedback->detected) {
       enemy_detected_ = true;
       ROS_INFO("Find Enemy!");
 
@@ -103,12 +101,11 @@ class Blackboard {
       poseStampedMsgToTF(camera_pose_msg, tf_pose);
 
       tf_pose.stamp_ = ros::Time(0);
-      try
-      {
+      try {
         tf_ptr_->transformPose("map", tf_pose, global_tf_pose);
         tf::poseStampedTFToMsg(global_tf_pose, global_pose_msg);
 
-        if(GetDistance(global_pose_msg, enemy_pose_)>0.2 || GetAngle(global_pose_msg, enemy_pose_) > 0.2){
+        if (GetDistance(global_pose_msg, enemy_pose_) > 0.2 || GetAngle(global_pose_msg, enemy_pose_) > 0.2) {
           enemy_pose_ = global_pose_msg;
 
         }
@@ -116,7 +113,7 @@ class Blackboard {
       catch (tf::TransformException &ex) {
         ROS_ERROR("tf error when transform enemy pose from camera to map");
       }
-    } else{
+    } else {
       enemy_detected_ = false;
     }
 
@@ -126,13 +123,13 @@ class Blackboard {
     return enemy_pose_;
   }
 
-  bool IsEnemyDetected() const{
-    ROS_INFO("%s: %d", __FUNCTION__, (int)enemy_detected_);
+  bool IsEnemyDetected() const {
+    ROS_INFO("%s: %d", __FUNCTION__, (int) enemy_detected_);
     return enemy_detected_;
   }
 
   // Goal
-  void GoalCallback(const geometry_msgs::PoseStamped::ConstPtr& goal){
+  void GoalCallback(const geometry_msgs::PoseStamped::ConstPtr &goal) {
     new_goal_ = true;
     goal_ = *goal;
   }
@@ -141,18 +138,18 @@ class Blackboard {
     return goal_;
   }
 
-  bool IsNewGoal(){
-    if(new_goal_){
-      new_goal_ =  false;
+  bool IsNewGoal() {
+    if (new_goal_) {
+      new_goal_ = false;
       return true;
-    } else{
+    } else {
       return false;
     }
   }
   /*---------------------------------- Tools ------------------------------------------*/
 
-  double GetDistance(const geometry_msgs::PoseStamped &pose1,
-                     const geometry_msgs::PoseStamped &pose2) {
+  static double GetDistance(const geometry_msgs::PoseStamped &pose1,
+                            const geometry_msgs::PoseStamped &pose2) {
     const geometry_msgs::Point point1 = pose1.pose.position;
     const geometry_msgs::Point point2 = pose2.pose.position;
     const double dx = point1.x - point2.x;
@@ -160,8 +157,8 @@ class Blackboard {
     return std::sqrt(dx * dx + dy * dy);
   }
 
-  double GetAngle(const geometry_msgs::PoseStamped &pose1,
-                  const geometry_msgs::PoseStamped &pose2) {
+  static double GetAngle(const geometry_msgs::PoseStamped &pose1,
+                         const geometry_msgs::PoseStamped &pose2) {
     const geometry_msgs::Quaternion quaternion1 = pose1.pose.orientation;
     const geometry_msgs::Quaternion quaternion2 = pose2.pose.orientation;
     tf::Quaternion rot1, rot2;
@@ -175,15 +172,15 @@ class Blackboard {
     return robot_map_pose_;
   }
 
-  const std::shared_ptr<CostMap> GetCostMap(){
+  const std::shared_ptr<CostMap> GetCostMap() {
     return costmap_ptr_;
   }
 
-  const CostMap2D* GetCostMap2D() {
+  const CostMap2D *GetCostMap2D() {
     return costmap_2d_;
   }
 
-  const unsigned char* GetCharMap() {
+  const unsigned char *GetCharMap() {
     return charmap_;
   }
 
@@ -211,7 +208,7 @@ class Blackboard {
 
   //! Goal info
   geometry_msgs::PoseStamped goal_;
-  bool new_goal_;
+  bool new_goal_{};
 
   //! Enemy info
   actionlib::SimpleActionClient<roborts_msgs::ArmorDetectionAction> armor_detection_actionlib_client_;
@@ -221,8 +218,8 @@ class Blackboard {
 
   //! cost map
   std::shared_ptr<CostMap> costmap_ptr_;
-  CostMap2D* costmap_2d_;
-  unsigned char* charmap_;
+  CostMap2D *costmap_2d_;
+  unsigned char *charmap_;
 
   //! robot map pose
   geometry_msgs::PoseStamped robot_map_pose_;

@@ -101,7 +101,7 @@ class BackBootAreaBehavior {
 
   //! chase buffer
   std::vector<geometry_msgs::PoseStamped> chase_buffer_;
-  unsigned int chase_count_;
+  unsigned int chase_count_{};
 
 };
 }
