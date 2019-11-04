@@ -1,4 +1,15 @@
+# V5++&Firefly提交规范
+
+- 每个人工作的时候开一个个人分支，命名为每个人**姓名首字母缩写，全小写**，如薛轲翰的个人分支为xkh
+- master分支**禁止**直接提交，个人分支需要提交的时候开pull request申请提交到**dev**分支上，并附带commit
+- 每次提交的时候的commit中英文不限，但要表达清楚
+- 至少每周提交一次。必须每日晚上下班前提交一次，且该次commit应加“weekly-backup"标注
+- （后续待补充）
+
+
+
 # RoboRTS
+
 [![Build Status](https://travis-ci.org/RoboMaster/RoboRTS.svg?branch=master)](https://travis-ci.org/RoboMaster/RoboRTS)
 [![Gitter](https://badges.gitter.im/RoboMaster/RoboRTS.svg)](https://gitter.im/RoboMaster/RoboRTS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
