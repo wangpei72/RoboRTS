@@ -49,14 +49,25 @@ class AttackBehavior {
     auto gimbal_executor_state = GimbalExecutorUpdate();
 
     auto chassis_cur_map_yaw = tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation);
+    // TODO rename
+    int kscale = 0;
+    if (chassis_cur_map_yaw > 0) {
+      kscale = -1;
+    } else {
+      kscale = 1;
+    }
 
     auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
     auto gimbal_goal_map_yaw_q = tf::createQuaternionFromYaw(gimbal_goal_map_yaw);
     auto residual_yaw = gimbal_goal_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
 
-    roborts_msgs::GimbalAngle residual_gimbal_angle;
+    std::cout << terminal_io_color::RED << "residual_yaw" << residual_yaw << terminal_io_color::BLANK << std::endl;
+
+    roborts_msgs::GimbalAngle residual_gimbal_angle{};
+    residual_gimbal_angle.yaw_mode = 0;
+    residual_gimbal_angle.pitch_mode = 0;
     residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
-    residual_gimbal_angle.yaw_angle = residual_yaw;
+    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
     gimbal_executor_->Execute(residual_gimbal_angle);
   }
@@ -68,7 +79,7 @@ class AttackBehavior {
       static int point_index = 0;
       auto new_goal = chassis_rot_points.at(point_index);
       chassis_executor_->Execute(new_goal);
-      point_index = (point_index + 1) % 3;
+      point_index = (++point_index) % 2;
     }
   }
 
@@ -80,18 +91,23 @@ class AttackBehavior {
     tmp_goal_pose.header.frame_id = "map";
     tmp_goal_pose.pose.position = new_point;
 
-//    geometry_msgs::Quaternion tmp_goal_attitude;
-    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(0.);
-    tmp_goal_pose.pose.orientation = tmp_goal_orientation;
-    this->chassis_rot_points.emplace_back(tmp_goal_pose);
+//    geometry_msgs::Quaternion tmp_goal_attitude{};
+//    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(0.);
+//    tmp_goal_pose.pose.orientation = tmp_goal_orientation;
+//    this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.);
+    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
     tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
+  }
+
+  void Cancel() {
+    chassis_executor_->Cancel();
+    gimbal_executor_->Cancel();
   }
 
   BehaviorState ChassisExecutorUpdate() {
