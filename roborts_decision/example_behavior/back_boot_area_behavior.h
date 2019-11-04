@@ -40,7 +40,7 @@ class BackBootAreaBehavior {
     auto executor_state = Update();
 
     if (executor_state != BehaviorState::RUNNING) {
-      auto robot_map_pose = blackboard_->GetRobotMapPose();
+      auto robot_map_pose = blackboard_->GetChassisMapPose();
       auto dx = boot_position_.pose.position.x - robot_map_pose.pose.position.x;
       auto dy = boot_position_.pose.position.y - robot_map_pose.pose.position.y;
 

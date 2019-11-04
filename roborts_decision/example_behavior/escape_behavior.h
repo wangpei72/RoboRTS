@@ -52,7 +52,7 @@ class EscapeBehavior {
         std::random_device rd;
         std::mt19937 gen(rd());
 
-        auto robot_map_pose = blackboard_->GetRobotMapPose();
+        auto robot_map_pose = blackboard_->GetChassisMapPose();
         float x_min, x_max;
         if (enemy.pose.position.x < left_x_limit_) {
           x_min = right_random_min_x_;

@@ -6,6 +6,7 @@
 #define ROBORTS_DECISION_ATTACK_BEHAVIOR_H_
 
 #include "io/io.h"
+#include "io/terminal_io.h"
 
 #include "../blackboard/blackboard.h"
 #include "../executor/chassis_executor.h"
@@ -29,8 +30,17 @@ class AttackBehavior {
 
   }
 
-  void Run() {
+  void Start() {
 
+    auto cur_chassis_map_pose = blackboard_->GetChassisMapPose();
+    ResetRotationPoint(cur_chassis_map_pose.pose.position);
+    std::cout << __FUNCTION__ << terminal_io_color::GREEN << "Start Attack Behavior" << terminal_io_color::BLANK
+              << std::endl;
+  }
+
+  void Run(const double &gimbal_goal_map_pitch, const double &gimbal_goal_map_yaw) {
+    ChassisRotationAction();
+    SetGimbalMapPose(gimbal_goal_map_pitch, gimbal_goal_map_yaw);
   }
 
   void SetGimbalMapPose(const double &gimbal_goal_map_pitch, const double &gimbal_goal_map_yaw) {
@@ -38,11 +48,11 @@ class AttackBehavior {
     // TODO
     auto gimbal_executor_state = GimbalExecutorUpdate();
 
-    auto chassis_cur_map_yaw = tf::getYaw(blackboard_->GetRobotMapPose().pose.orientation);
+    auto chassis_cur_map_yaw = tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation);
 
-    auto chassis_cur_map_yaw_pose = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
-    auto gimbal_goal_map_yaw_pose = tf::createQuaternionFromYaw(gimbal_goal_map_yaw);
-    auto residual_yaw = gimbal_goal_map_yaw_pose.angleShortestPath(chassis_cur_map_yaw_pose);
+    auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
+    auto gimbal_goal_map_yaw_q = tf::createQuaternionFromYaw(gimbal_goal_map_yaw);
+    auto residual_yaw = gimbal_goal_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
 
     roborts_msgs::GimbalAngle residual_gimbal_angle;
     residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
@@ -54,13 +64,15 @@ class AttackBehavior {
   void ChassisRotationAction() {
 
     auto chassis_executor_state = ChassisExecutorUpdate();
-
     if (chassis_executor_state != BehaviorState::RUNNING) {
-
+      static int point_index = 0;
+      auto new_goal = chassis_rot_points.at(point_index);
+      chassis_executor_->Execute(new_goal);
+      point_index = (point_index + 1) % 3;
     }
   }
 
-  void resetRotationPoint(geometry_msgs::Point new_point) {
+  void ResetRotationPoint(geometry_msgs::Point new_point) {
 
     this->chassis_rot_points.clear();
 

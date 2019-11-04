@@ -47,7 +47,7 @@ class SearchBehavior {
     double y_diff;
 
     if (executor_state != BehaviorState::RUNNING) {
-      auto robot_map_pose = blackboard_->GetRobotMapPose();
+      auto robot_map_pose = blackboard_->GetChassisMapPose();
       if (search_count_ == 5) {
         x_diff = last_position_.pose.position.x - robot_map_pose.pose.position.x;
         y_diff = last_position_.pose.position.y - robot_map_pose.pose.position.y;

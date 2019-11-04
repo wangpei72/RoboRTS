@@ -167,9 +167,14 @@ class Blackboard {
     return rot1.angleShortestPath(rot2);
   }
 
-  const geometry_msgs::PoseStamped GetRobotMapPose() {
-    UpdateRobotPose();
-    return robot_map_pose_;
+  const geometry_msgs::PoseStamped GetChassisMapPose() {
+    UpdateChassisPose();
+    return chassis_map_pose_;
+  }
+
+  const geometry_msgs::PoseStamped GetGimbalMapPose() {
+    UpdateGimbalPose();
+    return gimbal_map_pose_;
   }
 
   const std::shared_ptr<CostMap> GetCostMap() {
@@ -185,21 +190,38 @@ class Blackboard {
   }
 
  private:
-  void UpdateRobotPose() {
-    tf::Stamped<tf::Pose> robot_tf_pose;
-    robot_tf_pose.setIdentity();
+  void UpdateChassisPose() {
+    tf::Stamped<tf::Pose> chassis_tf_pose;
+    chassis_tf_pose.setIdentity();
 
-    robot_tf_pose.frame_id_ = "base_link";
-    robot_tf_pose.stamp_ = ros::Time();
+    chassis_tf_pose.frame_id_ = "base_link";
+    chassis_tf_pose.stamp_ = ros::Time();
     try {
-      geometry_msgs::PoseStamped robot_pose;
-      tf::poseStampedTFToMsg(robot_tf_pose, robot_pose);
-      tf_ptr_->transformPose("map", robot_pose, robot_map_pose_);
+      geometry_msgs::PoseStamped chassis_pose;
+      tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
+      tf_ptr_->transformPose("map", chassis_pose, chassis_map_pose_);
     }
     catch (tf::LookupException &ex) {
-      ROS_ERROR("Transform Error looking up robot pose: %s", ex.what());
+      ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
     }
   }
+
+  void UpdateGimbalPose() {
+    tf::Stamped<tf::Pose> gimbal_tf_pose;
+    gimbal_tf_pose.setIdentity();
+
+    gimbal_tf_pose.frame_id_ = "gimbal";
+    gimbal_tf_pose.stamp_ = ros::Time();
+    try {
+      geometry_msgs::PoseStamped gimbal_pose;
+      tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
+      tf_ptr_->transformPose("map", gimbal_pose, gimbal_map_pose_);
+    }
+    catch (tf::LookupException &ex) {
+      ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+    }
+  }
+
   //! tf
   std::shared_ptr<tf::TransformListener> tf_ptr_;
 
@@ -221,8 +243,11 @@ class Blackboard {
   CostMap2D *costmap_2d_;
   unsigned char *charmap_;
 
-  //! robot map pose
-  geometry_msgs::PoseStamped robot_map_pose_;
+  //! chassis map pose
+  geometry_msgs::PoseStamped chassis_map_pose_;
+
+  //! gimbal map pose
+  geometry_msgs::PoseStamped gimbal_map_pose_;
 
 };
 } //namespace roborts_decision

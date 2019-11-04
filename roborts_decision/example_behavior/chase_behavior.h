@@ -39,7 +39,7 @@ class ChaseBehavior {
 
     auto executor_state = Update();
 
-    auto robot_map_pose = blackboard_->GetRobotMapPose();
+    auto robot_map_pose = blackboard_->GetChassisMapPose();
     if (executor_state != BehaviorState::RUNNING) {
 
       chase_buffer_[chase_count_++ % 2] = blackboard_->GetEnemy();
