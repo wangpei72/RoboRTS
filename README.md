@@ -1,6 +1,6 @@
 # V5++&Firefly提交规范
 
-见[V5++团队提交规范](http://git.npu5v5.cn/v5/Management/blob/master/GitLab文档/V5++提交规范.md)
+[V5++团队提交规范](http://git.npu5v5.cn/v5/Management/blob/master/GitLab文档/V5++提交规范.md)
 
 # V5++&Firefly本项目进度管理方式
 
@@ -11,6 +11,14 @@
 4. 目前暂定每周制定进度一次
 
 其他细则见[V5++工作管理方式](http://git.npu5v5.cn/v5/Management/blob/master/V5++工作管理方式.md)
+
+# V5++&Firefly本项目代码规范
+
+> 推荐采用Clion进行开发，Clion默认有支持的.editorconfig的插件自动开启，且commit之前可勾选reformat进行自动格式化代码
+
+本项目主要采用Google代码规范，请**确保**每次commit之前已将修改过的代码文件reformat！
+
+.editorconfig文件已放入工程根目录中，请采用支持.editorconfig的IDE进行开发
 
 # RoboRTS
 
