@@ -1,18 +1,16 @@
 # V5++&Firefly提交规范
 
-- 每个人工作的时候开一个个人分支，命名为每个人**姓名首字母缩写，全小写**，如薛轲翰的个人分支为xkh
-- master分支**禁止**直接提交，个人分支需要提交的时候开pull request申请提交到**dev**分支上，并附带commit
-- 每次提交的时候的commit中英文不限，但要表达清楚
-- 至少每周提交一次。必须每日晚上下班前提交一次，且该次commit应加“weekly-backup"标注
-- （后续待补充）
+见[V5++团队提交规范](http://git.npu5v5.cn/v5/Management/blob/master/GitLab文档/V5++提交规范.md)
 
-# V5++&Firefly本项目进度管理规范
+# V5++&Firefly本项目进度管理方式
 
 制定工作计划的流程是:
 1. 开一个新工作安排的Issue(如果已经存在就不重新开)
 2. Issue description中提到的每个人在下面发一下自己的安排,每一条头部添加复选框
 3. 到截至日期的时候逐个检查打勾
+4. 目前暂定每周制定进度一次
 
+其他细则见[V5++工作管理方式](http://git.npu5v5.cn/v5/Management/blob/master/V5++工作管理方式.md)
 
 # RoboRTS
 
