@@ -18,7 +18,17 @@
 
 本项目主要采用Google代码规范，请**确保**每次commit之前已将修改过的代码文件reformat！
 
-.editorconfig文件已放入工程根目录中，请采用支持.editorconfig的IDE进行开发
+.editorconfig文件已放入工程根目录中，请采用**支持.editorconfig的IDE**进行开发
+
+**目前暂定，组内在它的框架上新添加的代码，请在按照它原来框架规范的namespace下再新建一个叫做firefly的namespace， 例如：**
+
+```c++
+namespace roborts_decision {
+namespace firefly {
+
+}
+}
+```
 
 # RoboRTS
 
