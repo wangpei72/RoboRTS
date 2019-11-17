@@ -6,16 +6,16 @@ set(CMAKE_BUILD_TYPE Release)
 set(COMPILE_PROTO 0)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  tf
-  actionlib
-  cv_bridge
-  image_transport
-  std_msgs
-  sensor_msgs
-  roborts_msgs
-  roborts_common
-  )
+        roscpp
+        tf
+        actionlib
+        cv_bridge
+        image_transport
+        std_msgs
+        sensor_msgs
+        roborts_msgs
+        roborts_common
+        )
 
 find_package(ProtoBuf REQUIRED)
 find_package(OpenCV 3 REQUIRED)
@@ -24,6 +24,11 @@ find_package(Eigen3 REQUIRED)
 catkin_package()
 
 include_directories(${EIGEN3_INCLUDE_DIR} util)
+
+# For clion symbol updates
+include_directories(
+        ../../../devel/include
+)
 
 add_subdirectory(util)
 add_subdirectory(armor_detection)

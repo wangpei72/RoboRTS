@@ -7,6 +7,7 @@
 
 #include "io/io.h"
 #include "io/terminal_io.h"
+#include "pid_controller/pid_controller.h"
 
 #include "../blackboard/blackboard.h"
 #include "../executor/chassis_executor.h"
