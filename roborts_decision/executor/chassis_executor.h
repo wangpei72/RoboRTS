@@ -10,11 +10,11 @@
 
 #include "../behavior_tree/behavior_state.h"
 
-namespace roborts_decision{
+namespace roborts_decision {
 /***
  * @brief Chassis Executor to execute different abstracted task for chassis module
  */
-class ChassisExecutor{
+class ChassisExecutor {
 
   typedef actionlib::SimpleActionClient<roborts_msgs::GlobalPlannerAction> GlobalActionClient;
   typedef actionlib::SimpleActionClient<roborts_msgs::LocalPlannerAction> LocalActionClient;
@@ -22,11 +22,17 @@ class ChassisExecutor{
   /**
    * @brief Chassis execution mode for different tasks
    */
-  enum class ExcutionMode{
+  enum class ExcutionMode {
     IDLE_MODE,            ///< Default idle mode with no task
     GOAL_MODE,            ///< Goal-targeted task mode using global and local planner
+    GOAL_FROM_ODOM_MODE,  ///< Goal-targeted task mode using odom data
     SPEED_MODE,           ///< Velocity task mode
     SPEED_WITH_ACCEL_MODE ///< Velocity with acceleration task mode
+  };
+
+  enum class GoalMode {
+    GOAL_MODE_USE_GOLBAL_LOCAL_PLANNER,
+    GOAL_MODE_USE_ODOM_DATA
   };
   /**
    * @brief Constructor of ChassisExecutor
@@ -35,9 +41,15 @@ class ChassisExecutor{
   ~ChassisExecutor() = default;
   /**
    * @brief Execute the goal-targeted task using global and local planner with actionlib
-   * @param goal Given taget goal
+   * @param goal Given target goal
    */
   void Execute(const geometry_msgs::PoseStamped &goal);
+  /**
+   * @brief
+   * @param goal Given target goal
+   * @param _goal_mode Given goal mode
+   */
+  void Execute(const geometry_msgs::PoseStamped &goal, GoalMode _goal_mode);
   /**
    * @brief Execute the velocity task with publisher
    * @param twist Given velocity
@@ -63,7 +75,7 @@ class ChassisExecutor{
    * @brief Global planner actionlib feedback callback function to send the global planner path to local planner
    * @param global_planner_feedback  Global planner actionlib feedback, which mainly consists of global planner path output
    */
-  void GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPlannerFeedbackConstPtr& global_planner_feedback);
+  void GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPlannerFeedbackConstPtr &global_planner_feedback);
   //! execution mode of the executor
   ExcutionMode execution_mode_;
   //! execution state of the executor (same with behavior state)
@@ -88,9 +100,7 @@ class ChassisExecutor{
   //! zero twist with acceleration in form of ROS roborts_msgs::TwistAccel
   roborts_msgs::TwistAccel zero_twist_accel_;
 
-
 };
 }
-
 
 #endif //ROBORTS_DECISION_CHASSIS_EXECUTOR_H

@@ -25,6 +25,24 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal){
                                   boost::bind(&ChassisExecutor::GlobalPlannerFeedbackCallback, this, _1));
 }
 
+void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _goal_mode) {
+  if (_goal_mode == GoalMode::GOAL_MODE_USE_GOLBAL_LOCAL_PLANNER) {
+    execution_mode_ = ExcutionMode::GOAL_MODE;
+    global_planner_goal_.goal = goal;
+    global_planner_client_.sendGoal(global_planner_goal_,
+                                    GlobalActionClient::SimpleDoneCallback(),
+                                    GlobalActionClient::SimpleActiveCallback(),
+                                    boost::bind(&ChassisExecutor::GlobalPlannerFeedbackCallback, this, _1));
+  } else if (_goal_mode == GoalMode::GOAL_MODE_USE_ODOM_DATA) {
+    if (execution_mode_ == ExcutionMode::GOAL_MODE) {
+      Cancel();
+    }
+    execution_mode_ = ExcutionMode::GOAL_FROM_ODOM_MODE;
+    //TODO
+
+
+  }
+}
 void ChassisExecutor::Execute(const geometry_msgs::Twist &twist){
   if( execution_mode_ == ExcutionMode::GOAL_MODE){
     Cancel();
