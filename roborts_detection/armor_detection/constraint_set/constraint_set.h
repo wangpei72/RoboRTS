@@ -28,7 +28,7 @@
 #include "state/error_code.h"
 
 #include "cv_toolbox.h"
-
+#include "light_blob.h"
 #include "../armor_detection_base.h"
 
 #include "proto/constraint_set.pb.h"
@@ -102,6 +102,24 @@ struct LightInfo {
   //! Light vertices
   std::vector<cv::Point2f> vertices_;
 };
+/**
+ *  This class describes the lights information.
+ */
+class LightBlob {
+ public:
+  RotatedRect rect;//灯条位置
+  double area_ratio;//轮廓面积和其最小外接矩形面积之比
+  double length;//灯条长度
+  uint8_t blob_color;//灯条颜色
+  LightBlob(RotatedRect &rotatedRect, double ratio, uint8_t color)
+      : rect(rotatedRect), area_ratio(ratio), blob_color(color) {
+    length = max(rotatedRect.size.height, rotatedRect.size.width);
+  };
+
+  LightBlob() = default;
+};
+
+typedef vector<LightBlob> LightBlobs;
 
 /**
  *  This class describes the armor information, including maximum bounding box, vertex, standard deviation.
@@ -140,7 +158,7 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param src Input image
    * @param lights Output lights information
    */
-  void DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect> &lights);
+  void DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect> &lights, LightBlobs &light_blobs);
   /**
    * @brief Filtering the detected lights.
    * @param lights Filtered lights

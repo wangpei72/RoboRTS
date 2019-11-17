@@ -43,15 +43,14 @@ class CVToolbox {
    */
   explicit CVToolbox(std::string camera_name,
                      unsigned int buffer_size = 3) :
-      get_img_info_(false)
-  {
+      get_img_info_(false) {
 
     ros::NodeHandle nh(camera_name);
     image_transport::ImageTransport it(nh);
 
     camera_sub_ = it.subscribeCamera("image_raw",
                                      20,
-                                     boost::bind(&CVToolbox::ImageCallback, this, _1,_2));
+                                     boost::bind(&CVToolbox::ImageCallback, this, _1, _2));
 
     image_buffer_.resize(buffer_size);
     buffer_state_.resize(buffer_size);
@@ -114,13 +113,15 @@ class CVToolbox {
     return camera_info_.roi.y_offset;
   }
 
-  void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg, const sensor_msgs::CameraInfoConstPtr &camera_info_msg) {
-    if(!get_img_info_){
+  void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg,
+                     const sensor_msgs::CameraInfoConstPtr &camera_info_msg) {
+    if (!get_img_info_) {
       camera_info_ = *camera_info_msg;
       capture_begin_ = std::chrono::high_resolution_clock::now();
       get_img_info_ = true;
     } else {
-      capture_time_ = std::chrono::duration<double, std::ratio<1, 1000000>>(std::chrono::high_resolution_clock::now() - capture_begin_).count();
+      capture_time_ = std::chrono::duration<double, std::ratio<1, 1000000>>(
+          std::chrono::high_resolution_clock::now() - capture_begin_).count();
       capture_begin_ = std::chrono::high_resolution_clock::now();
 //      ROS_WARN("capture time: %lf", capture_time_);
     }
@@ -197,7 +198,7 @@ class CVToolbox {
    * @return Single channel image
    */
   cv::Mat DistillationColor(const cv::Mat &src_img, unsigned int color, bool using_hsv) {
-    if(using_hsv) {
+    if (using_hsv) {
       cv::Mat img_hsv;
       cv::cvtColor(src_img, img_hsv, CV_BGR2HSV);
       if (color == 0) {
@@ -223,17 +224,27 @@ class CVToolbox {
         return img_threshold_red;
       }
     } else {
-      std::vector<cv::Mat> bgr;
-      cv::split(src_img, bgr);
+//      std::vector<cv::Mat> bgr;
+//      cv::split(src_img, bgr);
+//      if (color == 1) {
+//        cv::Mat result_img;
+//        cv::subtract(bgr[2], bgr[1], result_img);
+//        return result_img;
+//      } else if (color == 0) {
+//        cv::Mat result_img;
+//        cv::subtract(bgr[0], bgr[2], result_img);
+//        return result_img;
+//      }
+      std::vector<cv::Mat> channels;//通道拆分
+      split(src_img, channels);
+      cv::Mat color_channel;
+      int thresh;
       if (color == 1) {
-        cv::Mat result_img;
-        cv::subtract(bgr[2], bgr[1], result_img);
-        return result_img;
-      } else if (color == 0) {
-        cv::Mat result_img;
-        cv::subtract(bgr[0], bgr[2], result_img);
-        return result_img;
+        color_channel = channels[2];
+      } else {
+        color_channel = channels[0];
       }
+      return color_channel;
     }
   }
   /**
@@ -272,12 +283,16 @@ class CVToolbox {
       cv::line(img, vertex[i], vertex[(i + 1) % 4], color, thickness);
   }
 
-  void DrawRotatedRect(const cv::Mat &img, const cv::RotatedRect &rect, const cv::Scalar &color, int thickness, float angle) {
+  void DrawRotatedRect(const cv::Mat &img,
+                       const cv::RotatedRect &rect,
+                       const cv::Scalar &color,
+                       int thickness,
+                       float angle) {
     cv::Point2f vertex[4];
 
     cv::Point2f center = rect.center;
     std::ostringstream ss;
-    ss << (int)(angle);
+    ss << (int) (angle);
     std::string text(ss.str());
     int font_face = cv::FONT_HERSHEY_COMPLEX;
     double font_scale = 0.5;
