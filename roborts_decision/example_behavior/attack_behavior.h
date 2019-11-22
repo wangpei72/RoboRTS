@@ -79,7 +79,20 @@ class AttackBehavior {
     if (chassis_executor_state != BehaviorState::RUNNING) {
       static int point_index = 0;
       auto new_goal = chassis_rot_points.at(point_index);
-      chassis_executor_->Execute(new_goal);
+      //TODO change the execute
+//      chassis_executor_->Execute(new_goal);
+      printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
+      chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
+      printf("Execute  \n");
+      point_index = (++point_index) % 2;
+    }
+
+    if (chassis_executor_state == BehaviorState::RUNNING) {
+      static int point_index = 0;
+      auto new_goal = chassis_rot_points.at(point_index);
+      printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
+      chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
+      printf("Execute  \n");
       point_index = (++point_index) % 2;
     }
   }

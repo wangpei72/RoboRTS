@@ -2,6 +2,7 @@
 #define ROBORTS_DECISION_CHASSIS_EXECUTOR_H
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
+#include <nav_msgs/Odometry.h>
 
 #include "roborts_msgs/GlobalPlannerAction.h"
 #include "roborts_msgs/LocalPlannerAction.h"
@@ -9,6 +10,7 @@
 #include "geometry_msgs/Twist.h"
 
 #include "../behavior_tree/behavior_state.h"
+#include "pid_controller/pid_controller.h"
 
 namespace roborts_decision {
 /***
@@ -99,6 +101,11 @@ class ChassisExecutor {
   ros::Publisher cmd_vel_acc_pub_;
   //! zero twist with acceleration in form of ROS roborts_msgs::TwistAccel
   roborts_msgs::TwistAccel zero_twist_accel_;
+
+  ros::Subscriber odom_sub_;
+  nav_msgs::Odometry chassis_odom_;
+  void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
+
 
 };
 }
