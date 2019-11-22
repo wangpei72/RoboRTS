@@ -142,7 +142,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   }
 
   DetectLights(src_img_, lights, light_blobs);
-  FilterLights(lights);
+//  FilterLights(lights);
   PossibleArmors(lights, armors);
   FilterArmors(armors);
   if (!armors.empty()) {
@@ -187,8 +187,9 @@ void ConstraintSet::DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect
   if (enable_debug_) {
     cv::imshow("binary_brightness_img", binary_brightness_img);
     cv::imshow("binary_color_img", binary_color_img);
+  } else {
+    ROS_INFO("debug can not");
   }
-
   std::vector<std::vector<cv::Point>> light_contours;
   std::vector<cv::Vec4i> hierarchy;
   findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
@@ -199,14 +200,34 @@ void ConstraintSet::DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect
       cv::RotatedRect rect = minAreaRect(light_contours[i]);
       if (LightBlob::isVaildLightBlob(light_contours[i], rect)) {
         rotatedRects.push_back(rect);
-        if (LightBlob::get_blob_color(binary_color_img, rect) != -1) {
+        if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
           light_blobs.emplace_back(rect,
                                    LightBlob::areaRatio(light_contours[i], rect),
-                                   LightBlob::get_blob_color(src_img_, rect));
+                                   cv_toolbox_->get_rect_color(src_img_, rect));
         }
       }
     }
   }
+
+  if (light_blobs.size() > 0) {
+    cv::Mat result_pic(src_img_.size().height, src_img_.size().width, CV_8UC1, cv::Scalar(0));
+    CvPoint2D32f point[4];
+    cv::Point pt[4];
+    for (int i = 0; i < light_blobs.size(); i++) {
+      cv::RotatedRect rect = light_blobs[i].rect;
+      cvBoxPoints(rect, point);
+      for (int j = 0; j < 4; j++) {
+        pt[j].x = (int) point[j].x;
+        pt[j].y = (int) point[j].y;
+      }
+      line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
+      line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
+      line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
+      line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
+    }
+    imshow("light_blobs", result_pic);
+  }
+
 //  if (rotatedRects.size() > 0) {
 //    PictureProcess::imshowLightBlos(lightBlobs, "find lightblobs");
 //  auto contours_light = cv_toolbox_->FindContours(binary_color_img);
@@ -238,8 +259,8 @@ void ConstraintSet::DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect
 //    }
 //  }
 
-  if (enable_debug_)
-    cv::imshow("show_lights_before_filter", show_lights_before_filter_);
+//  if (enable_debug_)
+//    cv::imshow("show_lights_before_filter", show_lights_before_filter_);
   auto c = cv::waitKey(1);
   if (c == 'a') {
     cv::waitKey(0);

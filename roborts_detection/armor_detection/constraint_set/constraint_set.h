@@ -102,24 +102,24 @@ struct LightInfo {
   //! Light vertices
   std::vector<cv::Point2f> vertices_;
 };
-/**
- *  This class describes the lights information.
- */
-class LightBlob {
- public:
-  RotatedRect rect;//灯条位置
-  double area_ratio;//轮廓面积和其最小外接矩形面积之比
-  double length;//灯条长度
-  uint8_t blob_color;//灯条颜色
-  LightBlob(RotatedRect &rotatedRect, double ratio, uint8_t color)
-      : rect(rotatedRect), area_ratio(ratio), blob_color(color) {
-    length = max(rotatedRect.size.height, rotatedRect.size.width);
-  };
-
-  LightBlob() = default;
-};
-
-typedef vector<LightBlob> LightBlobs;
+///**
+// *  This class describes the lights information.
+// */
+//class LightBlob {
+// public:
+//  RotatedRect rect;//灯条位置
+//  double area_ratio;//轮廓面积和其最小外接矩形面积之比
+//  double length;//灯条长度
+//  uint8_t blob_color;//灯条颜色
+//  LightBlob(RotatedRect &rotatedRect, double ratio, uint8_t color)
+//      : rect(rotatedRect), area_ratio(ratio), blob_color(color) {
+//    length = max(rotatedRect.size.height, rotatedRect.size.width);
+//  };
+//
+//  LightBlob() = default;
+//};
+//
+//typedef vector<LightBlob> LightBlobs;
 
 /**
  *  This class describes the armor information, including maximum bounding box, vertex, standard deviation.
