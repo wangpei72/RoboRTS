@@ -30,6 +30,8 @@ include_directories(
         ../../../devel/include
 )
 
+include_directories("armor_detection" "util")
+
 add_subdirectory(util)
 add_subdirectory(armor_detection)
 #add_subdirectory(color_detection)

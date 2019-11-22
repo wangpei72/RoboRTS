@@ -29,6 +29,7 @@
 
 #include "cv_toolbox.h"
 #include "light_blob.h"
+#include "armor_box.h"
 #include "../armor_detection_base.h"
 
 #include "proto/constraint_set.pb.h"
@@ -158,18 +159,13 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param src Input image
    * @param lights Output lights information
    */
-  void DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect> &lights, LightBlobs &light_blobs);
-  /**
-   * @brief Filtering the detected lights.
-   * @param lights Filtered lights
-   */
-  void FilterLights(std::vector<cv::RotatedRect> &lights);
+  void DetectLights(const cv::Mat &src, LightBlobs &light_blobs);
   /**
    * @brief Finding possible armors.
    * @param lights Take lights information as input.
    * @param armors Possible armors
    */
-  void PossibleArmors(const std::vector<cv::RotatedRect> &lights, std::vector<ArmorInfo> &armors);
+  void PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBoxs &armor_boxs);
   /**
    * @brief Filtering Detected armors by standard deviation and non-maximum suppression(nms).
    * @param armors Result armors

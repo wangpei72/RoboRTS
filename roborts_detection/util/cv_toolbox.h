@@ -23,6 +23,9 @@
 //ros
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
+//armor detection
+#include "constraint_set/light_blob.h"
+#include "constraint_set/armor_box.h"
 
 namespace roborts_detection {
 
@@ -340,6 +343,24 @@ class CVToolbox {
     } else {
       return 0;
     }
+  }
+
+  void imshowArmorBoxs(cv::Mat src, ArmorBoxs armor_boxs, std::string fileName) {
+    cv::Mat result_pic = src.clone();
+    CvPoint2D32f point[4];
+    cv::Point pt[4];
+    for (int i = 0; i < armor_boxs.size(); i++) {
+      cv::Rect2d rect = armor_boxs[i].rect;
+      pt[0] = cv::Point2f(rect.x, rect.y);
+      pt[1] = cv::Point2f(rect.x + rect.width, rect.y);
+      pt[2] = cv::Point2f(rect.x + rect.width, rect.y + rect.height);
+      pt[3] = cv::Point2f(rect.x, rect.y + rect.height);
+      line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
+      line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
+      line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
+      line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
+    }
+    imshow(fileName, result_pic);
   }
 
  private:
