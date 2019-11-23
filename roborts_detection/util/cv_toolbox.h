@@ -344,6 +344,24 @@ class CVToolbox {
       return 0;
     }
   }
+  void imshowLightBlobs(cv::Mat src, LightBlobs light_blobs, std::string fileName) {
+    cv::Mat result_pic(src.size().height, src.size().width, CV_8UC1, cv::Scalar(0));
+    CvPoint2D32f point[4];
+    cv::Point pt[4];
+    for (int i = 0; i < light_blobs.size(); i++) {
+      cv::RotatedRect rect = light_blobs[i].rect;
+      cvBoxPoints(rect, point);
+      for (int j = 0; j < 4; j++) {
+        pt[j].x = (int) point[j].x;
+        pt[j].y = (int) point[j].y;
+      }
+      line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
+      line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
+      line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
+      line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
+    }
+    imshow(fileName, result_pic);
+  }
 
   void imshowArmorBoxs(cv::Mat src, ArmorBoxs armor_boxs, std::string fileName) {
     cv::Mat result_pic = src.clone();
@@ -351,7 +369,6 @@ class CVToolbox {
     cv::Point pt[4];
     for (int i = 0; i < armor_boxs.size(); i++) {
       cv::Rect2d rect = armor_boxs[i].rect;
-      ROS_INFO("rect's x is %lf y is %lf", rect.x, rect.y);
       pt[0] = cv::Point2f(rect.x, rect.y);
       pt[1] = cv::Point2f(rect.x + rect.width, rect.y);
       pt[2] = cv::Point2f(rect.x + rect.width, rect.y + rect.height);

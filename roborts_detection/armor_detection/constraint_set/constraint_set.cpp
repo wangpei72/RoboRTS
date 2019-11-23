@@ -153,9 +153,6 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   } else {
     detected = false;
   }
-  if (enable_debug_) {
-    cv::imshow("relust_img_", src_img_);
-  }
 
   lights.clear();
   armors.clear();
@@ -210,57 +207,8 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
   }
 
   if (light_blobs.size() > 0) {
-    cv::Mat result_pic(src_img_.size().height, src_img_.size().width, CV_8UC1, cv::Scalar(0));
-    CvPoint2D32f point[4];
-    cv::Point pt[4];
-    for (int i = 0; i < light_blobs.size(); i++) {
-      cv::RotatedRect rect = light_blobs[i].rect;
-      cvBoxPoints(rect, point);
-      for (int j = 0; j < 4; j++) {
-        pt[j].x = (int) point[j].x;
-        pt[j].y = (int) point[j].y;
-      }
-      line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
-      line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
-      line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
-      line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
-    }
-    imshow("light_blobs", result_pic);
+    cv_toolbox_->imshowLightBlobs(src_img_, light_blobs, "light_blobs");
   }
-
-//  if (rotatedRects.size() > 0) {
-//    PictureProcess::imshowLightBlos(lightBlobs, "find lightblobs");
-//  auto contours_light = cv_toolbox_->FindContours(binary_color_img);
-//  auto contours_brightness = cv_toolbox_->FindContours(binary_brightness_img);
-//
-//  lights.reserve(contours_light.size());
-//  lights_info_.reserve(contours_light.size());
-//  // TODO: To be optimized
-//  //std::vector<int> is_processes(contours_light.size());
-//  for (unsigned int i = 0; i < contours_brightness.size(); ++i) {
-//    for (unsigned int j = 0; j < contours_light.size(); ++j) {
-//
-//      if (cv::pointPolygonTest(contours_light[j], contours_brightness[i][0], false) >= 0.0) {
-//        cv::RotatedRect single_light = cv::minAreaRect(contours_brightness[i]);
-//        cv::Point2f vertices_point[4];
-//        single_light.points(vertices_point);
-//        LightInfo light_info(vertices_point);
-//
-//        if (enable_debug_)
-//          cv_toolbox_->DrawRotatedRect(show_lights_before_filter_,
-//                                       single_light,
-//                                       cv::Scalar(0, 255, 0),
-//                                       2,
-//                                       light_info.angle_);
-//        single_light.angle = light_info.angle_;
-//        lights.push_back(single_light);
-//        break;
-//      }
-//    }
-//  }
-
-//  if (enable_debug_)
-//    cv::imshow("show_lights_before_filter", show_lights_before_filter_);
   auto c = cv::waitKey(1);
   if (c == 'a') {
     cv::waitKey(0);
@@ -268,85 +216,6 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
 }
 
 void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBoxs &armor_boxs) {
-//  //std::cout << "********************************************PossibleArmors********************************************" << std::endl;
-//  for (unsigned int i = 0; i < lights.size(); i++) {
-//    for (unsigned int j = i + 1; j < lights.size(); j++) {
-//      cv::RotatedRect light1 = lights[i];
-//      cv::RotatedRect light2 = lights[j];
-//      auto edge1 = std::minmax(light1.size.width, light1.size.height);
-//      auto edge2 = std::minmax(light2.size.width, light2.size.height);
-//      auto lights_dis = std::sqrt((light1.center.x - light2.center.x) * (light1.center.x - light2.center.x) +
-//          (light1.center.y - light2.center.y) * (light1.center.y - light2.center.y));
-//      auto center_angle =
-//          std::atan(std::abs(light1.center.y - light2.center.y) / std::abs(light1.center.x - light2.center.x)) * 180
-//              / CV_PI;
-//      center_angle = center_angle > 90 ? 180 - center_angle : center_angle;
-//      //std::cout << "center_angle: " << center_angle << std::endl;
-//
-//      cv::RotatedRect rect;
-//      rect.angle = static_cast<float>(center_angle);
-//      rect.center.x = (light1.center.x + light2.center.x) / 2;
-//      rect.center.y = (light1.center.y + light2.center.y) / 2;
-//      float armor_width = std::abs(static_cast<float>(lights_dis) - std::max(edge1.first, edge2.first));
-//      float armor_height = std::max<float>(edge1.second, edge2.second);
-//
-//      rect.size.width = std::max<float>(armor_width, armor_height);
-//      rect.size.height = std::min<float>(armor_width, armor_height);
-//
-//      float light1_angle = light1.angle; //light1.size.width < light1.size.height ? -light1.angle : light1.angle + 90
-//      float light2_angle = light2.angle; //light2.size.width < light2.size.height ? -light2.angle : light2.angle + 90
-//      //std::cout << "light1_angle: " << light1_angle << std::endl;
-//      //std::cout << "light2_angle: " << light2_angle << std::endl;
-//
-//      if (enable_debug_) {
-//        std::cout << "*******************************" << std::endl;
-//        std::cout << "light_angle_diff_: " << std::abs(light1_angle - light2_angle) << std::endl;
-//        std::cout << "radio: "
-//                  << std::max<float>(edge1.second, edge2.second) / std::min<float>(edge1.second, edge2.second)
-//                  << std::endl;
-//        std::cout << "armor_angle_: " << std::abs(center_angle) << std::endl;
-//        std::cout << "armor_aspect_ratio_: " << rect.size.width / (float) (rect.size.height) << std::endl;
-//        std::cout << "armor_area_: " << std::abs(rect.size.area()) << std::endl;
-//        std::cout << "armor_pixel_val_: "
-//                  << (float) (gray_img_.at<uchar>(static_cast<int>(rect.center.y), static_cast<int>(rect.center.x)))
-//                  << std::endl;
-//        std::cout << "pixel_y" << static_cast<int>(rect.center.y) << std::endl;
-//        std::cout << "pixel_x" << static_cast<int>(rect.center.x) << std::endl;
-//      }
-//      //
-//      auto angle_diff = std::abs(light1_angle - light2_angle);
-//      // Avoid incorrect calculation at 180 and 0.
-//      if (angle_diff > 175) {
-//        angle_diff = 180 - angle_diff;
-//      }
-//
-//      if (angle_diff < light_max_angle_diff_ &&
-//          std::max<float>(edge1.second, edge2.second) / std::min<float>(edge1.second, edge2.second) < 2.0 &&
-//          rect.size.width / (rect.size.height) < armor_max_aspect_ratio_ &&
-//          std::abs(rect.size.area()) > armor_min_area_ &&
-//          gray_img_.at<uchar>(static_cast<int>(rect.center.y), static_cast<int>(rect.center.x))
-//              < armor_max_pixel_val_) { //std::abs(center_angle) < armor_max_angle_ &&
-//
-//        if (light1.center.x < light2.center.x) {
-//          std::vector<cv::Point2f> armor_points;
-//          CalcArmorInfo(armor_points, light1, light2);
-//          armors.emplace_back(ArmorInfo(rect, armor_points));
-//          if (enable_debug_)
-//            cv_toolbox_->DrawRotatedRect(show_armors_befor_filter_, rect, cv::Scalar(0, 255, 0), 2);
-//          armor_points.clear();
-//        } else {
-//          std::vector<cv::Point2f> armor_points;
-//          CalcArmorInfo(armor_points, light2, light1);
-//          armors.emplace_back(ArmorInfo(rect, armor_points));
-//          if (enable_debug_)
-//            cv_toolbox_->DrawRotatedRect(show_armors_befor_filter_, rect, cv::Scalar(0, 255, 0), 2);
-//          armor_points.clear();
-//        }
-//      }
-//    }
-//  }
-//  if (enable_debug_)
-//    cv::imshow("armors_before_filter", show_armors_befor_filter_);
   cv::Mat result_pic_blank = src.clone();
   LightBlobs lightBlobsTemp;
   lightBlobsTemp.swap(lightBlobs);
@@ -372,28 +241,10 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       lightBlobs.push_back(lightBlobsTemp.at(i));
       lightBlobs.push_back(lightBlobsTemp.at(j));
       LightBlobs pair_blobs = {lightBlobsTemp.at(i), lightBlobsTemp.at(j)};
-      ArmorBox armor_box = ArmorBox(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
-      ROS_INFO("before x is %lf y is %lf", min_x, min_y);
-      armor_boxs.emplace_back(armor_box);
-      ROS_INFO("middle x is %lf y is %lf", armor_box.rect.x, armor_box.rect.y);
-//      armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
-
-
-//      cv::Point pt[4];
-//      //顺时针
-//      pt[0] = cv::Point(min_x, min_y);
-//      pt[1] = cv::Point(max_x, min_y);
-//      pt[2] = cv::Point(max_x, max_y);
-//      pt[3] = cv::Point(min_x, max_y);
-////      printf("minx %lf,miny %lf, maxx %lf,maxy %lf\n", min_x, min_y, max_x, max_y);
-//      line(result_pic_blank, pt[0], pt[1], cv::Scalar(255), 1);
-//      line(result_pic_blank, pt[1], pt[2], cv::Scalar(255), 1);
-//      line(result_pic_blank, pt[2], pt[3], cv::Scalar(255), 1);
-//      line(result_pic_blank, pt[3], pt[0], cv::Scalar(255), 1);
+      armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
     }
   }
   cv_toolbox_->imshowArmorBoxs(src_img_, armor_boxs, "blank");
-//  imshow("blank", result_pic_blank);
 }
 
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {

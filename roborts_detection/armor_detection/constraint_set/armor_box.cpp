@@ -6,9 +6,6 @@
 bool roborts_detection::ArmorBox::lengthRatioJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j) {
   bool judge = (lightBlob_i.length / lightBlob_i.length < 1.5 &&
       lightBlob_i.length / lightBlob_j.length > 1 / 1.5);
-  if (!judge) {
-    printf("LengthRadioNot  ");
-  }
   return judge;
 }
 
@@ -18,9 +15,6 @@ bool roborts_detection::ArmorBox::lenghtJudge(const LightBlob &lightBlob_i, cons
   side_lenght = sqrt(center.ddot(center));
   bool judge = (side_lenght / lightBlob_i.length < 10 && side_lenght / lightBlob_i.length
       && side_lenght / lightBlob_j.length < 10 && side_lenght / lightBlob_j.length);
-  if (!judge) {
-    printf("LenghtNot ");
-  }
   return judge;
 }
 
@@ -30,9 +24,6 @@ bool roborts_detection::ArmorBox::angelJudge(const LightBlob &lightBlob_i, const
   float angle_j = lightBlob_j.rect.size.width > lightBlob_j.rect.size.height ? lightBlob_j.rect.angle :
                   lightBlob_j.rect.angle - 90;
   bool judge = abs(angle_i - angle_j) < 20;
-  if (!judge) {
-    printf("angleNot ");
-  }
   return judge;
 }
 
