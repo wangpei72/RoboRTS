@@ -106,6 +106,12 @@ class ChassisExecutor {
   nav_msgs::Odometry chassis_odom_;
   void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
 
+  bool LoadParam(const std::string &proto_file_path);
+  double chassis_v2p_pid_kp;
+  double chassis_v2p_pid_ki;
+  double chassis_v2p_pid_kd;
+  bool chassis_v2p_pid_has_threshold;
+  double chassis_v2p_pid_threshold;
 
 };
 }

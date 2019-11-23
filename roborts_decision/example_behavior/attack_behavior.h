@@ -25,11 +25,11 @@ class AttackBehavior {
  public:
   AttackBehavior(ChassisExecutor *&chassis_executor,
                  GimbalExecutor *&gimbal_executor,
-                 Blackboard *blackboard) : chassis_executor_(chassis_executor),
+                 Blackboard *blackboard): chassis_executor_(chassis_executor),
                                            gimbal_executor_(gimbal_executor),
                                            blackboard_(blackboard) {
-
   }
+
 
   void Start() {
 
@@ -76,25 +76,13 @@ class AttackBehavior {
   void ChassisRotationAction() {
 
     auto chassis_executor_state = ChassisExecutorUpdate();
-    if (chassis_executor_state != BehaviorState::RUNNING) {
-      static int point_index = 0;
-      auto new_goal = chassis_rot_points.at(point_index);
-      //TODO change the execute
-//      chassis_executor_->Execute(new_goal);
-      printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
-      chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
-      printf("Execute  \n");
-      point_index = (++point_index) % 2;
-    }
+    static int point_index = 0;
+    auto new_goal = chassis_rot_points.at(point_index);
+    printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
+    chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
+    printf("Execute  \n");
+    point_index = (++point_index) % 2;
 
-    if (chassis_executor_state == BehaviorState::RUNNING) {
-      static int point_index = 0;
-      auto new_goal = chassis_rot_points.at(point_index);
-      printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
-      chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
-      printf("Execute  \n");
-      point_index = (++point_index) % 2;
-    }
   }
 
   void ResetRotationPoint(geometry_msgs::Point new_point) {
@@ -123,6 +111,7 @@ class AttackBehavior {
     chassis_executor_->Cancel();
     gimbal_executor_->Cancel();
   }
+
 
   BehaviorState ChassisExecutorUpdate() {
     return chassis_executor_->Update();
