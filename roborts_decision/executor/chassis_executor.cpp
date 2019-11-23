@@ -5,6 +5,7 @@
 #include "chassis_executor.h"
 #include "../proto/decision.pb.h"
 #include "../proto/controller.pb.h"
+#include "../interface/roborts_dynamic_reconfigure.h"
 
 namespace roborts_decision {
 
@@ -37,7 +38,7 @@ bool ChassisExecutor::LoadParam(const std::string &proto_file_path) {
   this->chassis_v2p_pid_has_threshold = controller_config.pid_controller().chassis_has_threshold();
   this->chassis_v2p_pid_threshold = controller_config.pid_controller().chassis_threshold();
 
-  printf("%lf %lf %lf", this->chassis_v2p_pid_kp, this->chassis_v2p_pid_ki, this->chassis_v2p_pid_kd);
+  printf("#####   %lf %lf %lf ", this->chassis_v2p_pid_kp, this->chassis_v2p_pid_ki, this->chassis_v2p_pid_kd);
 
   return true;
 }
@@ -68,7 +69,17 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
 
     printf("Now in the GOAL_FROM_ODOM_MODE \n");
     execution_mode_ = ExcutionMode::GOAL_FROM_ODOM_MODE;
+
     //TODO
+    this->chassis_v2p_pid_kp = roborts_decision::roborts_dynamic_reconfigure::getInstance()->GetChassisV2PPidKp();
+    this->chassis_v2p_pid_ki = roborts_decision::roborts_dynamic_reconfigure::getInstance()->GetChassisV2PPidKi();
+    this->chassis_v2p_pid_kd = roborts_decision::roborts_dynamic_reconfigure::getInstance()->GetChassisV2PPidKd();
+    this->chassis_v2p_pid_has_threshold =
+        roborts_decision::roborts_dynamic_reconfigure::getInstance()->IsChassisV2PHasThreshold();
+    this->chassis_v2p_pid_threshold =
+        roborts_decision::roborts_dynamic_reconfigure::getInstance()->GetChassisV2PThreshold();
+
+    printf("#####   %lf %lf %lf \n", this->chassis_v2p_pid_kp, this->chassis_v2p_pid_ki, this->chassis_v2p_pid_kd);
 
     static roborts_common::firefly::PIDController pid_controller_toward_angular(chassis_v2p_pid_kp,
                                                                                 chassis_v2p_pid_ki,
