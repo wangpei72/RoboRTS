@@ -372,9 +372,12 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       lightBlobs.push_back(lightBlobsTemp.at(i));
       lightBlobs.push_back(lightBlobsTemp.at(j));
       LightBlobs pair_blobs = {lightBlobsTemp.at(i), lightBlobsTemp.at(j)};
-      armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
+      ArmorBox armor_box = ArmorBox(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
+      ROS_INFO("before x is %lf y is %lf", min_x, min_y);
+      armor_boxs.emplace_back(armor_box);
+      ROS_INFO("middle x is %lf y is %lf", armor_box.rect.x, armor_box.rect.y);
+//      armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
 
-      cv_toolbox_->imshowArmorBoxs(src_img_, armor_boxs, "blank");
 
 //      cv::Point pt[4];
 //      //顺时针
@@ -389,7 +392,8 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
 //      line(result_pic_blank, pt[3], pt[0], cv::Scalar(255), 1);
     }
   }
-  imshow("blank", result_pic_blank);
+  cv_toolbox_->imshowArmorBoxs(src_img_, armor_boxs, "blank");
+//  imshow("blank", result_pic_blank);
 }
 
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {

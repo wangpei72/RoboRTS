@@ -351,14 +351,15 @@ class CVToolbox {
     cv::Point pt[4];
     for (int i = 0; i < armor_boxs.size(); i++) {
       cv::Rect2d rect = armor_boxs[i].rect;
+      ROS_INFO("rect's x is %lf y is %lf", rect.x, rect.y);
       pt[0] = cv::Point2f(rect.x, rect.y);
       pt[1] = cv::Point2f(rect.x + rect.width, rect.y);
       pt[2] = cv::Point2f(rect.x + rect.width, rect.y + rect.height);
       pt[3] = cv::Point2f(rect.x, rect.y + rect.height);
-      line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
-      line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
-      line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
-      line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
+      line(result_pic, pt[0], pt[1], cv::Scalar(255, 0, 0), 10);
+      line(result_pic, pt[1], pt[2], cv::Scalar(255, 0, 0), 10);
+      line(result_pic, pt[2], pt[3], cv::Scalar(255, 0, 0), 10);
+      line(result_pic, pt[3], pt[0], cv::Scalar(255, 0, 0), 10);
     }
     imshow(fileName, result_pic);
   }

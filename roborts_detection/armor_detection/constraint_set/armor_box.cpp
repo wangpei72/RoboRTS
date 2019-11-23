@@ -46,13 +46,13 @@ bool roborts_detection::ArmorBox::isCoupleLight(const LightBlob &light_blob_i,
       angelJudge(light_blob_i, light_blob_j);
 }
 
-roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect,
-                                      roborts_detection::LightBlobs light_blobs,
-                                      uint8_t box_color,
-                                      int id) {
-  rect = rect;
-  light_blobs = light_blobs;
-  box_color = box_color;
-  id = id;
+roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
+                                      roborts_detection::LightBlobs light_blobs1,
+                                      uint8_t box_color_init,
+                                      int id_init) {
+  rect = rect_2_d;
+  light_blobs = light_blobs1;
+  box_color = box_color_init;
+  id = id_init;
 }
 
