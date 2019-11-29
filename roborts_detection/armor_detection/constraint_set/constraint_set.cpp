@@ -233,7 +233,7 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
         if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
           light_blobs.emplace_back(rect,
                                    LightBlob::areaRatio(light_contours[i], rect),
-                                   cv_toolbox_->get_rect_color(src_img_, rect));
+                                   cv_toolbox_->get_rect_color(src_realSense_img_, rect));
         }
       }
     }
