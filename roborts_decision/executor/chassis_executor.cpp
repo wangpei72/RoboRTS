@@ -38,8 +38,6 @@ bool ChassisExecutor::LoadParam(const std::string &proto_file_path) {
   this->chassis_v2p_pid_has_threshold = controller_config.pid_controller().chassis_has_threshold();
   this->chassis_v2p_pid_threshold = controller_config.pid_controller().chassis_threshold();
 
-  printf("#####   %lf %lf %lf ", this->chassis_v2p_pid_kp, this->chassis_v2p_pid_ki, this->chassis_v2p_pid_kd);
-
   return true;
 }
 
@@ -79,57 +77,36 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
     this->chassis_v2p_pid_threshold =
         roborts_decision::roborts_dynamic_reconfigure::getInstance()->GetChassisV2PThreshold();
 
-    printf("#####   %lf %lf %lf \n", this->chassis_v2p_pid_kp, this->chassis_v2p_pid_ki, this->chassis_v2p_pid_kd);
-
     static roborts_common::firefly::PIDController pid_controller_toward_angular(chassis_v2p_pid_kp,
                                                                                 chassis_v2p_pid_ki,
                                                                                 chassis_v2p_pid_kd,
                                                                                 chassis_v2p_pid_has_threshold,
                                                                                 chassis_v2p_pid_threshold);
 
+    pid_controller_toward_angular.kp = chassis_v2p_pid_kp;
+    pid_controller_toward_angular.ki = chassis_v2p_pid_ki;
+    pid_controller_toward_angular.kd = chassis_v2p_pid_kd;
+    pid_controller_toward_angular.has_threshold = chassis_v2p_pid_has_threshold;
+    pid_controller_toward_angular.threshold = chassis_v2p_pid_threshold;
+
     geometry_msgs::Twist vel;
 
-    double angle_between_goal_and_chassis = atan2((this->chassis_odom_.pose.pose.position.y - goal.pose.position.y),
-                                                  (this->chassis_odom_.pose.pose.position.x - goal.pose.position.x));
-    printf("%lf ", angle_between_goal_and_chassis);
+    auto chassis_yaw = tf::getYaw(this->chassis_odom_.pose.pose.orientation);
+    auto goal_yaw = tf::getYaw(goal.pose.orientation);
+    chassis_yaw = pid_controller_toward_angular.convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
-    printf("%lf   %lf   %lf  %lf \n",
-           this->chassis_odom_.pose.pose.orientation.x,
-           this->chassis_odom_.pose.pose.orientation.y,
-           this->chassis_odom_.pose.pose.orientation.z,
-           this->chassis_odom_.pose.pose.orientation.w);
-
-    tf::Matrix3x3 matrix_3_x_3
-        (tf::Quaternion(this->chassis_odom_.pose.pose.orientation.x, this->chassis_odom_.pose.pose.orientation.y,
-                        this->chassis_odom_.pose.pose.orientation.z, this->chassis_odom_.pose.pose.orientation.w));
-
-    double chassis_yaw, chassis_pitch, chassis_roll;
-    matrix_3_x_3.getEulerYPR(chassis_yaw, chassis_pitch, chassis_roll);
-
-    double update_angle = chassis_yaw - angle_between_goal_and_chassis;
-    printf("update_angle = %lf \n", update_angle);
-
-    int kscale = 0;
-    if (update_angle > 0) {
-      kscale = -1;
-    } else {
-      kscale = 1;
-    }
-
-    auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_yaw);
-    auto goal_and_chassis_yaw_q = tf::createQuaternionFromYaw(angle_between_goal_and_chassis);
-    auto residual_yaw = goal_and_chassis_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
-
-    pid_controller_toward_angular.setTarget(0);
-    pid_controller_toward_angular.update(residual_yaw * kscale);
+    printf("chassis_yaw = %lf \n", chassis_yaw);
+    
+    pid_controller_toward_angular.setTarget(tf::getYaw(goal.pose.orientation));
+    printf("goal_yaw = %lf \n", tf::getYaw(goal.pose.orientation));
+    pid_controller_toward_angular.update(chassis_yaw);
 
     vel.linear.x = 0.0;
     vel.linear.y = 0.0;
     vel.angular.x = 0.0;
     vel.angular.y = 0.0;
     vel.angular.z = pid_controller_toward_angular.output();
-
-    printf("publish the vel\n");
+    printf("output vel = %lf \n", vel.angular.z);
     cmd_vel_pub_.publish(vel);
 
   }

@@ -70,7 +70,7 @@ class AttackBehavior {
     residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
     residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
-    gimbal_executor_->Execute(residual_gimbal_angle);
+    // gimbal_executor_->Execute(residual_gimbal_angle);
   }
 
   void ChassisRotationAction() {
@@ -81,7 +81,13 @@ class AttackBehavior {
     printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
     chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
     printf("Execute  \n");
-    point_index = (++point_index) % 2;
+    
+    static int tmp_cnt = 0;
+    if (tmp_cnt >= 500) {
+      tmp_cnt = 0;
+      point_index = (++point_index) % 2;
+    }
+    tmp_cnt++;
 
   }
 
@@ -98,11 +104,11 @@ class AttackBehavior {
 //    tmp_goal_pose.pose.orientation = tmp_goal_orientation;
 //    this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.);
+    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.4);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.);
+    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.4);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
   }
