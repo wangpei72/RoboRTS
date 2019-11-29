@@ -154,6 +154,8 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param rotation Rotation information of the armor relative to the camera.
    */
   ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) override;
+
+  ErrorInfo DetectArmorByRealSense(bool &detected, cv::Point3f &target_3d) override;
   /**
    * @brief Detecting lights on the armors.
    * @param src Input image

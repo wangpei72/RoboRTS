@@ -77,18 +77,33 @@ void ConstraintSet::LoadParam() {
   int get_distortion_state = -1;
 
   //test
-  while ((get_intrinsic_state < 0) || (get_distortion_state < 0)) {
-    ROS_WARN("Wait for camera driver launch %d", get_intrinsic_state);
-    usleep(50000);
-    ros::spinOnce();
-    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
-    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
-  }
+//  while ((get_intrinsic_state < 0) || (get_distortion_state < 0)) {
+//    ROS_WARN("Wait for camera driver launch %d", get_intrinsic_state);
+//    usleep(50000);
+//    ros::spinOnce();
+//    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
+//    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
+//  }
 
 }
 
 void ConstraintSet::getRealsenseMat(sensor_msgs::ImageConstPtr msg) {
   cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_realSense_img_);
+}
+
+ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &target_3d) {
+  LightBlobs light_blobs;
+  ArmorBoxs armor_boxs;
+  ros::spinOnce();
+  realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+                                                                 1,
+                                                                 &ConstraintSet::getRealsenseMat, this);
+  if (!src_realSense_img_.empty()) {
+    cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
+    DetectLights(src_realSense_img_, light_blobs);
+    PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
+  }
+  return error_info_;
 }
 
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {

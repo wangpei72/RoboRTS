@@ -146,7 +146,8 @@ void ArmorDetectionNode::ExecuteLoop() {
     usleep(1);
     if (node_state_ == NodeState::RUNNING) {
       cv::Point3f target_3d;
-      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
+//      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
+      ErrorInfo error_info = armor_detector_->DetectArmorByRealSense(detected_enemy_, target_3d);
       {
         std::lock_guard<std::mutex> guard(mutex_);
         x_ = target_3d.x;
