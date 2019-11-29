@@ -331,12 +331,12 @@ class CVToolbox {
         }
       }
     }
-    if (white_cnt > roi.
-        rows * roi
-        .cols * 0.8) {
-      //白色
-      return -1;
-    }
+//    if (white_cnt > roi.
+//        rows * roi
+//        .cols * 0.8) {
+//      //白色
+//      return -1;
+//    }
     if (red_cnt > blue_cnt) {
       //红色
       return 1;

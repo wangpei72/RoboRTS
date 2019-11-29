@@ -32,7 +32,6 @@ ArmorDetectionNode::ArmorDetectionNode() :
   if (Init().IsOK()) {
     initialized_ = true;
     node_state_ = roborts_common::IDLE;
-    ROS_INFO("test3");
   } else {
     ROS_ERROR("armor_detection_node initalized failed!");
     node_state_ = roborts_common::FAILURE;

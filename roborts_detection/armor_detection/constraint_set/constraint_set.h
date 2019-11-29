@@ -205,10 +205,14 @@ class ConstraintSet : public ArmorDetectionBase {
   void SignalFilter(double &new_num, double &old_num, unsigned int &filter_count, double max_diff);
 
   void SetThreadState(bool thread_state) override;
+
+  void getRealsenseMat(sensor_msgs::ImageConstPtr msg);
+  ros::Subscriber realSenseSubscriber;
   /**
    * @brief Destructor
    */
-  ~ConstraintSet() final;
+  ~ConstraintSet()
+  final;
  private:
   ErrorInfo error_info_;
   unsigned int filter_x_count_;
@@ -219,6 +223,8 @@ class ConstraintSet : public ArmorDetectionBase {
   unsigned int filter_yaw_count_;
 
   cv::Mat src_img_;
+  //test realSense
+  cv::Mat src_realSense_img_;
   cv::Mat gray_img_;
   //!  Camera intrinsic matrix
   cv::Mat intrinsic_matrix_;

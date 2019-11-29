@@ -84,6 +84,11 @@ void ConstraintSet::LoadParam() {
     get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
     get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
   }
+
+}
+
+void ConstraintSet::getRealsenseMat(sensor_msgs::ImageConstPtr msg) {
+  cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_realSense_img_);
 }
 
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
@@ -91,6 +96,12 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   ArmorBoxs armor_boxs;
   std::vector<cv::RotatedRect> lights;
   std::vector<ArmorInfo> armors;
+
+  //test realsense
+  ros::spinOnce();
+  realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+                                                                 1,
+                                                                 &ConstraintSet::getRealsenseMat, this);
 
   auto img_begin = std::chrono::high_resolution_clock::now();
   bool sleep_by_diff_flag = true;
@@ -132,8 +143,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
       (std::chrono::high_resolution_clock::now() - img_begin).count());*/
 
   auto detection_begin = std::chrono::high_resolution_clock::now();
-  cv::imshow("orgin", src_img_);
-  cv::cvtColor(src_img_, gray_img_, CV_BGR2GRAY);
+//  cv::imshow("orgin", src_img_);
   if (enable_debug_) {
     show_lights_before_filter_ = src_img_.clone();
     show_lights_after_filter_ = src_img_.clone();
@@ -142,8 +152,16 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
     cv::waitKey(1);
   }
 
-  DetectLights(src_img_, light_blobs);
-  PossibleArmors(src_img_, light_blobs, armor_boxs);
+//test realsense
+  if (!src_realSense_img_.empty()) {
+    cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
+    DetectLights(src_realSense_img_, light_blobs);
+    PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
+  }
+
+//test realSense
+//  DetectLights(src_realSense_img_, light_blobs);
+//  PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
   FilterArmors(armors);
   if (!armors.empty()) {
     detected = true;
@@ -207,7 +225,7 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
   }
 
   if (light_blobs.size() > 0) {
-    cv_toolbox_->imshowLightBlobs(src_img_, light_blobs, "light_blobs");
+    cv_toolbox_->imshowLightBlobs(src_realSense_img_, light_blobs, "light_blobs");
   }
   auto c = cv::waitKey(1);
   if (c == 'a') {
@@ -219,6 +237,7 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   cv::Mat result_pic_blank = src.clone();
   LightBlobs lightBlobsTemp;
   lightBlobsTemp.swap(lightBlobs);
+  ROS_INFO("lightblobs num is %d", lightBlobsTemp.size());
   for (int i = 0; i < lightBlobsTemp.size(); i++) {
     for (int j = i + 1; j < lightBlobsTemp.size(); j++) {
       if (!ArmorBox::isCoupleLight(lightBlobsTemp.at(i), lightBlobsTemp.at(j), enemy_color_)) {
@@ -244,7 +263,7 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
     }
   }
-  cv_toolbox_->imshowArmorBoxs(src_img_, armor_boxs, "blank");
+  cv_toolbox_->imshowArmorBoxs(src_realSense_img_, armor_boxs, "blank");
 }
 
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
