@@ -84,6 +84,7 @@ void Gimbal::ROS_Init() {
 
   //ros subscriber
   ros_sub_cmd_gimbal_angle_ = ros_nh_.subscribe("cmd_gimbal_angle", 1, &Gimbal::GimbalAngleCtrlCallback, this);
+  ros_sub_cmd_gimbal_speed_ = ros_nh_.subscribe("cmd_gimbal_speed", 1, &Gimbal::GimbalSpeedCtrlCallback, this);
 
   //ros service
   ros_gimbal_mode_srv_ = ros_nh_.advertiseService("set_gimbal_mode", &Gimbal::SetGimbalModeService, this);

@@ -111,6 +111,9 @@ class Gimbal {
   ros::NodeHandle ros_nh_;
   //! ros subscriber for gimbal angle control
   ros::Subscriber ros_sub_cmd_gimbal_angle_;
+
+  //! ros subscriber for gimbal speed control
+  ros::Subscriber ros_sub_cmd_gimbal_speed_;
   //! ros service server for gimbal mode set
   ros::ServiceServer ros_gimbal_mode_srv_;
   //! ros service server for friction wheel control
