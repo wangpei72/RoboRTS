@@ -128,7 +128,8 @@ void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) 
     roborts_sdk::cmd_gimal_speed gimbal_speed;
     gimbal_speed.pitch_speed = msg->linear.x;
     gimbal_speed.yaw_speed = msg->linear.y;
-
+    ROS_INFO("receive: [%d] ",msg->linear.x);
+    ROS_INFO("receive: [%d] ",msg->linear.y);
     gimbal_speed_pub_->Publish(gimbal_speed);
 }
 
