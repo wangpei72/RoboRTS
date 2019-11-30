@@ -30,6 +30,15 @@ namespace firefly {
 }
 ```
 
+# 2019款AI机器人平台使用说明
+
+1. 机器人安装好DJI智能电池后，电池先短按再长按开启，然后开启电池后方的开机键
+2. 根据是否使用裁判系统，长按车上的裁判系统模块的显示屏下的左上角按钮，进入设置界面。若不使用裁判系统对车进行激活，请进入`Debug Option/Function Module Mask`，启用`Offline Mode`，此时车上电机进入上电锁死状态，即说明此时车进入可控制移动的状态，可以通过遥控器或者代码控制
+3. 遥控器右上角的拨键拨到最下面时，此时车是受代码控制状态；上面两个键位是遥控状态。所以车在代码控制失控的时候，可以瞬间切回来
+4. 上位机按下左下角的开机键开机后，进入Ubuntu 16.04系统，登录密码目前是nwpu
+5. 车子的上位机主要代码RoboRTS的放置路径为：`~/unstable_ws/src/roborts`。若要更改代码，可先在自己本地电脑上推到本仓库中，然后车的上位机连上校园网后可把代码从gitlab上把对应分支拉下来并切换到即可。拉下来后进行编译。这个workspace的环境变量的source步骤已加入到`.bashrc`里。
+6. 车子此时如果要切换到代码控制，只需要将右上角遥控器拨键调到最下方即可。
+
 # RoboRTS
 
 [![Build Status](https://travis-ci.org/RoboMaster/RoboRTS.svg?branch=master)](https://travis-ci.org/RoboMaster/RoboRTS)
