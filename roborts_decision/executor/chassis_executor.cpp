@@ -11,7 +11,12 @@ namespace roborts_decision {
 
 ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
                                      global_planner_client_("global_planner_node_action", true),
-                                     local_planner_client_("local_planner_node_action", true) {
+                                     local_planner_client_("local_planner_node_action", true),
+                                     chassis_v2p_pid_kp(0),
+                                     chassis_v2p_pid_ki(0),
+                                     chassis_v2p_pid_kd(0),
+                                     chassis_v2p_pid_has_threshold(false),
+                                     chassis_v2p_pid_threshold(0) {
   ros::NodeHandle nh;
   cmd_vel_acc_pub_ = nh.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
@@ -93,7 +98,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
 
     auto chassis_yaw = tf::getYaw(this->chassis_odom_.pose.pose.orientation);
     auto goal_yaw = tf::getYaw(goal.pose.orientation);
-    chassis_yaw = pid_controller_toward_angular.convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
+    chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
     printf("chassis_yaw = %lf \n", chassis_yaw);
     

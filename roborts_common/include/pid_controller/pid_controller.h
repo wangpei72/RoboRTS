@@ -31,23 +31,6 @@ class PIDController {
 
   virtual ~PIDController() = default;
 
-  double_t convertCurYaw2FabsYawThetaBetweenPI(double_t _target_yaw, double_t _cur_yaw)
-  {
-      double_t yaw_theta = _target_yaw - _cur_yaw;
-
-      while (yaw_theta > M_PI)
-      {
-          yaw_theta -= 2 * M_PI;
-      }
-      while (yaw_theta < -M_PI)
-      {
-          yaw_theta += 2 * M_PI;
-      }
-
-      return (_target_yaw - yaw_theta);
-  }
-
-
   int8_t setTarget(double_t _target) {
     target = _target;
     ierr = 0;
