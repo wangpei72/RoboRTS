@@ -7,6 +7,9 @@ rrts_protobuf_generate_cpp(${CMAKE_CURRENT_SOURCE_DIR}/proto
         ${ProtoFiles}
         )
 
+include_directories(../../armor_detection)
+link_directories(../)
+
 find_package(Eigen3 REQUIRED)
 add_library(constraint_set
         SHARED

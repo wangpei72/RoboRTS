@@ -34,7 +34,7 @@
 
 #include "proto/constraint_set.pb.h"
 #include "constraint_set.h"
-#include "classifier.h"
+#include "../classifier.h"
 
 namespace roborts_detection {
 
