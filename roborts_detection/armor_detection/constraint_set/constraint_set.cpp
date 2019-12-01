@@ -387,7 +387,7 @@ void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
     std::sort(needRemoveArmor.begin(), needRemoveArmor.end());
     int t = 0;
     for (int i = 0; i < armorBoxsTemp.size(); i++) {
-      if (i != needRemoveArmor[t] || t >= needRemoveArmor.size()) {
+      if (t >= needRemoveArmor.size() || i != needRemoveArmor[t]) {
         armor_boxs.push_back(armorBoxsTemp[i]);
       } else {
         t++;
