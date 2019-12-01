@@ -357,8 +357,9 @@ void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
       float dy = armorBoxsTemp[i].center.y - armorBoxsTemp[j].center.y;
       float dis = std::sqrt(dx * dx + dy * dy);
       //如果两个装甲板相交，则去除较大的
-      if (dis < std::min(armorBoxsTemp[i].rect.width + armorBoxsTemp[j].rect.width,
-                         armorBoxsTemp[i].rect.height + armorBoxsTemp[j].rect.height)) {
+      //乘1.2避免边线相交情况
+      if (dis * 1.2 < std::min(armorBoxsTemp[i].rect.width + armorBoxsTemp[j].rect.width,
+                               armorBoxsTemp[i].rect.height + armorBoxsTemp[j].rect.height)) {
         bool flag = true;
         if (armorBoxsTemp[i].rect.height * armorBoxsTemp[i].rect.width <
             armorBoxsTemp[j].rect.height * armorBoxsTemp[j].rect.width) {
