@@ -118,7 +118,10 @@ void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &
   gimbal_angle.ctrl.bit.yaw_mode = msg->yaw_mode;
   gimbal_angle.pitch = msg->pitch_angle * 1800 / M_PI;
   gimbal_angle.yaw = msg->yaw_angle * 1800 / M_PI;
-
+  ROS_INFO("receive angle yuanshi : [%lf]",msg->yaw_angle);
+  ROS_INFO("receive angle 1800: [%lf]",msg->yaw_angle * 1800 / M_PI);
+  ROS_INFO("receive angle :[%d]",gimbal_angle.pitch);
+  ROS_INFO("receive angle :[%d]",gimbal_angle.yaw);
   gimbal_angle_pub_->Publish(gimbal_angle);
 
 }
@@ -128,8 +131,8 @@ void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) 
     roborts_sdk::cmd_gimal_speed gimbal_speed;
     gimbal_speed.pitch_speed = msg->linear.x;
     gimbal_speed.yaw_speed = msg->linear.y;
-    ROS_INFO("receive: [%d] ",msg->linear.x);
-    ROS_INFO("receive: [%d] ",msg->linear.y);
+    ROS_INFO("receive: [%lf] ",msg->linear.x);
+    ROS_INFO("receive: [%lf] ",msg->linear.y);
     gimbal_speed_pub_->Publish(gimbal_speed);
 }
 
