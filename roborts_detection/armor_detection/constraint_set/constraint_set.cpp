@@ -107,11 +107,14 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     FilterArmors(src_realSense_img_, armor_boxs);
     ArmorBoxs newArmorBoxs;
     for (ArmorBox armor_box:armor_boxs) {
-      if (armor_box.id = classifier(src_realSense_img_(armor_box.rect)) != 0) {
+      if (armor_box.id = classifier(src_realSense_img_.clone()(armor_box.rect)) != 0) {
         newArmorBoxs.push_back(armor_box);
       }
     }
-    cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
+    ROS_INFO("newbox size is %ld", newArmorBoxs.size());
+    if (newArmorBoxs.size() != 0) {
+      cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
+    }
   }
   return error_info_;
 }
