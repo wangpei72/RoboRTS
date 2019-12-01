@@ -350,6 +350,7 @@ void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
   ArmorBoxs armorBoxsTemp;
   armorBoxsTemp.swap(armor_boxs);
   std::vector<int> needRemoveArmor;
+  ROS_INFO("test filter size%d", armorBoxsTemp.size());
   for (int i = 0; i < armorBoxsTemp.size(); i++) {
     for (int j = i + 1; j < armorBoxsTemp.size(); j++) {
       float dx = armorBoxsTemp[i].center.x - armorBoxsTemp[j].center.x;
@@ -392,8 +393,8 @@ void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
         t++;
       }
     }
-    cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "filer armors");
   }
+  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "filer armors");
 }
 
 ArmorInfo ConstraintSet::SlectFinalArmor(std::vector<ArmorInfo> &armors) {
