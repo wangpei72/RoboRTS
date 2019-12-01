@@ -7,6 +7,7 @@ rrts_protobuf_generate_cpp(${CMAKE_CURRENT_SOURCE_DIR}/proto
         ${ProtoFiles}
         )
 
+find_package(Eigen3 REQUIRED)
 add_library(constraint_set
         SHARED
         ${ConstraintSetProtoSrc}
@@ -21,6 +22,7 @@ target_link_libraries(${PROJECT_NAME}
         detection::tool
         ${catkin_LIBRARIES}
         ${OpenCV_LIBRARIES}
+        ${Eigen3_LIBRARIES}
         )
 
 target_include_directories(${PROJECT_NAME}

@@ -99,11 +99,19 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
   realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
                                                                  1,
                                                                  &ConstraintSet::getRealsenseMat, this);
+  Classifier classifier = Classifier("/home/xqj/roborts_ws/src/roborts_detection/armor_detection/para/");
   if (!src_realSense_img_.empty()) {
     cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
     DetectLights(src_realSense_img_, light_blobs);
     PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
     FilterArmors(src_realSense_img_, armor_boxs);
+    ArmorBoxs newArmorBoxs;
+    for (ArmorBox armor_box:armor_boxs) {
+      if (armor_box.id = classifier(src_realSense_img_(armor_box.rect)) != 0) {
+        newArmorBoxs.push_back(armor_box);
+      }
+    }
+    cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
   }
   return error_info_;
 }

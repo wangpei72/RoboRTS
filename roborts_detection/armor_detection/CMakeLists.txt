@@ -43,7 +43,7 @@ add_dependencies(armor_detection_node
 #armor_detection_client
 add_executable(${PROJECT_NAME}_client
   armor_detection_client.cpp
-)
+        classifier.h classifier.cpp)
 
 target_include_directories(armor_detection_client
   PRIVATE
