@@ -16,6 +16,7 @@
  ***************************************************************************/
 #include <Eigen/Core>
 #include <opencv2/core/eigen.hpp>
+#include <algorithm>
 
 #include "constraint_set.h"
 
@@ -102,6 +103,7 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
     DetectLights(src_realSense_img_, light_blobs);
     PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
+    FilterArmors(src_realSense_img_, armor_boxs);
   }
   return error_info_;
 }
@@ -275,7 +277,10 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       lightBlobs.push_back(lightBlobsTemp.at(i));
       lightBlobs.push_back(lightBlobsTemp.at(j));
       LightBlobs pair_blobs = {lightBlobsTemp.at(i), lightBlobsTemp.at(j)};
-      armor_boxs.emplace_back(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
+      ArmorBox armor_box = ArmorBox(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
+      if (armor_box.isMatchArmorBox()) {
+        armor_boxs.emplace_back(armor_box);
+      }
     }
   }
   cv_toolbox_->imshowArmorBoxs(src_realSense_img_, armor_boxs, "blank");
@@ -338,6 +343,57 @@ void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
   }
   if (enable_debug_)
     cv::imshow("armors_after_filter", show_armors_after_filter_);
+}
+
+void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
+  cv::Mat result_pic_filter_armors = src.clone();
+  ArmorBoxs armorBoxsTemp;
+  armorBoxsTemp.swap(armor_boxs);
+  std::vector<int> needRemoveArmor;
+  for (int i = 0; i < armorBoxsTemp.size(); i++) {
+    for (int j = i + 1; j < armorBoxsTemp.size(); j++) {
+      float dx = armorBoxsTemp[i].center.x - armorBoxsTemp[j].center.x;
+      float dy = armorBoxsTemp[i].center.y - armorBoxsTemp[j].center.y;
+      float dis = std::sqrt(dx * dx + dy * dy);
+      //如果两个装甲板相交，则去除较大的
+      if (dis < std::min(armorBoxsTemp[i].rect.width + armorBoxsTemp[j].rect.width,
+                         armorBoxsTemp[i].rect.height + armorBoxsTemp[j].rect.height)) {
+        bool flag = true;
+        if (armorBoxsTemp[i].rect.height * armorBoxsTemp[i].rect.width <
+            armorBoxsTemp[j].rect.height * armorBoxsTemp[j].rect.width) {
+          for (int t = 0; t < needRemoveArmor.size(); t++) {
+            if (needRemoveArmor[t] == j) {
+              flag = false;
+              break;
+            }
+          }
+          if (flag) {
+            needRemoveArmor.push_back(j);
+          }
+        } else {
+          for (int t = 0; t < needRemoveArmor.size(); t++) {
+            if (needRemoveArmor[t] == i) {
+              flag = false;
+              break;
+            }
+          }
+          if (flag) {
+            needRemoveArmor.push_back(i);
+          }
+        }
+      }
+    }
+    std::sort(needRemoveArmor.begin(), needRemoveArmor.end());
+    int t = 0;
+    for (int i = 0; i < armorBoxsTemp.size(); i++) {
+      if (i != needRemoveArmor[t] || t >= needRemoveArmor.size()) {
+        armor_boxs.push_back(armorBoxsTemp[i]);
+      } else {
+        t++;
+      }
+    }
+    cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "filer armors");
+  }
 }
 
 ArmorInfo ConstraintSet::SlectFinalArmor(std::vector<ArmorInfo> &armors) {

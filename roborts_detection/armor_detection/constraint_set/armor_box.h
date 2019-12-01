@@ -17,6 +17,7 @@ class ArmorBox {
   } BoxOrientation;
 
   cv::Rect2d rect;
+  cv::Point center;
   roborts_detection::LightBlobs light_blobs;
   uint8_t box_color;
   int id;
@@ -35,6 +36,7 @@ class ArmorBox {
 
   static bool isCoupleLight(const LightBlob &light_blob_i, const LightBlob &light_blob_j, uint8_t enemy_color);
 
+  bool isMatchArmorBox();
 };
 
 typedef std::vector<ArmorBox> ArmorBoxs;

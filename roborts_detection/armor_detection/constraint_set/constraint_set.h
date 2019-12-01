@@ -173,6 +173,8 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param armors Result armors
    */
   void FilterArmors(std::vector<ArmorInfo> &armors);
+
+  void FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs);
   /**
    * @brief Slecting final armor as the target armor which we will be shot.
    * @param Input armors

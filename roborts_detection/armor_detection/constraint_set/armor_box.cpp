@@ -50,6 +50,14 @@ bool roborts_detection::ArmorBox::isCoupleLight(const LightBlob &light_blob_i,
       angelJudge(light_blob_i, light_blob_j);
 }
 
+bool roborts_detection::ArmorBox::isMatchArmorBox() {
+  //初步判断 长宽比例
+  if (this->rect.height / this->rect.width > 2 || this->rect.height / this->rect.width < 1 / 2) {
+    return false;
+  } else
+    return true;
+}
+
 roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
                                       roborts_detection::LightBlobs light_blobs1,
                                       uint8_t box_color_init,
@@ -58,5 +66,7 @@ roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
   light_blobs = light_blobs1;
   box_color = box_color_init;
   id = id_init;
+  center.x = rect_2_d.x + cvRound(rect_2_d.width / 2.0);
+  center.x = rect_2_d.y + cvRound(rect_2_d.height / 2.0);
 }
 
