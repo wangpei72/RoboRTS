@@ -283,6 +283,9 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       }
     }
   }
+  for (ArmorBox armor_box1 : armor_boxs) {
+    ROS_INFO("ttttttttttttttttttttt比例是%lf", armor_box1.rect.width / armor_box1.rect.height);
+  }
   cv_toolbox_->imshowArmorBoxs(src_realSense_img_, armor_boxs, "blank");
 }
 

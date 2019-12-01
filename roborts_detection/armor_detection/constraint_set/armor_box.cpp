@@ -52,7 +52,7 @@ bool roborts_detection::ArmorBox::isCoupleLight(const LightBlob &light_blob_i,
 
 bool roborts_detection::ArmorBox::isMatchArmorBox() {
   //初步判断 长宽比例
-  if (this->rect.height / this->rect.width > 2 || this->rect.height / this->rect.width < 1 / 2) {
+  if (this->rect.height / this->rect.width > 1.5 || this->rect.height / this->rect.width < 1 / 1.5) {
     return false;
   } else
     return true;
