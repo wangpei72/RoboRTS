@@ -57,14 +57,21 @@ class PIDController {
     return ans;
   }
 
-
-
-  bool has_threshold;
-  double_t threshold;
-
-  double_t kp;
-  double_t ki;
-  double_t kd;
+  void SetHasThreshold(bool has_threshold) {
+    PIDController::has_threshold = has_threshold;
+  }
+  void SetThreshold(double_t threshold) {
+    PIDController::threshold = threshold;
+  }
+  void SetKp(double_t kp) {
+    PIDController::kp = kp;
+  }
+  void SetKi(double_t ki) {
+    PIDController::ki = ki;
+  }
+  void SetKd(double_t kd) {
+    PIDController::kd = kd;
+  }
 
  private:
 
@@ -75,6 +82,13 @@ class PIDController {
   double_t derr;
 
   double_t last_err;
+
+  bool has_threshold;
+  double_t threshold;
+
+  double_t kp;
+  double_t ki;
+  double_t kd;
 
 };
 

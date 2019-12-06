@@ -56,8 +56,8 @@ add_executable(behavior_test_node
         executor/chassis_executor.cpp
         executor/gimbal_executor.h
         executor/gimbal_executor.cpp
-        interface/roborts_dynamic_reconfigure.h
-        interface/roborts_dynamic_reconfigure.cpp
+        ../roborts_common/include/interface/dynamic_reconfigure_interface.h
+        ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
         )
 
 target_link_libraries(behavior_test_node

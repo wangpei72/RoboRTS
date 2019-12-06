@@ -7,18 +7,20 @@
 
 #include <boost/thread.hpp>
 #include <ros/ros.h>
+#include <std_msgs/String.h>
 #include <dynamic_reconfigure/server.h>
 
 #include "roborts_decision/roborts_dynamic_cfgConfig.h"
 
-namespace roborts_decision {
-class roborts_dynamic_reconfigure {
+namespace roborts_common {
+namespace firefly {
+class DynamicReconfigureInterface {
 
  public:
 
-  static roborts_dynamic_reconfigure *getInstance();
+  static DynamicReconfigureInterface *getInstance();
 
-  virtual ~roborts_dynamic_reconfigure();
+  virtual ~DynamicReconfigureInterface();
 
   int8_t update();
 
@@ -27,16 +29,19 @@ class roborts_dynamic_reconfigure {
   double GetChassisV2PPidKd() const;
   bool IsChassisV2PHasThreshold() const;
   double GetChassisV2PThreshold() const;
-
+  double GetYawGaolTolerance() const;
+  const std::string &GetServerName() const;
+  const std::string &GetPublisherName() const;
+  const std::string &GetSubscriberName() const;
  private:
 
-  roborts_dynamic_reconfigure();
+  DynamicReconfigureInterface();
 
-  roborts_dynamic_reconfigure(const roborts_dynamic_reconfigure &);
+  DynamicReconfigureInterface(const DynamicReconfigureInterface &);
 
-  roborts_dynamic_reconfigure &operator=(const roborts_dynamic_reconfigure &);
+  DynamicReconfigureInterface &operator=(const DynamicReconfigureInterface &);
 
-  static roborts_dynamic_reconfigure *instance;
+  static DynamicReconfigureInterface *instance;
   static boost::mutex mutex_instance;
 
   void reconfig_cb(roborts::roborts_dynamic_cfgConfig &_config, uint32_t _level);
@@ -51,9 +56,14 @@ class roborts_dynamic_reconfigure {
 
   bool chassis_v2p_has_threshold;
   double chassis_v2p_threshold;
+  double yaw_gaol_tolerance;
+
+  std::string server_name;
+  std::string publisher_name;
+  std::string subscriber_name;
 
 };
-
+}
 }
 
 

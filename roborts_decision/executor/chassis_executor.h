@@ -6,12 +6,12 @@
 
 #include "roborts_msgs/GlobalPlannerAction.h"
 #include "roborts_msgs/LocalPlannerAction.h"
+#include "roborts_msgs/PIDControllerTowardAngularAction.h"
 #include "roborts_msgs/TwistAccel.h"
 #include "geometry_msgs/Twist.h"
 
 #include "../behavior_tree/behavior_state.h"
 #include "pid_controller/pid_controller.h"
-#include "utils/utils.h"
 
 namespace roborts_decision {
 /***
@@ -21,13 +21,15 @@ class ChassisExecutor {
 
   typedef actionlib::SimpleActionClient<roborts_msgs::GlobalPlannerAction> GlobalActionClient;
   typedef actionlib::SimpleActionClient<roborts_msgs::LocalPlannerAction> LocalActionClient;
+  typedef actionlib::SimpleActionClient<roborts_msgs::PIDControllerTowardAngularAction> PIDControllerClient;
+
  public:
   /**
    * @brief Chassis execution mode for different tasks
    */
   enum class ExcutionMode {
     IDLE_MODE,            ///< Default idle mode with no task
-    GOAL_MODE,            ///< Goal-targeted task mode using global and local planner
+    GOAL_USE_PLANNER_MODE,            ///< Goal-targeted task mode using global and local planner
     GOAL_FROM_ODOM_MODE,  ///< Goal-targeted task mode using odom data
     SPEED_MODE,           ///< Velocity task mode
     SPEED_WITH_ACCEL_MODE ///< Velocity with acceleration task mode
@@ -79,6 +81,7 @@ class ChassisExecutor {
    * @param global_planner_feedback  Global planner actionlib feedback, which mainly consists of global planner path output
    */
   void GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPlannerFeedbackConstPtr &global_planner_feedback);
+  void PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback);
   //! execution mode of the executor
   ExcutionMode execution_mode_;
   //! execution state of the executor (same with behavior state)
@@ -88,10 +91,14 @@ class ChassisExecutor {
   actionlib::SimpleActionClient<roborts_msgs::GlobalPlannerAction> global_planner_client_;
   //! local planner actionlib client
   actionlib::SimpleActionClient<roborts_msgs::LocalPlannerAction> local_planner_client_;
+  //! pid controller actionlib client
+  actionlib::SimpleActionClient<roborts_msgs::PIDControllerTowardAngularAction> pid_controller_client_;
   //! global planner actionlib goal
   roborts_msgs::GlobalPlannerGoal global_planner_goal_;
   //! local planner actionlib goal
   roborts_msgs::LocalPlannerGoal local_planner_goal_;
+  //! pid controller actionlib goal
+  roborts_msgs::PIDControllerTowardAngularGoal pid_controller_toward_angular_goal_;
 
   //! velocity control publisher in ROS
   ros::Publisher cmd_vel_pub_;
@@ -107,12 +114,12 @@ class ChassisExecutor {
   nav_msgs::Odometry chassis_odom_;
   void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
 
-  bool LoadParam(const std::string &proto_file_path);
-  double chassis_v2p_pid_kp;
-  double chassis_v2p_pid_ki;
-  double chassis_v2p_pid_kd;
-  bool chassis_v2p_pid_has_threshold;
-  double chassis_v2p_pid_threshold;
+//  bool LoadParam(const std::string &proto_file_path);
+//  double chassis_v2p_pid_kp;
+//  double chassis_v2p_pid_ki;
+//  double chassis_v2p_pid_kd;
+//  bool chassis_v2p_pid_has_threshold;
+//  double chassis_v2p_pid_threshold;
 
 };
 }
