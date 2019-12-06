@@ -16,8 +16,9 @@ add_library(constraint_set
         ${ConstraintSetProtoSrc}
         ${ConstraintSetProtoHds}
         constraint_set.cpp
-        light_blob.cpp light_blob.h armor_box.h armor_box.cpp)
+        light_blob.cpp light_blob.h armor_box.h armor_box.cpp ../classifier.cpp)
 
+include_directories(../proto)
 add_library(detection::constraint_set ALIAS constraint_set)
 
 target_link_libraries(${PROJECT_NAME}

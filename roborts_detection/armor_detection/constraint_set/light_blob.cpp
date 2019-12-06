@@ -22,7 +22,7 @@ double roborts_detection::LightBlob::areaRatio(const std::vector<cv::Point> &con
 
 bool roborts_detection::LightBlob::isVaildLightBlob(const std::vector<cv::Point> &contour,
                                                     const cv::RotatedRect &rect) {
-  return (3 < lw_rate(rect) && lw_rate(rect) < 6) &&
+  return (2 < lw_rate(rect) && lw_rate(rect) < 8) &&
       ((rect.size.area() < 50 && areaRatio(contour, rect) > 0.4) ||
           rect.size.area() >= 50 && areaRatio(contour, rect) > 0.6);
 }

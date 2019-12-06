@@ -377,6 +377,7 @@ class CVToolbox {
       line(result_pic, pt[1], pt[2], cv::Scalar(255, 0, 0), 10);
       line(result_pic, pt[2], pt[3], cv::Scalar(255, 0, 0), 10);
       line(result_pic, pt[3], pt[0], cv::Scalar(255, 0, 0), 10);
+      cv::putText(result_pic, std::to_string(armor_boxs[i].id), armor_boxs[i].rect.tl(), 1, 6, cv::Scalar(255, 255, 0));
     }
     imshow(fileName, result_pic);
   }
