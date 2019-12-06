@@ -108,14 +108,13 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     ArmorBoxs newArmorBoxs;
     ROS_INFO("test new box");
     for (ArmorBox armor_box:armor_boxs) {
-      if ((armor_box.id = classifier(src_realSense_img_.clone()(armor_box.rect))) != 0) {
+      cv::Mat resizeClassifier = src_realSense_img_(armor_box.rect).clone();
+      cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
+      if ((armor_box.id = classifier(resizeClassifier) != 0)) {
         newArmorBoxs.push_back(armor_box);
       }
     }
-    ROS_INFO("newbox size is %ld", newArmorBoxs.size());
-    if (newArmorBoxs.size() != 0) {
-      cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
-    }
+    cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
   }
   return error_info_;
 }
@@ -266,7 +265,6 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   cv::Mat result_pic_blank = src.clone();
   LightBlobs lightBlobsTemp;
   lightBlobsTemp.swap(lightBlobs);
-  ROS_INFO("lightblobs num is %d", lightBlobsTemp.size());
   for (int i = 0; i < lightBlobsTemp.size(); i++) {
     for (int j = i + 1; j < lightBlobsTemp.size(); j++) {
       if (!ArmorBox::isCoupleLight(lightBlobsTemp.at(i), lightBlobsTemp.at(j), enemy_color_)) {
@@ -296,7 +294,6 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
     }
   }
   for (ArmorBox armor_box1 : armor_boxs) {
-    ROS_INFO("ttttttttttttttttttttt比例是%lf", armor_box1.rect.width / armor_box1.rect.height);
   }
   cv_toolbox_->imshowArmorBoxs(src_realSense_img_, armor_boxs, "blank");
 }

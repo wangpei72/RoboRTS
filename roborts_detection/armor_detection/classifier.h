@@ -14,11 +14,13 @@
 #ifndef _CLASSIFIER_H_
 #define _CLASSIFIER_H_
 
-#include <Eigen/Dense>
+#include <ros/ros.h>
+#include <eigen3/Eigen/Dense>
 #include <opencv2/core/eigen.hpp>
 #include <vector>
 #include <string>
 #include <opencv2/core.hpp>
+#include <fstream>
 
 using namespace std;
 using namespace Eigen;

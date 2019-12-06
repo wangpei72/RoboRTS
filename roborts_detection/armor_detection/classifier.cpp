@@ -12,7 +12,7 @@
 
 vector<vector<MatrixXd>> Classifier::load_conv_w(const string &file) {
   vector<vector<MatrixXd>> result;
-  FILE *fp = fopen(file.data(), "r");
+  FILE *fp = fopen(file.c_str(), "r");
   if (fp == nullptr) {
     state = false;
     return result;
@@ -32,16 +32,22 @@ vector<vector<MatrixXd>> Classifier::load_conv_w(const string &file) {
     }
     result.emplace_back(sub);
   }
+  fclose(fp);
   return result;
 }
 
 vector<double> Classifier::load_conv_b(const string &file) {
   vector<double> result;
-  FILE *fp = fopen(file.data(), "r");
+  FILE *fp = fopen(file.c_str(), "r");
   if (fp == nullptr) {
     state = false;
     return result;
   }
+//  ifstream ifstream1(file);
+//  int test;
+//  ifstream1 >> test;
+//  ROS_INFO("ifstream %d", test);
+
   int len;
   fscanf(fp, "%d", &len);
   for (int i = 0; i < len; i++) {
@@ -49,6 +55,7 @@ vector<double> Classifier::load_conv_b(const string &file) {
     fscanf(fp, "%lf", &v);
     result.emplace_back(v);
   }
+  fclose(fp);
   return result;
 }
 
@@ -66,6 +73,7 @@ MatrixXd Classifier::load_fc_w(const string &file) {
       fscanf(fp, "%lf", &mat(r, c));
     }
   }
+  fclose(fp);
   return mat;
 }
 
@@ -81,6 +89,7 @@ VectorXd Classifier::load_fc_b(const string &file) {
   for (int r = 0; r < row; r++) {
     fscanf(fp, "%lf", &vec(r));
   }
+  fclose(fp);
   return vec;
 }
 
