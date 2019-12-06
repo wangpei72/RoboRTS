@@ -106,6 +106,7 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
     FilterArmors(src_realSense_img_, armor_boxs);
     ArmorBoxs newArmorBoxs;
+    ROS_INFO("test new box");
     for (ArmorBox armor_box:armor_boxs) {
       if (armor_box.id = classifier(src_realSense_img_.clone()(armor_box.rect)) != 0) {
         newArmorBoxs.push_back(armor_box);
