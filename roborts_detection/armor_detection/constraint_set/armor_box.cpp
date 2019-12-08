@@ -7,7 +7,7 @@ bool roborts_detection::ArmorBox::lengthRatioJudge(const LightBlob &lightBlob_i,
   bool judge = (lightBlob_i.length / lightBlob_i.length < 1.5 &&
       lightBlob_i.length / lightBlob_j.length > 1 / 1.5);
   if (!judge) {
-    printf("LengthRadioNot  ");
+//    printf("LengthRadioNot  ");
   }
   return judge;
 }
@@ -19,7 +19,7 @@ bool roborts_detection::ArmorBox::lenghtJudge(const LightBlob &lightBlob_i, cons
   bool judge = (side_lenght / lightBlob_i.length < 10 && side_lenght / lightBlob_i.length
       && side_lenght / lightBlob_j.length < 10 && side_lenght / lightBlob_j.length);
   if (!judge) {
-    printf("LenghtNot ");
+//    printf("LenghtNot ");
   }
   return judge;
 }
@@ -31,7 +31,7 @@ bool roborts_detection::ArmorBox::angelJudge(const LightBlob &lightBlob_i, const
                   lightBlob_j.rect.angle - 90;
   bool judge = abs(angle_i - angle_j) < 20;
   if (!judge) {
-    printf("angleNot ");
+//    printf("angleNot ");
   }
   return judge;
 }
@@ -39,10 +39,10 @@ bool roborts_detection::ArmorBox::angelJudge(const LightBlob &lightBlob_i, const
 bool roborts_detection::ArmorBox::isCoupleLight(const LightBlob &light_blob_i,
                                                 const LightBlob &light_blob_j,
                                                 uint8_t enemy_color) {
-  printf("enemr color is %d enemy color is %d and target is %d\n",
-         light_blob_i.blob_color,
-         light_blob_j.blob_color,
-         enemy_color);
+//  printf("enemr color is %d enemy color is %d and target is %d\n",
+//         light_blob_i.blob_color,
+//         light_blob_j.blob_color,
+//         enemy_color);
   return light_blob_i.blob_color == enemy_color &&
       light_blob_j.blob_color == enemy_color &&
       lengthRatioJudge(light_blob_i, light_blob_j) &&

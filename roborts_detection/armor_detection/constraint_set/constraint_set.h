@@ -163,7 +163,7 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param src Input image
    * @param lights Output lights information
    */
-  void DetectLights(const cv::Mat &src, LightBlobs &light_blobs);
+  void DetectLights(cv::Mat &src, LightBlobs &light_blobs);
   /**
    * @brief Finding possible armors.
    * @param lights Take lights information as input.

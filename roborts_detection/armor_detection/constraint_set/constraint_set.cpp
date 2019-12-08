@@ -106,7 +106,6 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
 //    FilterArmors(src_realSense_img_, armor_boxs);
     ArmorBoxs newArmorBoxs;
-    ROS_INFO("test new box");
     for (ArmorBox armor_box:armor_boxs) {
       cv::Mat resizeClassifier = src_realSense_img_(armor_box.rect).clone();
       cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
@@ -198,7 +197,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   return error_info_;
 }
 
-void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
+void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
   //std::cout << "********************************************DetectLights********************************************" << std::endl;
   cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
   cv::dilate(src, src, element, cv::Point(-1, -1), 1);
@@ -216,7 +215,6 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
       thresh = red_thread_;
     cv::threshold(rgb_channel, binary_color_img, thresh, 255, CV_THRESH_BINARY);
   }
-  //binary_light_img = binary_color_img & binary_brightness_img;
   if (enable_debug_) {
     cv::imshow("binary_brightness_img", binary_brightness_img);
     cv::imshow("binary_color_img", binary_color_img);
@@ -236,14 +234,14 @@ void ConstraintSet::DetectLights(const cv::Mat &src, LightBlobs &light_blobs) {
         if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
           light_blobs.emplace_back(rect,
                                    LightBlob::areaRatio(light_contours[i], rect),
-                                   cv_toolbox_->get_rect_color(src_realSense_img_, rect));
+                                   cv_toolbox_->get_rect_color(src, rect));
         }
       }
     }
   }
 
   if (light_blobs.size() > 0) {
-    cv_toolbox_->imshowLightBlobs(src_realSense_img_, light_blobs, "light_blobs");
+    cv_toolbox_->imshowLightBlobs(src, light_blobs, "light_blobs");
   }
   auto c = cv::waitKey(1);
   if (c == 'a') {
@@ -286,7 +284,7 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   }
   for (ArmorBox armor_box1 : armor_boxs) {
   }
-  cv_toolbox_->imshowArmorBoxs(src_realSense_img_, armor_boxs, "blank");
+  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");
 }
 
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
