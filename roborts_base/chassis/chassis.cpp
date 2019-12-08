@@ -132,6 +132,9 @@ void Chassis::ChassisSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &vel
   chassis_speed.vw = vel->angular.z * 1800.0 / M_PI;
   chassis_speed.rotate_x_offset = 0;
   chassis_speed.rotate_y_offset = 0;
+  ROS_INFO("send speed vx : [%d] ",vel->linear.x*1000);
+  ROS_INFO("send speed vx : [%d] ",vel->linear.y*1000);
+  ROS_INFO("send speed vx : [%d] ",vel->angular.z * 1800.0 / M_PI);
   chassis_speed_pub_->Publish(chassis_speed);
 }
 
