@@ -104,7 +104,7 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
     cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
     DetectLights(src_realSense_img_, light_blobs);
     PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
-    FilterArmors(src_realSense_img_, armor_boxs);
+//    FilterArmors(src_realSense_img_, armor_boxs);
     ArmorBoxs newArmorBoxs;
     ROS_INFO("test new box");
     for (ArmorBox armor_box:armor_boxs) {
@@ -122,14 +122,6 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   LightBlobs light_blobs;
   ArmorBoxs armor_boxs;
-  std::vector<cv::RotatedRect> lights;
-  std::vector<ArmorInfo> armors;
-
-  //test realsense
-  ros::spinOnce();
-  realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
-                                                                 1,
-                                                                 &ConstraintSet::getRealsenseMat, this);
 
   auto img_begin = std::chrono::high_resolution_clock::now();
   bool sleep_by_diff_flag = true;
@@ -171,7 +163,8 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
       (std::chrono::high_resolution_clock::now() - img_begin).count());*/
 
   auto detection_begin = std::chrono::high_resolution_clock::now();
-//  cv::imshow("orgin", src_img_);
+
+  cv::cvtColor(src_img_, gray_img_, CV_BGR2GRAY);
   if (enable_debug_) {
     show_lights_before_filter_ = src_img_.clone();
     show_lights_after_filter_ = src_img_.clone();
@@ -180,31 +173,28 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
     cv::waitKey(1);
   }
 
-//test realsense
-  if (!src_realSense_img_.empty()) {
-    cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
-    DetectLights(src_realSense_img_, light_blobs);
-    PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
-  }
-
-//test realSense
-//  DetectLights(src_realSense_img_, light_blobs);
-//  PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
-  FilterArmors(armors);
-  if (!armors.empty()) {
+  DetectLights(src_img_, light_blobs);
+  PossibleArmors(src_img_, light_blobs, armor_boxs);
+//  FilterArmors(armors);
+  if (!armor_boxs.empty()) {
     detected = true;
-    ArmorInfo final_armor = SlectFinalArmor(armors);
-    cv_toolbox_->DrawRotatedRect(src_img_, armors[0].rect, cv::Scalar(0, 255, 0), 2);
-    CalcControlInfo(final_armor, target_3d);
-  } else {
+    //下面三行暂时注释 暂未实现下面两个函数
+//    ArmorInfo final_armor = SlectFinalArmor(armors);
+//    cv_toolbox_->DrawRotatedRect(src_img_, armors[0].rect, cv::Scalar(0, 255, 0), 2);
+//    CalcControlInfo(final_armor, target_3d);
+  } else
     detected = false;
+  if (enable_debug_) {
+    cv::imshow("relust_img_", src_img_);
   }
 
-  lights.clear();
-  armors.clear();
+  light_blobs.clear();
+  armor_boxs.clear();
   cv_toolbox_->ReadComplete(read_index_);
+  ROS_INFO("read complete");
   detection_time_ = std::chrono::duration<double, std::ratio<1, 1000000>>
       (std::chrono::high_resolution_clock::now() - detection_begin).count();
+
   return error_info_;
 }
 
@@ -265,6 +255,7 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   cv::Mat result_pic_blank = src.clone();
   LightBlobs lightBlobsTemp;
   lightBlobsTemp.swap(lightBlobs);
+  //TODO 增加置信度
   for (int i = 0; i < lightBlobsTemp.size(); i++) {
     for (int j = i + 1; j < lightBlobsTemp.size(); j++) {
       if (!ArmorBox::isCoupleLight(lightBlobsTemp.at(i), lightBlobsTemp.at(j), enemy_color_)) {
