@@ -4,14 +4,14 @@
 #include "io/io.h"
 #include "chassis_executor.h"
 #include "../proto/decision.pb.h"
-#include "../proto/controller.pb.h"
 
 namespace roborts_decision {
 
 ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
                                      global_planner_client_("global_planner_node_action", true),
                                      local_planner_client_("local_planner_node_action", true),
-                                     pid_controller_client_("pid_planner_node_action", true) {
+                                     pid_controller_client_("pid_planner_node_action", true)
+                                     {
   ros::NodeHandle nh;
   cmd_vel_acc_pub_ = nh.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
@@ -21,6 +21,7 @@ ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), e
   local_planner_client_.waitForServer();
   ROS_INFO("Local planer server start!");
   pid_controller_client_.waitForServer();
+  ROS_INFO("PID controller server start!");
 
 //  if (!LoadParam(ros::package::getPath("roborts_decision") + "/config/chassis_executor.prototxt")) {
 //    ROS_ERROR("%s can't open file", __FUNCTION__);
@@ -53,7 +54,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
 }
 
 void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _goal_mode) {
-  printf("Now in the Execute1");
+  printf("Now in the Execute add \n");
   if (_goal_mode == GoalMode::GOAL_MODE_USE_GOLBAL_LOCAL_PLANNER) {
 
     if (execution_mode_ == ExcutionMode::GOAL_FROM_ODOM_MODE) {
@@ -127,14 +128,34 @@ BehaviorState ChassisExecutor::Update() {
       }
       break;
 
+    case ExcutionMode::GOAL_FROM_ODOM_MODE:state = pid_controller_client_.getState();
+      if (state == actionlib::SimpleClientGoalState::ACTIVE){
+        ROS_INFO("%s : pid_controller_client ACTIVE", __FUNCTION__);
+        execution_state_ = BehaviorState::RUNNING;
+      }else if (state == actionlib::SimpleClientGoalState::PENDING) {
+        ROS_INFO("%s : pid_controller_client PENDING", __FUNCTION__);
+        execution_state_ = BehaviorState::RUNNING;
+
+      } else if (state == actionlib::SimpleClientGoalState::SUCCEEDED) {
+        ROS_INFO("%s : pid_controller_client SUCCEEDED", __FUNCTION__);
+        execution_state_ = BehaviorState::SUCCESS;
+
+      } else if (state == actionlib::SimpleClientGoalState::ABORTED) {
+        ROS_INFO("%s : pid_controller_client ABORTED", __FUNCTION__);
+        execution_state_ = BehaviorState::FAILURE;
+
+      } else {
+        ROS_ERROR("pid_controller_client Error: %s", state.toString().c_str());
+        execution_state_ = BehaviorState::FAILURE;
+      }
+      break;
+
     case ExcutionMode::SPEED_MODE:execution_state_ = BehaviorState::RUNNING;
       break;
 
     case ExcutionMode::SPEED_WITH_ACCEL_MODE:execution_state_ = BehaviorState::RUNNING;
       break;
 
-    case ExcutionMode::GOAL_FROM_ODOM_MODE:execution_state_ = BehaviorState::RUNNING;
-      break;
 
     default:ROS_ERROR("Wrong Execution Mode");
   }
