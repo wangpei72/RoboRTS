@@ -99,6 +99,7 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
   realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
                                                                  1,
                                                                  &ConstraintSet::getRealsenseMat, this);
+  //wp test
   Classifier classifier = Classifier("/home/xqj/roborts_ws/src/roborts_detection/armor_detection/para/");
   if (!src_realSense_img_.empty()) {
     cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
