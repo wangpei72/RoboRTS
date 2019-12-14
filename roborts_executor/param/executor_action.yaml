@@ -1,0 +1,33 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  chassis_d: 0.0
+  chassis_has_threshold: false
+  chassis_i: 0.0
+  chassis_p: 1.0
+  chassis_threshold: 0.0
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      chassis_d: 0.0
+      chassis_has_threshold: false
+      chassis_i: 0.0
+      chassis_p: 1.0
+      chassis_threshold: 0.0
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      id: 0
+      name: Default
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      publisher_name: cmd_vel
+      server_name: action_server
+      state: true
+      subscriber_name: odom
+      type: ''
+      yaw_goal_tolerance: 0.2
+    state: []
+  publisher_name: cmd_vel
+  server_name: action_server
+  subscriber_name: odom
+  yaw_goal_tolerance: 0.2
+state: []

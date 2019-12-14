@@ -8,6 +8,8 @@
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_datatypes.h>
+
+#include <utility>
 #include "utils/utils.h"
 #include "roborts_msgs/PIDControllerTowardAngularAction.h"
 #include "pid_controller/pid_controller.h"
@@ -22,7 +24,7 @@ class PIDControllerExecuteActionServer {
 
   PIDControllerExecuteActionServer(ros::NodeHandle nh, std::string action_name) :
       action_server_(nh,
-                     action_name,
+                     std::move(action_name),
                      boost::bind(&PIDControllerExecuteActionServer::pid_controller_chassis_execute, this, _1), false) {
 
     action_server_.registerPreemptCallback(boost::bind(&PIDControllerExecuteActionServer::preemptCallBack, this));
@@ -38,9 +40,7 @@ class PIDControllerExecuteActionServer {
     action_server_.start();
   }
 
-  ~PIDControllerExecuteActionServer() {
-
-  }
+  ~PIDControllerExecuteActionServer() = default;
 
   void pid_controller_chassis_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
     ROS_INFO("Received goal!");

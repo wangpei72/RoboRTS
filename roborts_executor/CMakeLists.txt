@@ -33,6 +33,7 @@ include_directories(
 
 add_executable(executor_action_node
         executor_action/pid_controller_executor_action_server.cpp
+        executor_action/pid_controller_executor_action_server.h
         ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
 
 )
