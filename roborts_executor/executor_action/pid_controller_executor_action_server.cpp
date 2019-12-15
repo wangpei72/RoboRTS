@@ -24,29 +24,29 @@ class PIDControllerExecuteActionServer {
   PIDControllerExecuteActionServer(ros::NodeHandle nh, std::string action_name) :
       action_server_(nh,
                      std::move(action_name),
-                     boost::bind(&PIDControllerExecuteActionServer::pid_controller_chassis_execute, this, _1), false) {
+                     boost::bind(&PIDControllerExecuteActionServer::pid_controller_execute, this, _1), false) {
 
     action_server_.registerPreemptCallback(boost::bind(&PIDControllerExecuteActionServer::preemptCallBack, this));
 
     cmd_vel_pub_ =
         nh.advertise<geometry_msgs::Twist>(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetPublisherName(),
                                            1);
-    odom_sub_ = nh.subscribe<nav_msgs::Odometry>(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetSubscriberName(),
-                                         1,
-                                         &PIDControllerExecuteActionServer::ChassisOdomCallback,
-                                         this);
+    pose_sub_ = nh.subscribe<nav_msgs::Odometry>(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetSubscriberName(),
+                                                 1,
+                                                 &PIDControllerExecuteActionServer::ClientPoseCallback,
+                                                 this);
 
     action_server_.start();
   }
 
   ~PIDControllerExecuteActionServer() = default;
 
-  void pid_controller_chassis_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
+  void pid_controller_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
     ROS_INFO("Received goal!");
     roborts_msgs::PIDControllerTowardAngularFeedback feedback;
     ros::Rate rate(50);
 
-    auto now_yaw = tf::getYaw(this->chassis_odom_.pose.pose.orientation);
+    auto now_yaw = tf::getYaw(this->client_pose_.pose.pose.orientation);
     auto goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
     auto chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, now_yaw);
 
@@ -69,7 +69,7 @@ class PIDControllerExecuteActionServer {
 
       geometry_msgs::Twist vel;
 
-      chassis_yaw = tf::getYaw(this->chassis_odom_.pose.pose.orientation);
+      chassis_yaw = tf::getYaw(this->client_pose_.pose.pose.orientation);
       goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
@@ -110,17 +110,17 @@ class PIDControllerExecuteActionServer {
     }
   }
 
-  void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg) {
-    this->chassis_odom_ = *msg;
+  void ClientPoseCallback(const nav_msgs::Odometry::ConstPtr &msg) {
+    this->client_pose_ = *msg;
   }
 
  private:
 
   actionlib::SimpleActionServer<roborts_msgs::PIDControllerTowardAngularAction> action_server_;
 
-  ros::Subscriber odom_sub_;
+  ros::Subscriber pose_sub_;
 
-  nav_msgs::Odometry chassis_odom_;
+  nav_msgs::Odometry client_pose_;
 
   ros::Publisher cmd_vel_pub_;
 

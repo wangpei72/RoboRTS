@@ -27,19 +27,19 @@ class PIDControllerExecuteActionServer {
 
   virtual ~PIDControllerExecuteActionServer();
 
-  void pid_controller_chassis_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal);
+  void pid_controller_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal);
 
   void preemptCallBack();
 
-  void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
+  void ClientPoseCallback(const nav_msgs::Odometry::ConstPtr &msg);
 
  private:
 
   actionlib::SimpleActionServer<roborts_msgs::PIDControllerTowardAngularAction> action_server_;
 
-  ros::Subscriber odom_sub_;
+  ros::Subscriber pose_sub_;
 
-  nav_msgs::Odometry chassis_odom_;
+  nav_msgs::Odometry client_pose_;
 
   ros::Publisher cmd_vel_pub_;
 

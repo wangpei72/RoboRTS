@@ -25,11 +25,10 @@ class AttackBehavior {
  public:
   AttackBehavior(ChassisExecutor *&chassis_executor,
                  GimbalExecutor *&gimbal_executor,
-                 Blackboard *blackboard): chassis_executor_(chassis_executor),
+                 Blackboard *blackboard) : chassis_executor_(chassis_executor),
                                            gimbal_executor_(gimbal_executor),
                                            blackboard_(blackboard) {
   }
-
 
   void Start() {
 
@@ -70,7 +69,8 @@ class AttackBehavior {
     residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
     residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
-    // gimbal_executor_->Execute(residual_gimbal_angle);
+
+//     gimbal_executor_->Execute(residual_gimbal_angle);
   }
 
   void ChassisRotationAction() {
@@ -79,11 +79,12 @@ class AttackBehavior {
     static int point_index = 0;
     auto new_goal = chassis_rot_points.at(point_index);
 
-      printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
-      chassis_executor_-> Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
-      printf("Execute  \n");
+    printf("ChassisRotationAction()%lf  %lf  \n", new_goal.pose.position.x, new_goal.pose.position.y);
+    //TODO chassis exec
+    chassis_executor_->Execute(new_goal, ChassisExecutor::GoalMode::GOAL_MODE_USE_ODOM_DATA);
+    printf("Execute  \n");
 
-    if (chassis_executor_state == BehaviorState::SUCCESS){
+    if (chassis_executor_state == BehaviorState::SUCCESS) {
 
       point_index = (++point_index) % 2;
       printf("change the goal ----- in the ChassisRotationAction!");
@@ -118,7 +119,6 @@ class AttackBehavior {
     chassis_executor_->Cancel();
     gimbal_executor_->Cancel();
   }
-
 
   BehaviorState ChassisExecutorUpdate() {
     return chassis_executor_->Update();

@@ -86,6 +86,7 @@ void Command() {
               << "4: search behavior" << std::endl
               << "5: escape behavior" << std::endl
               << "6: goal behavior" << std::endl
+              << "7: attack behavior" << std::endl
               << "esc: exit program" << std::endl;
     std::cout << "**************************************************************************************" << std::endl;
     std::cout << "> ";
