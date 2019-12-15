@@ -5,7 +5,13 @@
           type="executor_action_node"
           output="screen"
           required="true">
-        <rosparam command="load" file="$(find roborts_executor)/param/executor_action.yaml"/>
+    </node>
+
+    <node pkg="roborts_decision"
+          name="behavior_test_node"
+          type="behavior_test_node"
+          output="screen"
+          required="true">
     </node>
 
     <node pkg="dynamic_reconfigure"

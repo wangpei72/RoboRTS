@@ -4,7 +4,6 @@
 
 #include <ros/ros.h>
 #include <actionlib/server/simple_action_server.h>
-#include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_datatypes.h>
@@ -59,8 +58,8 @@ class PIDControllerExecuteActionServer {
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PThreshold());
 
     printf("chassis_yaw - goal_yaw = %lf", chassis_yaw - goal_yaw);
-
-    while (fabs(chassis_yaw - goal_yaw) >= roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetYawGaolTolerance()) {
+    double difference_yaw = chassis_yaw -goal_yaw;
+    while (difference_yaw * (chassis_yaw - goal_yaw) > 0) {
 
       pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
       pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
@@ -89,6 +88,7 @@ class PIDControllerExecuteActionServer {
       vel.angular.z = pid_controller_toward_angular.output();
       printf("output vel = %lf \n", vel.angular.z);
       cmd_vel_pub_.publish(vel);
+      difference_yaw = chassis_yaw - goal_yaw;
 
       printf("chassis_yaw = %lf \n", chassis_yaw);
       feedback.differ_angle = chassis_yaw;
