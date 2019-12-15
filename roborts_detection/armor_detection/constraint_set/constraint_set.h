@@ -28,7 +28,7 @@
 #include "state/error_code.h"
 
 #include "cv_toolbox.h"
-#include "light_blob.h"
+#include "light_bolb.h"
 #include "armor_box.h"
 #include "../armor_detection_base.h"
 
@@ -108,21 +108,21 @@ struct LightInfo {
 ///**
 // *  This class describes the lights information.
 // */
-//class LightBlob {
+//class LightBolb {
 // public:
 //  RotatedRect rect;//灯条位置
 //  double area_ratio;//轮廓面积和其最小外接矩形面积之比
 //  double length;//灯条长度
-//  uint8_t blob_color;//灯条颜色
-//  LightBlob(RotatedRect &rotatedRect, double ratio, uint8_t color)
-//      : rect(rotatedRect), area_ratio(ratio), blob_color(color) {
+//  uint8_t bolb_color;//灯条颜色
+//  LightBolb(RotatedRect &rotatedRect, double ratio, uint8_t color)
+//      : rect(rotatedRect), area_ratio(ratio), bolb_color(color) {
 //    length = max(rotatedRect.size.height, rotatedRect.size.width);
 //  };
 //
-//  LightBlob() = default;
+//  LightBolb() = default;
 //};
 //
-//typedef vector<LightBlob> LightBlobs;
+//typedef vector<LightBolb> LightBolbs;
 
 /**
  *  This class describes the armor information, including maximum bounding box, vertex, standard deviation.
@@ -163,13 +163,13 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param src Input image
    * @param lights Output lights information
    */
-  void DetectLights(cv::Mat &src, LightBlobs &light_blobs);
+  void DetectLights(cv::Mat &src, LightBolbs &light_bolbs);
   /**
    * @brief Finding possible armors.
    * @param lights Take lights information as input.
    * @param armors Possible armors
    */
-  void PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBoxs &armor_boxs);
+  void PossibleArmors(cv::Mat &src, LightBolbs &lightBolbs, ArmorBoxs &armor_boxs);
   /**
    * @brief Filtering Detected armors by standard deviation and non-maximum suppression(nms).
    * @param armors Result armors
