@@ -100,7 +100,7 @@ ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &tar
                                                                  1,
                                                                  &ConstraintSet::getRealsenseMat, this);
   //wp test
-  Classifier classifier = Classifier("/home/xqj/roborts_ws/src/roborts_detection/armor_detection/para/");
+  Classifier classifier = Classifier("/home/wangpei/wangpei_ws/src/roborts_detection/armor_detection/para/");
   if (!src_realSense_img_.empty()) {
     cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
     DetectLights(src_realSense_img_, light_bolbs);
@@ -230,7 +230,7 @@ void ConstraintSet::DetectLights(cv::Mat &src, LightBolbs &light_bolbs) {
     //此时没有父轮廓，是最大的轮廓
     if (hierarchy[i][2] == -1) {
       cv::RotatedRect rect = minAreaRect(light_contours[i]);
-      if (LightBolb::isVaildLightBolb(light_contours[i], rect)) {
+      if (LightBolb::isValidLightBolb(light_contours[i], rect)) {
         rotatedRects.push_back(rect);
         if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
           light_bolbs.emplace_back(rect,

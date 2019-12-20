@@ -30,9 +30,9 @@ class ArmorBox {
 
   static bool lengthRatioJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
 
-  static bool lenghtJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
+  static bool lengthJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
 
-  static bool angelJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
+  static bool angleJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
 
   static bool isCoupleLight(const LightBolb &light_bolb_i, const LightBolb &light_bolb_j, uint8_t enemy_color);
 

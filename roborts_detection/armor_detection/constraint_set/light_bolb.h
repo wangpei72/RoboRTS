@@ -25,7 +25,7 @@ class LightBolb {
   static double areaRatio(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
 
   //判断是否是一个灯条
-  static bool isVaildLightBolb(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
+  static bool isValidLightBolb(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
 
   static double light_area_threshold;
   static double light_small_ratio;
