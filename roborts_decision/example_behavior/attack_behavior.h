@@ -28,6 +28,7 @@ class AttackBehavior {
                  Blackboard *blackboard) : chassis_executor_(chassis_executor),
                                            gimbal_executor_(gimbal_executor),
                                            blackboard_(blackboard) {
+    ros::NodeHandle nh;
   }
 
   void Start() {
@@ -61,16 +62,26 @@ class AttackBehavior {
     auto gimbal_goal_map_yaw_q = tf::createQuaternionFromYaw(gimbal_goal_map_yaw);
     auto residual_yaw = gimbal_goal_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
 
+    //Publish the cur difference angle between gimbal_map and chassis_map
+    auto gimbal_cur_map_yaw = tf::getYaw(blackboard_->GetGimbalMapPose().pose.orientation);
+    auto gimbal_cur_map_yaw_q = tf::createQuaternionFromYaw(gimbal_cur_map_yaw);
+    auto residual_cur_yaw = gimbal_cur_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
+    geometry_msgs::PoseStamped residual_cur_gimbal_angle;
+    residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,gimbal_goal_map_pitch,residual_cur_yaw);
+
+
     std::cout << terminal_io_color::RED << "residual_yaw" << residual_yaw << terminal_io_color::BLANK << std::endl;
 
-    roborts_msgs::GimbalAngle residual_gimbal_angle{};
-    residual_gimbal_angle.yaw_mode = 0;
-    residual_gimbal_angle.pitch_mode = 0;
-    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
-    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
+//    roborts_msgs::GimbalAngle residual_gimbal_angle{};
+//    residual_gimbal_angle.yaw_mode = 0;
+//    residual_gimbal_angle.pitch_mode = 0;
+//    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
+//    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
+    geometry_msgs::PoseStamped residual_gimbal_angle;
+    residual_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,gimbal_goal_map_pitch,kscale * residual_yaw);
 
-//     gimbal_executor_->Execute(residual_gimbal_angle);
+//    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
   }
 
   void ChassisRotationAction() {
@@ -143,6 +154,8 @@ class AttackBehavior {
 
   //! chassis rotation points
   std::vector<geometry_msgs::PoseStamped> chassis_rot_points{};
+
+
 };
 }
 }

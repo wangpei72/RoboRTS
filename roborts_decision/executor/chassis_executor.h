@@ -110,9 +110,10 @@ class ChassisExecutor {
   //! zero twist with acceleration in form of ROS roborts_msgs::TwistAccel
   roborts_msgs::TwistAccel zero_twist_accel_;
 
-  ros::Subscriber odom_sub_;
-  nav_msgs::Odometry chassis_odom_;
-  void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
+  //TODO delete
+//  ros::Subscriber odom_sub_;
+//  nav_msgs::Odometry chassis_odom_;
+//  void ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg);
 
 //  bool LoadParam(const std::string &proto_file_path);
 //  double chassis_v2p_pid_kp;

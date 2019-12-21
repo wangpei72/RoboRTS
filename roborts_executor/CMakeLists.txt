@@ -31,15 +31,24 @@ include_directories(
 )
 
 
-add_executable(executor_action_node
-        executor_action/pid_controller_executor_action_server.cpp
+add_executable(chassis_executor_action_node
         executor_action/pid_controller_executor_action_server.h
+        chassis_executor_action_behavior.cpp
         ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
-
 )
+
+add_executable(gimbal_executor_action_node
+        executor_action/pid_controller_executor_action_server.h
+        gimbal_executor_action_behavior.cpp
+        ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
+        )
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(executor_action_node
+target_link_libraries(chassis_executor_action_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(gimbal_executor_action_node
         ${catkin_LIBRARIES}
         )

@@ -56,6 +56,7 @@ class Gimbal {
    */
   void GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg);
 
+  void ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg);
   /**
    * @brief Gimbal mode set service callback in ROS
    * @param req Gimbal mode set as request
@@ -115,6 +116,12 @@ class Gimbal {
   geometry_msgs::TransformStamped gimbal_tf_;
   //! ros gimbal tf broadcaster
   tf::TransformBroadcaster tf_broadcaster_;
+  //! ros publish gimbal pose in map
+  ros::Publisher gimbal_map_pose_pub_;
+
+  ros::Subscriber chassis_map_pose_sub_;
+  geometry_msgs::PoseStamped chassis_map_pose;
+
 
 };
 }

@@ -15,13 +15,13 @@ ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), e
   ros::NodeHandle nh;
   cmd_vel_acc_pub_ = nh.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-  odom_sub_ = nh.subscribe<nav_msgs::Odometry>("odom", 100, &ChassisExecutor::ChassisOdomCallback, this);
+//  odom_sub_ = nh.subscribe<nav_msgs::Odometry>("odom", 100, &ChassisExecutor::ChassisOdomCallback, this);
   global_planner_client_.waitForServer();
   ROS_INFO("Global planer server start!");
   local_planner_client_.waitForServer();
   ROS_INFO("Local planer server start!");
   pid_controller_client_.waitForServer();
-  ROS_INFO("PID controller server start!");
+  ROS_INFO("PID controller chassis server start!");
 
 //  if (!LoadParam(ros::package::getPath("roborts_decision") + "/config/chassis_executor.prototxt")) {
 //    ROS_ERROR("%s can't open file", __FUNCTION__);
@@ -203,7 +203,7 @@ void ChassisExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDContr
   //TODO
 }
 
-void ChassisExecutor::ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg) {
-  this->chassis_odom_ = *msg;
-}
+//void ChassisExecutor::ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg) {
+//  this->chassis_odom_ = *msg;
+//}
 }
