@@ -90,8 +90,8 @@ void Gimbal::ROS_Init() {
   gimbal_tf_.header.frame_id = "base_link";
   gimbal_tf_.child_frame_id = "gimbal";
 
-  gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
-  chassis_map_pose_sub_ = ros_nh_.subscribe("chassis_pose",1,&Gimbal::ChassisPoseCallback,this);
+//  gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
+//  chassis_map_pose_sub_ = ros_nh_.subscribe("chassis_pose",1,&Gimbal::ChassisPoseCallback,this);
 
 }
 
@@ -109,16 +109,16 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   tf_broadcaster_.sendTransform(gimbal_tf_);
 
   //Publish the cur difference angle between gimbal_map and chassis_map
-  auto gimbal_cur_map_yaw = tf::getYaw(q);
-  auto gimbal_cur_map_yaw_q = tf::createQuaternionFromYaw(gimbal_cur_map_yaw);
-
-  auto chassis_cur_map_yaw = tf::getYaw(chassis_map_pose.pose.orientation);
-  auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
-  auto residual_cur_yaw = gimbal_cur_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
-
-  geometry_msgs::PoseStamped residual_cur_gimbal_angle;
-  residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,residual_cur_yaw);
-  gimbal_map_pose_pub_.publish(residual_cur_gimbal_angle);
+//  auto gimbal_cur_map_yaw = tf::getYaw(q);
+//  auto gimbal_cur_map_yaw_q = tf::createQuaternionFromYaw(gimbal_cur_map_yaw);
+//
+//  auto chassis_cur_map_yaw = tf::getYaw(chassis_map_pose.pose.orientation);
+//  auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
+//  auto residual_cur_yaw = gimbal_cur_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
+//
+//  geometry_msgs::PoseStamped residual_cur_gimbal_angle;
+//  residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,residual_cur_yaw);
+//  gimbal_map_pose_pub_.publish(residual_cur_gimbal_angle);
 
 
 
