@@ -56,7 +56,7 @@ class Gimbal {
    */
   void GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg);
 
-  void ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg);
+//  void ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg);
   /**
    * @brief Gimbal mode set service callback in ROS
    * @param req Gimbal mode set as request

@@ -124,9 +124,9 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
 
 }
 
-void Gimbal::ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-  this->chassis_map_pose = *msg;
-}
+//void Gimbal::ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
+//  this->chassis_map_pose = *msg;
+//}
 void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg) {
 
   roborts_sdk::cmd_gimbal_angle gimbal_angle;
