@@ -25,6 +25,8 @@ class ArmorBox {
   ArmorBox(cv::Rect2d rect_2_d, LightBlobs light_blobs1, uint8_t box_color_init,
            int id_init = 1);
 
+  //构造一个存在的装甲板
+  ArmorBox(int id_inti = -1);
 
   //以下用于灯管匹配的函数
 

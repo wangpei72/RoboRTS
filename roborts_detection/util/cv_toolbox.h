@@ -382,6 +382,27 @@ class CVToolbox {
     imshow(fileName, result_pic);
   }
 
+  float getDepthByRealSense(cv::Mat realSenseSrc, float x, float y) {
+    float z = 0;
+    float count = 0;
+    for (int i = 0; i < realSenseSrc.rows; i++) {
+      short *p = realSenseSrc.ptr<short>(i);
+      for (int j = 0; j < realSenseSrc.cols; j++) {
+        if ((i - x) * (i - x) + (j - y) * (j - y) < 10) {
+          if (isnanf((float) p[j]))
+            continue;
+          if (abs(p[j] > 4000))
+            continue;
+          z += (float) p[j];
+          count++;
+        }
+      }
+    }
+    ROS_INFO("count number is %lf", count);
+    if (count < 1)
+      return -1;
+    return z / count;
+  }
  private:
   std::vector<cv::Mat> image_buffer_;
   std::vector<BufferState> buffer_state_;

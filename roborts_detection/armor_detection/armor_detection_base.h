@@ -31,8 +31,10 @@ class ArmorDetectionBase {
   ArmorDetectionBase(std::shared_ptr<CVToolbox> cv_toolbox)
       : cv_toolbox_(cv_toolbox) {};
   virtual void LoadParam() = 0;
+  virtual ErrorInfo NewDetectArmor(bool &detected, cv::Point3f &target_3d) = 0;
+  //下面的是原框架函数
   virtual ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) = 0;
-  virtual ErrorInfo DetectArmorByRealSense(bool &detected, cv::Point3f &target_3d) = 0;
+  virtual ErrorInfo SearchArmor(bool &detected, cv::Point3f &target_3d) = 0;
   virtual void SetThreadState(bool thread_state) = 0;
   virtual ~ArmorDetectionBase() = default;
  protected:

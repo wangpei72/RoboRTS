@@ -37,8 +37,11 @@ ConstraintSet::ConstraintSet(std::shared_ptr<CVToolbox> cv_toolbox) :
   detection_time_ = 0;
   thread_running_ = false;
 
+  nh = ros::NodeHandle();
   LoadParam();
   error_info_ = ErrorInfo(roborts_common::OK);
+
+  state = SEARCHING_STATE;
 }
 
 void ConstraintSet::LoadParam() {
@@ -88,33 +91,130 @@ void ConstraintSet::LoadParam() {
 
 }
 
-void ConstraintSet::getRealsenseMat(sensor_msgs::ImageConstPtr msg) {
-  cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_realSense_img_);
-}
+ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
+  ROS_INFO("ready test");
+  //ros::spinOnce();
 
-ErrorInfo ConstraintSet::DetectArmorByRealSense(bool &detected, cv::Point3f &target_3d) {
-  LightBlobs light_blobs;
-  ArmorBoxs armor_boxs;
-  ros::spinOnce();
-  realSenseSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+  //暂未更新工业相机订阅话题
+  indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
                                                                  1,
                                                                  &ConstraintSet::getRealsenseMat, this);
-  Classifier classifier = Classifier(ros::package::getPath("roborts_detection") + \
-      "/armor_detection/para/");
-  if (!src_realSense_img_.empty()) {
-    cv::cvtColor(src_realSense_img_, gray_img_, CV_BGR2GRAY);
-    DetectLights(src_realSense_img_, light_blobs);
-    PossibleArmors(src_realSense_img_, light_blobs, armor_boxs);
-//    FilterArmors(src_realSense_img_, armor_boxs);
+  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
+                                                                      1,
+                                                                      &ConstraintSet::getRealsenseDepthMat,
+                                                                      this);
+
+  ros::Rate loop_rate(30);
+  while (ros::ok()) {
+    if (src_realSense_img_.empty()) {
+      ROS_INFO("industrial can't find");
+    }
+    if (src_realSense_depth_img_.empty()) {
+      ROS_INFO("depth can't find");
+    } else {
+      ROS_INFO("get depth height is %d weight is %d",
+               src_realSense_depth_img_.size().height,
+               src_realSense_depth_img_.size().width);
+    }
+    if (!src_realSense_img_.empty() && !src_realSense_depth_img_.empty()) {
+      ROS_INFO("find!!");
+      break;
+    }
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+  //在此处同时更新工业相机和realsense深度图
+  src_industrial_clone = src_realSense_img_.clone();
+  src_depth_clone = src_realSense_depth_img_.clone();
+  ROS_INFO("all get");
+  switch (state) {
+    case SEARCHING_STATE:SearchArmor(detected, target_3d);
+      if (detected) {
+        tracker = cv::TrackerKCF::create();
+        tracker->init(src_industrial_clone, possilbeBox.rect);
+//        state = TRACKING_STATE;
+        //test
+        state = SEARCHING_STATE;
+        tracking_cnt = 0;
+      }
+      break;
+      //进入跟踪状态，执行跟踪函数
+    case TRACKING_STATE:SearchArmor(detected, target_3d);
+      //未找到或者跟踪时间过长
+      if (!tracker->update(src_industrial_clone, possilbeBox.rect) || tracking_cnt++ == 100) {
+        state = SEARCHING_STATE;
+      }
+      break;
+    default:break;
+  }
+  ErrorInfo error_info = ErrorInfo();
+  return error_info;
+}
+
+void ConstraintSet::getRealsenseMat(sensor_msgs::ImageConstPtr msg) {
+  try {
+    cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_realSense_img_);
+//    ROS_INFO("get rgb height is %d weight is %d",
+//             src_realSense_img_.size().height,
+//             src_realSense_img_.size().width);
+  } catch (cv_bridge::Exception &e) {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+  }
+}
+
+void ConstraintSet::getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg) {
+//  cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
+  try {
+    cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
+//    ROS_INFO("get depth height is %d weight is %d",
+//             src_realSense_depth_img_.size().height,
+//             src_realSense_depth_img_.size().width);
+  } catch (cv_bridge::Exception &e) {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+  }
+}
+
+ErrorInfo ConstraintSet::SearchArmor(bool &detected, cv::Point3f &target_3d) {
+  LightBlobs light_blobs;
+  ArmorBoxs armor_boxs;
+//  ROS_INFO("debug1");
+  std::string classFilePath = ros::package::getPath("roborts_detection") + \
+      "/armor_detection/para/";
+  Classifier classifier = Classifier(classFilePath);
+//  ROS_INFO("debug2");
+  if (!src_industrial_clone.empty()) {
+    cv::cvtColor(src_industrial_clone, gray_img_, CV_BGR2GRAY);
+//    ROS_INFO("debug3");
+    DetectLights(src_industrial_clone, light_blobs);
+//    ROS_INFO("debug4");
+    PossibleArmors(src_industrial_clone, light_blobs, armor_boxs);
+//    ROS_INFO("debug5");
     ArmorBoxs newArmorBoxs;
     for (ArmorBox armor_box:armor_boxs) {
-      cv::Mat resizeClassifier = src_realSense_img_(armor_box.rect).clone();
+      cv::Mat resizeClassifier = src_industrial_clone(armor_box.rect).clone();
       cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
       if ((armor_box.id = classifier(resizeClassifier) != 0)) {
+        ROS_INFO("new armor x is %d y is %d", armor_box.center.x, armor_box.center.y);
         newArmorBoxs.push_back(armor_box);
       }
     }
-    cv_toolbox_->imshowArmorBoxs(src_realSense_img_, newArmorBoxs, "classifier");
+    if (newArmorBoxs.size() != 0) {
+      detected = true;
+      possilbeBox = newArmorBoxs[0];
+      ROS_INFO("ready to get depth,x is %d y is %d image x's is %d y's is %d",
+               possilbeBox.center.x,
+               possilbeBox.center.y,
+               src_realSense_depth_img_.rows,
+               src_realSense_depth_img_.cols);
+      target_3d.z =
+          cv_toolbox_->getDepthByRealSense(src_realSense_depth_img_, possilbeBox.center.x, possilbeBox.center.y);
+      ROS_INFO("get depth %lf", target_3d.z);
+    } else {
+      detected = false;
+      possilbeBox = ArmorBox();
+    }
+    cv_toolbox_->imshowArmorBoxs(src_industrial_clone, newArmorBoxs, "classifier");
+    //realsense 获取深度
     return error_info_;
   }
 }
