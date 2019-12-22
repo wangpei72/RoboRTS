@@ -53,7 +53,7 @@ int main(int argc,char** argv)
 
 
     while(nh.ok())
-    {   cv::Mat src(2048,3072,CV_8UC3);
+    {   cv::Mat src(1080,1440,CV_8UC3);
 
         MV_FRAME_OUT_INFO_EX stImageInfo = {0};
 
