@@ -156,6 +156,8 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
   try {
     cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
+    cv::resize(src_industrial_clone, src_industrial_clone, cv::Size(640, 480));
+
 //    ROS_INFO("get rgb height is %d weight is %d",
 //             src_industry_img_.size().height,
 //             src_industry_img_.size().width);
