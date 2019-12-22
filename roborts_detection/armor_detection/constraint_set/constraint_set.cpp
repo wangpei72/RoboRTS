@@ -96,9 +96,9 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
   //ros::spinOnce();
 
   //暂未更新工业相机订阅话题
-  indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+  indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
                                                                  1,
-                                                                 &ConstraintSet::getRealsenseMat, this);
+                                                                 &ConstraintSet::getIndustryMat, this);
   realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
                                                                       1,
                                                                       &ConstraintSet::getRealsenseDepthMat,
@@ -106,7 +106,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 
   ros::Rate loop_rate(30);
   while (ros::ok()) {
-    if (src_realSense_img_.empty()) {
+    if (src_industry_img_.empty()) {
 //      ROS_INFO("industrial can't find");
     }
     if (src_realSense_depth_img_.empty()) {
@@ -116,7 +116,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 //               src_realSense_depth_img_.size().height,
 //               src_realSense_depth_img_.size().width);
     }
-    if (!src_realSense_img_.empty() && !src_realSense_depth_img_.empty()) {
+    if (!src_industry_img_.empty() && !src_realSense_depth_img_.empty()) {
 //      ROS_INFO("find!!");
       break;
     } else {
@@ -126,7 +126,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
     loop_rate.sleep();
   }
   //在此处同时更新工业相机和realsense深度图
-  src_industrial_clone = src_realSense_img_.clone();
+  src_industrial_clone = src_industry_img_.clone();
   src_depth_clone = src_realSense_depth_img_.clone();
 //  ROS_INFO("all get");
   switch (state) {
@@ -153,12 +153,12 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
   return error_info;
 }
 
-void ConstraintSet::getRealsenseMat(sensor_msgs::ImageConstPtr msg) {
+void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
   try {
-    cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_realSense_img_);
+    cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
 //    ROS_INFO("get rgb height is %d weight is %d",
-//             src_realSense_img_.size().height,
-//             src_realSense_img_.size().width);
+//             src_industry_img_.size().height,
+//             src_industry_img_.size().width);
   } catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }

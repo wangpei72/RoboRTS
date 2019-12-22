@@ -214,7 +214,7 @@ class ConstraintSet : public ArmorDetectionBase {
 
   void SetThreadState(bool thread_state) override;
 
-  void getRealsenseMat(sensor_msgs::ImageConstPtr msg);
+  void getIndustryMat(sensor_msgs::ImageConstPtr msg);
 
   void getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg);
 
@@ -284,7 +284,7 @@ class ConstraintSet : public ArmorDetectionBase {
   //ros
   ros::NodeHandle nh;
 
-  cv::Mat src_realSense_img_;
+  cv::Mat src_industry_img_;
   cv::Mat src_realSense_depth_img_;
 
   //避免异步出现不统一的情况
