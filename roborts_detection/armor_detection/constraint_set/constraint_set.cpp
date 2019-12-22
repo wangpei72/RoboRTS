@@ -92,7 +92,7 @@ void ConstraintSet::LoadParam() {
 }
 
 ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
-  ROS_INFO("ready test");
+//  ROS_INFO("ready test");
   //ros::spinOnce();
 
   //暂未更新工业相机订阅话题
@@ -107,18 +107,20 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
   ros::Rate loop_rate(30);
   while (ros::ok()) {
     if (src_realSense_img_.empty()) {
-      ROS_INFO("industrial can't find");
+//      ROS_INFO("industrial can't find");
     }
     if (src_realSense_depth_img_.empty()) {
-      ROS_INFO("depth can't find");
+//      ROS_INFO("depth can't find");
     } else {
-      ROS_INFO("get depth height is %d weight is %d",
-               src_realSense_depth_img_.size().height,
-               src_realSense_depth_img_.size().width);
+//      ROS_INFO("get depth height is %d weight is %d",
+//               src_realSense_depth_img_.size().height,
+//               src_realSense_depth_img_.size().width);
     }
     if (!src_realSense_img_.empty() && !src_realSense_depth_img_.empty()) {
-      ROS_INFO("find!!");
+//      ROS_INFO("find!!");
       break;
+    } else {
+      ROS_INFO("can't get rgb and depth");
     }
     ros::spinOnce();
     loop_rate.sleep();
@@ -126,7 +128,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
   //在此处同时更新工业相机和realsense深度图
   src_industrial_clone = src_realSense_img_.clone();
   src_depth_clone = src_realSense_depth_img_.clone();
-  ROS_INFO("all get");
+//  ROS_INFO("all get");
   switch (state) {
     case SEARCHING_STATE:SearchArmor(detected, target_3d);
       if (detected) {
@@ -194,18 +196,18 @@ ErrorInfo ConstraintSet::SearchArmor(bool &detected, cv::Point3f &target_3d) {
       cv::Mat resizeClassifier = src_industrial_clone(armor_box.rect).clone();
       cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
       if ((armor_box.id = classifier(resizeClassifier) != 0)) {
-        ROS_INFO("new armor x is %d y is %d", armor_box.center.x, armor_box.center.y);
+//        ROS_INFO("new armor x is %d y is %d", armor_box.center.x, armor_box.center.y);
         newArmorBoxs.push_back(armor_box);
       }
     }
     if (newArmorBoxs.size() != 0) {
       detected = true;
       possilbeBox = newArmorBoxs[0];
-      ROS_INFO("ready to get depth,x is %d y is %d image x's is %d y's is %d",
-               possilbeBox.center.x,
-               possilbeBox.center.y,
-               src_realSense_depth_img_.rows,
-               src_realSense_depth_img_.cols);
+//      ROS_INFO("ready to get depth,x is %d y is %d image x's is %d y's is %d",
+//               possilbeBox.center.x,
+//               possilbeBox.center.y,
+//               src_realSense_depth_img_.rows,
+//               src_realSense_depth_img_.cols);
       target_3d.z =
           cv_toolbox_->getDepthByRealSense(src_realSense_depth_img_, possilbeBox.center.x, possilbeBox.center.y);
       ROS_INFO("get depth %lf", target_3d.z);

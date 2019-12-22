@@ -398,7 +398,6 @@ class CVToolbox {
         }
       }
     }
-    ROS_INFO("count number is %lf", count);
     if (count < 1)
       return -1;
     return z / count;
