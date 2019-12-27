@@ -44,7 +44,7 @@ class PIDControllerExecuteActionServer {
   ~PIDControllerExecuteActionServer() = default;
 
   void pid_controller_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
-    ROS_INFO("Received goal!");
+//    ROS_INFO("Received goal!");
     roborts_msgs::PIDControllerTowardAngularFeedback feedback;
     ros::Rate rate(50);
 
