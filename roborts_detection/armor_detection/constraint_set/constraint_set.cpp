@@ -157,7 +157,7 @@ void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
   try {
     cv::Mat src;
     cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src);
-    cv::resize(src, src_industrial_clone, cv::Size(640, 480));
+    cv::resize(src, src_industry_img_, cv::Size(640, 480));
 
 //    ROS_INFO("get rgb height is %d weight is %d",
 //             src_industry_img_.size().height,
