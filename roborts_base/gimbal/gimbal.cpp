@@ -90,8 +90,8 @@ void Gimbal::ROS_Init() {
   gimbal_tf_.header.frame_id = "base_link";
   gimbal_tf_.child_frame_id = "gimbal";
 
-//  gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
-//  chassis_map_pose_sub_ = ros_nh_.subscribe("chassis_pose",1,&Gimbal::ChassisPoseCallback,this);
+  gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
+  chassis_map_pose_sub_ = ros_nh_.subscribe("chassis_pose",1,&Gimbal::ChassisPoseCallback,this);
 
 }
 

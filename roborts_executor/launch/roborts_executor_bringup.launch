@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <launch>
     <node pkg="roborts_executor"
-          name="executor_action_node"
-          type="executor_action_node"
+          name="chassis_executor_action_node"
+          type="chassis_executor_action_node"
+          output="screen"
+          required="true">
+    </node>
+
+    <node pkg="roborts_executor"
+          name="gimbal_executor_action_node"
+          type="gimbal_executor_action_node"
           output="screen"
           required="true">
     </node>
