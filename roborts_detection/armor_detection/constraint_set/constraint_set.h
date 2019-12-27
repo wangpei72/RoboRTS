@@ -218,6 +218,9 @@ class ConstraintSet : public ArmorDetectionBase {
 
   void getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg);
 
+  void getImage(std::string info
+  =="Normal");
+
   ros::Subscriber indusrialSubscriber;
   ros::Subscriber realSenseDepthSubscriber;
   /**

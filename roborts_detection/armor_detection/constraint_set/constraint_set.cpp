@@ -88,43 +88,11 @@ void ConstraintSet::LoadParam() {
 //    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
 //    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
 //  }
-
+  getImage("Debug");
 }
 
 ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
-//  ROS_INFO("ready test");
-  //ros::spinOnce();
-
-  //暂未更新工业相机订阅话题
-  indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
-                                                                 1,
-                                                                 &ConstraintSet::getIndustryMat, this);
-  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
-                                                                      1,
-                                                                      &ConstraintSet::getRealsenseDepthMat,
-                                                                      this);
-
-  ros::Rate loop_rate(30);
-  while (ros::ok()) {
-    if (src_industry_img_.empty()) {
-//      ROS_INFO("industrial can't find");
-    }
-    if (src_realSense_depth_img_.empty()) {
-//      ROS_INFO("depth can't find");
-    } else {
-//      ROS_INFO("get depth height is %d weight is %d",
-//               src_realSense_depth_img_.size().height,
-//               src_realSense_depth_img_.size().width);
-    }
-    if (!src_industry_img_.empty() && !src_realSense_depth_img_.empty()) {
-//      ROS_INFO("find!!");
-      break;
-    } else {
-      ROS_INFO("can't get rgb and depth");
-    }
-    ros::spinOnce();
-    loop_rate.sleep();
-  }
+  getImage("Debug");
   //在此处同时更新工业相机和realsense深度图
   src_industrial_clone = src_industry_img_.clone();
   src_depth_clone = src_realSense_depth_img_.clone();
@@ -135,7 +103,6 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
         tracker = cv::TrackerKCF::create();
         tracker->init(src_industrial_clone, possilbeBox.rect);
 //        state = TRACKING_STATE;
-        //test
         state = SEARCHING_STATE;
         tracking_cnt = 0;
       }
@@ -150,7 +117,43 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
     default:break;
   }
   ErrorInfo error_info = ErrorInfo();
-  return error_info;
+  return
+      error_info;
+}
+
+void ConstraintSet::getImage(std::string info) {
+  //如果采用debug模式，则使用realsense相机获取彩图信息
+  if (info == "Debug") {
+    indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+                                                                   1,
+                                                                   &ConstraintSet::getIndustryMat, this);
+  } else {
+    indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
+                                                                   1,
+                                                                   &ConstraintSet::getIndustryMat, this);
+  }
+  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
+                                                                      1,
+                                                                      &ConstraintSet::getRealsenseDepthMat,
+                                                                      this);
+  ros::Rate loop_rate(30);
+  while (ros::ok()) {
+    if (src_industry_img_.empty()) {
+      ROS_INFO("RGB image can't find");
+    }
+    if (src_realSense_depth_img_.empty()) {
+      ROS_INFO("depth image can't find");
+    } else {
+    }
+    if (!src_industry_img_.empty() && !src_realSense_depth_img_.empty()) {
+//      ROS_INFO("find!!");
+      break;
+    } else {
+      ROS_INFO("can't get rgb and depth");
+    }
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
 }
 
 void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
