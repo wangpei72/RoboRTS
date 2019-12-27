@@ -108,17 +108,11 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
       //进入跟踪状态，执行跟踪函数
     case TRACKING_STATE:trackingTarget(src_industry_clone, src_depth_clone, detected, target_3d);
       //未找到或者跟踪时间过长
-      if (!detected) {
-        ROS_INFO("11111can't tracking");
-        state = SEARCHING_STATE;
-        tracking_cnt = 0;
-      }
-      if (tracking_cnt++ == 100) {
-        ROS_INFO("22222222more than 100");
+      if (!detected || tracking_cnt++ == 100) {
+        ROS_INFO("1111111111go to search state");
         state = SEARCHING_STATE;
         tracking_cnt = 0;
       } else {
-        ROS_INFO("33333333tracking successfully");
         tracker->init(src_industry_clone, possilbeBox.rect);
       }
       break;
@@ -266,6 +260,13 @@ void ConstraintSet::trackingTarget(cv::Mat rgbImage, cv::Mat depthImage, bool &d
   bigger_rect &= cv::Rect2d(0, 0, 640, 480);
   cv::Mat roi = rgbImage(bigger_rect).clone();
   SearchArmor(roi, depthImage, rgbImage, detected, target_3d, bigger_rect.tl());
+  //如果两倍区域没有找到，再全局寻找
+  if (!detected) {
+    ROS_INFO("22222can't find in two region");
+    SearchArmor(rgbImage, depthImage, rgbImage, detected, target_3d);
+  } else {
+    ROS_INFO("333333find in two region");
+  }
 }
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   LightBlobs light_blobs;
