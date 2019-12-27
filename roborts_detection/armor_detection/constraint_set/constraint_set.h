@@ -159,7 +159,12 @@ class ConstraintSet : public ArmorDetectionBase {
    */
   ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) override;
 
-  ErrorInfo SearchArmor(bool &detected, cv::Point3f &target_3d) override;
+  ErrorInfo SearchArmor(cv::Mat rgbImage,
+                        cv::Mat depthImage,
+                        cv::Mat imshowImage,
+                        bool &detected,
+                        cv::Point3f &target_3d,
+                        cv::Point2f leftPoint = cv::Point2f(0, 0)) override;
   /**
    * @brief Detecting lights on the armors.
    * @param src Input image
@@ -218,10 +223,11 @@ class ConstraintSet : public ArmorDetectionBase {
 
   void getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg);
 
-  void getImage(std::string info
-  =="Normal");
+  void getImage(std::string info = "Normal");
 
-  ros::Subscriber indusrialSubscriber;
+  void trackingTarget(cv::Mat rgbImage, cv::Mat depthImage, bool &detected, cv::Point3f &target_3d);
+
+  ros::Subscriber industrySubscriber;
   ros::Subscriber realSenseDepthSubscriber;
   /**
    * @brief Destructor
@@ -291,7 +297,7 @@ class ConstraintSet : public ArmorDetectionBase {
   cv::Mat src_realSense_depth_img_;
 
   //避免异步出现不统一的情况
-  cv::Mat src_industrial_clone;
+  cv::Mat src_industry_clone;
   cv::Mat src_depth_clone;
 
   typedef enum {

@@ -92,26 +92,34 @@ void ConstraintSet::LoadParam() {
 }
 
 ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
-  getImage("Debug");
   //在此处同时更新工业相机和realsense深度图
-  src_industrial_clone = src_industry_img_.clone();
+  src_industry_clone = src_industry_img_.clone();
   src_depth_clone = src_realSense_depth_img_.clone();
-//  ROS_INFO("all get");
   switch (state) {
-    case SEARCHING_STATE:SearchArmor(detected, target_3d);
+    case SEARCHING_STATE:SearchArmor(src_industry_clone, src_depth_clone, src_industry_clone, detected, target_3d);
       if (detected) {
         tracker = cv::TrackerKCF::create();
-        tracker->init(src_industrial_clone, possilbeBox.rect);
-//        state = TRACKING_STATE;
-        state = SEARCHING_STATE;
+        tracker->init(src_industry_clone, possilbeBox.rect);
+        state = TRACKING_STATE;
+        ROS_INFO("into tracking state");
         tracking_cnt = 0;
       }
       break;
       //进入跟踪状态，执行跟踪函数
-    case TRACKING_STATE:SearchArmor(detected, target_3d);
+    case TRACKING_STATE:trackingTarget(src_industry_clone, src_depth_clone, detected, target_3d);
       //未找到或者跟踪时间过长
-      if (!tracker->update(src_industrial_clone, possilbeBox.rect) || tracking_cnt++ == 100) {
+      if (!detected) {
+        ROS_INFO("11111can't tracking");
         state = SEARCHING_STATE;
+        tracking_cnt = 0;
+      }
+      if (tracking_cnt++ == 100) {
+        ROS_INFO("22222222more than 100");
+        state = SEARCHING_STATE;
+        tracking_cnt = 0;
+      } else {
+        ROS_INFO("33333333tracking successfully");
+        tracker->init(src_industry_clone, possilbeBox.rect);
       }
       break;
     default:break;
@@ -124,13 +132,13 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 void ConstraintSet::getImage(std::string info) {
   //如果采用debug模式，则使用realsense相机获取彩图信息
   if (info == "Debug") {
-    indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
-                                                                   1,
-                                                                   &ConstraintSet::getIndustryMat, this);
+    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+                                                                  1,
+                                                                  &ConstraintSet::getIndustryMat, this);
   } else {
-    indusrialSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
-                                                                   1,
-                                                                   &ConstraintSet::getIndustryMat, this);
+    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
+                                                                  1,
+                                                                  &ConstraintSet::getIndustryMat, this);
   }
   realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
                                                                       1,
@@ -182,7 +190,13 @@ void ConstraintSet::getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg) {
   }
 }
 
-ErrorInfo ConstraintSet::SearchArmor(bool &detected, cv::Point3f &target_3d) {
+//在imshow时候可能会是裁剪的情况，所以有左上角这个参数
+ErrorInfo ConstraintSet::SearchArmor(cv::Mat rgbImage,
+                                     cv::Mat depthImage,
+                                     cv::Mat imshowImage,
+                                     bool &detected,
+                                     cv::Point3f &target_3d,
+                                     cv::Point2f leftPoint) {
   LightBlobs light_blobs;
   ArmorBoxs armor_boxs;
 //  ROS_INFO("debug1");
@@ -190,16 +204,18 @@ ErrorInfo ConstraintSet::SearchArmor(bool &detected, cv::Point3f &target_3d) {
       "/armor_detection/para/";
   Classifier classifier = Classifier(classFilePath);
 //  ROS_INFO("debug2");
-  if (!src_industrial_clone.empty()) {
-    cv::cvtColor(src_industrial_clone, gray_img_, CV_BGR2GRAY);
+  if (!rgbImage.empty()) {
+    cv::cvtColor(rgbImage, gray_img_, CV_BGR2GRAY);
 //    ROS_INFO("debug3");
-    DetectLights(src_industrial_clone, light_blobs);
+    DetectLights(rgbImage, light_blobs);
+    cv_toolbox_->imshowLightBlobs(imshowImage, light_blobs, "light_blobs", leftPoint);
 //    ROS_INFO("debug4");
-    PossibleArmors(src_industrial_clone, light_blobs, armor_boxs);
+    PossibleArmors(rgbImage, light_blobs, armor_boxs);
+    cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "blank", leftPoint);
 //    ROS_INFO("debug5");
     ArmorBoxs newArmorBoxs;
     for (ArmorBox armor_box:armor_boxs) {
-      cv::Mat resizeClassifier = src_industrial_clone(armor_box.rect).clone();
+      cv::Mat resizeClassifier = rgbImage(armor_box.rect).clone();
       cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
       if ((armor_box.id = classifier(resizeClassifier) != 0)) {
 //        ROS_INFO("new armor x is %d y is %d", armor_box.center.x, armor_box.center.y);
@@ -215,18 +231,42 @@ ErrorInfo ConstraintSet::SearchArmor(bool &detected, cv::Point3f &target_3d) {
 //               src_realSense_depth_img_.rows,
 //               src_realSense_depth_img_.cols);
       target_3d.z =
-          cv_toolbox_->getDepthByRealSense(src_realSense_depth_img_, possilbeBox.center.x, possilbeBox.center.y);
-      ROS_INFO("get depth %lf", target_3d.z);
+          cv_toolbox_->getDepthByRealSense(depthImage, possilbeBox.center.x, possilbeBox.center.y);
+//      ROS_INFO("get depth %lf", target_3d.z);
     } else {
       detected = false;
       possilbeBox = ArmorBox();
     }
-    cv_toolbox_->imshowArmorBoxs(src_industrial_clone, newArmorBoxs, "classifier");
+    cv_toolbox_->imshowArmorBoxs(imshowImage, newArmorBoxs, "classifier", leftPoint);
     //realsense 获取深度
     return error_info_;
   }
 }
 
+void ConstraintSet::trackingTarget(cv::Mat rgbImage, cv::Mat depthImage, bool &detected, cv::Point3f &target_3d) {
+  auto pos = possilbeBox.rect;
+  //使用KCFTracker进行跟踪
+  if (!tracker->update(rgbImage, pos)) {
+    possilbeBox = ArmorBox();
+    detected = false;
+    ROS_INFO("Track fail!");
+  }
+  if ((pos & cv::Rect2d(0, 0, rgbImage.size().width, rgbImage.size().height)) != pos) {
+    possilbeBox = ArmorBox();
+    detected = false;
+    ROS_INFO("Track out range!");
+  }
+  //此时跟踪没有问题
+  //获取相对于追踪区域两倍的矩形面积，进行重新搜索，来获取灯条信息
+  cv::Rect2d bigger_rect;
+  bigger_rect.x = pos.x - pos.width / 2.0;
+  bigger_rect.y = pos.y - pos.height / 2.0;
+  bigger_rect.height = pos.height * 2;
+  bigger_rect.width = pos.width * 2;
+  bigger_rect &= cv::Rect2d(0, 0, 640, 480);
+  cv::Mat roi = rgbImage(bigger_rect).clone();
+  SearchArmor(roi, depthImage, rgbImage, detected, target_3d, bigger_rect.tl());
+}
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   LightBlobs light_blobs;
   ArmorBoxs armor_boxs;
@@ -349,9 +389,6 @@ void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
     }
   }
 
-  if (light_blobs.size() > 0) {
-    cv_toolbox_->imshowLightBlobs(src, light_blobs, "light_blobs");
-  }
   auto c = cv::waitKey(1);
   if (c == 'a') {
     cv::waitKey(0);
@@ -393,7 +430,6 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   }
   for (ArmorBox armor_box1 : armor_boxs) {
   }
-  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");
 }
 
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
