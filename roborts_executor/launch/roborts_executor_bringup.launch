@@ -24,7 +24,8 @@
     <node pkg="dynamic_reconfigure"
           name="dynparam"
           type="dynparam"
-          args="load executor_action_node $(find roborts_executor)/param/executor_action.yaml">
+          args="load chassis_executor_action_node $(find roborts_executor)/param/executor_action.yaml"
+          args="load gimbal_executor_action_node $(find roborts_executor)/param/executor_action.yaml">
 
     </node>
 
