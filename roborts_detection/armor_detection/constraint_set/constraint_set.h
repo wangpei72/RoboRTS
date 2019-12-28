@@ -223,7 +223,7 @@ class ConstraintSet : public ArmorDetectionBase {
 
   void getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg);
 
-  void getImage(std::string info = "Normal");
+  void getCameraInfo(std::string info = "Normal");
 
   void trackingTarget(cv::Mat rgbImage, cv::Mat depthImage, bool &detected, cv::Point3f &target_3d);
 

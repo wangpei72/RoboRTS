@@ -88,7 +88,7 @@ void ConstraintSet::LoadParam() {
 //    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
 //    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
 //  }
-  getImage("Debug");
+  getCameraInfo("Debug");
 }
 
 ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
@@ -123,7 +123,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
       error_info;
 }
 
-void ConstraintSet::getImage(std::string info) {
+void ConstraintSet::getCameraInfo(std::string info) {
   //如果采用debug模式，则使用realsense相机获取彩图信息
   if (info == "Debug") {
     industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
@@ -163,22 +163,14 @@ void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
     cv::Mat src;
     cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src);
     cv::resize(src, src_industry_img_, cv::Size(640, 480));
-
-//    ROS_INFO("get rgb height is %d weight is %d",
-//             src_industry_img_.size().height,
-//             src_industry_img_.size().width);
   } catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
 }
 
 void ConstraintSet::getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg) {
-//  cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
   try {
     cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
-//    ROS_INFO("get depth height is %d weight is %d",
-//             src_realSense_depth_img_.size().height,
-//             src_realSense_depth_img_.size().width);
   } catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
@@ -212,18 +204,12 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat rgbImage,
       cv::Mat resizeClassifier = rgbImage(armor_box.rect).clone();
       cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
       if ((armor_box.id = classifier(resizeClassifier) != 0)) {
-//        ROS_INFO("new armor x is %d y is %d", armor_box.center.x, armor_box.center.y);
         newArmorBoxs.push_back(armor_box);
       }
     }
     if (newArmorBoxs.size() != 0) {
       detected = true;
       possilbeBox = newArmorBoxs[0];
-//      ROS_INFO("ready to get depth,x is %d y is %d image x's is %d y's is %d",
-//               possilbeBox.center.x,
-//               possilbeBox.center.y,
-//               src_realSense_depth_img_.rows,
-//               src_realSense_depth_img_.cols);
       target_3d.z =
           cv_toolbox_->getDepthByRealSense(depthImage, possilbeBox.center.x, possilbeBox.center.y);
 //      ROS_INFO("get depth %lf", target_3d.z);
