@@ -60,10 +60,9 @@ class PIDControllerExecuteActionServer {
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PThreshold());
 
     printf("chassis_yaw - goal_yaw = %lf", chassis_yaw - goal_yaw);
-    double difference_yaw = chassis_yaw - goal_yaw;
+    double static difference_yaw = chassis_yaw - goal_yaw;
 
-//    while (fabs(chassis_yaw - goal_yaw) >  0.8){
-    while (difference_yaw * (chassis_yaw - goal_yaw) > 0) {
+    while ((difference_yaw * (chassis_yaw - goal_yaw) > 0) and (fabs(chassis_yaw - goal_yaw) > 0.8)) {
 
       pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
       pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
