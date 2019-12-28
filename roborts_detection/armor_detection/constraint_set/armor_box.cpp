@@ -67,6 +67,9 @@ roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
   box_color = box_color_init;
   id = id_init;
   center.x = rect_2_d.x + cvRound(rect_2_d.width / 2.0);
-  center.x = rect_2_d.y + cvRound(rect_2_d.height / 2.0);
+  center.y = rect_2_d.y + cvRound(rect_2_d.height / 2.0);
 }
 
+roborts_detection::ArmorBox::ArmorBox(int id_init) {
+  id = id_init;
+}
