@@ -25,8 +25,8 @@ class PIDControllerExecuteActionServer {
 
   PIDControllerExecuteActionServer(ros::NodeHandle nh,
                                    std::string action_name,
-                                   const std::string& output_name,
-                                   const std::string& input_name) :
+                                   const std::string &output_name,
+                                   const std::string &input_name) :
       action_server_(nh,
                      std::move(action_name),
                      boost::bind(&PIDControllerExecuteActionServer::pid_controller_execute, this, _1), false) {
@@ -36,7 +36,8 @@ class PIDControllerExecuteActionServer {
     cmd_vel_pub_ =
         nh.advertise<geometry_msgs::Twist>(output_name, 1);
     pose_sub_ =
-        nh.subscribe<geometry_msgs::PoseStamped>(input_name, 1, &PIDControllerExecuteActionServer::ClientPoseCallback, this);
+        nh.subscribe<geometry_msgs::PoseStamped>(input_name, 1,
+                                                 &PIDControllerExecuteActionServer::clientPoseCallback, this);
 
     action_server_.start();
   }
@@ -44,7 +45,6 @@ class PIDControllerExecuteActionServer {
   ~PIDControllerExecuteActionServer() = default;
 
   void pid_controller_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
-//    ROS_INFO("Received goal!");
     roborts_msgs::PIDControllerTowardAngularFeedback feedback;
     ros::Rate rate(50);
 
@@ -59,10 +59,11 @@ class PIDControllerExecuteActionServer {
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsChassisV2PHasThreshold(),
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PThreshold());
 
-    printf("chassis_yaw - goal_yaw = %lf", chassis_yaw - goal_yaw);
-    double static difference_yaw = chassis_yaw - goal_yaw;
+    printf("chassis_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
+    double difference_yaw = chassis_yaw - goal_yaw;
 
-    while ((difference_yaw * (chassis_yaw - goal_yaw) > 0) and (fabs(chassis_yaw - goal_yaw) > 0.8)) {
+    while (difference_yaw * (chassis_yaw - goal_yaw) > 0.1) {
+//    while ((fabs(goal_yaw - chassis_yaw) > 0.1) and (difference_yaw * (chassis_yaw - goal_yaw) > 0)) {
 
       pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
       pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
@@ -76,9 +77,9 @@ class PIDControllerExecuteActionServer {
       goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
-      if (!action_server_.isActive()) {
-        break;
-      }
+//      if (!action_server_.isActive()) {
+//        break;
+//      }
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
       printf("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
@@ -89,9 +90,7 @@ class PIDControllerExecuteActionServer {
       vel.angular.x = 0.0;
       vel.angular.y = 0.0;
       vel.angular.z = pid_controller_toward_angular.output();
-      printf("output vel = %lf \n", vel.angular.z);
       cmd_vel_pub_.publish(vel);
-      difference_yaw = chassis_yaw - goal_yaw;
 
       printf("chassis_yaw = %lf \n", chassis_yaw);
       feedback.differ_angle = chassis_yaw;
@@ -113,8 +112,7 @@ class PIDControllerExecuteActionServer {
     }
   }
 
-  void ClientPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-//    printf("received the pose !!!!!!");
+  void clientPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
     this->client_pose_ = *msg;
   }
 
@@ -125,7 +123,6 @@ class PIDControllerExecuteActionServer {
   ros::Subscriber pose_sub_;
 
   geometry_msgs::PoseStamped client_pose_;
-  //  nav_msgs::Odometry client_pose_;
 
   ros::Publisher cmd_vel_pub_;
 

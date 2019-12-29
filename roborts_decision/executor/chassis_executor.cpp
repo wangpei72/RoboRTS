@@ -10,12 +10,10 @@ namespace roborts_decision {
 ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
                                      global_planner_client_("global_planner_node_action", true),
                                      local_planner_client_("local_planner_node_action", true),
-                                     pid_controller_client_("pid_planner_chassis_node_action", true)
-                                     {
+                                     pid_controller_client_("pid_planner_chassis_node_action", true) {
   ros::NodeHandle nh;
   cmd_vel_acc_pub_ = nh.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
   cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-//  odom_sub_ = nh.subscribe<nav_msgs::Odometry>("odom", 100, &ChassisExecutor::ChassisOdomCallback, this);
   global_planner_client_.waitForServer();
   ROS_INFO("Global planer server start!");
   local_planner_client_.waitForServer();
@@ -44,7 +42,11 @@ ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), e
 //}
 
 void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
-  //TODO
+
+  if (execution_mode_ == ExcutionMode::GOAL_FROM_ODOM_MODE) {
+    Cancel();
+  }
+
   execution_mode_ = ExcutionMode::GOAL_USE_PLANNER_MODE;
   global_planner_goal_.goal = goal;
   global_planner_client_.sendGoal(global_planner_goal_,
@@ -54,7 +56,6 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
 }
 
 void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _goal_mode) {
-  printf("Now in the Execute add \n");
   if (_goal_mode == GoalMode::GOAL_MODE_USE_GOLBAL_LOCAL_PLANNER) {
 
     if (execution_mode_ == ExcutionMode::GOAL_FROM_ODOM_MODE) {
@@ -79,11 +80,13 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
                                     PIDControllerClient::SimpleDoneCallback(),
                                     PIDControllerClient::SimpleActiveCallback(),
                                     boost::bind(&ChassisExecutor::PIDControllerFeedbackCallback, this, _1));
-
   }
 }
 void ChassisExecutor::Execute(const geometry_msgs::Twist &twist) {
   if (execution_mode_ == ExcutionMode::GOAL_USE_PLANNER_MODE) {
+    Cancel();
+  }
+  if (execution_mode_ == ExcutionMode::GOAL_FROM_ODOM_MODE) {
     Cancel();
   }
   execution_mode_ = ExcutionMode::SPEED_MODE;
@@ -92,6 +95,9 @@ void ChassisExecutor::Execute(const geometry_msgs::Twist &twist) {
 
 void ChassisExecutor::Execute(const roborts_msgs::TwistAccel &twist_accel) {
   if (execution_mode_ == ExcutionMode::GOAL_USE_PLANNER_MODE) {
+    Cancel();
+  }
+  if (execution_mode_ == ExcutionMode::GOAL_FROM_ODOM_MODE) {
     Cancel();
   }
   execution_mode_ = ExcutionMode::SPEED_WITH_ACCEL_MODE;
@@ -129,10 +135,10 @@ BehaviorState ChassisExecutor::Update() {
       break;
 
     case ExcutionMode::GOAL_FROM_ODOM_MODE:state = pid_controller_client_.getState();
-      if (state == actionlib::SimpleClientGoalState::ACTIVE){
+      if (state == actionlib::SimpleClientGoalState::ACTIVE) {
         ROS_INFO("%s : pid_controller_client ACTIVE", __FUNCTION__);
         execution_state_ = BehaviorState::RUNNING;
-      }else if (state == actionlib::SimpleClientGoalState::PENDING) {
+      } else if (state == actionlib::SimpleClientGoalState::PENDING) {
         ROS_INFO("%s : pid_controller_client PENDING", __FUNCTION__);
         execution_state_ = BehaviorState::RUNNING;
 
@@ -155,7 +161,6 @@ BehaviorState ChassisExecutor::Update() {
 
     case ExcutionMode::SPEED_WITH_ACCEL_MODE:execution_state_ = BehaviorState::RUNNING;
       break;
-
 
     default:ROS_ERROR("Wrong Execution Mode");
   }
@@ -203,7 +208,4 @@ void ChassisExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDContr
   //TODO
 }
 
-//void ChassisExecutor::ChassisOdomCallback(const nav_msgs::Odometry::ConstPtr &msg) {
-//  this->chassis_odom_ = *msg;
-//}
 }
