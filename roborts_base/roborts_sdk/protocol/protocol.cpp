@@ -604,11 +604,11 @@ bool Protocol::DeviceSend(uint8_t *buf) {
   Header *header_ptr = (Header *) buf;
 
 // For debug and visualzation:
-// ans = header_ptr->length;
-//  for(int i =0;i<header_ptr->length;i++){
-//    printf("send_byte %d:\t %X\n ", i, buf[i]);
-//  }
-//  std::cout<<"----------------"<<std::endl;
+  ans = header_ptr->length;
+  for (int i = 0; i < header_ptr->length; i++) {
+    printf("send_byte %d:\t %X\n ", i, buf[i]);
+  }
+  std::cout << "----------------" << std::endl;
   ans = serial_device_ptr_->Write(buf, header_ptr->length);
 
   if (ans <= 0) {

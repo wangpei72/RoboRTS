@@ -63,7 +63,6 @@ class PIDControllerExecuteActionServer {
     double difference_yaw = chassis_yaw - goal_yaw;
 
     while (difference_yaw * (chassis_yaw - goal_yaw) > 0.1) {
-//    while ((fabs(goal_yaw - chassis_yaw) > 0.1) and (difference_yaw * (chassis_yaw - goal_yaw) > 0)) {
 
       pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
       pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
@@ -77,9 +76,9 @@ class PIDControllerExecuteActionServer {
       goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
-//      if (!action_server_.isActive()) {
-//        break;
-//      }
+      if (!action_server_.isActive()) {
+        break;
+      }
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
       printf("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));

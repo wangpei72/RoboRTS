@@ -59,6 +59,8 @@ void Gimbal::SDK_Init() {
                                                                               MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
   gimbal_mode_pub_ = handle_->CreatePublisher<roborts_sdk::gimbal_mode_e>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_MODE,
                                                                           MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
+  gimbal_speed_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimal_speed>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_SPEED,
+                                                                             MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
   fric_wheel_pub_ =
       handle_->CreatePublisher<roborts_sdk::cmd_fric_wheel_speed>(GIMBAL_CMD_SET, CMD_SET_FRIC_WHEEL_SPEED,
                                                                   MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
@@ -82,6 +84,8 @@ void Gimbal::ROS_Init() {
 
   //ros subscriber
   ros_sub_cmd_gimbal_angle_ = ros_nh_.subscribe("cmd_gimbal_angle", 1, &Gimbal::GimbalAngleCtrlCallback, this);
+  ros_sub_cmd_gimbal_speed_ = ros_nh_.subscribe("cmd_gimbal_speed", 1, &Gimbal::GimbalSpeedCtrlCallback, this);
+
   //ros service
   ros_gimbal_mode_srv_ = ros_nh_.advertiseService("set_gimbal_mode", &Gimbal::SetGimbalModeService, this);
   ros_ctrl_fric_wheel_srv_ = ros_nh_.advertiseService("cmd_fric_wheel", &Gimbal::CtrlFricWheelService, this);
@@ -137,6 +141,16 @@ void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &
 
   gimbal_angle_pub_->Publish(gimbal_angle);
 
+}
+
+void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) {
+
+  roborts_sdk::cmd_gimal_speed gimbal_speed;
+  gimbal_speed.pitch_speed = msg->linear.x;
+  gimbal_speed.yaw_speed = msg->linear.y;
+  ROS_INFO("receive: [%lf] ", msg->linear.x);
+  ROS_INFO("receive: [%lf] ", msg->linear.y);
+  gimbal_speed_pub_->Publish(gimbal_speed);
 }
 
 bool Gimbal::SetGimbalModeService(roborts_msgs::GimbalMode::Request &req,
