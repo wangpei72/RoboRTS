@@ -64,6 +64,10 @@ class PIDControllerExecuteActionServer {
 
     while (difference_yaw * (chassis_yaw - goal_yaw) > 0.1) {
 
+      if (!action_server_.isActive()) {
+        break;
+      }
+
       pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
       pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
       pid_controller_toward_angular.SetKd(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKd());
@@ -75,10 +79,6 @@ class PIDControllerExecuteActionServer {
       chassis_yaw = tf::getYaw(this->client_pose_.pose.orientation);
       goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
-
-      if (!action_server_.isActive()) {
-        break;
-      }
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
       printf("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
@@ -99,8 +99,11 @@ class PIDControllerExecuteActionServer {
 
     }
 
-    ROS_INFO("Complete!");
-    action_server_.setSucceeded();
+    if (action_server_.isActive()) {
+      ROS_INFO("Complete!");
+      action_server_.setSucceeded();
+
+    }
 
   }
 

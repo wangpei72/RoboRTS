@@ -80,8 +80,11 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
                                     PIDControllerClient::SimpleDoneCallback(),
                                     PIDControllerClient::SimpleActiveCallback(),
                                     boost::bind(&ChassisExecutor::PIDControllerFeedbackCallback, this, _1));
+
+    pid_controller_client_.waitForResult(ros::Duration(2.0));
   }
 }
+
 void ChassisExecutor::Execute(const geometry_msgs::Twist &twist) {
   if (execution_mode_ == ExcutionMode::GOAL_USE_PLANNER_MODE) {
     Cancel();
@@ -204,8 +207,7 @@ void ChassisExecutor::GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPl
 }
 
 void ChassisExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback) {
-  printf("The differ angle is %lf", pid_controller_toward_angular_feedback->differ_angle);
-  //TODO
+  printf("The differ angle is %lf \n", pid_controller_toward_angular_feedback->differ_angle);
 }
 
 }
