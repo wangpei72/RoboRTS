@@ -148,8 +148,8 @@ void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) 
   roborts_sdk::cmd_gimbal_angle gimbal_angle;
   gimbal_angle.ctrl.bit.pitch_mode = 1;
   gimbal_angle.ctrl.bit.yaw_mode = 1;
-  gimbal_angle.pitch =  msg->linear.x;
-  gimbal_angle.yaw = msg->linear.y;
+  gimbal_angle.pitch = msg->angular.y;
+  gimbal_angle.yaw = msg->angular.z;
 
   gimbal_angle_pub_->Publish(gimbal_angle);
 
