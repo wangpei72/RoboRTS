@@ -81,7 +81,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
                                     PIDControllerClient::SimpleActiveCallback(),
                                     boost::bind(&ChassisExecutor::PIDControllerFeedbackCallback, this, _1));
     //TODO
-    pid_controller_client_.waitForResult(ros::Duration(5.0));
+    pid_controller_client_.waitForResult(ros::Duration(0.1));
 
   }
 }

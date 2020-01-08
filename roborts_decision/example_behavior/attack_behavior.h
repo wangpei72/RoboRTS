@@ -119,7 +119,7 @@ class AttackBehavior {
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.0);
+    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.0);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
   }
