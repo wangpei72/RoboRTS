@@ -120,8 +120,17 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
   auto residual_cur_yaw = gimbal_cur_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
 
+  int kscale = 0;
+  if (chassis_cur_map_yaw > 0) {
+    kscale = -1;
+  } else {
+    kscale = 1;
+  }
+
+  ROS_ERROR("%lf    %lf", gimbal_cur_map_yaw, chassis_cur_map_yaw);
+
   geometry_msgs::PoseStamped residual_cur_gimbal_angle;
-  residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,residual_cur_yaw);
+  residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, kscale * residual_cur_yaw);
   //TODO
   gimbal_map_pose_pub_.publish(residual_cur_gimbal_angle);
 
