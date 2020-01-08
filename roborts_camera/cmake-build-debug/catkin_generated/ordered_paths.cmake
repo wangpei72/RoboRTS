@@ -1,0 +1,1 @@
+set(ORDERED_PATHS "/home/wang_shuai/catkin_ws/devel/lib;/opt/ros/kinetic/lib")

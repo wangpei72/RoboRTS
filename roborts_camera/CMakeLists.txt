@@ -1,9 +1,12 @@
 project(roborts_camera)
-
+cmake_minimum_required( VERSION 3.1)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_module)
 set(CMAKE_BUILD_TYPE Release)
 add_definitions(-w -Wno-dev)
+
+
+include_directories(/opt/MVS/Samples_LinuxSDK/include)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -22,6 +25,8 @@ catkin_package(
 )
 
 add_subdirectory(uvc)
+add_subdirectory(mvs)
+add_subdirectory(realsense)
 
 #camera parameter
 file(GLOB CameraParamProtoFiles "${CMAKE_CURRENT_SOURCE_DIR}/proto/camera_param.proto")
@@ -54,7 +59,7 @@ target_include_directories(roborts_camera_param
 #camera_node
 add_executable(${PROJECT_NAME}_node
   camera_node.cpp
-)
+        )
 
 target_link_libraries(${PROJECT_NAME}_node
   PRIVATE
