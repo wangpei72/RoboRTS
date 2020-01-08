@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/devel/setup.sh
