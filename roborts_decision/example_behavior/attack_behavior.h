@@ -81,7 +81,7 @@ class AttackBehavior {
     geometry_msgs::PoseStamped residual_gimbal_angle;
     residual_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,gimbal_goal_map_pitch,kscale * residual_yaw);
 
-//    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
+    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
   }
 
   void ChassisRotationAction() {
