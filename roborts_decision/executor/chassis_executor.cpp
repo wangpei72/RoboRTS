@@ -72,16 +72,20 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
     if (execution_mode_ == ExcutionMode::GOAL_USE_PLANNER_MODE) {
       Cancel();
     }
-    printf("Now in the GOAL_FROM_ODOM_MODE \n");
+    ROS_INFO("Now in the GOAL_FROM_ODOM_MODE");
     execution_mode_ = ExcutionMode::GOAL_FROM_ODOM_MODE;
 
     pid_controller_toward_angular_goal_.goal = goal;
-    pid_controller_client_.sendGoal(pid_controller_toward_angular_goal_,
-                                    PIDControllerClient::SimpleDoneCallback(),
-                                    PIDControllerClient::SimpleActiveCallback(),
-                                    boost::bind(&ChassisExecutor::PIDControllerFeedbackCallback, this, _1));
-    //TODO
-    pid_controller_client_.waitForResult(ros::Duration(0.1));
+
+    static int number = 0;
+    if (number % 250 == 0 or pid_controller_client_.waitForResult(ros::Duration(0))) {
+      pid_controller_client_.sendGoal(pid_controller_toward_angular_goal_,
+                                      PIDControllerClient::SimpleDoneCallback(),
+                                      PIDControllerClient::SimpleActiveCallback(),
+                                      boost::bind(&ChassisExecutor::PIDControllerFeedbackCallback, this, _1));
+      number = 0;
+    }
+    number = number + 1;
 
   }
 }
