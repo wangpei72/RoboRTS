@@ -144,22 +144,22 @@ BehaviorState ChassisExecutor::Update() {
 
     case ExcutionMode::GOAL_FROM_ODOM_MODE:state = pid_controller_client_.getState();
       if (state == actionlib::SimpleClientGoalState::ACTIVE) {
-        ROS_INFO("%s : pid_controller_client ACTIVE", __FUNCTION__);
+        ROS_INFO("%s : pid_controller_chassis_client ACTIVE", __FUNCTION__);
         execution_state_ = BehaviorState::RUNNING;
       } else if (state == actionlib::SimpleClientGoalState::PENDING) {
-        ROS_INFO("%s : pid_controller_client PENDING", __FUNCTION__);
+        ROS_INFO("%s : pid_controller_chassis_client PENDING", __FUNCTION__);
         execution_state_ = BehaviorState::RUNNING;
 
       } else if (state == actionlib::SimpleClientGoalState::SUCCEEDED) {
-        ROS_INFO("%s : pid_controller_client SUCCEEDED", __FUNCTION__);
+        ROS_INFO("%s : pid_controller_chassis_client SUCCEEDED", __FUNCTION__);
         execution_state_ = BehaviorState::SUCCESS;
 
       } else if (state == actionlib::SimpleClientGoalState::ABORTED) {
-        ROS_INFO("%s : pid_controller_client ABORTED", __FUNCTION__);
+        ROS_INFO("%s : pid_controller_chassis_client ABORTED", __FUNCTION__);
         execution_state_ = BehaviorState::FAILURE;
 
       } else {
-        ROS_ERROR("pid_controller_client Error: %s", state.toString().c_str());
+        ROS_ERROR("pid_controller_chassis_client Error: %s", state.toString().c_str());
         execution_state_ = BehaviorState::FAILURE;
       }
       break;
@@ -212,7 +212,7 @@ void ChassisExecutor::GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPl
 }
 
 void ChassisExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback) {
-  printf("The differ angle is %lf \n", pid_controller_toward_angular_feedback->differ_angle);
+//  printf("The differ angle is %lf \n", pid_controller_toward_angular_feedback->differ_angle);
 }
 
 }
