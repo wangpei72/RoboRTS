@@ -88,10 +88,10 @@
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/install/local.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/install.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/list_install_components.dir
-/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/msv_driver.dir
-/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/rebuild_cache.dir
-/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/test.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/edit_cache.dir
+/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/test.dir
+/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir
+/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/rebuild_cache.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/realsense/CMakeFiles/install/strip.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/realsense/CMakeFiles/install/local.dir
 /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/realsense/CMakeFiles/install.dir

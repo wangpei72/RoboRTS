@@ -102,16 +102,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : rebuild_cache/fast
+.PHONY : edit_cache/fast
 
 # Special rule for the target test
 test:
@@ -124,16 +124,16 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
 
-.PHONY : edit_cache/fast
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,19 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-mvs/CMakeFiles/msv_driver.dir/rule:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 mvs/CMakeFiles/msv_driver.dir/rule
-.PHONY : mvs/CMakeFiles/msv_driver.dir/rule
+mvs/CMakeFiles/mvs_driver.dir/rule:
+	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 mvs/CMakeFiles/mvs_driver.dir/rule
+.PHONY : mvs/CMakeFiles/mvs_driver.dir/rule
 
 # Convenience name for target.
-msv_driver: mvs/CMakeFiles/msv_driver.dir/rule
+mvs_driver: mvs/CMakeFiles/mvs_driver.dir/rule
 
-.PHONY : msv_driver
+.PHONY : mvs_driver
 
 # fast build rule for target.
-msv_driver/fast:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/build
-.PHONY : msv_driver/fast
+mvs_driver/fast:
+	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/build
+.PHONY : mvs_driver/fast
 
 mvs_driver.o: mvs_driver.cpp.o
 
@@ -188,7 +188,7 @@ mvs_driver.o: mvs_driver.cpp.o
 
 # target to build an object file
 mvs_driver.cpp.o:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/mvs_driver.cpp.o
+	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/mvs_driver.cpp.o
 .PHONY : mvs_driver.cpp.o
 
 mvs_driver.i: mvs_driver.cpp.i
@@ -197,7 +197,7 @@ mvs_driver.i: mvs_driver.cpp.i
 
 # target to preprocess a source file
 mvs_driver.cpp.i:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/mvs_driver.cpp.i
+	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/mvs_driver.cpp.i
 .PHONY : mvs_driver.cpp.i
 
 mvs_driver.s: mvs_driver.cpp.s
@@ -206,7 +206,7 @@ mvs_driver.s: mvs_driver.cpp.s
 
 # target to generate assembly for a file
 mvs_driver.cpp.s:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/mvs_driver.cpp.s
+	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/mvs_driver.cpp.s
 .PHONY : mvs_driver.cpp.s
 
 # Help Target
@@ -219,10 +219,10 @@ help:
 	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... msv_driver"
-	@echo "... rebuild_cache"
-	@echo "... test"
 	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... mvs_driver"
+	@echo "... rebuild_cache"
 	@echo "... mvs_driver.o"
 	@echo "... mvs_driver.i"
 	@echo "... mvs_driver.s"

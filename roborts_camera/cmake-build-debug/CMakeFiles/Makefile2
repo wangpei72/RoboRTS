@@ -977,6 +977,8 @@ clean: CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 # All Build rule for target.
 CMakeFiles/roborts_camera_node.dir/all: CMakeFiles/roborts_camera_param.dir/all
 CMakeFiles/roborts_camera_node.dir/all: uvc/CMakeFiles/uvc_driver.dir/all
+CMakeFiles/roborts_camera_node.dir/all: mvs/CMakeFiles/mvs_driver.dir/all
+CMakeFiles/roborts_camera_node.dir/all: realsense/CMakeFiles/realsense_driver.dir/all
 	$(MAKE) -f CMakeFiles/roborts_camera_node.dir/build.make CMakeFiles/roborts_camera_node.dir/depend
 	$(MAKE) -f CMakeFiles/roborts_camera_node.dir/build.make CMakeFiles/roborts_camera_node.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=18,19 "Built target roborts_camera_node"
@@ -989,7 +991,7 @@ all: CMakeFiles/roborts_camera_node.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roborts_camera_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roborts_camera_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/roborts_camera_node.dir/rule
@@ -2003,12 +2005,12 @@ clean: uvc/CMakeFiles/uvc_driver.dir/clean
 # Directory level rules for directory mvs
 
 # Convenience name for "all" pass in the directory.
-mvs/all: mvs/CMakeFiles/msv_driver.dir/all
+mvs/all: mvs/CMakeFiles/mvs_driver.dir/all
 
 .PHONY : mvs/all
 
 # Convenience name for "clean" pass in the directory.
-mvs/clean: mvs/CMakeFiles/msv_driver.dir/clean
+mvs/clean: mvs/CMakeFiles/mvs_driver.dir/clean
 
 .PHONY : mvs/clean
 
@@ -2018,39 +2020,39 @@ mvs/preinstall:
 .PHONY : mvs/preinstall
 
 #=============================================================================
-# Target rules for target mvs/CMakeFiles/msv_driver.dir
+# Target rules for target mvs/CMakeFiles/mvs_driver.dir
 
 # All Build rule for target.
-mvs/CMakeFiles/msv_driver.dir/all:
-	$(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/depend
-	$(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=14,15 "Built target msv_driver"
-.PHONY : mvs/CMakeFiles/msv_driver.dir/all
+mvs/CMakeFiles/mvs_driver.dir/all:
+	$(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/depend
+	$(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=14,15 "Built target mvs_driver"
+.PHONY : mvs/CMakeFiles/mvs_driver.dir/all
 
 # Include target in all.
-all: mvs/CMakeFiles/msv_driver.dir/all
+all: mvs/CMakeFiles/mvs_driver.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-mvs/CMakeFiles/msv_driver.dir/rule: cmake_check_build_system
+mvs/CMakeFiles/mvs_driver.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 mvs/CMakeFiles/msv_driver.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 mvs/CMakeFiles/mvs_driver.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 0
-.PHONY : mvs/CMakeFiles/msv_driver.dir/rule
+.PHONY : mvs/CMakeFiles/mvs_driver.dir/rule
 
 # Convenience name for target.
-msv_driver: mvs/CMakeFiles/msv_driver.dir/rule
+mvs_driver: mvs/CMakeFiles/mvs_driver.dir/rule
 
-.PHONY : msv_driver
-
-# clean rule for target.
-mvs/CMakeFiles/msv_driver.dir/clean:
-	$(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/clean
-.PHONY : mvs/CMakeFiles/msv_driver.dir/clean
+.PHONY : mvs_driver
 
 # clean rule for target.
-clean: mvs/CMakeFiles/msv_driver.dir/clean
+mvs/CMakeFiles/mvs_driver.dir/clean:
+	$(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/clean
+.PHONY : mvs/CMakeFiles/mvs_driver.dir/clean
+
+# clean rule for target.
+clean: mvs/CMakeFiles/mvs_driver.dir/clean
 
 .PHONY : clean
 

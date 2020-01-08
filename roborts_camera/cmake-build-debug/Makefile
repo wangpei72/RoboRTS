@@ -922,17 +922,17 @@ uvc_driver/fast:
 .PHONY : uvc_driver/fast
 
 #=============================================================================
-# Target rules for targets named msv_driver
+# Target rules for targets named mvs_driver
 
 # Build rule for target.
-msv_driver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 msv_driver
-.PHONY : msv_driver
+mvs_driver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mvs_driver
+.PHONY : mvs_driver
 
 # fast build rule for target.
-msv_driver/fast:
-	$(MAKE) -f mvs/CMakeFiles/msv_driver.dir/build.make mvs/CMakeFiles/msv_driver.dir/build
-.PHONY : msv_driver/fast
+mvs_driver/fast:
+	$(MAKE) -f mvs/CMakeFiles/mvs_driver.dir/build.make mvs/CMakeFiles/mvs_driver.dir/build
+.PHONY : mvs_driver/fast
 
 #=============================================================================
 # Target rules for targets named realsense_driver
@@ -1126,7 +1126,7 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... uvc_driver"
-	@echo "... msv_driver"
+	@echo "... mvs_driver"
 	@echo "... realsense_driver"
 	@echo "... camera_node.o"
 	@echo "... camera_node.i"

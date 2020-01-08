@@ -64,6 +64,8 @@ add_executable(${PROJECT_NAME}_node
 target_link_libraries(${PROJECT_NAME}_node
   PRIVATE
   driver::uvc_driver
+  driver::mvs_driver
+  driver::realsense_driver
   roborts_camera_param
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wang_shuai/vwbot_ws/src/roborts_camera/uvc/uvc_driver.cpp" "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/uvc_driver.cpp.o"
+  "/home/wang_shuai/vwbot_ws/src/roborts_camera/mvs/mvs_driver.cpp" "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir/mvs_driver.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

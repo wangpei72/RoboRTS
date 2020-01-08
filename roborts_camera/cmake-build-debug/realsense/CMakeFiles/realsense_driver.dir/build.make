@@ -79,6 +79,7 @@ realsense_driver_EXTERNAL_OBJECTS =
 
 devel/lib/librealsense_driver.so: realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.o
 devel/lib/librealsense_driver.so: realsense/CMakeFiles/realsense_driver.dir/build.make
+devel/lib/librealsense_driver.so: /usr/local/lib/librealsense2.so.2.19.2
 devel/lib/librealsense_driver.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_stitching3.so.3.3.1
 devel/lib/librealsense_driver.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_superres3.so.3.3.1
 devel/lib/librealsense_driver.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_videostab3.so.3.3.1

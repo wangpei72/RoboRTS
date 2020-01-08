@@ -2,6 +2,7 @@
 // Created by wang_shuai on 19-12-27.
 //
 #include <opencv2/opencv.hpp>
+#include <ros/ros.h>
 #include "mvs_driver.h"
 
 
@@ -16,15 +17,20 @@ namespace roborts_camera
 
      MV_CC_DEVICE_INFO* pDeviceInfo = stDeviceList.pDeviceInfo[0];
 
-     n_Ret = MV_CC_CreateHandle(&handle, stDeviceList.pDeviceInfo[0]);
+     //ROS_INFO("%d***********",stDeviceList.nDeviceNum);
 
+     n_Ret = MV_CC_CreateHandle(&handle, stDeviceList.pDeviceInfo[0]);
+     //ROS_INFO("%d*********",n_Ret);
      n_Ret = MV_CC_OpenDevice(handle);
+     //ROS_INFO("%d-------%d",n_Ret,MV_OK);
 
      SetEnumValue("TriggerMode",0);
 
      n_Ret = MV_CC_StartGrabbing(handle);
 
-     camera_initialized_ = n_Ret;
+     ROS_INFO("MVS Start GRABBING state :%d", n_Ret == MV_OK);
+
+     camera_initialized_ = 1;
 
  }
 
@@ -32,16 +38,30 @@ namespace roborts_camera
  {
      int n_Ret = 1;
 
+     img.create(camera_info_.resolution_height,
+                camera_info_.resolution_width,
+                CV_8UC3);
+
     MV_FRAME_OUT_INFO_EX stImageInfo = {0};
 
     free(img.data);
 
-    n_Ret = MV_CC_GetImageForBGR(handle,img.data,maxDataSize,&stImageInfo,100);
+    img.data = (unsigned char *)malloc(sizeof(unsigned char) * maxDataSize);
+
+    n_Ret = MV_CC_GetImageForBGR(handle,img.data,maxDataSize,&stImageInfo,1000);
+    if (n_Ret)ROS_INFO("MVS failed");
 
     img.rows = stImageInfo.nHeight;
 
     img.cols = stImageInfo.nWidth;
 
+    /*
+    ROS_INFO("gain : %f",stImageInfo.fGain);
+    ROS_INFO("exposure time : %f",stImageInfo.fExposureTime);
+    ROS_INFO("X : %d",stImageInfo.nOffsetX);
+    ROS_INFO("Y : %d",stImageInfo.nOffsetY);
+    ROS_INFO("bright : %d",stImageInfo.nAverageBrightness);
+     */
  };
 
  void MVS_Driver::StopReadCamera()
