@@ -122,7 +122,8 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
 
   geometry_msgs::PoseStamped residual_cur_gimbal_angle;
   residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,0,residual_cur_yaw);
-  gimbal_map_pose_pub_.publish(residual_cur_gimbal_angle);
+  //TODO
+//  gimbal_map_pose_pub_.publish(residual_cur_gimbal_angle);
 
 
 
@@ -130,6 +131,7 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
 
 void Gimbal::ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
   this->chassis_map_pose = *msg;
+  gimbal_map_pose_pub_.publish(*msg);
 }
 void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg) {
 
