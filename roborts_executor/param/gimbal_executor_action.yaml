@@ -3,15 +3,27 @@ dictitems:
   chassis_d: 0.0
   chassis_has_threshold: false
   chassis_i: 0.0
-  chassis_p: 1.0
+  chassis_p: 0.1
   chassis_threshold: 0.0
+  gimabl_has_threshold: false
+  gimbal_d: 0.0
+  gimbal_i: 0.0
+  gimbal_p: 1.0
+  gimbal_threshold: 0.0
+  gimbal_yaw_goal_tolerance: 0.2
   groups: !!python/object/new:dynamic_reconfigure.encoding.Config
     dictitems:
       chassis_d: 0.0
       chassis_has_threshold: false
       chassis_i: 0.0
-      chassis_p: 1.0
+      chassis_p: 0.1
       chassis_threshold: 0.0
+      gimabl_has_threshold: false
+      gimbal_d: 0.0
+      gimbal_i: 0.0
+      gimbal_p: 1.0
+      gimbal_threshold: 0.0
+      gimbal_yaw_goal_tolerance: 0.2
       groups: !!python/object/new:dynamic_reconfigure.encoding.Config
         state: []
       id: 0

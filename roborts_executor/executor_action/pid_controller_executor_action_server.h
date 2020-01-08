@@ -87,7 +87,10 @@ class PIDControllerExecuteActionServer {
       vel.linear.x = 0.0;
       vel.linear.y = 0.0;
       vel.angular.x = 0.0;
+      // change the pitch
+      // TODO
       vel.angular.y = 0.0;
+      // change the yaw
       vel.angular.z = pid_controller_toward_angular.output();
       cmd_vel_pub_.publish(vel);
 
