@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+d7304b73e84a397dd763fcca51bda45b ../proto/camera_param.pb.cpp
+f31e166c3ce62eaefebf88a755ea0d62 CMakeFiles/clean_test_results

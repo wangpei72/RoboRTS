@@ -34,6 +34,8 @@ struct CameraInfo {
   std::string camera_type;
   //! path of camera, i.e. /dev/video0
   std::string camera_path;
+
+  std::string image_code;
   //! camera matrix
   cv::Mat camera_matrix;
   //! camera distortion matrix
