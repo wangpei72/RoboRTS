@@ -95,7 +95,7 @@ class AttackBehavior {
     if (chassis_executor_state == BehaviorState::SUCCESS) {
 
       point_index = (++point_index) % 2;
-      printf("change the goal ----- in the ChassisRotationAction!");
+      printf("change the goal ----- in the ChassisRotationAction! \n");
 
     }
 

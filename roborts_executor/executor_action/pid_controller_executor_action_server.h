@@ -53,11 +53,11 @@ class PIDControllerExecuteActionServer {
     auto chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, now_yaw);
 
     static roborts_common::firefly::PIDController pid_controller_toward_angular
-        (roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp(),
-         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi(),
-         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKd(),
-         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsChassisV2PHasThreshold(),
-         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PThreshold());
+        (roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKp(),
+         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKi(),
+         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKd(),
+         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsV2PHasThreshold(),
+         roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PThreshold());
 
     printf("chassis_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
     double difference_yaw = chassis_yaw - goal_yaw;
@@ -68,11 +68,11 @@ class PIDControllerExecuteActionServer {
         break;
       }
 
-      pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKp());
-      pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKi());
-      pid_controller_toward_angular.SetKd(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PPidKd());
-      pid_controller_toward_angular.SetHasThreshold(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsChassisV2PHasThreshold());
-      pid_controller_toward_angular.SetThreshold(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetChassisV2PThreshold());
+      pid_controller_toward_angular.SetKp(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKp());
+      pid_controller_toward_angular.SetKi(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKi());
+      pid_controller_toward_angular.SetKd(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PPidKd());
+      pid_controller_toward_angular.SetHasThreshold(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsV2PHasThreshold());
+      pid_controller_toward_angular.SetThreshold(roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PThreshold());
 
       geometry_msgs::Twist vel;
 

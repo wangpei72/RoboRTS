@@ -71,19 +71,19 @@ void roborts_common::firefly::DynamicReconfigureInterface::reconfig_cb(roborts::
 
 }
 
-double roborts_common::firefly::DynamicReconfigureInterface::GetChassisV2PPidKp() const {
+double roborts_common::firefly::DynamicReconfigureInterface::GetV2PPidKp() const {
   return chassis_v2p_pid_kp;
 }
-double roborts_common::firefly::DynamicReconfigureInterface::GetChassisV2PPidKi() const {
+double roborts_common::firefly::DynamicReconfigureInterface::GetV2PPidKi() const {
   return chassis_v2p_pid_ki;
 }
-double roborts_common::firefly::DynamicReconfigureInterface::GetChassisV2PPidKd() const {
+double roborts_common::firefly::DynamicReconfigureInterface::GetV2PPidKd() const {
   return chassis_v2p_pid_kd;
 }
-bool roborts_common::firefly::DynamicReconfigureInterface::IsChassisV2PHasThreshold() const {
+bool roborts_common::firefly::DynamicReconfigureInterface::IsV2PHasThreshold() const {
   return chassis_v2p_has_threshold;
 }
-double roborts_common::firefly::DynamicReconfigureInterface::GetChassisV2PThreshold() const {
+double roborts_common::firefly::DynamicReconfigureInterface::GetV2PThreshold() const {
   return chassis_v2p_threshold;
 }
 double roborts_common::firefly::DynamicReconfigureInterface::GetYawGaolTolerance() const {

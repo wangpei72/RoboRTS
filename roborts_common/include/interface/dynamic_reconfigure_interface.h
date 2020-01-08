@@ -24,11 +24,11 @@ class DynamicReconfigureInterface {
 
   int8_t update();
 
-  double GetChassisV2PPidKp() const;
-  double GetChassisV2PPidKi() const;
-  double GetChassisV2PPidKd() const;
-  bool IsChassisV2PHasThreshold() const;
-  double GetChassisV2PThreshold() const;
+  double GetV2PPidKp() const;
+  double GetV2PPidKi() const;
+  double GetV2PPidKd() const;
+  bool IsV2PHasThreshold() const;
+  double GetV2PThreshold() const;
   double GetYawGaolTolerance() const;
   const std::string &GetServerName() const;
   const std::string &GetPublisherName() const;
