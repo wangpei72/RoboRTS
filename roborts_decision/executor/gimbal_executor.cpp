@@ -49,8 +49,31 @@ void GimbalExecutor::Execute(const geometry_msgs::PoseStamped &gimbal_angle, Goa
 }
 
 BehaviorState GimbalExecutor::Update() {
+  actionlib::SimpleClientGoalState state = actionlib::SimpleClientGoalState::LOST;
   switch (excution_mode_) {
     case ExcutionMode::IDLE_MODE:execution_state_ = BehaviorState::IDLE;
+      break;
+
+    case ExcutionMode::PID_MODE:state = pid_controller_client_.getState();
+      if (state == actionlib::SimpleClientGoalState::ACTIVE) {
+        ROS_INFO("%s : pid_controller_client ACTIVE", __FUNCTION__);
+        execution_state_ = BehaviorState::RUNNING;
+      } else if (state == actionlib::SimpleClientGoalState::PENDING) {
+        ROS_INFO("%s : pid_controller_client PENDING", __FUNCTION__);
+        execution_state_ = BehaviorState::RUNNING;
+
+      } else if (state == actionlib::SimpleClientGoalState::SUCCEEDED) {
+        ROS_INFO("%s : pid_controller_client SUCCEEDED", __FUNCTION__);
+        execution_state_ = BehaviorState::SUCCESS;
+
+      } else if (state == actionlib::SimpleClientGoalState::ABORTED) {
+        ROS_INFO("%s : pid_controller_client ABORTED", __FUNCTION__);
+        execution_state_ = BehaviorState::FAILURE;
+
+      } else {
+        ROS_ERROR("pid_controller_client Error: %s", state.toString().c_str());
+        execution_state_ = BehaviorState::FAILURE;
+      }
       break;
 
     case ExcutionMode::ANGLE_MODE:execution_state_ = BehaviorState::RUNNING;
