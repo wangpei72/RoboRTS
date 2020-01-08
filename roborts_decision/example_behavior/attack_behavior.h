@@ -69,7 +69,6 @@ class AttackBehavior {
 //    geometry_msgs::PoseStamped residual_cur_gimbal_angle;
 //    residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,gimbal_goal_map_pitch,residual_cur_yaw);
 
-
     std::cout << terminal_io_color::RED << "residual_yaw" << residual_yaw << terminal_io_color::BLANK << std::endl;
 
 //    roborts_msgs::GimbalAngle residual_gimbal_angle{};
@@ -80,10 +79,7 @@ class AttackBehavior {
 
     geometry_msgs::PoseStamped residual_gimbal_angle;
     residual_gimbal_angle.pose.orientation =
-        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, 0);
-    // TODO
-//    residual_gimbal_angle.pose.orientation =
-//        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, gimbal_goal_map_yaw);
+        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
     gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
   }
 
