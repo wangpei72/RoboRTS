@@ -23,6 +23,7 @@ message Camera {
   required string camera_path = 3;
   required CameraMatrix camera_matrix = 4;
   required CameraDistortion camera_distortion = 5;
+  required string image_code = 14;
 
   optional uint32 fps = 6;
   optional Resolution resolution = 7;
