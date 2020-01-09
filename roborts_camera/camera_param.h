@@ -36,6 +36,10 @@ struct CameraInfo {
   std::string camera_path;
 
   std::string image_code;
+
+  bool depth_enable;
+
+  std::string depth_code;
   //! camera matrix
   cv::Mat camera_matrix;
   //! camera distortion matrix
