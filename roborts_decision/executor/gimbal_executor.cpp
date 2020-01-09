@@ -99,6 +99,10 @@ void GimbalExecutor::Cancel() {
       excution_mode_ = ExcutionMode::IDLE_MODE;
       break;
 
+    case ExcutionMode::PID_MODE:pid_controller_client_.cancelGoal();
+      excution_mode_ = ExcutionMode::IDLE_MODE;
+      break;
+
     default:ROS_ERROR("Wrong Execution Mode");
   }
 
