@@ -95,7 +95,6 @@ void Gimbal::ROS_Init() {
   gimbal_tf_.child_frame_id = "gimbal";
 
   gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
-  chassis_map_pose_sub_ = ros_nh_.subscribe("chassis_pose",1,&Gimbal::ChassisPoseCallback,this);
 
 }
 
@@ -116,22 +115,12 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   auto gimbal_cur_map_yaw = tf::getYaw(q); //the angle between chassis and gimbal
   auto gimbal_cur_map_yaw_q = tf::createQuaternionFromYaw(gimbal_cur_map_yaw);
 
-  auto chassis_cur_map_yaw = tf::getYaw(chassis_map_pose.pose.orientation);
-  auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
-
-//  ROS_ERROR("%lf    %lf", gimbal_cur_map_yaw, chassis_cur_map_yaw);
-
   geometry_msgs::PoseStamped cur_angle_between_chassis_gimbal;
   cur_angle_between_chassis_gimbal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, gimbal_cur_map_yaw);
   gimbal_map_pose_pub_.publish(cur_angle_between_chassis_gimbal);
 
-
-
 }
 
-void Gimbal::ChassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-  this->chassis_map_pose = *msg;
-}
 void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg) {
 
   roborts_sdk::cmd_gimbal_angle gimbal_angle;

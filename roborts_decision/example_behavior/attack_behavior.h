@@ -33,7 +33,7 @@ class AttackBehavior {
         nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
                                                  &AttackBehavior::chassisPoseCallback, this);
     gimbal_pose_sub_ = nh.subscribe<geometry_msgs::PoseStamped>("/gimbal_pose", 1,
-                                                                &AttackBehavior::chassisPoseCallback, this);
+                                                                &AttackBehavior::gimbalPoseCallback, this);
   }
 
   void Start() {
@@ -56,12 +56,12 @@ class AttackBehavior {
 
     auto chassis_cur_map_yaw = tf::getYaw(chassis_pose_.pose.orientation);
 
-    ROS_WARN("odom_pose = %lf blackboard_pose = %lf",
-             tf::getYaw(chassis_pose_.pose.orientation),
-             tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation));
-    ROS_WARN("base_gimbal = %lf blackboard_gimbal = %lf",
-             tf::getYaw(gimbal_pose_.pose.orientation),
-             tf::getYaw(blackboard_->GetGimbalMapPose().pose.orientation));
+//    ROS_WARN("odom_pose = %lf blackboard_pose = %lf",
+//             tf::getYaw(chassis_pose_.pose.orientation),
+//             tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation));
+//    ROS_WARN("base_gimbal = %lf blackboard_gimbal = %lf",
+//             tf::getYaw(gimbal_pose_.pose.orientation),
+//             tf::getYaw(blackboard_->GetGimbalMapPose().pose.orientation));
 
     // TODO rename
     int kscale = 0;
@@ -88,16 +88,17 @@ class AttackBehavior {
 
 //    std::cout << terminal_io_color::RED << "residual_yaw" << residual_yaw << terminal_io_color::BLANK << std::endl;
 
-//    roborts_msgs::GimbalAngle residual_gimbal_angle{};
-//    residual_gimbal_angle.yaw_mode = 0;
-//    residual_gimbal_angle.pitch_mode = 0;
-//    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
-//    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
+    roborts_msgs::GimbalAngle residual_gimbal_angle{};
+    residual_gimbal_angle.yaw_mode = 0;
+    residual_gimbal_angle.pitch_mode = 0;
+    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
+    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
-    geometry_msgs::PoseStamped residual_gimbal_angle;
-    residual_gimbal_angle.pose.orientation =
-        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
-    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
+//    geometry_msgs::PoseStamped residual_gimbal_angle;
+//    residual_gimbal_angle.pose.orientation =
+//        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
+//    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
+    gimbal_executor_->Execute(residual_gimbal_angle);
   }
 
   void ChassisRotationAction() {
