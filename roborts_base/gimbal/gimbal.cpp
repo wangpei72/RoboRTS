@@ -139,7 +139,7 @@ void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) 
   gimbal_angle.ctrl.bit.pitch_mode = 1;
   gimbal_angle.ctrl.bit.yaw_mode = 1;
   gimbal_angle.pitch = msg->angular.y;
-  gimbal_angle.yaw = msg->angular.z;
+  gimbal_angle.yaw = msg->angular.z * 10;
 
   gimbal_angle_pub_->Publish(gimbal_angle);
 
