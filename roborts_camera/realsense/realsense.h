@@ -20,7 +20,7 @@ namespace  roborts_camera{
         explicit RS_Driver(CameraInfo cameraInfo_);
 
         void StartReadCamera(cv::Mat &img) override;
-
+        void DepthPixel2World(cv::Mat &img);
         void StartReadDepth(cv::Mat &img);
 
         ~RS_Driver() override;

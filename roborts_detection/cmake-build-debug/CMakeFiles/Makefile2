@@ -2161,6 +2161,61 @@ clean: armor_detection/constraint_set/CMakeFiles/constraint_set.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory image_publish
+
+# Convenience name for "all" pass in the directory.
+image_publish/all: image_publish/CMakeFiles/image_publish.dir/all
+
+.PHONY : image_publish/all
+
+# Convenience name for "clean" pass in the directory.
+image_publish/clean: image_publish/CMakeFiles/image_publish.dir/clean
+
+.PHONY : image_publish/clean
+
+# Convenience name for "preinstall" pass in the directory.
+image_publish/preinstall:
+
+.PHONY : image_publish/preinstall
+
+#=============================================================================
+# Target rules for target image_publish/CMakeFiles/image_publish.dir
+
+# All Build rule for target.
+image_publish/CMakeFiles/image_publish.dir/all:
+	$(MAKE) -f image_publish/CMakeFiles/image_publish.dir/build.make image_publish/CMakeFiles/image_publish.dir/depend
+	$(MAKE) -f image_publish/CMakeFiles/image_publish.dir/build.make image_publish/CMakeFiles/image_publish.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/CMakeFiles --progress-num=27,28 "Built target image_publish"
+.PHONY : image_publish/CMakeFiles/image_publish.dir/all
+
+# Include target in all.
+all: image_publish/CMakeFiles/image_publish.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+image_publish/CMakeFiles/image_publish.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 image_publish/CMakeFiles/image_publish.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/CMakeFiles 0
+.PHONY : image_publish/CMakeFiles/image_publish.dir/rule
+
+# Convenience name for target.
+image_publish: image_publish/CMakeFiles/image_publish.dir/rule
+
+.PHONY : image_publish
+
+# clean rule for target.
+image_publish/CMakeFiles/image_publish.dir/clean:
+	$(MAKE) -f image_publish/CMakeFiles/image_publish.dir/build.make image_publish/CMakeFiles/image_publish.dir/clean
+.PHONY : image_publish/CMakeFiles/image_publish.dir/clean
+
+# clean rule for target.
+clean: image_publish/CMakeFiles/image_publish.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

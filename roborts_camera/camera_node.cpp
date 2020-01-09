@@ -20,7 +20,7 @@
 #include "camera_node.h"
 
 namespace roborts_camera{
-CameraNode::CameraNode() {
+CameraNode::CameraNode(){
   camera_num_ = camera_param_.GetCameraParam().size();
   img_pubs_.resize(camera_num_);
   camera_threads_.resize(camera_num_);

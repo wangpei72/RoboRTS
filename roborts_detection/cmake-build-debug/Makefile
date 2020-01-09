@@ -973,6 +973,19 @@ constraint_set/fast:
 	$(MAKE) -f armor_detection/constraint_set/CMakeFiles/constraint_set.dir/build.make armor_detection/constraint_set/CMakeFiles/constraint_set.dir/build
 .PHONY : constraint_set/fast
 
+#=============================================================================
+# Target rules for targets named image_publish
+
+# Build rule for target.
+image_publish: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 image_publish
+.PHONY : image_publish
+
+# fast build rule for target.
+image_publish/fast:
+	$(MAKE) -f image_publish/CMakeFiles/image_publish.dir/build.make image_publish/CMakeFiles/image_publish.dir/build
+.PHONY : image_publish/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1048,6 +1061,7 @@ help:
 	@echo "... armor_detection_client"
 	@echo "... armor_detection_node"
 	@echo "... constraint_set"
+	@echo "... image_publish"
 .PHONY : help
 
 

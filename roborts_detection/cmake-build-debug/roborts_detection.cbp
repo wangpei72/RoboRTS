@@ -5,7 +5,7 @@
 		<Option title="roborts_detection"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\armor_detection\;CMake Files\armor_detection\constraint_set\;CMake Files\cmake_module\;CMake Files\util\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\src\;CMake Files\..\..\..\..\..\..\usr\src\gmock\;CMake Files\..\..\..\..\..\..\usr\src\gtest\;CMake Files\..\..\..\..\..\..\usr\src\gtest\cmake\;CMake Files\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\opt\ros\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\platform\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\test\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\tools\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\templates\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\em\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cpp_common\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cpp_common\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_runtime\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_runtime\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_serialization\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_serialization\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_traits\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_traits\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rostime\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rostime\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosconsole\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosconsole\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\xmlrpcpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\xmlrpcpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geometry_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geometry_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_filters\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_filters\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_ros\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_ros\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genmsg\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genmsg\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gencpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gencpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geneus\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geneus\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genlisp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genlisp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gennodejs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gennodejs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genpy\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genpy\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_generation\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_generation\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_py\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_py\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\pluginlib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\pluginlib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\class_loader\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\class_loader\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roslib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roslib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospack\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospack\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\;CMake Files\..\..\..\devel\;CMake Files\..\..\..\devel\share\;CMake Files\..\..\..\devel\share\roborts_msgs\;CMake Files\..\..\..\devel\share\roborts_msgs\cmake\;CMake Files\..\..\..\devel\share\roborts_common\;CMake Files\..\..\..\devel\share\roborts_common\cmake\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\catkin\;CMake Files\cmake-build-debug\catkin\catkin_generated\;CMake Files\cmake-build-debug\catkin\catkin_generated\version\;CMake Files\cmake-build-debug\catkin_generated\;CMake Files\cmake-build-debug\catkin_generated\installspace\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\armor_detection\;CMake Files\armor_detection\constraint_set\;CMake Files\cmake_module\;CMake Files\util\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\src\;CMake Files\..\..\..\..\..\..\usr\src\gmock\;CMake Files\..\..\..\..\..\..\usr\src\gtest\;CMake Files\..\..\..\..\..\..\usr\src\gtest\cmake\;CMake Files\..\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\..\opt\ros\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\platform\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\test\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\tools\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\templates\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\catkin\cmake\em\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cpp_common\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cpp_common\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_runtime\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_runtime\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_serialization\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_serialization\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_traits\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp_traits\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rostime\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rostime\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosconsole\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosconsole\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\xmlrpcpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\xmlrpcpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geometry_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geometry_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_filters\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_filters\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_ros\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_ros\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\actionlib_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genmsg\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genmsg\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gencpp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gencpp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geneus\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\geneus\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genlisp\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genlisp\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gennodejs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\gennodejs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genpy\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\genpy\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_msgs\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_msgs\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_generation\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_generation\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_py\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_py\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\pluginlib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\pluginlib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\class_loader\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\class_loader\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roslib\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roslib\cmake\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospack\;CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospack\cmake\;CMake Files\..\..\..\devel\;CMake Files\..\..\..\devel\share\;CMake Files\..\..\..\devel\share\roborts_msgs\;CMake Files\..\..\..\devel\share\roborts_msgs\cmake\;CMake Files\..\..\..\devel\share\roborts_common\;CMake Files\..\..\..\devel\share\roborts_common\cmake\;CMake Files\image_publish\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\image_publish\;CMake Files\cmake-build-debug\image_publish\catkin_generated\;CMake Files\cmake-build-debug\catkin\;CMake Files\cmake-build-debug\catkin\catkin_generated\;CMake Files\cmake-build-debug\catkin\catkin_generated\version\;CMake Files\cmake-build-debug\catkin_generated\;CMake Files\cmake-build-debug\catkin_generated\installspace\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug"/>
@@ -1083,6 +1083,80 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/armor_detection/constraint_set/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="image_publish">
+				<Option output="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/devel/lib/roborts_detection/image_publish" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/devel/lib/roborts_detection"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_BUILD_SHARED_LIBS=1"/>
+					<Add option="-DROS_PACKAGE_NAME=&quot;roborts_detection&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DBUILD_PROTO"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/util"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../devel/include"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/armor_detection"/>
+					<Add directory="/opt/MVS/include"/>
+					<Add directory="/opt/ros/kinetic/include"/>
+					<Add directory="/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/opt/MVS/Samples_LinuxSDK/include"/>
+					<Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev"/>
+					<Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 image_publish"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="image_publish/fast">
+				<Option output="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/devel/lib/roborts_detection/image_publish" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/devel/lib/roborts_detection"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DROS_BUILD_SHARED_LIBS=1"/>
+					<Add option="-DROS_PACKAGE_NAME=&quot;roborts_detection&quot;"/>
+					<Add option="-DROSCONSOLE_BACKEND_LOG4CXX"/>
+					<Add option="-DBUILD_PROTO"/>
+					<Add directory="/usr/include/eigen3"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/util"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../devel/include"/>
+					<Add directory="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/armor_detection"/>
+					<Add directory="/opt/MVS/include"/>
+					<Add directory="/opt/ros/kinetic/include"/>
+					<Add directory="/opt/ros/kinetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"/>
+					<Add directory="/opt/MVS/Samples_LinuxSDK/include"/>
+					<Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev"/>
+					<Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 image_publish/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/armor_detection/armor_detection_client.cpp">
 			<Option target="armor_detection_client"/>
@@ -1142,6 +1216,9 @@
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/armor_detection/proto/armor_detection.pb.h">
 			<Option target="armor_detection_node"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/image_publish/src/main.cpp">
+			<Option target="image_publish"/>
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/util">
 			<Option target="armor_detection_client"/>
@@ -1370,6 +1447,57 @@
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/roscpp/cmake/roscppConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\roscpp\cmake\"/>
 		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rospy/cmake/rospyConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rospy/cmake/rospyConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/image_transport/cmake/image_transportConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/image_transport/cmake/image_transportConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridge-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridgeConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridgeConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgs-msg-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgsConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgs-msg-extras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgsConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
+		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cpp_common/cmake/cpp_commonConfig-version.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cpp_common\cmake\"/>
 		</Unit>
@@ -1418,15 +1546,6 @@
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rosgraph_msgs/cmake/rosgraph_msgsConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rosgraph_msgs\cmake\"/>
 		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgs-msg-extras.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgsConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/std_msgs/cmake/std_msgsConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\std_msgs\cmake\"/>
-		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/xmlrpcpp/cmake/xmlrpcpp-extras.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\xmlrpcpp\cmake\"/>
 		</Unit>
@@ -1459,15 +1578,6 @@
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/message_filters/cmake/message_filtersConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\message_filters\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgs-msg-extras.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgsConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/sensor_msgs/cmake/sensor_msgsConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\sensor_msgs\cmake\"/>
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/tf2_ros/cmake/tf2_rosConfig-version.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_ros\cmake\"/>
@@ -1583,27 +1693,6 @@
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/tf2_py/cmake/tf2_pyConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\tf2_py\cmake\"/>
 		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rospy/cmake/rospyConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rospy/cmake/rospyConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospy\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridge-extras.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridgeConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/cv_bridge/cmake/cv_bridgeConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\cv_bridge\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/image_transport/cmake/image_transportConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/image_transport/cmake/image_transportConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\image_transport\cmake\"/>
-		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/pluginlib/cmake/pluginlibConfig-version.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\pluginlib\cmake\"/>
 		</Unit>
@@ -1634,18 +1723,6 @@
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/rospack/cmake/rospackConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\rospack\cmake\"/>
 		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules-release.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
-		</Unit>
-		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules.cmake">
-			<Option virtualFolder="CMake Files\..\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\"/>
-		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../devel/share/roborts_msgs/cmake/roborts_msgs-msg-extras.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\devel\share\roborts_msgs\cmake\"/>
 		</Unit>
@@ -1660,6 +1737,12 @@
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/../../../devel/share/roborts_common/cmake/roborts_commonConfig.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\devel\share\roborts_common\cmake\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/image_publish/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\image_publish\"/>
+		</Unit>
+		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/catkin_generated/ordered_paths.cmake">
+			<Option virtualFolder="CMake Files\cmake-build-debug\image_publish\catkin_generated\"/>
 		</Unit>
 		<Unit filename="/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/catkin/catkin_generated/version/package.cmake">
 			<Option virtualFolder="CMake Files\cmake-build-debug\catkin\catkin_generated\version\"/>

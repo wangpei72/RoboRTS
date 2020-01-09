@@ -46,9 +46,9 @@ namespace roborts_camera
 
         img.data = (uchar *)color_frame.get_data();
     }
-    void RS_Driver::DepthPixel2Wolrd(cv::Mat &img) {
+    void RS_Driver::DepthPixel2World(cv::Mat &img) {
         cv::Mat img_out;
-        img.copyTo(img_out);
+        img_out.create(img.size(),img.type());
         //roborts_camera::CameraInfo cameraInfo;
         float intrinsic[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
                                  {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
@@ -65,10 +65,13 @@ namespace roborts_camera
         //depth camera intrinsic mat
         cv::Mat LR = cv::Mat(3, 3, CV_32F, intrinsic);
         //depth camera rotation and translation mat
-        cv::Mat LRT = cv::Mat(4, 4, CV_32F, extrinsic);
+        cv::Mat M = cv::Mat(3, 4, CV_32F, extrinsic);
+        //rotation mat and translation mat
+        cv::Mat R = cv::Mat(3,3,CV_32F);
+        cv::Mat T = cv::Mat(3,1,CV_32F);
         //world coordinate mat
         cv::Mat XYZ = cv::Mat(3, 1, CV_32F);
-
+        cv::Mat uv = cv::Mat(3,1,CV_32F);
         /*//calculate M mat
         cv::Mat M = LR*LRT;*/
         std::vector<cv::Point3f> world_points;
@@ -76,12 +79,22 @@ namespace roborts_camera
         //  XYZ in world
         for (int i = 0; i < img_out.rows; ++i) {
             for (int j = 0; j < img_out.cols; ++j) {
-                cv::Point2d pixel;
-                float z = img_out.at<float>(i, j);
-
-                cv::Mat res=z*LR.inv()
+                cv::Point3f point;
+                point.x=0;
+                point.y=0;
+                point.z=0;
+                uv.at<float>(0,0)=j;
+                uv.at<float>(0,1)=i;
+                uv.at<float>(0,2)=1;
+                float z = img.at<float>(i, j);
+                cv::Mat res=z*LR.inv()*uv;
+                point.x=res.at<float>(0,0);
+                point.y=res.at<float>(0,1);
+                point.z=z;
+                world_points.push_back(point);
             }
         }
+
     }
     void RS_Driver::StartReadDepth(cv::Mat &img)
     {

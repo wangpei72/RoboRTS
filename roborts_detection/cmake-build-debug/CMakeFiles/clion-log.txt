@@ -14,33 +14,12 @@
 -- catkin 0.7.18
 -- BUILD_SHARED_LIBS is on
 -- Using these message generators: gencpp;geneus;genlisp;gennodejs;genpy
--- Could NOT find cv_bridge (missing: cv_bridge_DIR)
--- Could not find the required component 'cv_bridge'. The following CMake error indicates that you either need to install the package with the same name or change your environment so that it can be found.
-CMake Error at /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:83 (find_package):
-  Could not find a package configuration file provided by "cv_bridge" with
-  any of the following names:
-
-    cv_bridgeConfig.cmake
-    cv_bridge-config.cmake
-
-  Add the installation prefix of "cv_bridge" to CMAKE_PREFIX_PATH or set
-  "cv_bridge_DIR" to a directory containing one of the above files.  If
-  "cv_bridge" provides a separate development package or SDK, be sure it has
-  been installed.
-Call Stack (most recent call first):
-  CMakeLists.txt:8 (find_package)
+-- Found PROTOBUF Compiler: /usr/bin/protoc
+protobuf /usr/lib/x86_64-linux-gnu/libprotobuf.so;-lpthread found
+-- Found OpenCV: /opt/ros/kinetic (found suitable version "3.3.1", minimum required is "3") 
 
 
-CMake Error in CMakeLists.txt:
-  No cmake_minimum_required command is present.  A line of code such as
-
-    cmake_minimum_required(VERSION 3.14)
-
-  should be added at the top of the file.  The version specified may be lower
-  if you wish to support older CMake versions for this project.  For more
-  information run "cmake --help-policy CMP0000".
-
-
--- Configuring incomplete, errors occurred!
-See also "/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/CMakeFiles/CMakeOutput.log".
-See also "/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/CMakeFiles/CMakeError.log".
+-- Found OpenCV: /opt/ros/kinetic (found version "3.3.1") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug

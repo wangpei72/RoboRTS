@@ -158,6 +158,11 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/armor_detection/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wangpei/wangpei_ws/src/roborts/roborts_detection/cmake-build-debug/image_publish/cmake_install.cmake")
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()

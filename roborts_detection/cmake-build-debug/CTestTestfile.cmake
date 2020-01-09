@@ -7,3 +7,4 @@
 subdirs("gtest")
 subdirs("util")
 subdirs("armor_detection")
+subdirs("image_publish")
