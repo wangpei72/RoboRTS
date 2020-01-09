@@ -5,12 +5,12 @@ camera: {
   image_code: "16UC1"
 
   camera_matrix {
-    data: 839.923052
+    data: 638.9
     data: 0.0
-    data: 340.780730
+    data: 643.918
     data: 0.0
-    data: 837.671081
-    data: 261.766523
+    data: 638.9
+    data: 358.024
     data: 0.0
     data: 0.0
     data: 1.0
