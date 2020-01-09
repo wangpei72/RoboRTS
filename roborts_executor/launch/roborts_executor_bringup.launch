@@ -3,13 +3,13 @@
     <node pkg="roborts_executor"
           name="chassis_executor_action_node"
           type="chassis_executor_action_node"
-          output="screen"
           required="true">
     </node>
 
     <node pkg="roborts_executor"
           name="gimbal_executor_action_node"
           type="gimbal_executor_action_node"
+          output="screen"
           required="true">
     </node>
 
