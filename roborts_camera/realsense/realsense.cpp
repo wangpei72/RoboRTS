@@ -62,20 +62,31 @@ namespace roborts_camera
                                  {-8.5002809180629770e-03, -1.0504580129118116e-01,
                                          9.9443105585827696e-01, 3.4991621301756459e-01},
         };
+        float rotation[3][3] = {
+                {9.9930980513982504e-01,  3.5070411883416031e-02,
+                        1.2246614296712125e-02},
+                {-3.6161562130512234e-02, 9.9384880431654243e-01,
+                        1.0467519086612581e-01},
+                {-8.5002809180629770e-03, -1.0504580129118116e-01,
+                        9.9443105585827696e-01},
+        };
+        float translation[3] = {
+                 -2.3640906380346682e-01,
+                -2.6589124679310618e+00,
+                 3.4991621301756459e-01,
+        };
         //depth camera intrinsic mat
         cv::Mat LR = cv::Mat(3, 3, CV_32F, intrinsic);
         //depth camera rotation and translation mat
         cv::Mat M = cv::Mat(3, 4, CV_32F, extrinsic);
         //rotation mat and translation mat
-        cv::Mat R = cv::Mat(3,3,CV_32F);
-        cv::Mat T = cv::Mat(3,1,CV_32F);
+        cv::Mat R = cv::Mat(3,3,CV_32F,rotation);
+        cv::Mat T = cv::Mat(3,1,CV_32F,translation);
         //world coordinate mat
-        cv::Mat XYZ = cv::Mat(3, 1, CV_32F);
+        cv::Mat XYZ = cv::Mat(3, 1,CV_32F);
         cv::Mat uv = cv::Mat(3,1,CV_32F);
-        /*//calculate M mat
-        cv::Mat M = LR*LRT;*/
+        //world point cloud
         std::vector<cv::Point3f> world_points;
-
         //  XYZ in world
         for (int i = 0; i < img_out.rows; ++i) {
             for (int j = 0; j < img_out.cols; ++j) {
@@ -88,12 +99,15 @@ namespace roborts_camera
                 uv.at<float>(0,2)=1;
                 float z = img.at<float>(i, j);
                 cv::Mat res=z*LR.inv()*uv;
+                //geometric trans between snesors
+                res =R*res +T;
                 point.x=res.at<float>(0,0);
                 point.y=res.at<float>(0,1);
                 point.z=z;
                 world_points.push_back(point);
             }
         }
+
 
     }
     void RS_Driver::StartReadDepth(cv::Mat &img)
