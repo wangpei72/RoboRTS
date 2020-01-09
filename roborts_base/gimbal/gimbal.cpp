@@ -119,7 +119,7 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   auto chassis_cur_map_yaw = tf::getYaw(chassis_map_pose.pose.orientation);
   auto chassis_cur_map_yaw_q = tf::createQuaternionFromYaw(chassis_cur_map_yaw);
 
-  ROS_ERROR("%lf    %lf", gimbal_cur_map_yaw, chassis_cur_map_yaw);
+//  ROS_ERROR("%lf    %lf", gimbal_cur_map_yaw, chassis_cur_map_yaw);
 
   geometry_msgs::PoseStamped cur_angle_between_chassis_gimbal;
   cur_angle_between_chassis_gimbal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, gimbal_cur_map_yaw);

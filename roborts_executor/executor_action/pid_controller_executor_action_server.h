@@ -62,7 +62,7 @@ class PIDControllerExecuteActionServer {
     ROS_INFO("now_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
     double difference_yaw = chassis_yaw - goal_yaw;
 
-    while (difference_yaw * (chassis_yaw - goal_yaw) > 0.1) {
+    while (difference_yaw * (chassis_yaw - goal_yaw) > 0.01) {
 
       if (!action_server_.isActive()) {
         break;
