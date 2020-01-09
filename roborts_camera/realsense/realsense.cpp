@@ -3,6 +3,7 @@
 //
 
 #include "realsense.h"
+#include <sensor_msgs/PointCloud.h>
 
 namespace roborts_camera
 {
@@ -34,6 +35,7 @@ namespace roborts_camera
 
         rs2::frame color_frame = frameset.get_depth_frame();
 
+
         //rs2::video_frame vf = color_frame.as<rs2::video_frame>();
 
         //ROS_INFO("%d,%d",color_frame.);
@@ -44,7 +46,34 @@ namespace roborts_camera
 
         img.data = (uchar *)color_frame.get_data();
     }
+    void RS_Driver::DepthPixel2Wolrd(cv::Mat &img){
+        cv::Mat img_out;
+        img.copyTo(img_out);
+        //roborts_camera::CameraInfo cameraInfo;
+        float intrinsic[3][3] = { {9.18732064958717e+02, 0., 6.481170182761775e+02},
+                                  { 0.,9.19093433238763e+02, 3.70129208057065e+02},
+                                  {0., 0., 1 },
+                           };
+        //realsense and MVS extrinsic mat info
+        float extrinsic[3][4] ={ {9.9930980513982504e-01, 3.5070411883416031e-02,
+                                          1.2246614296712125e-02,-2.3640906380346682e-01},
+                                 { -3.6161562130512234e-02,9.9384880431654243e-01,
+                                          1.0467519086612581e-01, -2.6589124679310618e+00},
+                                 {-8.5002809180629770e-03, -1.0504580129118116e-01,
+                                          9.9443105585827696e-01,3.4991621301756459e-01 },
+                                };
+        //depth camera intrinsic mat
+        cv::Mat LR = cv::Mat(3,3,CV_32F,intrinsic);
+        //depth camera rotation and translation mat
+        cv::Mat LRT = cv::Mat(4,4,CV_32F,extrinsic);
+        //world coordinate mat
+        cv::Mat XYZ = cv::Mat(3,1,CV_32F);
+        /*//calculate M mat
+        cv::Mat M = LR*LRT;*/
+        cv::Point3f world;
+      //  XYZ=
 
+    }
     void RS_Driver::StartReadDepth(cv::Mat &img)
     {
         rs2::frameset frameset = pipeline_.wait_for_frames(2000);
