@@ -70,9 +70,13 @@ namespace roborts_camera
         cv::Mat XYZ = cv::Mat(3,1,CV_32F);
         /*//calculate M mat
         cv::Mat M = LR*LRT;*/
-        cv::Point3f world;
-      //  XYZ=
+        std::vector<cv::Point3f> world_points;
+      //  XYZ in world
+        for (int i= 0; i< img_out.rows ; ++i) {
+            for (int j = 0; j < img_out.cols ; ++j) {
 
+            }
+        }
     }
     void RS_Driver::StartReadDepth(cv::Mat &img)
     {

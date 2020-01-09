@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_3e6ce/fast"
-/usr/bin/make -f CMakeFiles/cmTC_3e6ce.dir/build.make CMakeFiles/cmTC_3e6ce.dir/build
-make[1]: Entering directory '/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_3e6ce.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_3e6ce.dir/CheckSymbolExists.c.o   -c /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_3e6ce
-/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3e6ce.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_3e6ce.dir/CheckSymbolExists.c.o  -o cmTC_3e6ce 
-CMakeFiles/cmTC_3e6ce.dir/CheckSymbolExists.c.o：在函数‘main’中：
-CheckSymbolExists.c:(.text+0x16)：对‘pthread_create’未定义的引用
+Run Build Command(s):/usr/bin/make cmTC_61c91/fast 
+/usr/bin/make -f CMakeFiles/cmTC_61c91.dir/build.make CMakeFiles/cmTC_61c91.dir/build
+make[1]: Entering directory '/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_61c91.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_61c91.dir/CheckSymbolExists.c.o   -c /home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_61c91
+/home/wangpei/clion-2019.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_61c91.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_61c91.dir/CheckSymbolExists.c.o  -o cmTC_61c91 
+CMakeFiles/cmTC_61c91.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_3e6ce.dir/build.make:86: recipe for target 'cmTC_3e6ce' failed
-make[1]: *** [cmTC_3e6ce] Error 1
-make[1]: Leaving directory '/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_3e6ce/fast' failed
-make: *** [cmTC_3e6ce/fast] Error 2
+CMakeFiles/cmTC_61c91.dir/build.make:86: recipe for target 'cmTC_61c91' failed
+make[1]: *** [cmTC_61c91] Error 1
+make[1]: Leaving directory '/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_61c91/fast' failed
+make: *** [cmTC_61c91/fast] Error 2
 
-File /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp
+Change Dir: /home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_c7867/fast"
-/usr/bin/make -f CMakeFiles/cmTC_c7867.dir/build.make CMakeFiles/cmTC_c7867.dir/build
-make[1]: Entering directory '/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_c7867.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_c7867.dir/CheckFunctionExists.c.o   -c /home/wang_shuai/clion-2018.2/bin/cmake/linux/share/cmake-3.12/Modules/CheckFunctionExists.c
-Linking C executable cmTC_c7867
-/home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7867.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_c7867.dir/CheckFunctionExists.c.o  -o cmTC_c7867 -lpthreads 
-/usr/bin/ld: 找不到 -lpthreads
+Run Build Command(s):/usr/bin/make cmTC_b20f2/fast 
+/usr/bin/make -f CMakeFiles/cmTC_b20f2.dir/build.make CMakeFiles/cmTC_b20f2.dir/build
+make[1]: Entering directory '/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b20f2.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_b20f2.dir/CheckFunctionExists.c.o   -c /home/wangpei/clion-2019.2/bin/cmake/linux/share/cmake-3.14/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b20f2
+/home/wangpei/clion-2019.2/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b20f2.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_b20f2.dir/CheckFunctionExists.c.o  -o cmTC_b20f2 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_c7867.dir/build.make:86: recipe for target 'cmTC_c7867' failed
-make[1]: *** [cmTC_c7867] Error 1
-make[1]: Leaving directory '/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_c7867/fast' failed
-make: *** [cmTC_c7867/fast] Error 2
+CMakeFiles/cmTC_b20f2.dir/build.make:86: recipe for target 'cmTC_b20f2' failed
+make[1]: *** [cmTC_b20f2] Error 1
+make[1]: Leaving directory '/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_b20f2/fast' failed
+make: *** [cmTC_b20f2/fast] Error 2
 
 

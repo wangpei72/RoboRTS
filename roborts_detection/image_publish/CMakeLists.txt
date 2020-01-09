@@ -19,7 +19,7 @@ find_package(OpenCV REQUIRED)
 
 include_directories(/opt/MVS/include ${OpenCV_INCLUDE_DIRS})
 
-find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/lib/64)
+find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/bin)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -149,7 +149,7 @@ add_executable(image_publish  src/main.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_include_directories( image_publish PRIVATE /opt/MVS/include)
+target_include_directories( image_publish PRIVATE /opt/MVS/Samples_LinuxSDK/include)
 target_link_libraries( image_publish
    ${catkin_LIBRARIES}
    ${LIB_libMvCameraControl}
