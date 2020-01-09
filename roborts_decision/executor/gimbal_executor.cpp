@@ -34,12 +34,11 @@ void GimbalExecutor::Execute(const roborts_msgs::GimbalRate &gimbal_rate) {
 
 void GimbalExecutor::Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode _goal_mode) {
 
-  printf("Now in the Execute add \n");
   if (_goal_mode == GoalMode::GOAL_MODE_USE_PID) {
 
-    printf("Now in the Gimbal control mode --USING PID \n");
     excution_mode_ = ExcutionMode::PID_MODE;
 
+    ROS_ERROR("Execute gimbal send goal! \n");
     pid_controller_toward_angular_goal_.goal = gimbal_angle;
     pid_controller_client_.sendGoal(pid_controller_toward_angular_goal_,
                                     PIDControllerClient::SimpleDoneCallback(),

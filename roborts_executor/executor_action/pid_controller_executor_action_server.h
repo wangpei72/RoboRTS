@@ -59,7 +59,7 @@ class PIDControllerExecuteActionServer {
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsV2PHasThreshold(),
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PThreshold());
 
-    printf("chassis_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
+    ROS_INFO("now_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
     double difference_yaw = chassis_yaw - goal_yaw;
 
     while (difference_yaw * (chassis_yaw - goal_yaw) > 0.1) {
@@ -81,7 +81,7 @@ class PIDControllerExecuteActionServer {
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
-      printf("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
+      ROS_INFO("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
       pid_controller_toward_angular.update(chassis_yaw);
 
       vel.linear.x = 0.0;
@@ -94,7 +94,7 @@ class PIDControllerExecuteActionServer {
       vel.angular.z = pid_controller_toward_angular.output();
       cmd_vel_pub_.publish(vel);
 
-      printf("chassis_yaw = %lf \n", chassis_yaw);
+      ROS_INFO("now_yaw = %lf \n", chassis_yaw);
       feedback.differ_angle = chassis_yaw;
       action_server_.publishFeedback(feedback);
 

@@ -3,7 +3,6 @@
     <node pkg="roborts_executor"
           name="chassis_executor_action_node"
           type="chassis_executor_action_node"
-          output="screen"
           required="true">
     </node>
 
