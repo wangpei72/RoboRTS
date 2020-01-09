@@ -22,7 +22,7 @@ namespace roborts_camera
 
     }
 
-    void RS_Driver::StartReadCamera(cv::Mat &img)
+    void RS_Driver::StartReadCamera(cv::Mat &img, cv::Mat depth)
     {
 
         img.create(camera_info_.resolution_height,

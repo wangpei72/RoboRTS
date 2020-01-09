@@ -67,8 +67,8 @@ set(roborts_camera_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(roborts_camera_SOURCE_PREFIX /home/wang_shuai/vwbot_ws/src/roborts_camera)
-  set(roborts_camera_DEVEL_PREFIX /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/devel)
+  set(roborts_camera_SOURCE_PREFIX /home/wang_shuai/catkin_ws/src/roborts/roborts_camera)
+  set(roborts_camera_DEVEL_PREFIX /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/devel)
   set(roborts_camera_INSTALL_PREFIX "")
   set(roborts_camera_PREFIX ${roborts_camera_DEVEL_PREFIX})
 else()
@@ -110,7 +110,7 @@ if(NOT " " STREQUAL " ")
         message(FATAL_ERROR "Project 'roborts_camera' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'roborts_camera' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/wang_shuai/vwbot_ws/src/roborts_camera/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'roborts_camera' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/${idir}'.  ${_report}")
     endif()
     _list_append_unique(roborts_camera_INCLUDE_DIRS ${include})
   endforeach()
@@ -131,7 +131,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/devel/lib;/opt/ros/kinetic/lib)
+    foreach(path /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/devel/lib;/opt/ros/kinetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

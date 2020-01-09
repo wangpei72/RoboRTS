@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "roborts_camera"
-PROJECT_SPACE_DIR = "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/devel"
+PROJECT_SPACE_DIR = "/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/devel"
 PROJECT_VERSION = "1.0.0"

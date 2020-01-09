@@ -4,64 +4,64 @@
     <generated>
       <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="run_tests" />
       <config projectName="roborts_camera" targetName="tf_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="gmock_main" />
       <config projectName="roborts_camera" targetName="tf_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="gmock" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_py" />
       <config projectName="roborts_camera" targetName="realsense_driver" />
-      <config projectName="roborts_camera" targetName="actionlib_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="roscpp_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="tf_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="uvc_driver" />
-      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="actionlib_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="roborts_camera_node" />
+      <config projectName="roborts_camera" targetName="gtest" />
+      <config projectName="roborts_camera" targetName="uvc_driver" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="roscpp_generate_messages_eus" />
+      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="run_tests" />
+      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_py" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_eus" />
+      <config projectName="roborts_camera" targetName="roborts_camera_param" />
+      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="clean_test_results" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="roborts_camera_param" />
-      <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="doxygen" />
+      <config projectName="roborts_camera" targetName="actionlib_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="actionlib_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="mvs_driver" />
+      <config projectName="roborts_camera" targetName="doxygen" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="roscpp_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_py" />
+      <config projectName="roborts_camera" targetName="download_extra_data" />
+      <config projectName="roborts_camera" targetName="tf_generate_messages_py" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="tf_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="tf_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="gtest_main" />
       <config projectName="roborts_camera" targetName="tests" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="download_extra_data" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="image_capture_test" />
       <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="mvs_driver" />
+      <config projectName="roborts_camera" targetName="actionlib_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="actionlib_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="gtest" />
-      <config projectName="roborts_camera" targetName="tf_generate_messages_py" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_eus" />
+      <config projectName="roborts_camera" targetName="roscpp_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_eus" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -70,7 +70,148 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5002235a-fbeb-4186-899f-fb3aa6101972" name="Default Changelist" comment="" />
+    <list default="true" id="5002235a-fbeb-4186-899f-fb3aa6101972" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_base.h" beforeDir="false" afterPath="$PROJECT_DIR$/camera_base.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/camera_node.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_node.h" beforeDir="false" afterPath="$PROJECT_DIR$/camera_node.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_param.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/camera_param.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_param.h" beforeDir="false" afterPath="$PROJECT_DIR$/camera_param.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeRuleHashes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeRuleHashes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clean_test_results.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clean_test_results.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/download_extra_data.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/download_extra_data.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/doxygen.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/doxygen.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/image_capture_test.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_node.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/roscpp_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/run_tests.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/run_tests.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/std_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tests.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tests.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_cpp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_cpp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_eus.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_eus.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_lisp.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_lisp.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_nodejs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_nodejs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_py.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tf_generate_messages_py.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CTestConfiguration.ini" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CTestConfiguration.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/.rosinstall" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/.rosinstall" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/local_setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/local_setup.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/atomic_configure/setup.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/generate_cached_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/generate_cached_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/installspace/roborts_cameraConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/installspace/roborts_cameraConfig.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/pkg.develspace.context.pc.py" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/pkg.develspace.context.pc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/setup_cached.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/catkin_generated/setup_cached.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/.catkin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/.catkin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/.rosinstall" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/.rosinstall" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/lib/pkgconfig/roborts_camera.pc" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/lib/pkgconfig/roborts_camera.pc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/local_setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/local_setup.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/setup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/setup.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/devel/share/roborts_camera/cmake/roborts_cameraConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/devel/share/roborts_camera/cmake/roborts_cameraConfig.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock_main.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock_main.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock_main.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CMakeFiles/gmock_main.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gmock.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gmock.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CMakeFiles/gtest_main.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/gtest.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gtest/gtest/gtest.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/CMakeFiles/mvs_driver.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/mvs/mvs_driver.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/mvs/mvs_driver.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/realsense_driver.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/realsense_driver.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/realsense_driver.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/CMakeFiles/realsense_driver.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/realsense/realsense.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/realsense/realsense.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/roborts_camera.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/roborts_camera.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/CTestTestfile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/CTestTestfile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/uvc/uvc_driver.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/uvc/uvc_driver.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/camera_param.prototxt" beforeDir="false" afterPath="$PROJECT_DIR$/config/camera_param.prototxt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvs/mvs_driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mvs/mvs_driver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvs/mvs_driver.h" beforeDir="false" afterPath="$PROJECT_DIR$/mvs/mvs_driver.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/camera_param.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/camera_param.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/realsense/realsense.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/realsense/realsense.h" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uvc/uvc_driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/uvc/uvc_driver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uvc/uvc_driver.h" beforeDir="false" afterPath="$PROJECT_DIR$/uvc/uvc_driver.h" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,23 +314,84 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="381530749">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.31" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="cpp" value="459" />
+          <entry key="h" value="169" />
+          <entry key="proto" value="134" />
+          <entry key="prototxt" value="55" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ObjectiveC" value="628" />
+          <entry key="PLAIN_TEXT" value="189" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cpp" value="5" />
+          <entry key="h" value="13" />
+          <entry key="proto" value="1" />
+          <entry key="prototxt" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="ObjectiveC" value="18" />
+          <entry key="PLAIN_TEXT" value="3" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1488">
-              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+            <state relative-caret-position="29">
+              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+        <entry file="file://$PROJECT_DIR$/camera_param.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
+            <state relative-caret-position="1508">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
+              <folding>
+                <element signature="e#851#876#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/camera_param.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1131">
+              <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="928">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
             </state>
           </provider>
         </entry>
@@ -198,7 +400,7 @@
         <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="580">
-              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+              <caret line="20" column="51" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
               <folding>
                 <element signature="e#118#145#0" expanded="true" />
               </folding>
@@ -207,22 +409,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/camera_param.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-              <folding>
-                <element signature="e#851#876#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1218">
-              <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+            <state relative-caret-position="1102">
+              <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
               <folding>
                 <element signature="e#44#73#0" expanded="true" />
               </folding>
@@ -233,31 +423,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45501">
-              <caret line="1569" column="48" selection-start-line="1569" selection-start-column="48" selection-end-line="1569" selection-end-column="48" />
+            <state relative-caret-position="48546">
+              <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+        <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/camera_node.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="841">
-              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="1392">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
             </state>
           </provider>
         </entry>
@@ -265,11 +441,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/camera_node.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
+            <state relative-caret-position="2291">
+              <caret line="79" column="7" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
               <folding>
                 <element signature="e#851#883#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="754">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -283,22 +468,27 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/camera_base.h" />
-        <option value="$PROJECT_DIR$/mvs/mvs_driver.h" />
-        <option value="$PROJECT_DIR$/realsense/realsense.h" />
         <option value="$PROJECT_DIR$/mvs/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/camera_node.h" />
         <option value="$PROJECT_DIR$/realsense/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/mvs/mvs_driver.cpp" />
+        <option value="$PROJECT_DIR$/camera_base.h" />
+        <option value="$PROJECT_DIR$/uvc/uvc_driver.cpp" />
+        <option value="$PROJECT_DIR$/uvc/uvc_driver.h" />
+        <option value="$PROJECT_DIR$/realsense/realsense.h" />
         <option value="$PROJECT_DIR$/realsense/realsense.cpp" />
-        <option value="$PROJECT_DIR$/camera_param.h" />
+        <option value="$PROJECT_DIR$/camera_node.h" />
         <option value="$PROJECT_DIR$/proto/camera_param.proto" />
-        <option value="$PROJECT_DIR$/camera_param.cpp" />
         <option value="$PROJECT_DIR$/camera_node.cpp" />
+        <option value="$PROJECT_DIR$/mvs/mvs_driver.h" />
+        <option value="$PROJECT_DIR$/mvs/mvs_driver.cpp" />
+        <option value="$PROJECT_DIR$/camera_param.h" />
+        <option value="$PROJECT_DIR$/camera_param.cpp" />
         <option value="$PROJECT_DIR$/config/camera_param.prototxt" />
       </list>
     </option>
@@ -311,16 +501,17 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-4" />
-    <option name="width" value="1920" />
-    <option name="height" value="1021" />
+    <option name="x" value="-1" />
+    <option name="y" value="-11" />
+    <option name="width" value="1922" />
+    <option name="height" value="1029" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -379,11 +570,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../realsense-2.2.2/ddynamic_reconfigure/CMakeLists.txt" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -399,7 +591,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.image_capture_test">
+  <component name="RunManager" selected="Application.Build All">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -761,12 +953,12 @@
       <item itemvalue="Application.tf_generate_messages_nodejs" />
       <item itemvalue="Application.tf_generate_messages_py" />
       <item itemvalue="Application.mvs_driver" />
+      <item itemvalue="Application.realsense_driver" />
       <item itemvalue="Application.uvc_driver" />
       <item itemvalue="Application.gmock" />
       <item itemvalue="Application.gmock_main" />
       <item itemvalue="Application.gtest" />
       <item itemvalue="Application.gtest_main" />
-      <item itemvalue="Application.realsense_driver" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -792,17 +984,21 @@
       <workItem from="1577782259257" duration="407000" />
       <workItem from="1578042832514" duration="3000" />
       <workItem from="1578445268597" duration="1438000" />
+      <workItem from="1578447422357" duration="89000" />
+      <workItem from="1578447599411" duration="897000" />
+      <workItem from="1578480714192" duration="5125000" />
+      <workItem from="1578487546492" duration="597000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38091000" />
+    <option name="totallyTimeSpent" value="44799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1920" height="1021" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2379936" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24866596" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -815,8 +1011,8 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CMake" order="11" weight="0.32922733" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.3281075" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -844,7 +1040,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/catkin_ws/src/image_common-hydro-devel/image_transport/include/image_transport/camera_publisher.h">
+    <entry file="file://$PROJECT_DIR$/../../image_common-hydro-devel/image_transport/include/image_transport/camera_publisher.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3654">
           <caret line="129" column="29" selection-start-line="129" selection-start-column="29" selection-end-line="129" selection-end-column="29" />
@@ -858,7 +1054,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/catkin_ws/src/image_common-hydro-devel/image_transport/include/image_transport/image_transport.h">
+    <entry file="file://$PROJECT_DIR$/../../image_common-hydro-devel/image_transport/include/image_transport/image_transport.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4379">
           <caret line="154" column="46" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
@@ -869,20 +1065,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3369">
           <caret line="147" column="14" selection-start-line="147" selection-start-column="14" selection-end-line="147" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/image_capture.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1218">
-          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///opt/MVS/Samples_LinuxSDK/include/CameraParams.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="75" column="1" selection-start-line="75" selection-start-column="1" selection-end-line="75" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -949,24 +1131,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/catkin_ws/src/roborts/roborts_common/include/io/io.h">
+    <entry file="file://$PROJECT_DIR$/../roborts_common/include/io/io.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="65" column="12" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/catkin_ws/src/roborts/roborts_common/include/alg_factory/algorithm_factory.h">
+    <entry file="file://$PROJECT_DIR$/../roborts_common/include/alg_factory/algorithm_factory.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
           <caret line="187" column="8" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera_base.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1334">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
@@ -991,20 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uvc/uvc_driver.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="55" column="25" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uvc/uvc_driver.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="803">
-          <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/realsense/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
@@ -1012,95 +1173,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file:///opt/MVS/Samples_LinuxSDK/include/CameraParams.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        <state relative-caret-position="711">
+          <caret line="154" column="11" selection-start-line="154" selection-start-column="11" selection-end-line="154" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/camera_param.h">
+    <entry file="file://$PROJECT_DIR$/uvc/uvc_driver.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12">
-          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+        <state relative-caret-position="308">
+          <caret line="31" column="27" lean-forward="true" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
+    <entry file="file://$PROJECT_DIR$/camera_node.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1488">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        <state relative-caret-position="540">
+          <caret line="74" column="62" lean-forward="true" selection-start-line="74" selection-start-column="62" selection-end-line="74" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/image_capture.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uvc/uvc_driver.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera_base.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="43" column="70" selection-start-line="43" selection-start-column="70" selection-end-line="43" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
-          <folding>
-            <element signature="e#118#145#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="29">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/camera_param.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        <state relative-caret-position="1508">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
           <folding>
             <element signature="e#851#876#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
+    <entry file="file://$PROJECT_DIR$/camera_param.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45501">
-          <caret line="1569" column="48" selection-start-line="1569" selection-start-column="48" selection-end-line="1569" selection-end-column="48" />
+        <state relative-caret-position="1131">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="580">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera_node.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/camera_node.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
+          <caret line="20" column="51" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
           <folding>
-            <element signature="e#851#883#0" expanded="true" />
+            <element signature="e#118#145#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1218">
-          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+        <state relative-caret-position="1102">
+          <caret line="38" column="19" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48546">
+          <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1392">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera_node.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2291">
+          <caret line="79" column="7" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
+          <folding>
+            <element signature="e#851#883#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>

@@ -48,10 +48,10 @@ RM = /home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera
+CMAKE_SOURCE_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug
+CMAKE_BINARY_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,14 +137,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/realsense/CMakeFiles/progress.marks
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles 0
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/realsense/CMakeFiles/progress.marks
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/clean
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/preinstall
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/preinstall
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 realsense/CMakeFiles/realsense_driver.dir/rule:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/CMakeFiles/realsense_driver.dir/rule
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f CMakeFiles/Makefile2 realsense/CMakeFiles/realsense_driver.dir/rule
 .PHONY : realsense/CMakeFiles/realsense_driver.dir/rule
 
 # Convenience name for target.
@@ -179,7 +179,7 @@ realsense_driver: realsense/CMakeFiles/realsense_driver.dir/rule
 
 # fast build rule for target.
 realsense_driver/fast:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/build
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/build
 .PHONY : realsense_driver/fast
 
 realsense.o: realsense.cpp.o
@@ -188,7 +188,7 @@ realsense.o: realsense.cpp.o
 
 # target to build an object file
 realsense.cpp.o:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.o
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.o
 .PHONY : realsense.cpp.o
 
 realsense.i: realsense.cpp.i
@@ -197,7 +197,7 @@ realsense.i: realsense.cpp.i
 
 # target to preprocess a source file
 realsense.cpp.i:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.i
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.i
 .PHONY : realsense.cpp.i
 
 realsense.s: realsense.cpp.s
@@ -206,7 +206,7 @@ realsense.s: realsense.cpp.s
 
 # target to generate assembly for a file
 realsense.cpp.s:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.s
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(MAKE) -f realsense/CMakeFiles/realsense_driver.dir/build.make realsense/CMakeFiles/realsense_driver.dir/realsense.cpp.s
 .PHONY : realsense.cpp.s
 
 # Help Target
@@ -237,6 +237,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/wang_shuai/vwbot_ws/src/roborts_camera/realsense
+# Install script for directory: /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/realsense
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

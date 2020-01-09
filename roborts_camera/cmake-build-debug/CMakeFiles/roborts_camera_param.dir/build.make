@@ -43,10 +43,10 @@ RM = /home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera
+CMAKE_SOURCE_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug
+CMAKE_BINARY_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/roborts_camera_param.dir/depend.make
@@ -58,37 +58,37 @@ include CMakeFiles/roborts_camera_param.dir/progress.make
 include CMakeFiles/roborts_camera_param.dir/flags.make
 
 ../proto/camera_param.pb.cpp: ../proto/camera_param.proto
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running C++ protocol buffer compiler on /home/wang_shuai/vwbot_ws/src/roborts_camera/proto/camera_param.proto"
-	/usr/local/bin/protoc --cpp_out /home/wang_shuai/vwbot_ws/src/roborts_camera/proto -I /home/wang_shuai/vwbot_ws/src/roborts_camera/proto /home/wang_shuai/vwbot_ws/src/roborts_camera/proto/camera_param.proto
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running C++ protocol buffer compiler on /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto/camera_param.proto"
+	/usr/local/bin/protoc --cpp_out /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto -I /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto/camera_param.proto
 
 ../proto/camera_param.pb.h: ../proto/camera_param.pb.cpp
 	@$(CMAKE_COMMAND) -E touch_nocreate ../proto/camera_param.pb.h
 
 CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o: CMakeFiles/roborts_camera_param.dir/flags.make
 CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o: ../proto/camera_param.pb.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o -c /home/wang_shuai/vwbot_ws/src/roborts_camera/proto/camera_param.pb.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.o -c /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto/camera_param.pb.cc
 
 CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wang_shuai/vwbot_ws/src/roborts_camera/proto/camera_param.pb.cc > CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto/camera_param.pb.cc > CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.i
 
 CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wang_shuai/vwbot_ws/src/roborts_camera/proto/camera_param.pb.cc -o CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/proto/camera_param.pb.cc -o CMakeFiles/roborts_camera_param.dir/proto/camera_param.pb.cc.s
 
 CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o: CMakeFiles/roborts_camera_param.dir/flags.make
 CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o: ../camera_param.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o -c /home/wang_shuai/vwbot_ws/src/roborts_camera/camera_param.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/roborts_camera_param.dir/camera_param.cpp.o -c /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/camera_param.cpp
 
 CMakeFiles/roborts_camera_param.dir/camera_param.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roborts_camera_param.dir/camera_param.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wang_shuai/vwbot_ws/src/roborts_camera/camera_param.cpp > CMakeFiles/roborts_camera_param.dir/camera_param.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/camera_param.cpp > CMakeFiles/roborts_camera_param.dir/camera_param.cpp.i
 
 CMakeFiles/roborts_camera_param.dir/camera_param.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roborts_camera_param.dir/camera_param.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wang_shuai/vwbot_ws/src/roborts_camera/camera_param.cpp -o CMakeFiles/roborts_camera_param.dir/camera_param.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/camera_param.cpp -o CMakeFiles/roborts_camera_param.dir/camera_param.cpp.s
 
 # Object files for target roborts_camera_param
 roborts_camera_param_OBJECTS = \
@@ -186,7 +186,7 @@ devel/lib/libroborts_camera_param.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libo
 devel/lib/libroborts_camera_param.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_imgproc3.so.3.3.1
 devel/lib/libroborts_camera_param.so: /opt/ros/kinetic/lib/x86_64-linux-gnu/libopencv_core3.so.3.3.1
 devel/lib/libroborts_camera_param.so: CMakeFiles/roborts_camera_param.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library devel/lib/libroborts_camera_param.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library devel/lib/libroborts_camera_param.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/roborts_camera_param.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -200,6 +200,6 @@ CMakeFiles/roborts_camera_param.dir/clean:
 
 CMakeFiles/roborts_camera_param.dir/depend: ../proto/camera_param.pb.cpp
 CMakeFiles/roborts_camera_param.dir/depend: ../proto/camera_param.pb.h
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wang_shuai/vwbot_ws/src/roborts_camera /home/wang_shuai/vwbot_ws/src/roborts_camera /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wang_shuai/catkin_ws/src/roborts/roborts_camera /home/wang_shuai/catkin_ws/src/roborts/roborts_camera /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/roborts_camera_param.dir/depend
 

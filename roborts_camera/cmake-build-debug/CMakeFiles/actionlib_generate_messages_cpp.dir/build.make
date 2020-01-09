@@ -43,10 +43,10 @@ RM = /home/wang_shuai/clion-2018.2/bin/cmake/linux/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera
+CMAKE_SOURCE_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug
+CMAKE_BINARY_DIR = /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug
 
 # Utility rule file for actionlib_generate_messages_cpp.
 
@@ -67,6 +67,6 @@ CMakeFiles/actionlib_generate_messages_cpp.dir/clean:
 .PHONY : CMakeFiles/actionlib_generate_messages_cpp.dir/clean
 
 CMakeFiles/actionlib_generate_messages_cpp.dir/depend:
-	cd /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wang_shuai/vwbot_ws/src/roborts_camera /home/wang_shuai/vwbot_ws/src/roborts_camera /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/actionlib_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wang_shuai/catkin_ws/src/roborts/roborts_camera /home/wang_shuai/catkin_ws/src/roborts/roborts_camera /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/actionlib_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/actionlib_generate_messages_cpp.dir/depend
 

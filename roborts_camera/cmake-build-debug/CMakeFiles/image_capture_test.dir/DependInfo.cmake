@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wang_shuai/vwbot_ws/src/roborts_camera/test/image_capture.cpp" "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/image_capture_test.dir/test/image_capture.cpp.o"
+  "/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/test/image_capture.cpp" "/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/image_capture_test.dir/test/image_capture.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -29,8 +29,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/DependInfo.cmake"
-  "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake"
+  "/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/uvc/CMakeFiles/uvc_driver.dir/DependInfo.cmake"
+  "/home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/CMakeFiles/roborts_camera_param.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

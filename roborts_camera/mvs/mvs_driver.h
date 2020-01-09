@@ -18,7 +18,7 @@ namespace roborts_camera{
     public:
         explicit MVS_Driver(CameraInfo cameraInfo_);
 
-        void StartReadCamera( cv::Mat &img) override;
+        void StartReadCamera( cv::Mat &img,cv::Mat depth) override;
 
         void StopReadCamera();
 
