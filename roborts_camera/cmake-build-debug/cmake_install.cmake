@@ -1,4 +1,4 @@
-# Install script for directory: /home/wang_shuai/vwbot_ws/src/roborts_camera
+# Install script for directory: /home/wangpei/wangpei_ws/src/roborts/roborts_detection
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,6 +37,11 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/gtest/cmake_install.cmake")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   
       if (NOT EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
@@ -56,7 +61,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/usr/local" TYPE PROGRAM FILES "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/usr/local" TYPE PROGRAM FILES "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -68,7 +73,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/usr/local" TYPE PROGRAM FILES "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/usr/local" TYPE PROGRAM FILES "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -81,8 +86,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
 file(INSTALL DESTINATION "/usr/local" TYPE FILE FILES
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.bash"
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.bash"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.bash"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
@@ -96,8 +101,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
 file(INSTALL DESTINATION "/usr/local" TYPE FILE FILES
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.sh"
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.sh"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.sh"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
@@ -111,8 +116,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
 file(INSTALL DESTINATION "/usr/local" TYPE FILE FILES
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.zsh"
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.zsh"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/setup.zsh"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
@@ -125,31 +130,37 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/usr/local" TYPE FILE FILES "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/usr/local" TYPE FILE FILES "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/.rosinstall")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_camera.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_detection.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roborts_camera/cmake" TYPE FILE FILES
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_cameraConfig.cmake"
-    "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_cameraConfig-version.cmake"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roborts_detection/cmake" TYPE FILE FILES
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_detectionConfig.cmake"
+    "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/catkin_generated/installspace/roborts_detectionConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roborts_camera" TYPE FILE FILES "/home/wang_shuai/vwbot_ws/src/roborts_camera/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roborts_detection" TYPE FILE FILES "/home/wangpei/wangpei_ws/src/roborts/roborts_detection/package.xml")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/gtest/cmake_install.cmake")
-  include("/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/uvc/cmake_install.cmake")
-  include("/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/mvs/cmake_install.cmake")
-  include("/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/realsense/cmake_install.cmake")
+  # Include the install script for the subdirectory.
+  include("/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/util/cmake_install.cmake")
+endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/armor_detection/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/image_publish/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -160,5 +171,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/wangpei/wangpei_ws/src/roborts/roborts_camera/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
