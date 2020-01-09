@@ -78,7 +78,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
 
     static int number = 0;
     ROS_WARN("Now the number is %d", number);
-    if (number % 250 == 0 or pid_controller_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    if (pid_controller_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
 
       ROS_ERROR("Send the chassis goal");
       pid_controller_client_.sendGoal(pid_controller_toward_angular_goal_,
