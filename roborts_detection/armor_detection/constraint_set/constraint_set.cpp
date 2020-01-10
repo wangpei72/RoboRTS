@@ -183,7 +183,7 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat rgbImage,
                                      bool &detected,
                                      cv::Point3f &target_3d,
                                      cv::Point2f leftPoint) {
-  LightBolbs light_bolbs;
+  LightBolbs light_blobs;
   ArmorBoxs armor_boxs;
 //  ROS_INFO("debug1");
   std::string classFilePath = ros::package::getPath("roborts_detection") + \

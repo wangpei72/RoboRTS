@@ -344,7 +344,7 @@ class CVToolbox {
       return 0;
     }
   }
-  void imshowLightBolbs(cv::Mat src,
+  void imshowLightBlobs(cv::Mat src,
                         LightBolbs light_bolbs,
                         std::string fileName,
                         cv::Point2f leftPoint = cv::Point2f(0, 0)) {

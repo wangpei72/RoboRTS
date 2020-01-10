@@ -1,7 +1,7 @@
 project(realsense)
 find_package(realsense2)
 find_package(OpenCV 3 REQUIRED)
-add_library(realsense_driver SHARED ./realsense.cpp)
+add_library(realsense_driver SHARED ./realsense.cpp camera_convert.cpp camera_convert.h)
 target_link_libraries(realsense_driver
         ${realsense2_LIBRARY}
         ${OpenCV_LIBRARIES}
