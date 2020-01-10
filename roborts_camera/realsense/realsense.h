@@ -27,6 +27,8 @@ namespace  roborts_camera{
 
         void sensor_controls(std::string sensor_name, rs2_option option, float value);
 
+        void camera_setting(CameraInfo cameraInfo_);
+
         //void sensor_controls(std::string sensor_name, rs2_option option, bool value);
 
         ~RS_Driver() override;

@@ -35,13 +35,11 @@ namespace roborts_camera
 
         for( auto s : sensors_)
         {
-            ROS_INFO("%s",s.get_info(RS2_CAMERA_INFO_NAME));
+            ROS_INFO("sensor %s ready,process: [xxxxxxxxxxxxx](100%) ",s.get_info(RS2_CAMERA_INFO_NAME));
         }
-        sensor_controls("RGB Camera",RS2_OPTION_EXPOSURE, 10);
+        camera_setting(cameraInfo_);
 
         pipeline_.start(config_);
-
-
 
 
         camera_initialized_ = 1;
@@ -98,6 +96,11 @@ namespace roborts_camera
     RS_Driver::~RS_Driver()
     {
 
+    }
+
+    void RS_Driver::camera_setting(roborts_camera::CameraInfo cameraInfo_)
+    {
+        sensor_controls("RGB Camera",RS2_OPTION_EXPOSURE, cameraInfo_.exposure_time);
     }
 
     /*void RS_Driver::sensor_controls(std::string sensor_name, rs2_option option, int value)
