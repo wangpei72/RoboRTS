@@ -35,7 +35,8 @@ namespace roborts_camera {
         virtual ~camera_convert()= default;
         camera_convert(cv::Mat &img);
         std::vector<cv::Point3f> get_pixel_points_(cv::Mat &img);
-        cv::Mat get_depth_dst_(cv::Mat &img);
+
+        cv::Mat get_depth_dst_();
     };
 
 }

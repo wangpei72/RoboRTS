@@ -79,7 +79,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
     return pixel_points_;
 }
 
-cv::Mat roborts_camera::camera_convert::get_depth_dst_(cv::Mat &img) {
+cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
     int width = 3072;
     int height = 2048;
     ratio_ = (width * height) / (pixel_points_.size());
@@ -88,6 +88,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_(cv::Mat &img) {
         ratio_ += 1;
     }
     img_depth_dst_.create(height,width,CV_16UC1);
+
     for (const auto &pixelPoint : pixel_points_) {
         img_depth_dst_.at<uchar>(pixelPoint.y,pixelPoint.x)= (uchar)pixelPoint.z;
     }

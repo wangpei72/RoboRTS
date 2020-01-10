@@ -35,6 +35,7 @@ CameraNode::CameraNode(){
 
       if (camera_info.depth_enable) {
           depth_pubs_[i] = it.advertise("depth_raw", 1, true);
+          depth_pubs_convert_[i] = it.advertise("depth_convert", 1, true);
       } else {
 
       }
@@ -74,14 +75,19 @@ void CameraNode::Update(const unsigned int index) {
           sensor_msgs::ImagePtr depth_msg = cv_bridge::CvImage(std_msgs::Header(),
                                                                camera_param_.GetCameraParam()[index].depth_code,
                                                                depth).toImageMsg();
+
           depth_msg->header.frame_id = camera_param_.GetCameraParam()[index].camera_name;
           depth_msg->header.stamp = ros::Time::now();
 
           //ROS_INFO("time: %d ",ros::Time::now().nsec);
 
           camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = depth_msg->header.stamp;
-          depth_pubs_[index].publish(depth_msg);
+          camera_convert convert = camera_convert(depth);
+          convert.pixel_points_ = convert.get_pixel_points_(depth);
+          convert.img_depth_dst_ = convert.get_depth_dst_();
 
+          depth_pubs_[index].publish(depth_msg);
+          dep
           //ROS_INFO("depth publish");
       }
 
