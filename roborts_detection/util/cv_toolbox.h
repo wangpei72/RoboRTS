@@ -383,12 +383,17 @@ class CVToolbox {
       line(result_pic, pt[3], pt[0], cv::Scalar(255, 0, 0), 10);
       cv::putText(result_pic,
                   std::to_string(armor_boxs[i].id),
-                  armor_boxs[i].rect.tl() + (cv::Point2d) leftPoint,
+                  armor_boxs[i].center + (cv::Point2d) leftPoint,
                   1,
-                  6,
+                  1,
                   cv::Scalar(255, 255, 0));
     }
     imshow(fileName, result_pic);
+  }
+
+  void getRealPointByInnerMatrix(cv::Point2f point, cv::Point3f &realPoint, const float innerMatrix[3][3]) {
+    realPoint.x = (realPoint.z * point.x - innerMatrix[0][2] * realPoint.z) / innerMatrix[0][0];
+    realPoint.y = (realPoint.z * point.y - innerMatrix[1][2] * realPoint.z) / innerMatrix[1][1];
   }
 
   float getDepthByRealSense(cv::Mat realSenseSrc, float x, float y) {
