@@ -41,7 +41,7 @@ class CameraBase {
    * @brief Start to read camera
    * @param img Image data in form of cv::Mat to be read
    */
-  virtual void StartReadCamera(cv::Mat &img, cv::Mat depth = cv::Mat()) = 0;
+  virtual void StartReadCamera(cv::Mat &img, cv::Mat &depth) = 0;
 
   virtual void StopReadCamera()  = 0;
 

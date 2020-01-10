@@ -34,7 +34,7 @@ namespace roborts_camera
 
  }
 
- void MVS_Driver::StartReadCamera(cv::Mat &img , cv::Mat depth)
+ void MVS_Driver::StartReadCamera(cv::Mat &img , cv::Mat &depth)
  {
      int n_Ret = 1;
 

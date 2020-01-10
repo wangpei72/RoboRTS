@@ -44,7 +44,7 @@ camera: {
   camera_name: "back_camera"
   camera_type: "mvs"
   camera_path: "/dev/video0"
-  image_code: "bgr8"
+  image_code: "rgb8"
 
   camera_matrix {
     data: 839.923052
@@ -73,7 +73,13 @@ camera: {
     width_offset: 0
     height_offset: 0
   }
+  depth_resolution {
+    width: 1280
+    height: 720
 
+    width_offset: 0
+    height_offset: 0
+  }
   fps: 100
   auto_exposure: 1
   exposure_value: 70

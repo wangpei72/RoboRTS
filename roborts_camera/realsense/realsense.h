@@ -36,6 +36,8 @@ namespace  roborts_camera{
 
         rs2::pipeline pipeline_;
 
+        rs2::align align_to_color;
+
     };
     roborts_common::REGISTER_ALGORITHM(CameraBase, "realsense", RS_Driver, CameraInfo);
 }
