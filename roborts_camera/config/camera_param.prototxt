@@ -67,16 +67,15 @@ camera: {
   }
 
   resolution {
-    width: 3072
-    height: 2048
+    width: 640
+    height: 480
 
     width_offset: 0
     height_offset: 0
   }
   depth_resolution {
-    width: 1280
-    height: 720
-
+    width: 640
+    height: 480
     width_offset: 0
     height_offset: 0
   }

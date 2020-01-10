@@ -24,6 +24,12 @@ namespace  roborts_camera{
         std::vector<cv::Point3f> DepthPixel2World(cv::Mat &img);
         void StartReadDepth(cv::Mat &img);
 
+        //void sensor_controls(std::string sensor_name, rs2_option option, int value);
+
+        void sensor_controls(std::string sensor_name, rs2_option option, float value);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, bool value);
+
         ~RS_Driver() override;
 
         //virtual void StartReadMotion();
@@ -37,6 +43,8 @@ namespace  roborts_camera{
         rs2::pipeline pipeline_;
 
         rs2::align align_to_color;
+
+        std::vector<rs2::sensor> sensors_;
 
     };
     roborts_common::REGISTER_ALGORITHM(CameraBase, "realsense", RS_Driver, CameraInfo);

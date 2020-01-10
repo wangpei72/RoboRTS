@@ -79,6 +79,8 @@ void CameraNode::Update(const unsigned int index) {
         depth_msg->header.frame_id = camera_param_.GetCameraParam()[index].camera_name;
         depth_msg->header.stamp = ros::Time::now();
 
+        //ROS_INFO("time: %d ",ros::Time::now().nsec);
+
         camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = depth_msg->header.stamp;
         depth_pubs_[index].publish(depth_msg);
 

@@ -10,9 +10,6 @@ namespace roborts_camera
     RS_Driver::RS_Driver(roborts_camera::CameraInfo cameraInfo_) : CameraBase(cameraInfo_),align_to_color(RS2_STREAM_COLOR)
     {
         rs2::context context;
-
-
-
         ROS_INFO("realsnese device number : %d",context.query_devices().size());
 
         if( context.query_devices().size() == 0)
@@ -22,8 +19,25 @@ namespace roborts_camera
         }
         device_ = context.query_devices()[0];
         config_.enable_device(device_.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER));
-        config_.enable_stream(RS2_STREAM_COLOR);
-        config_.enable_stream(RS2_STREAM_DEPTH);
+
+        config_.enable_stream(RS2_STREAM_COLOR,
+                cameraInfo_.resolution_width,
+                cameraInfo_.resolution_height,
+                RS2_FORMAT_ANY,
+                60);
+        config_.enable_stream(RS2_STREAM_DEPTH,
+                cameraInfo_.depth_resolution_width,
+                cameraInfo_.depth_resolution_height,
+                RS2_FORMAT_ANY,
+                60);
+        sensors_ = device_.query_sensors();
+        ROS_INFO("realsense sensors number :%d",sensors_.size());
+
+        for( auto s : sensors_)
+        {
+            ROS_INFO("%s",s.get_info(RS2_CAMERA_INFO_NAME));
+        }
+        sensor_controls("RGB Camera",RS2_OPTION_EXPOSURE, 10);
 
         pipeline_.start(config_);
 
@@ -47,8 +61,6 @@ namespace roborts_camera
         frameset = align_to_color.process(frameset);
         rs2::frame depth_frame = frameset.get_depth_frame();
         rs2::frame color_frame = frameset.get_color_frame();
-
-
 
         //rs2::video_frame vf = color_frame.as<rs2::video_frame>();
 
@@ -166,5 +178,40 @@ namespace roborts_camera
     RS_Driver::~RS_Driver()
     {
 
+    }
+
+    /*void RS_Driver::sensor_controls(std::string sensor_name, rs2_option option, int value)
+    {
+        for( auto sensor_ : sensors_)
+        {
+            if(sensor_.get_info(RS2_CAMERA_INFO_NAME) == sensor_name)
+            {
+                sensor_.set_option(option,value);
+            }
+        }
+    }*/
+
+   /* void RS_Driver::sensor_controls(std::string sensor_name, rs2_option option, bool value)
+    {
+         for( auto sensor_ : sensors_)
+        {
+            if(sensor_.get_info(RS2_CAMERA_INFO_NAME) == sensor_name)
+            {
+
+                sensor_.set_option(option,value);
+            }
+        }
+    }*/
+
+    void RS_Driver::sensor_controls(std::string sensor_name, rs2_option option, float value)
+    {
+         for( auto sensor_ : sensors_)
+        {
+            if(sensor_.get_info(RS2_CAMERA_INFO_NAME) == sensor_name)
+            {
+                sensor_.set_option(option,value);
+                ROS_INFO("success");
+            }
+        }
     }
 }
