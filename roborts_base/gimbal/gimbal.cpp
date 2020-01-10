@@ -112,11 +112,15 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   tf_broadcaster_.sendTransform(gimbal_tf_);
 
   //Publish the cur difference angle between gimbal_map and chassis_map
-  auto gimbal_cur_map_yaw = tf::getYaw(q); //the angle between chassis and gimbal
-  ROS_WARN("**************** %lf  **************", gimbal_cur_map_yaw);
+  double gimbal_cur_map_roll = 0, gimbal_cur_map_pitch = 0, gimbal_cur_map_yaw = 0;
+  tf::Matrix3x3 matrix_3_x_3(tf::Quaternion(q.x, q.y, q.z, q.w));
+  matrix_3_x_3.getEulerYPR(gimbal_cur_map_roll, gimbal_cur_map_pitch, gimbal_cur_map_yaw);
+
+  ROS_WARN("pitch = %lf   yaw = %lf", gimbal_cur_map_pitch, gimbal_cur_map_yaw);
 
   geometry_msgs::PoseStamped cur_angle_between_chassis_gimbal;
-  cur_angle_between_chassis_gimbal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, gimbal_cur_map_yaw);
+  cur_angle_between_chassis_gimbal.pose.orientation =
+      tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_cur_map_pitch, gimbal_cur_map_yaw);
   gimbal_map_pose_pub_.publish(cur_angle_between_chassis_gimbal);
 
 }
