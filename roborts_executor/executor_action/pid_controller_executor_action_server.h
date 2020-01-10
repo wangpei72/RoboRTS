@@ -80,7 +80,7 @@ class PIDControllerExecuteActionServer {
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
-      ROS_INFO("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
+//      ROS_INFO("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
       pid_controller_toward_angular.update(chassis_yaw);
 
       vel.linear.x = 0.0;
@@ -91,9 +91,12 @@ class PIDControllerExecuteActionServer {
       vel.angular.y = 0.0;
       // change the yaw
       vel.angular.z = pid_controller_toward_angular.output();
+
+      ros::Time now = ros::Time::now();
+      ROS_INFO("now time %d  %d", now.sec, now.nsec);
       cmd_vel_pub_.publish(vel);
 
-      ROS_INFO("now_yaw = %lf \n", chassis_yaw);
+//      ROS_INFO("now_yaw = %lf \n", chassis_yaw);
       feedback.differ_angle = chassis_yaw;
       action_server_.publishFeedback(feedback);
 
@@ -102,7 +105,7 @@ class PIDControllerExecuteActionServer {
     }
 
     if (action_server_.isActive()) {
-      ROS_INFO("Complete!");
+//      ROS_INFO("Complete!");
       action_server_.setSucceeded();
 
     }
