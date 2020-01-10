@@ -1,17 +1,17 @@
 !!python/object/new:dynamic_reconfigure.encoding.Config
 dictitems:
-  chassis_d: 3.1
-  chassis_has_threshold: true
+  chassis_d: 0.0
+  chassis_has_threshold: false
   chassis_i: 0.0
-  chassis_p: 13.0
-  chassis_threshold: 1.0
+  chassis_p: 1.0
+  chassis_threshold: 0.0
   groups: !!python/object/new:dynamic_reconfigure.encoding.Config
     dictitems:
-      chassis_d: 3.1
-      chassis_has_threshold: true
+      chassis_d: 0.0
+      chassis_has_threshold: false
       chassis_i: 0.0
-      chassis_p: 13.0
-      chassis_threshold: 1.0
+      chassis_p: 1.0
+      chassis_threshold: 0.0
       groups: !!python/object/new:dynamic_reconfigure.encoding.Config
         state: []
       id: 0
