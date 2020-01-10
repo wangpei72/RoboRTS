@@ -54,6 +54,13 @@ namespace roborts_camera
                                   {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
                                   {0.,                   0.,                   1},
         };
+        float intrinsicR[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
+                                  {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
+                                  {0.,                   0.,                   1},
+        };
+
+        //realsense and MVS extrinsic mat info
+
         //realsense and MVS extrinsic mat info
         float extrinsic[3][4] = {{9.9930980513982504e-01,  3.5070411883416031e-02,
                                          1.2246614296712125e-02, -2.3640906380346682e-01},
@@ -77,7 +84,7 @@ namespace roborts_camera
         };
         //depth camera intrinsicL mat
         cv::Mat LR = cv::Mat(3, 3, CV_32F, intrinsicL);
-        cv::Mat RR = cv::Mat(3,3,CV_32F);
+        cv::Mat RR = cv::Mat(3,3,CV_32F,intrinsicR);
         //depth camera rotation and translation mat
         cv::Mat M = cv::Mat(3, 4, CV_32F, extrinsic);
         //rotation mat and translation mat
@@ -88,28 +95,39 @@ namespace roborts_camera
         cv::Mat uv = cv::Mat(3,1,CV_32F);
         //world point cloud
         std::vector<cv::Point3f> world_points;
+        std::vector<cv::Point2f> pixel_points;
         //  XYZ in world
         for (int i = 0; i < img_out.rows; ++i) {
             for (int j = 0; j < img_out.cols; ++j) {
-                cv::Point3f point;
-                point.x=0;
-                point.y=0;
-                point.z=0;
+                cv::Point3f point3f;
+                cv::Point2f point2f;
+                point3f.x=0;
+                point3f.y=0;
+                point3f.z=0;
                 uv.at<float>(0,0)=j;
-                uv.at<float>(0,1)=i;
-                uv.at<float>(0,2)=1;
+                uv.at<float>(1,0)=i;
+                uv.at<float>(2,0)=1;
                 float z = img.at<float>(i, j);
                 cv::Mat res=z*LR.inv()*uv;
                 //geometric trans between snesors
                 res =R*res +T;
-                point.x=res.at<float>(0,0);
-                point.y=res.at<float>(0,1);
-                point.z=z;
-
-                world_points.push_back(point);
+                point3f.x=res.at<float>(0, 0);
+                point3f.y=res.at<float>(0, 1);
+                point3f.z=z;
+                //uv here stand for transformed
+                uv=RR*res/z;
+                point2f.x=uv.at<float>(0,0);
+                point2f.y=uv.at<float>(1,0);
+                //uv should be in the range of resolution
+                if(point2f.x>0&&point2f.y>0
+                &&point2f.y<2048&&point2f.x<3072){
+                    pixel_points.push_back(point2f);
+                }
+                world_points.push_back(point3f);
             }
         }
-        std::vector<cv::Point2d> pixel_points;
+        float ratio=pixel_points.size()/(2048*3072);
+
 
 
     }
