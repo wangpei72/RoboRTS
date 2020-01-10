@@ -14,9 +14,7 @@ roborts_detection::LightBolb::LightBolb(cv::RotatedRect &rotatedRect,
 
 double roborts_detection::LightBolb::lw_rate(const cv::RotatedRect &rect) {
     /*长宽比*/
-  return rect.size.height > rect.size.width ?
-         rect.size.height / rect.size.width :
-         rect.size.width / rect.size.height;
+  return rect.size.height / rect.size.width;
 }
 
 double roborts_detection::LightBolb::areaRatio(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect) {

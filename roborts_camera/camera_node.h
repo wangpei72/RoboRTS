@@ -27,6 +27,8 @@
 #include <image_transport/image_transport.h>
 
 #include "uvc/uvc_driver.h"
+#include "mvs/mvs_driver.h"
+#include "realsense/realsense.h"
 
 #include "camera_param.h"
 #include "camera_base.h"

@@ -74,3 +74,6 @@ roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
   //修改bug center.x重复
 }
 
+roborts_detection::ArmorBox::ArmorBox(int id_init) {
+  id = id_init;
+}

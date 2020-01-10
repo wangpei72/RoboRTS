@@ -41,6 +41,7 @@ void CameraParam::LoadCameraParam() {
     cameras_param_[index].camera_name = camera_info.camera(index).camera_name();
     cameras_param_[index].camera_type = camera_info.camera(index).camera_type();
     cameras_param_[index].camera_path = camera_info.camera(index).camera_path();
+    cameras_param_[index].image_code  = camera_info.camera(index).image_code();
 
     //camera resolution
     cameras_param_[index].resolution_width = camera_info.camera(index).resolution().width();
