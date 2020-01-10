@@ -46,7 +46,8 @@ namespace roborts_camera
 
         img.data = (uchar *)color_frame.get_data();
     }
-    std::vector<cv::Point3f> RS_Driver::DepthPixel2World(cv::Mat &img) {
+
+    /*std::vector<cv::Point3f> RS_Driver::DepthPixel2World(cv::Mat &img) {
         cv::Mat img_out;
         img_out.create(img.size(),img.type());
         //roborts_camera::CameraInfo cameraInfo;
@@ -129,7 +130,7 @@ namespace roborts_camera
         }
         float ratio=pixel_points.size()/(2048*3072);
         return pixel_points;
-    }
+    }*/
     void RS_Driver::StartReadDepth(cv::Mat &img)
     {
         rs2::frameset frameset = pipeline_.wait_for_frames(2000);
