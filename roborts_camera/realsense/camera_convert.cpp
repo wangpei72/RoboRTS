@@ -2,6 +2,7 @@
 // Created by wangpei on 2020/1/10.
 //
 
+#include <hdf5/openmpi/hdf5_hl.h>
 #include "camera_convert.h"
 roborts_camera::camera_convert::camera_convert(
         cv::Mat &img){
@@ -76,4 +77,19 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
     }
     printf("%d\n",pixels_count);
     return pixel_points_;
+}
+
+cv::Mat roborts_camera::camera_convert::get_depth_dst_(cv::Mat &img) {
+    int width = 3072;
+    int height = 2048;
+    img_depth_dst_.create(height,width,CV_16UC1);
+    for (const auto &pixelPoint : pixel_points_) {
+        img_depth_dst_.at<uchar>(pixelPoint.y,pixelPoint.x)= (uchar)pixelPoint.z;
+    }
+    cv::GaussianBlur(img_depth_dst_,img_depth_dst_,8,0);
+   /* for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+
+        }
+    }*/
 }
