@@ -85,9 +85,12 @@ void CameraNode::Update(const unsigned int index) {
           camera_convert convert = camera_convert(depth);
           convert.pixel_points_ = convert.get_pixel_points_(depth);
           convert.img_depth_dst_ = convert.get_depth_dst_();
-
+          sensor_msgs::ImagePtr depth_msg_convert = cv_bridge::CvImage(std_msgs::Header(),
+                                                                       camera_param_.GetCameraParam()[index].depth_code,
+                                                                       convert.img_depth_dst_
+          ).toImageMsg();
           depth_pubs_[index].publish(depth_msg);
-          dep
+          depth_pubs_convert_[index].publish(depth_msg_convert);
           //ROS_INFO("depth publish");
       }
 
