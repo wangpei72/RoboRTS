@@ -8,6 +8,7 @@
 #include <librealsense2/rs.hpp>
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
+#include "camera_convert.h"
 #include "../camera_param.h"
 #include "../camera_base.h"
 #include "alg_factory/algorithm_factory.h"
