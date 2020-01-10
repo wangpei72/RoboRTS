@@ -19,7 +19,7 @@ namespace  roborts_camera{
     public:
         explicit RS_Driver(CameraInfo cameraInfo_);
 
-        void StartReadCamera(cv::Mat &img, cv::Mat depth) override;
+        void StartReadCamera(cv::Mat &img, cv::Mat &depth) override;
 
         void StartReadDepth(cv::Mat &img);
 
@@ -34,6 +34,8 @@ namespace  roborts_camera{
         rs2::config config_;
 
         rs2::pipeline pipeline_;
+
+        rs2::align align_to_color;
 
     };
     roborts_common::REGISTER_ALGORITHM(CameraBase, "realsense", RS_Driver, CameraInfo);

@@ -43,6 +43,7 @@ message Camera {
 
   optional bool depth_enable = 15;
   optional string depth_code = 16;
+  optional Resolution depth_resolution = 17;
 
 }
 
