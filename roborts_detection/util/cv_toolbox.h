@@ -383,7 +383,7 @@ class CVToolbox {
       line(result_pic, pt[3], pt[0], cv::Scalar(255, 0, 0), 10);
       cv::putText(result_pic,
                   std::to_string(armor_boxs[i].id),
-                  armor_boxs[i].center + (cv::Point2d) leftPoint,
+                  armor_boxs[i].center + leftPoint,
                   1,
                   1,
                   cv::Scalar(255, 255, 0));
@@ -397,24 +397,26 @@ class CVToolbox {
   }
 
   float getDepthByRealSense(cv::Mat realSenseSrc, float x, float y) {
-    float z = 0;
-    float count = 0;
-    for (int i = 0; i < realSenseSrc.rows; i++) {
-      short *p = realSenseSrc.ptr<short>(i);
-      for (int j = 0; j < realSenseSrc.cols; j++) {
-        if ((i - x) * (i - x) + (j - y) * (j - y) < 10) {
-          if (isnanf((float) p[j]))
-            continue;
-          if (abs(p[j] > 4000))
-            continue;
-          z += (float) p[j];
-          count++;
-        }
-      }
-    }
-    if (count < 1)
-      return -1;
-    return z / count;
+//    float z = 0;
+//    float count = 0;
+//    for (int i = 0; i < realSenseSrc.rows; i++) {
+//      short *p = realSenseSrc.ptr<short>(i);
+//      for (int j = 0; j < realSenseSrc.cols; j++) {
+//        if ((i - x) * (i - x) + (j - y) * (j - y) < 10) {
+//          if (isnanf((float) p[j]))
+//            continue;
+//          if (abs(p[j] > 4000))
+//            continue;
+//          z += (float) p[j];
+//          count++;
+//        }
+//      }
+//    }
+//    if (count < 1)
+//      return -1;
+//    return z / count;
+
+    return realSenseSrc.at<ushort>((int) x, (int) y);
   }
  private:
   std::vector<cv::Mat> image_buffer_;

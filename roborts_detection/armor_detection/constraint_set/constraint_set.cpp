@@ -106,7 +106,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
         //在较为清晰的工业相机进行init
         tracker->init(src_industry_clone, possibleBox.rect);
         state = TRACKING_STATE;
-        ROS_INFO("into tracking state");
+//        ROS_INFO("into tracking state");
         tracking_cnt = 0;
       }
       break;
@@ -119,7 +119,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
                      target_3d);
       //未找到或者跟踪时间过长
       if (!detected || tracking_cnt++ == 100) {
-        ROS_INFO("1111111111go to search state");
+//        ROS_INFO("1111111111go to search state");
         state = SEARCHING_STATE;
         tracking_cnt = 0;
       } else {
@@ -136,7 +136,7 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 void ConstraintSet::getCameraInfo(std::string info) {
   //如果采用debug模式，则使用realsense相机获取彩图信息
   if (info == "Debug") {
-    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/image_raw",
                                                                   1,
                                                                   &ConstraintSet::getIndustryMat, this);
   } else {
@@ -144,12 +144,12 @@ void ConstraintSet::getCameraInfo(std::string info) {
                                                                   1,
                                                                   &ConstraintSet::getIndustryMat, this);
   }
-  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/depth/image_rect_raw",
+  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/depth_raw",
                                                                       1,
                                                                       &ConstraintSet::getRealSenseDepthMat,
                                                                       this);
 
-  realSenseRGBSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/camera/color/image_raw",
+  realSenseRGBSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/image_raw",
                                                                     1,
                                                                     &ConstraintSet::getRealSenseRGBMat, this);
 
@@ -237,17 +237,18 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat industrialImage,
 
     //返回坐标点
     if (detected) {
-      ROS_INFO("center x is %lf center y is %lf,x is %lf y is %lf",
+      ROS_INFO("center x is %lf center y is %lf",
                possibleBox.center.x,
                possibleBox.center.y);
       target_3d.z =
           cv_toolbox_->getDepthByRealSense(realSenseDepthImage, possibleBox.center.x, possibleBox.center.y);
       ROS_INFO("get depth %lf", target_3d.z);
+      ROS_INFO("clo is %d row is %d", realSenseDepthImage.cols, realSenseDepthImage.rows);
       cv_toolbox_->getRealPointByInnerMatrix(possibleBox.center, target_3d, realSenseInnerMatrix);
     } else {
-      target_3d = *new cv::Point3f(-1, -1, -1);
+      target_3d = cv::Point3f(-1, -1, -1);
     }
-    ROS_INFO("real x is %lf y is %lf z is %lf ", target_3d.x, target_3d.y, target_3d.z);
+//    ROS_INFO("real x is %lf y is %lf z is %lf ", target_3d.x, target_3d.y, target_3d.z);
     return error_info_;
   }
 }
@@ -288,7 +289,7 @@ void ConstraintSet::trackingTarget(cv::Mat industrialImage,
               bigger_rect.tl());
   //如果两倍区域没有找到，再全局寻找
   if (!detected) {
-    ROS_INFO("22222can't find in two region");
+//    ROS_INFO("22222can't find in two region");
     SearchArmor(industrialImage,
                 realSenseRGBImage,
                 realSenseDepthImage,
@@ -296,7 +297,7 @@ void ConstraintSet::trackingTarget(cv::Mat industrialImage,
                 detected,
                 target_3d);
   } else {
-    ROS_INFO("333333find in two region");
+//    ROS_INFO("333333find in two region");
   }
 }
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {

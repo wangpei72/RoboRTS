@@ -37,7 +37,7 @@ namespace roborts_camera
         {
             ROS_INFO("%s",s.get_info(RS2_CAMERA_INFO_NAME));
         }
-        sensor_controls("RGB Camera",RS2_OPTION_EXPOSURE, 10);
+      //sensor_controls("RGB Camera",RS2_OPTION_EXPOSURE, 10);
 
         pipeline_.start(config_);
 
