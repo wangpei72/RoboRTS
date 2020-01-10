@@ -50,9 +50,9 @@ namespace roborts_camera
         cv::Mat img_out;
         img_out.create(img.size(),img.type());
         //roborts_camera::CameraInfo cameraInfo;
-        float intrinsic[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
-                                 {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
-                                 {0.,                   0.,                   1},
+        float intrinsicL[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
+                                  {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
+                                  {0.,                   0.,                   1},
         };
         //realsense and MVS extrinsic mat info
         float extrinsic[3][4] = {{9.9930980513982504e-01,  3.5070411883416031e-02,
@@ -75,8 +75,9 @@ namespace roborts_camera
                 -2.6589124679310618e+00,
                  3.4991621301756459e-01,
         };
-        //depth camera intrinsic mat
-        cv::Mat LR = cv::Mat(3, 3, CV_32F, intrinsic);
+        //depth camera intrinsicL mat
+        cv::Mat LR = cv::Mat(3, 3, CV_32F, intrinsicL);
+        cv::Mat RR = cv::Mat(3,3,CV_32F);
         //depth camera rotation and translation mat
         cv::Mat M = cv::Mat(3, 4, CV_32F, extrinsic);
         //rotation mat and translation mat
@@ -104,9 +105,11 @@ namespace roborts_camera
                 point.x=res.at<float>(0,0);
                 point.y=res.at<float>(0,1);
                 point.z=z;
+
                 world_points.push_back(point);
             }
         }
+        std::vector<cv::Point2d> pixel_points;
 
 
     }
