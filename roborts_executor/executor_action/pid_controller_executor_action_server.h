@@ -46,7 +46,7 @@ class PIDControllerExecuteActionServer {
 
   void pid_controller_execute(const roborts_msgs::PIDControllerTowardAngularGoalConstPtr &pid_controller_toward_angular_goal) {
     roborts_msgs::PIDControllerTowardAngularFeedback feedback;
-    ros::Rate rate(50);
+    ros::Rate rate(100);
 
     auto now_yaw = tf::getYaw(this->client_pose_.pose.orientation);
     auto goal_yaw = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
