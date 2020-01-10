@@ -82,14 +82,15 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
 cv::Mat roborts_camera::camera_convert::get_depth_dst_(cv::Mat &img) {
     int width = 3072;
     int height = 2048;
+    ratio_ = (width * height) / (img_depth_src_.rows * img_depth_src_.cols);
+    ratio_ = pow(ratio_, 0.5);
+    if (ratio_ % 2 == 0) {
+        ratio_ += 1;
+    }
     img_depth_dst_.create(height,width,CV_16UC1);
     for (const auto &pixelPoint : pixel_points_) {
         img_depth_dst_.at<uchar>(pixelPoint.y,pixelPoint.x)= (uchar)pixelPoint.z;
     }
-    cv::GaussianBlur(img_depth_dst_,img_depth_dst_,8,0);
-   /* for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
-
-        }
-    }*/
+    cv::GaussianBlur(img_depth_dst_, img_depth_dst_, cv::Size(ratio_, ratio_), 0);
+    return img_depth_dst_;
 }

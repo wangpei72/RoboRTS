@@ -17,7 +17,7 @@ namespace roborts_camera {
         int pixels_count;
         cv::Mat img_depth_src_;
         cv::Mat img_depth_dst_;
-        double ratio_;//工业相机密集像素点个数/深度相机投影点个数
+        int ratio_;//工业相机密集像素点个数/深度相机投影点个数
         cv::Mat intrinsicL_;
         cv::Mat intrinsicR_;
         cv::Mat extrinsic_;
