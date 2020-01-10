@@ -32,8 +32,6 @@ class AttackBehavior {
     chassis_pose_sub_ =
         nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
                                                  &AttackBehavior::chassisPoseCallback, this);
-    gimbal_pose_sub_ = nh.subscribe<geometry_msgs::PoseStamped>("/gimbal_pose", 1,
-                                                                &AttackBehavior::gimbalPoseCallback, this);
   }
 
   void Start() {
@@ -54,14 +52,8 @@ class AttackBehavior {
     // TODO
     auto gimbal_executor_state = GimbalExecutorUpdate();
 
+    // TODO change the chassis_pose source
     auto chassis_cur_map_yaw = tf::getYaw(chassis_pose_.pose.orientation);
-
-//    ROS_WARN("odom_pose = %lf blackboard_pose = %lf",
-//             tf::getYaw(chassis_pose_.pose.orientation),
-//             tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation));
-//    ROS_WARN("base_gimbal = %lf blackboard_gimbal = %lf",
-//             tf::getYaw(gimbal_pose_.pose.orientation),
-//             tf::getYaw(blackboard_->GetGimbalMapPose().pose.orientation));
 
     // TODO rename
     int kscale = 0;
@@ -79,26 +71,18 @@ class AttackBehavior {
              chassis_cur_map_yaw,
              kscale * residual_yaw,
              gimbal_goal_map_yaw);
-    //Publish the cur difference angle between gimbal_map and chassis_map
-//    auto gimbal_cur_map_yaw = tf::getYaw(blackboard_->GetGimbalMapPose().pose.orientation);
-//    auto gimbal_cur_map_yaw_q = tf::createQuaternionFromYaw(gimbal_cur_map_yaw);
-//    auto residual_cur_yaw = gimbal_cur_map_yaw_q.angleShortestPath(chassis_cur_map_yaw_q);
-//    geometry_msgs::PoseStamped residual_cur_gimbal_angle;
-//    residual_cur_gimbal_angle.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0,gimbal_goal_map_pitch,residual_cur_yaw);
 
-//    std::cout << terminal_io_color::RED << "residual_yaw" << residual_yaw << terminal_io_color::BLANK << std::endl;
+    roborts_msgs::GimbalAngle residual_gimbal_angle{};
+    residual_gimbal_angle.yaw_mode = 0;
+    residual_gimbal_angle.pitch_mode = 0;
+    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
+    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
 
-//    roborts_msgs::GimbalAngle residual_gimbal_angle{};
-//    residual_gimbal_angle.yaw_mode = 0;
-//    residual_gimbal_angle.pitch_mode = 0;
-//    residual_gimbal_angle.pitch_angle = gimbal_goal_map_pitch;
-//    residual_gimbal_angle.yaw_angle = kscale * residual_yaw;
-
-    geometry_msgs::PoseStamped residual_gimbal_angle;
-    residual_gimbal_angle.pose.orientation =
-        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
-    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
-//    gimbal_executor_->Execute(residual_gimbal_angle);
+//    geometry_msgs::PoseStamped residual_gimbal_angle;
+//    residual_gimbal_angle.pose.orientation =
+//        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
+//    gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
+    gimbal_executor_->Execute(residual_gimbal_angle);
   }
 
   void ChassisRotationAction() {
@@ -130,11 +114,11 @@ class AttackBehavior {
 //    tmp_goal_pose.pose.orientation = tmp_goal_orientation;
 //    this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.0);
+    auto tmp_goal_orientation = tf::createQuaternionMsgFromYaw(1.5);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
 
-    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.0);
+    tmp_goal_orientation = tf::createQuaternionMsgFromYaw(-1.5);
     tmp_goal_pose.pose.orientation = tmp_goal_orientation;
     this->chassis_rot_points.emplace_back(tmp_goal_pose);
   }
@@ -156,10 +140,6 @@ class AttackBehavior {
     this->chassis_pose_ = *msg;
   }
 
-  void gimbalPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-    this->gimbal_pose_ = *msg;
-  }
-
   ~AttackBehavior() = default;
 
  private:
@@ -179,15 +159,8 @@ class AttackBehavior {
   //! subscriber
   ros::Subscriber chassis_pose_sub_;
 
-  //! subsciber
-  ros::Subscriber gimbal_pose_sub_;
-
   //! chassis_pose
   geometry_msgs::PoseStamped chassis_pose_;
-
-  //! gimbal_pose
-  geometry_msgs::PoseStamped gimbal_pose_;
-
 
 };
 }

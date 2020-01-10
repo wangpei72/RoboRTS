@@ -76,10 +76,14 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
 
     pid_controller_toward_angular_goal_.goal = goal;
 
+    // TODO
     static int number = 0;
+
+    ROS_ERROR("%s", pid_controller_client_.getState().toString().c_str());
+
     if (number % 250 == 0 or pid_controller_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
 
-      ROS_ERROR("Send the chassis goal");
+      ROS_ERROR("Send the chassis goal %lf", tf::getYaw(pid_controller_toward_angular_goal_.goal.pose.orientation));
       pid_controller_client_.sendGoal(pid_controller_toward_angular_goal_,
                                       PIDControllerClient::SimpleDoneCallback(),
                                       PIDControllerClient::SimpleActiveCallback(),
@@ -87,7 +91,6 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _
       number = 0;
     }
     number = number + 1;
-
   }
 }
 

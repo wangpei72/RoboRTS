@@ -59,7 +59,6 @@ class PIDControllerExecuteActionServer {
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->IsV2PHasThreshold(),
          roborts_common::firefly::DynamicReconfigureInterface::getInstance()->GetV2PThreshold());
 
-    ROS_INFO("now_yaw - goal_yaw = %lf \n", chassis_yaw - goal_yaw);
     double difference_yaw = chassis_yaw - goal_yaw;
 
     while (difference_yaw * (chassis_yaw - goal_yaw) > 0.01) {
