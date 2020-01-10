@@ -74,6 +74,7 @@ class CameraNode{
   std::vector<ros::NodeHandle> nhs_;
   //! ROS image transport camera publisher to publish image data
   std::vector<image_transport::CameraPublisher> img_pubs_;
+    std::vector<image_transport::Publisher> depth_pubs_;
 
 };
 } //namespace roborts_camera

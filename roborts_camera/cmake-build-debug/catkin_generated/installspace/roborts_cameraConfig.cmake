@@ -67,8 +67,8 @@ set(roborts_camera_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(roborts_camera_SOURCE_PREFIX /home/wang_shuai/vwbot_ws/src/roborts_camera)
-  set(roborts_camera_DEVEL_PREFIX /home/wang_shuai/vwbot_ws/src/roborts_camera/cmake-build-debug/devel)
+    set(roborts_camera_SOURCE_PREFIX /home/wang_shuai/catkin_ws/src/roborts/roborts_camera)
+    set(roborts_camera_DEVEL_PREFIX /home/wang_shuai/catkin_ws/src/roborts/roborts_camera/cmake-build-debug/devel)
   set(roborts_camera_INSTALL_PREFIX "")
   set(roborts_camera_PREFIX ${roborts_camera_DEVEL_PREFIX})
 else()

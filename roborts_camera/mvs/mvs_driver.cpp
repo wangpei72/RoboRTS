@@ -34,26 +34,39 @@ namespace roborts_camera
 
  }
 
- void MVS_Driver::StartReadCamera(cv::Mat &img)
+    void MVS_Driver::StartReadCamera(cv::Mat &img, cv::Mat &depth)
  {
      int n_Ret = 1;
+
+     MV_FRAME_OUT_INFO_EX stImageInfo = {0};
 
      img.create(camera_info_.resolution_height,
                 camera_info_.resolution_width,
                 CV_8UC3);
 
-    MV_FRAME_OUT_INFO_EX stImageInfo = {0};
+     //free(img.data);
 
-    free(img.data);
+     //img.data = 0;
 
-    img.data = (unsigned char *)malloc(sizeof(unsigned char) * maxDataSize);
+     uchar *ptr = (unsigned char *) malloc(sizeof(unsigned char) * maxDataSize);
 
-    n_Ret = MV_CC_GetImageForBGR(handle,img.data,maxDataSize,&stImageInfo,1000);
-    if (n_Ret)ROS_INFO("MVS failed");
+
+     n_Ret = MV_CC_GetImageForBGR(handle, ptr, maxDataSize, &stImageInfo, 1000);
+
+
+     if (n_Ret) {
+         ROS_INFO("MVS failed");
+         exit;
+     }
+
+     mempcpy(img.data, ptr, stImageInfo.nHeight * stImageInfo.nWidth * 3);
 
     img.rows = stImageInfo.nHeight;
 
     img.cols = stImageInfo.nWidth;
+
+     free(ptr);
+    
 
     /*
     ROS_INFO("gain : %f",stImageInfo.fGain);

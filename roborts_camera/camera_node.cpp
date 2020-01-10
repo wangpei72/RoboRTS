@@ -23,6 +23,7 @@ namespace roborts_camera{
 CameraNode::CameraNode(){
   camera_num_ = camera_param_.GetCameraParam().size();
   img_pubs_.resize(camera_num_);
+    depth_pubs_.resize(camera_num_);
   camera_threads_.resize(camera_num_);
   camera_driver_.resize(camera_num_);
 
@@ -31,6 +32,12 @@ CameraNode::CameraNode(){
     nhs_.push_back(ros::NodeHandle(camera_info.camera_name));
     image_transport::ImageTransport it(nhs_.at(i));
     img_pubs_[i] = it.advertiseCamera("image_raw", 1, true);
+
+      if (camera_info.depth_enable) {
+          depth_pubs_[i] = it.advertise("depth_raw", 1, true);
+      } else {
+
+      }
     //create the selected camera driver
     camera_driver_[i] = roborts_common::AlgorithmFactory<CameraBase,CameraInfo>::CreateAlgorithm(camera_info.camera_type,camera_info);
   }
@@ -46,21 +53,40 @@ void CameraNode::StartThread() {
 }
 
 void CameraNode::Update(const unsigned int index) {
-  cv::Mat img;
+    cv::Mat img, depth;
   bool camera_info_send = false;
   while(running_) {
-    camera_driver_[index]->StartReadCamera(img);
-    if(!img.empty()) {
+      camera_driver_[index]->StartReadCamera(img, depth);
+      if (!img.empty()) {
 
-      sensor_msgs::ImagePtr img_msg = cv_bridge::CvImage(std_msgs::Header(), camera_param_.GetCameraParam()[index].image_code, img).toImageMsg();
-      img_msg->header.frame_id = camera_param_.GetCameraParam()[index].camera_name;
-      img_msg->header.stamp = ros::Time::now();
 
-      camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = img_msg->header.stamp;
-      img_pubs_[index].publish(img_msg, camera_param_.GetCameraParam()[index].ros_camera_info);
+          sensor_msgs::ImagePtr img_msg = cv_bridge::CvImage(std_msgs::Header(),
+                                                             camera_param_.GetCameraParam()[index].image_code,
+                                                             img).toImageMsg();
+          img_msg->header.frame_id = camera_param_.GetCameraParam()[index].camera_name;
+          img_msg->header.stamp = ros::Time::now();
 
-      //ROS_INFO("publish");
-    }
+          camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = img_msg->header.stamp;
+          img_pubs_[index].publish(img_msg, camera_param_.GetCameraParam()[index].ros_camera_info);
+      }
+
+      if (camera_param_.GetCameraParam()[index].depth_enable && !depth.empty()) {
+          sensor_msgs::ImagePtr depth_msg = cv_bridge::CvImage(std_msgs::Header(),
+                                                               camera_param_.GetCameraParam()[index].depth_code,
+                                                               depth).toImageMsg();
+          depth_msg->header.frame_id = camera_param_.GetCameraParam()[index].camera_name;
+          depth_msg->header.stamp = ros::Time::now();
+
+          //ROS_INFO("time: %d ",ros::Time::now().nsec);
+
+          camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = depth_msg->header.stamp;
+          depth_pubs_[index].publish(depth_msg);
+
+          //ROS_INFO("depth publish");
+      }
+
+
+
     else {
         ROS_ERROR("%s : %s fail to publish ",
                 camera_param_.GetCameraParam()[index].camera_type.c_str(),
