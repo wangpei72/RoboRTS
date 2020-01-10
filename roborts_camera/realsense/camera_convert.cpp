@@ -41,11 +41,39 @@ roborts_camera::camera_convert::camera_convert(
     rotation_ = cv::Mat(3,3,CV_32F,rotation);
     translation_ = cv::Mat(3,1,CV_32F,translation);
     XYZ_ = cv::Mat::zeros(3,1,CV_32F);
-    uv_ = cv::Mat::zeros(3,1,CV_32F);
+    uv_  = cv::Mat::zeros(3,1,CV_32F);
     world_points_.clear();
     pixel_points_.clear();
+    pixels_count = 0;
+
 }
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::Mat &img) {
+    for (int i = 0; i < img.rows; ++i) {
+        for (int j = 0; j < img.cols; ++j) {
+           uv_.at<float>(0,0)=j;
+           uv_.at<float>(1,0)=i;
+           uv_.at<float>(2,0)=1;
+           float z = img.at<float>(i,j);
+           cv::Mat res = z*intrinsicL_.inv()*uv_;
+           res = rotation_*res + translation_;
+           point3fW_.x = res.at<float>(0,0);
+           point3fW_.y = res.at<float>(1,0);
+           point3fW_.z = z ;
+           //uv_ get transformed
+           uv_ = intrinsicR_*res /z ;
+           point3fP_.x = uv_.at<float>(0,0);
+           point3fP_.y = uv_.at<float>(1,0);
+           point3fP_.z = z ;
+           if(point3fP_.x >0 && point3fP_.y >0&&
+           point3fP_.y<2048&&point3fP_.x<3072){
+               pixels_count++;
 
+               pixel_points_.push_back(point3fP_);
+           }
+           world_points_.push_back(point3fW_);
+        }
+    }
+    printf("%d\n",pixels_count);
+    return pixel_points_;
 }

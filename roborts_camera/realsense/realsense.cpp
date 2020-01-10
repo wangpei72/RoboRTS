@@ -112,7 +112,7 @@ namespace roborts_camera
                 //geometric trans between snesors
                 res =R*res +T;
                 point3f.x=res.at<float>(0, 0);
-                point3f.y=res.at<float>(0, 1);
+                point3f.y=res.at<float>(1, 0);
                 point3f.z=z;
                 //uv here stand for transformed
                 uv=RR*res/z;

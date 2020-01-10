@@ -14,6 +14,7 @@ namespace roborts_camera {
 
     class camera_convert {
     public:
+        int pixels_count;
         cv::Mat img_depth_src_;
         cv::Mat img_depth_dst_;
         double ratio_;//工业相机密集像素点个数/深度相机投影点个数
@@ -27,7 +28,9 @@ namespace roborts_camera {
         cv::Mat uv_;//transformed pixel result
         //x y z stands for real world coordinate
         std::vector<cv::Point3f> world_points_;
+        cv::Point3f point3fW_;
         //u v z stands for img on MVS: (u,v) depth =z
+        cv::Point3f point3fP_;
         std::vector<cv::Point3f> pixel_points_;
         camera_convert()= default;
         virtual ~camera_convert()= default;
