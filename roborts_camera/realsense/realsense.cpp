@@ -46,7 +46,7 @@ namespace roborts_camera
 
         img.data = (uchar *)color_frame.get_data();
     }
-    std::vector<cv::Point2f> RS_Driver::DepthPixel2World(cv::Mat &img) {
+    std::vector<cv::Point3f> RS_Driver::DepthPixel2World(cv::Mat &img) {
         cv::Mat img_out;
         img_out.create(img.size(),img.type());
         //roborts_camera::CameraInfo cameraInfo;
@@ -95,12 +95,12 @@ namespace roborts_camera
         cv::Mat uv = cv::Mat(3,1,CV_32F);
         //world point cloud
         std::vector<cv::Point3f> world_points;
-        std::vector<cv::Point2f> pixel_points;
+        std::vector<cv::Point3f> pixel_points;
         //  XYZ in world
         for (int i = 0; i < img_out.rows; ++i) {
             for (int j = 0; j < img_out.cols; ++j) {
                 cv::Point3f point3f;
-                cv::Point2f point2f;
+                cv::Point3f pointPixelWithDepth;
                 point3f.x=0;
                 point3f.y=0;
                 point3f.z=0;
@@ -116,12 +116,13 @@ namespace roborts_camera
                 point3f.z=z;
                 //uv here stand for transformed
                 uv=RR*res/z;
-                point2f.x=uv.at<float>(0,0);
-                point2f.y=uv.at<float>(1,0);
+                pointPixelWithDepth.x=uv.at<float>(0, 0);
+                pointPixelWithDepth.y=uv.at<float>(1, 0);
+                pointPixelWithDepth.z=z;
                 //uv should be in the range of resolution
-                if(point2f.x>0&&point2f.y>0
-                &&point2f.y<2048&&point2f.x<3072){
-                    pixel_points.push_back(point2f);
+                if(pointPixelWithDepth.x > 0 && pointPixelWithDepth.y > 0
+                   && pointPixelWithDepth.y < 2048 && pointPixelWithDepth.x < 3072){
+                    pixel_points.push_back(pointPixelWithDepth);
                 }
                 world_points.push_back(point3f);
             }
