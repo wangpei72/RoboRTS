@@ -3,7 +3,6 @@
 //
 
 #include "realsense.h"
-#include <sensor_msgs/PointCloud.h>
 
 namespace roborts_camera
 {
