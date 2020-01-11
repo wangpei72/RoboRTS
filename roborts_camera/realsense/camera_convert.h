@@ -33,10 +33,12 @@ namespace roborts_camera {
         //u v z stands for img on MVS: (u,v) depth =z
         cv::Point3f point3fP_;
         typedef struct {
-            std::vector<cv::Point3f> pixel_points_in_color;
-            std::vector<cv::Point3i> pixel_points_rgb;
+            cv::Point3f pixel_points_in_color;
+            cv::Point3i pixel_points_rgb;
         } pixelPointColor;
-        pixelPointColor pixel_point_colors_;
+        typedef std::vector<pixelPointColor> pixelPointColors;
+
+        pixelPointColors pixel_point_colors_;
         std::vector<cv::Point3f> pixel_points_;
         camera_convert()= default;
         virtual ~camera_convert()= default;
@@ -47,7 +49,7 @@ namespace roborts_camera {
 
         std::vector<cv::Point3f> get_pixel_points_(cv::Mat &depth);
 
-        pixelPointColor get_pixel_points_color_(cv::Mat &depth, cv::Mat &color);
+        pixelPointColors get_pixel_points_color_(cv::Mat &depth, cv::Mat &color);
         cv::Mat get_depth_dst_();
 
         cv::Mat get_color_dst_();

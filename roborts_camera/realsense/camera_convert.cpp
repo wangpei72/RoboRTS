@@ -131,7 +131,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
     return pixel_points_;
 }
 
-roborts_camera::camera_convert::pixelPointColor roborts_camera::camera_convert::get_pixel_points_color_(
+roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_(
         cv::Mat &depth, cv::Mat &color) {
     for (int i = 0; i < depth.rows; ++i) {
         for (int j = 0; j < depth.cols; ++j) {
@@ -159,14 +159,17 @@ roborts_camera::camera_convert::pixelPointColor roborts_camera::camera_convert::
 
                 pixel_points_.push_back(point3fP_);
                 //get the pixel point in the color_img (u,v,z)
-                pixel_point_colors_.pixel_points_in_color.push_back(point3fP_);
-
+                // pixel_point_colors_.pixel_points_in_color.push_back(point3fP_);
                 world_points_.push_back(point3fW_);
                 cv::Point3i pointRGB(color.at<cv::Vec3b>(i, j)[0],
                                      color.at<cv::Vec3b>(i, j)[1],
                                      color.at<cv::Vec3b>(i, j)[2]);
                 //get the pixel point with rgb info in the color_img (b,g,r)
-                pixel_point_colors_.pixel_points_rgb.push_back(pointRGB);
+                //pixel_point_colors_.pixel_points_rgb.push_back(pointRGB);
+                pixelPointColor pointColor;
+                pointColor.pixel_points_in_color = point3fP_;
+                pointColor.pixel_points_rgb = pointRGB;
+                pixel_point_colors_.push_back(pointColor);
                 pixels_count++;
             } else continue;
         }
