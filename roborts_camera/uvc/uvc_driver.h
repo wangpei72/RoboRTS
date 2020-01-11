@@ -44,7 +44,7 @@ class UVCDriver: public CameraBase {
    * @brief Start to read uvc camera
    * @param img Image data in form of cv::Mat to be read
    */
-  void StartReadCamera(cv::Mat &img,cv::Mat &depth) override;
+  void StartReadCamera(cv::Mat &img, cv::Mat &depth) override;
   /**
    * @brief Stop to read uvc camera
    */

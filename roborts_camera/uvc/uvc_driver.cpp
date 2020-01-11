@@ -28,7 +28,7 @@ UVCDriver::UVCDriver(CameraInfo camera_info):
     CameraBase(camera_info){
 }
 
-void UVCDriver::StartReadCamera(cv::Mat &img, cv::Mat &depth) {
+    void UVCDriver::StartReadCamera(cv::Mat &img, cv::Mat &depth) {
   if(!camera_initialized_){
     camera_info_.cap_handle.open(camera_info_.camera_path);
     SetCameraExposure(camera_info_.camera_path, camera_info_.exposure_value);
