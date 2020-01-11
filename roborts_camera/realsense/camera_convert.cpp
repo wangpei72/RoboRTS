@@ -5,7 +5,7 @@
 
 #include "camera_convert.h"
 roborts_camera::camera_convert::camera_convert(
-        cv::Mat &img){
+        cv::Mat &depth) {
     float intrinsicL[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
                               {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
                               {0.,                   0.,                   1},
@@ -35,7 +35,7 @@ roborts_camera::camera_convert::camera_convert(
             -2.6589124679310618e+00,
             3.4991621301756459e-01,
     };
-    img.copyTo(img_depth_src_);
+    depth.copyTo(img_depth_src_);
     intrinsicL_ = cv::Mat(3,3,CV_32F,intrinsicL);
     intrinsicR_ = cv::Mat(3,3,CV_32F,intrinsicR);
     extrinsic_ = cv::Mat(3,4,CV_32F,extrinsic);

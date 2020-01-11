@@ -15,6 +15,7 @@ namespace roborts_camera {
     public:
         int pixels_count;
         cv::Mat img_depth_src_;
+        cv::Mat img_color_src_;
         cv::Mat img_depth_dst_;
         int ratio_;//工业相机密集像素点个数/深度相机投影点个数
         cv::Mat intrinsicL_;
@@ -33,7 +34,8 @@ namespace roborts_camera {
         std::vector<cv::Point3f> pixel_points_;
         camera_convert()= default;
         virtual ~camera_convert()= default;
-        camera_convert(cv::Mat &img);
+
+        camera_convert(cv::Mat &depth);
         std::vector<cv::Point3f> get_pixel_points_(cv::Mat &img);
 
         cv::Mat get_depth_dst_();
