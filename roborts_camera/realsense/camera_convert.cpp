@@ -156,17 +156,19 @@ roborts_camera::camera_convert::pixelPointColor roborts_camera::camera_convert::
             point3fP_.z = z;
             if (point3fP_.x > 0 && point3fP_.y > 0 &&
                 point3fP_.y < 2048 && point3fP_.x < 3072) {
-                pixels_count++;
+
                 pixel_points_.push_back(point3fP_);
                 //get the pixel point in the color_img (u,v,z)
                 pixel_point_colors_.pixel_points_in_color.push_back(point3fP_);
-            }
-            world_points_.push_back(point3fW_);
-            cv::Point3i pointRGB(color.at<cv::Vec3b>(i, j)[0],
-                                 color.at<cv::Vec3b>(i, j)[1],
-                                 color.at<cv::Vec3b>(i, j)[2]);
-            //get the pixel point with rgb info in the color_img (b,g,r)
-            pixel_point_colors_.pixel_points_rgb.push_back(pointRGB);
+
+                world_points_.push_back(point3fW_);
+                cv::Point3i pointRGB(color.at<cv::Vec3b>(i, j)[0],
+                                     color.at<cv::Vec3b>(i, j)[1],
+                                     color.at<cv::Vec3b>(i, j)[2]);
+                //get the pixel point with rgb info in the color_img (b,g,r)
+                pixel_point_colors_.pixel_points_rgb.push_back(pointRGB);
+                pixels_count++;
+            } else continue;
         }
     }
     printf("%d\n", pixels_count);
@@ -202,10 +204,8 @@ cv::Mat roborts_camera::camera_convert::get_color_dst_() {
         ratio_ += 1;
     }
     img_color_dst_.create(height, width, CV_8UC3);
-/*
-    for (const auto &pixelPoint : pixelPointColor){
-        img_color_dst_.at()
-    } */
+
+
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
 
     cv::dilate(img_depth_dst_, img_depth_dst_, element);
