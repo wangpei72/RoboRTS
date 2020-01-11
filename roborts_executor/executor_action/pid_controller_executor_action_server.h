@@ -42,6 +42,7 @@ class PIDControllerExecuteActionServer {
 
     now_pose_pub_ = nh.advertise<std_msgs::Float64>(input_name + "_now", 1);
     goal_pose_pub_ = nh.advertise<std_msgs::Float64>(input_name + "_goal", 1);
+    differ_pose_pub_ = nh.advertise<std_msgs::Float64>(input_name + "_differ", 1);
 
     action_server_.start();
   }
@@ -108,6 +109,10 @@ class PIDControllerExecuteActionServer {
       chassis_yaw_pub_.data = chassis_yaw;
       now_pose_pub_.publish(chassis_yaw_pub_);
 
+      std_msgs::Float64 differ_yaw_pub_;
+      differ_yaw_pub_.data = goal_yaw_pub_.data - chassis_yaw_pub_.data;
+      differ_pose_pub_.publish(differ_yaw_pub_);
+
       feedback.differ_angle = chassis_yaw;
       action_server_.publishFeedback(feedback);
 
@@ -146,6 +151,7 @@ class PIDControllerExecuteActionServer {
 
   ros::Publisher now_pose_pub_;
   ros::Publisher goal_pose_pub_;
+  ros::Publisher differ_pose_pub_;
 
 };
 
