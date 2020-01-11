@@ -8,15 +8,15 @@
 #include <cv_bridge/cv_bridge.h>
 namespace roborts_detection {
 
-class LightBolb {
+class LightBlob {
  public:
   cv::RotatedRect rect;//灯条位置
   double area_ratio;//轮廓面积和其最小外接矩形面积之比
   double length;//灯条长度
-  unsigned int bolb_color;//灯条颜色
-  LightBolb(cv::RotatedRect &rotatedRect, double ratio, uint8_t color);
+  unsigned int blob_color;//灯条颜色
+  LightBlob(cv::RotatedRect &rotatedRect, double ratio, uint8_t color);
 
-  LightBolb() = default;
+  LightBlob() = default;
 
   //旋转矩形的长宽比
   static double lw_rate(const cv::RotatedRect &rect);
@@ -25,7 +25,7 @@ class LightBolb {
   static double areaRatio(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
 
   //判断是否是一个灯条
-  static bool isValidLightBolb(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
+  static bool isValidLightBlob(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect);
 
   static double light_area_threshold;
   static double light_small_ratio;
@@ -35,7 +35,7 @@ class LightBolb {
 
 };
 
-typedef std::vector<LightBolb> LightBolbs;
+typedef std::vector<LightBlob> LightBlobs;
 
 }
 #endif //ROBORTS_WS_SRC_ROBORTS_DETECTION_ARMOR_DETECTION_CONSTRAINT_SET_LIGHT_BLOB_H_

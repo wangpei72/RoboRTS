@@ -2,7 +2,6 @@
 // Created by wangpei on 2020/1/10.
 //
 
-#include <hdf5/openmpi/hdf5_hl.h>
 #include "camera_convert.h"
 roborts_camera::camera_convert::camera_convert(
         cv::Mat &img){

@@ -150,7 +150,6 @@ void ArmorDetectionNode::ExecuteLoop() {
     if (node_state_ == NodeState::RUNNING) {
       cv::Point3f target_3d;
 //      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
-
       ErrorInfo error_info = armor_detector_->NewDetectArmor(detected_enemy_, target_3d);
       geometry_msgs::Point32 target;
       target.x = target_3d.x;

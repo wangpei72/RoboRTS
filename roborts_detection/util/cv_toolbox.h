@@ -24,7 +24,7 @@
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 //armor detection
-#include "constraint_set/light_bolb.h"
+#include "constraint_set/light_blob.h"
 #include "constraint_set/armor_box.h"
 
 namespace roborts_detection {
@@ -345,14 +345,14 @@ class CVToolbox {
     }
   }
   void imshowLightBlobs(cv::Mat src,
-                        LightBolbs light_bolbs,
+                        LightBlobs light_blobs,
                         std::string fileName,
                         cv::Point2f leftPoint = cv::Point2f(0, 0)) {
     cv::Mat result_pic(src.size().height, src.size().width, CV_8UC1, cv::Scalar(0));
     CvPoint2D32f point[4];
     cv::Point pt[4];
-    for (int i = 0; i < light_bolbs.size(); i++) {
-      cv::RotatedRect rect = light_bolbs[i].rect;
+    for (int i = 0; i < light_blobs.size(); i++) {
+      cv::RotatedRect rect = light_blobs[i].rect;
       cvBoxPoints(rect, point);
       for (int j = 0; j < 4; j++) {
         pt[j].x = (int) point[j].x + leftPoint.x;
