@@ -34,8 +34,9 @@ class ArmorDetectionBase {
   virtual ErrorInfo NewDetectArmor(bool &detected, cv::Point3f &target_3d) = 0;
   //下面的是原框架函数
   virtual ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) = 0;
-  virtual ErrorInfo SearchArmor(cv::Mat rgbImage,
-                                cv::Mat depthImage,
+  virtual ErrorInfo SearchArmor(cv::Mat industrialImage,
+                                cv::Mat realSenseRGBImage,
+                                cv::Mat realSenseDepthImage,
                                 cv::Mat imshowImage,
                                 bool &detected,
                                 cv::Point3f &target_3d,

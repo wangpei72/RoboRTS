@@ -6,7 +6,7 @@
 #define ROBORTS_WS_SRC_ROBORTS_DETECTION_ARMOR_DETECTION_CONSTRAINT_SET_ARMOR_BOX_H_
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
-#include "light_bolb.h"
+#include "light_blob.h"
 
 namespace roborts_detection {
 class ArmorBox {
@@ -17,12 +17,12 @@ class ArmorBox {
   } BoxOrientation;
 
   cv::Rect2d rect;
-  cv::Point center;
-  roborts_detection::LightBolbs light_bolbs;
+  cv::Point2f center;
+  roborts_detection::LightBlobs light_blobs;
   uint8_t box_color;
   int id;
 
-  ArmorBox(cv::Rect2d rect_2_d, LightBolbs light_bolbs1, uint8_t box_color_init,
+  ArmorBox(cv::Rect2d rect_2_d, LightBlobs light_blobs1, uint8_t box_color_init,
            int id_init = -1);
 
   //构造一个存在的装甲板
@@ -30,13 +30,13 @@ class ArmorBox {
 
   //以下用于灯管匹配的函数
 
-  static bool lengthRatioJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
+  static bool lengthRatioJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
-  static bool lengthJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
+  static bool lengthJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
-  static bool angleJudge(const LightBolb &lightBolb_i, const LightBolb &lightBolb_j);
+  static bool angleJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
-  static bool isCoupleLight(const LightBolb &light_bolb_i, const LightBolb &light_bolb_j, uint8_t enemy_color);
+  static bool isCoupleLight(const LightBlob &light_blob_i, const LightBlob &light_blob_j, uint8_t enemy_color);
 
   bool isMatchArmorBox();
 };

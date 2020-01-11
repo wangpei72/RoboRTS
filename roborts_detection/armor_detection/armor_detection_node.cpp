@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <unistd.h>
+#include <geometry_msgs/Point32.h>
 #include "armor_detection_node.h"
 
 namespace roborts_detection {
@@ -41,6 +42,8 @@ ArmorDetectionNode::ArmorDetectionNode() :
 
 ErrorInfo ArmorDetectionNode::Init() {
   enemy_info_pub_ = enemy_nh_.advertise<roborts_msgs::GimbalAngle>("cmd_gimbal_angle", 100);
+
+  armor_info_pub_ = enemy_nh_.advertise<geometry_msgs::Point32>("/armor_detection/armor_point", 100);
   ArmorDetectionAlgorithms armor_detection_param;
 
   std::string
@@ -147,8 +150,12 @@ void ArmorDetectionNode::ExecuteLoop() {
     if (node_state_ == NodeState::RUNNING) {
       cv::Point3f target_3d;
 //      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
-
       ErrorInfo error_info = armor_detector_->NewDetectArmor(detected_enemy_, target_3d);
+      geometry_msgs::Point32 target;
+      target.x = target_3d.x;
+      target.y = target_3d.y;
+      target.z = target_3d.z;
+      armor_info_pub_.publish(target);
       {
         std::lock_guard<std::mutex> guard(mutex_);
         x_ = target_3d.x;

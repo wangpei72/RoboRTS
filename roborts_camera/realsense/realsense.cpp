@@ -40,7 +40,6 @@ namespace roborts_camera
 
         pipeline_.start(config_);
 
-
         camera_initialized_ = 1;
 
     }
