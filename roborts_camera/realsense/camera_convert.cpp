@@ -46,7 +46,8 @@ roborts_camera::camera_convert::camera_convert(
     world_points_.clear();
     pixel_points_.clear();
     pixels_count = 0;
-
+    height_ = 2048;
+    width_ = 3072;
 }
 
 roborts_camera::camera_convert::camera_convert(
@@ -94,7 +95,8 @@ roborts_camera::camera_convert::camera_convert(
     pixels_count = 0;
     color_convert_enable = true;
     pixel_point_colors_.clear();
-
+    height_ = 2048;
+    width_ = 3072;
 }
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::Mat &depth) {
@@ -103,7 +105,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
            uv_.at<float>(0,0)=j;
            uv_.at<float>(1,0)=i;
            uv_.at<float>(2,0)=1;
-            float z = depth.at<float>(i, j);
+            float z = depth.at<ushort>(i, j);
            cv::Mat res = z*intrinsicL_.inv()*uv_;
            res = rotation_*res + translation_;
             XYZ_ = res;
@@ -150,7 +152,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
 
             } else printf("z not right");
             //uv_ get transformed
-            uv_ = intrinsicR_ * res / z;
+            uv_ = intrinsicR_ * res / (z + 0.000000001);
             point3fP_.x = uv_.at<float>(0, 0);
             point3fP_.y = uv_.at<float>(1, 0);
             point3fP_.z = z;
@@ -180,14 +182,13 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
 }
 
 cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
-    int width = 3072;
-    int height = 2048;
-    ratio_ = (width * height) / (pixel_points_.size());
+
+    ratio_ = (width_ * height_) / (pixel_points_.size());
     ratio_ = pow(ratio_, 0.5);
     if (ratio_ % 2 == 0) {
         ratio_ += 1;
     }
-    img_depth_dst_.create(height,width,CV_16UC1);
+    img_depth_dst_.create(height_, width_, CV_16UC1);
 
     for (const auto &pixelPoint : pixel_points_) {
         img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = (ushort) pixelPoint.z;
@@ -199,14 +200,13 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
 }
 
 cv::Mat roborts_camera::camera_convert::get_color_dst_() {
-    int width = 3072;
-    int height = 2048;
-    ratio_ = (width * height) / (pixel_points_.size());
+
+    ratio_ = (width_ * height_) / (pixel_points_.size());
     ratio_ = pow(ratio_, 0.5);
     if (ratio_ % 2 == 0) {
         ratio_ += 1;
     }
-    img_color_dst_.create(height, width, CV_8UC3);
+    img_color_dst_.create(height_, width_, CV_8UC3);
     for (const auto &pointColor : pixel_point_colors_) {
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
                 = pointColor.pixel_points_rgb.x;

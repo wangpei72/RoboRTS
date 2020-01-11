@@ -14,6 +14,8 @@ namespace roborts_camera {
     class camera_convert {
     public:
         int pixels_count;
+        int width_;
+        int height_;
         cv::Mat img_depth_src_;
         cv::Mat img_color_src_;
         cv::Mat img_depth_dst_;
