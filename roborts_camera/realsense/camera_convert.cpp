@@ -106,6 +106,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
            uv_.at<float>(1,0)=i;
            uv_.at<float>(2,0)=1;
             float z = depth.at<ushort>(i, j);
+            //test
            cv::Mat res = z*intrinsicL_.inv()*uv_;
            res = rotation_*res + translation_;
             XYZ_ = res;
@@ -188,10 +189,10 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
     if (ratio_ % 2 == 0) {
         ratio_ += 1;
     }
-    img_depth_dst_.create(height_, width_, CV_16UC1);
+    img_depth_dst_.create(height_, width_, CV_32F);
 
     for (const auto &pixelPoint : pixel_points_) {
-        img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = (ushort) pixelPoint.z;
+        img_depth_dst_.at<float>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
     }
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
 
