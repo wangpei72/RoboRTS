@@ -58,9 +58,13 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
            float z = img.at<float>(i,j);
            cv::Mat res = z*intrinsicL_.inv()*uv_;
            res = rotation_*res + translation_;
+            XYZ_ = res;
            point3fW_.x = res.at<float>(0,0);
            point3fW_.y = res.at<float>(1,0);
-           point3fW_.z = z ;
+            point3fW_.z = XYZ_.at<float>(2, 0);
+            if (point3fW_.z == z) {
+                printf("z eqauls to z");
+            } else printf("z not right");
            //uv_ get transformed
            uv_ = intrinsicR_*res /z ;
            point3fP_.x = uv_.at<float>(0,0);
