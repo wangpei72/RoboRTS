@@ -207,12 +207,19 @@ cv::Mat roborts_camera::camera_convert::get_color_dst_() {
         ratio_ += 1;
     }
     img_color_dst_.create(height, width, CV_8UC3);
-
-
+    for (const auto &pointColor : pixel_point_colors_) {
+        img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
+                = pointColor.pixel_points_rgb.x;
+        img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[1]
+                = pointColor.pixel_points_rgb.y;
+        img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[2]
+                = pointColor.pixel_points_rgb.z;
+    }
+/*
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
+    cv::dilate(img_color_dst_, img_color_dst_, element);
+    *///cv::GaussianBlur(img_depth_dst_, img_depth_dst_, cv::Size(ratio_, ratio_), 0);
 
-    cv::dilate(img_depth_dst_, img_depth_dst_, element);
-    //cv::GaussianBlur(img_depth_dst_, img_depth_dst_, cv::Size(ratio_, ratio_), 0);
-    return img_depth_dst_;
+    return img_color_dst_;
 
 }
