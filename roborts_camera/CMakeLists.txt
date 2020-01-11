@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE Release)
 add_definitions(-w -Wno-dev)
 
 
-include_directories(/opt/MVS/Samples_LinuxSDK/include)
+include_directories(/opt/MVS/include)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
