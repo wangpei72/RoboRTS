@@ -2,7 +2,7 @@
 project( mvs_driver)
 
 
-find_library(MVS_LIBRARIES libMvCameraControl.so /opt/MVS/lib/64)
+find_library(MVS_LIBRARIES libMvCameraControl.so /opt/MVS/bin)
 
 include_directories(/opt/MVS/include)
 
