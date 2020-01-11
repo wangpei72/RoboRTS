@@ -93,8 +93,8 @@ roborts_camera::camera_convert::camera_convert(
     pixel_points_.clear();
     pixels_count = 0;
     color_convert_enable = true;
-    pixel_point_colors_.pixel_points_rgb.clear();
-    pixel_point_colors_.pixel_points_in_color.clear();
+    pixel_point_colors_.clear();
+
 }
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::Mat &depth) {
