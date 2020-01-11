@@ -161,7 +161,7 @@ roborts_camera::camera_convert::pixel_points_color_ roborts_camera::camera_conve
         }
     }
     printf("%d\n", pixels_count);
-    return;
+    return pixel_points_color_();
 }
 
 cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
