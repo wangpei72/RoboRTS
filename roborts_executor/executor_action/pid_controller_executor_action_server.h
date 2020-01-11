@@ -9,6 +9,7 @@
 #include <actionlib/server/simple_action_server.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Twist.h>
+#include <std_msgs/Float64.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_datatypes.h>
 #include "utils/utils.h"
@@ -38,6 +39,9 @@ class PIDControllerExecuteActionServer {
     pose_sub_ =
         nh.subscribe<geometry_msgs::PoseStamped>(input_name, 1,
                                                  &PIDControllerExecuteActionServer::clientPoseCallback, this);
+
+    now_pose_pub_ = nh.advertise<std_msgs::Float64>(input_name + "_now", 1);
+    goal_pose_pub_ = nh.advertise<std_msgs::Float64>(input_name + "_goal", 1);
 
     action_server_.start();
   }
@@ -80,7 +84,12 @@ class PIDControllerExecuteActionServer {
       chassis_yaw = roborts_common::firefly::convertCurYaw2FabsYawThetaBetweenPI(goal_yaw, chassis_yaw);
 
       pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
+
 //      ROS_INFO("goal_yaw = %lf \n", tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
+      std_msgs::Float64 goal_yaw_pub_;
+      goal_yaw_pub_.data = tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation);
+      goal_pose_pub_.publish(goal_yaw_pub_);
+
       pid_controller_toward_angular.update(chassis_yaw);
 
       vel.linear.x = 0.0;
@@ -92,11 +101,13 @@ class PIDControllerExecuteActionServer {
       // change the yaw
       vel.angular.z = pid_controller_toward_angular.output();
 
-      ros::Time now = ros::Time::now();
-      ROS_INFO("now time %d  %d", now.sec, now.nsec);
       cmd_vel_pub_.publish(vel);
 
 //      ROS_INFO("now_yaw = %lf \n", chassis_yaw);
+      std_msgs::Float64 chassis_yaw_pub_;
+      chassis_yaw_pub_.data = chassis_yaw;
+      now_pose_pub_.publish(chassis_yaw_pub_);
+
       feedback.differ_angle = chassis_yaw;
       action_server_.publishFeedback(feedback);
 
@@ -132,6 +143,9 @@ class PIDControllerExecuteActionServer {
   geometry_msgs::PoseStamped client_pose_;
 
   ros::Publisher cmd_vel_pub_;
+
+  ros::Publisher now_pose_pub_;
+  ros::Publisher goal_pose_pub_;
 
 };
 
