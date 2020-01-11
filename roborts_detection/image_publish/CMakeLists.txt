@@ -15,11 +15,11 @@ find_package(catkin REQUIRED COMPONENTS
         std_msgs
         sensor_msgs
 )
-find_package( OpenCV 4.1 REQUIRED)
+find_package(OpenCV REQUIRED)
 
-include_directories(/opt/MVS/Samples_LinuxSDK/include ${OpenCV_INCLUDE_DIRS})
+include_directories(/opt/MVS/include ${OpenCV_INCLUDE_DIRS})
 
-find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/Samples_LinuxSDK/lib/64)
+find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/bin)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)

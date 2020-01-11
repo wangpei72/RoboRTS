@@ -17,13 +17,13 @@ class ArmorBox {
   } BoxOrientation;
 
   cv::Rect2d rect;
-  cv::Point center;
+  cv::Point2f center;
   roborts_detection::LightBlobs light_blobs;
   uint8_t box_color;
   int id;
 
   ArmorBox(cv::Rect2d rect_2_d, LightBlobs light_blobs1, uint8_t box_color_init,
-           int id_init = 1);
+           int id_init = -1);
 
   //构造一个存在的装甲板
   ArmorBox(int id_inti = -1);
@@ -32,9 +32,9 @@ class ArmorBox {
 
   static bool lengthRatioJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
-  static bool lenghtJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
+  static bool lengthJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
-  static bool angelJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
+  static bool angleJudge(const LightBlob &lightBlob_i, const LightBlob &lightBlob_j);
 
   static bool isCoupleLight(const LightBlob &light_blob_i, const LightBlob &light_blob_j, uint8_t enemy_color);
 

@@ -63,6 +63,7 @@ MatrixXd Classifier::load_fc_w(const string &file) {
   FILE *fp = fopen(file.data(), "r");
   if (fp == nullptr) {
     state = false;
+    ROS_INFO("can't find file");
     return MatrixXd::Zero(1, 1);
   }
   int row, col;

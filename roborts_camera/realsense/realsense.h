@@ -8,6 +8,7 @@
 #include <librealsense2/rs.hpp>
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
+#include "camera_convert.h"
 #include "../camera_param.h"
 #include "../camera_base.h"
 #include "alg_factory/algorithm_factory.h"
@@ -20,8 +21,14 @@ namespace  roborts_camera{
         explicit RS_Driver(CameraInfo cameraInfo_);
 
         void StartReadCamera(cv::Mat &img, cv::Mat &depth) override;
-
+        std::vector<cv::Point3f> DepthPixel2World(cv::Mat &img);
         void StartReadDepth(cv::Mat &img);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, int value);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, float value);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, bool value);
 
         //void sensor_controls(std::string sensor_name, rs2_option option, int value);
 

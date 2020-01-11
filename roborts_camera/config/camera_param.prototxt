@@ -41,6 +41,7 @@ camera: {
     width_offset: 0
     height_offset: 0
   }
+
   fps: 100
   auto_exposure: 1
   exposure_value: 70
@@ -48,11 +49,6 @@ camera: {
   auto_white_balance: 1
   auto_gain: 0
 }
-
-
-
-
-
 
 
 

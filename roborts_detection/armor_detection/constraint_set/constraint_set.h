@@ -159,7 +159,13 @@ class ConstraintSet : public ArmorDetectionBase {
    */
   ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) override;
 
-  ErrorInfo SearchArmor(bool &detected, cv::Point3f &target_3d) override;
+  ErrorInfo SearchArmor(cv::Mat industrialImage,
+                        cv::Mat realSenseRGBImage,
+                        cv::Mat realSenseDepthImage,
+                        cv::Mat imshowImage,
+                        bool &detected,
+                        cv::Point3f &target_3d,
+                        cv::Point2f leftPoint = cv::Point2f(0, 0)) override;
   /**
    * @brief Detecting lights on the armors.
    * @param src Input image
@@ -214,12 +220,17 @@ class ConstraintSet : public ArmorDetectionBase {
 
   void SetThreadState(bool thread_state) override;
 
-  void getRealsenseMat(sensor_msgs::ImageConstPtr msg);
+  void getCameraInfo(std::string info = "Normal");
 
-  void getRealsenseDepthMat(sensor_msgs::ImageConstPtr msg);
+  void trackingTarget(cv::Mat industrialImage,
+                      cv::Mat realSenseRGBImage,
+                      cv::Mat realSenseDepthImage,
+                      bool &detected, cv::Point3f
+                      &target_3d);
 
-  ros::Subscriber indusrialSubscriber;
+  ros::Subscriber industrySubscriber;
   ros::Subscriber realSenseDepthSubscriber;
+  ros::Subscriber realSenseRGBSubscriber;
   /**
    * @brief Destructor
    */
@@ -284,12 +295,18 @@ class ConstraintSet : public ArmorDetectionBase {
   //ros
   ros::NodeHandle nh;
 
-  cv::Mat src_realSense_img_;
+  cv::Mat src_industry_img_;
   cv::Mat src_realSense_depth_img_;
+  cv::Mat src_realSense_RGB_img_;
+
+  //realSense 内参矩阵
+  const float realSenseInnerMatrix[3][3] =
+      {{612.488, 0, 325.411}, {0, 612.729, 246.753}, {0, 0, 1}};
 
   //避免异步出现不统一的情况
-  cv::Mat src_industrial_clone;
-  cv::Mat src_depth_clone;
+  cv::Mat src_industry_clone;
+  cv::Mat src_realSense_depth_clone;
+  cv::Mat src_realSense_RGB_clone;
 
   typedef enum {
     SEARCHING_STATE, TRACKING_STATE
@@ -297,8 +314,12 @@ class ConstraintSet : public ArmorDetectionBase {
 
   State state;     //装甲板识别的状态实例
   int tracking_cnt;//记录跟踪帧数，用于定时
-  ArmorBox possilbeBox; //可能的装甲板
+  ArmorBox possibleBox; //可能的装甲板
   cv::Ptr<cv::Tracker> tracker;                       // tracker对象实例
+
+  void getRealSenseRGBMat(sensor_msgs::ImageConstPtr msg);
+  void getIndustryMat(sensor_msgs::ImageConstPtr msg);
+  void getRealSenseDepthMat(sensor_msgs::ImageConstPtr msg);
 };
 
 roborts_common::REGISTER_ALGORITHM(ArmorDetectionBase, "constraint_set", ConstraintSet, std::shared_ptr<CVToolbox>);

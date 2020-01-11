@@ -344,7 +344,10 @@ class CVToolbox {
       return 0;
     }
   }
-  void imshowLightBlobs(cv::Mat src, LightBlobs light_blobs, std::string fileName) {
+  void imshowLightBlobs(cv::Mat src,
+                        LightBlobs light_blobs,
+                        std::string fileName,
+                        cv::Point2f leftPoint = cv::Point2f(0, 0)) {
     cv::Mat result_pic(src.size().height, src.size().width, CV_8UC1, cv::Scalar(0));
     CvPoint2D32f point[4];
     cv::Point pt[4];
@@ -352,8 +355,8 @@ class CVToolbox {
       cv::RotatedRect rect = light_blobs[i].rect;
       cvBoxPoints(rect, point);
       for (int j = 0; j < 4; j++) {
-        pt[j].x = (int) point[j].x;
-        pt[j].y = (int) point[j].y;
+        pt[j].x = (int) point[j].x + leftPoint.x;
+        pt[j].y = (int) point[j].y + leftPoint.y;
       }
       line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
       line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
@@ -363,44 +366,57 @@ class CVToolbox {
     imshow(fileName, result_pic);
   }
 
-  void imshowArmorBoxs(cv::Mat src, ArmorBoxs armor_boxs, std::string fileName) {
+  void imshowArmorBoxs(cv::Mat src, ArmorBoxs armor_boxs, std::string fileName,
+                       cv::Point2f leftPoint = cv::Point2f(0, 0)) {
     cv::Mat result_pic = src.clone();
     CvPoint2D32f point[4];
     cv::Point pt[4];
     for (int i = 0; i < armor_boxs.size(); i++) {
       cv::Rect2d rect = armor_boxs[i].rect;
-      pt[0] = cv::Point2f(rect.x, rect.y);
-      pt[1] = cv::Point2f(rect.x + rect.width, rect.y);
-      pt[2] = cv::Point2f(rect.x + rect.width, rect.y + rect.height);
-      pt[3] = cv::Point2f(rect.x, rect.y + rect.height);
+      pt[0] = cv::Point2f(rect.x, rect.y) + leftPoint;
+      pt[1] = cv::Point2f(rect.x + rect.width, rect.y) + leftPoint;
+      pt[2] = cv::Point2f(rect.x + rect.width, rect.y + rect.height) + leftPoint;
+      pt[3] = cv::Point2f(rect.x, rect.y + rect.height) + leftPoint;
       line(result_pic, pt[0], pt[1], cv::Scalar(255, 0, 0), 10);
       line(result_pic, pt[1], pt[2], cv::Scalar(255, 0, 0), 10);
       line(result_pic, pt[2], pt[3], cv::Scalar(255, 0, 0), 10);
       line(result_pic, pt[3], pt[0], cv::Scalar(255, 0, 0), 10);
-      cv::putText(result_pic, std::to_string(armor_boxs[i].id), armor_boxs[i].rect.tl(), 1, 6, cv::Scalar(255, 255, 0));
+      cv::putText(result_pic,
+                  std::to_string(armor_boxs[i].id),
+                  armor_boxs[i].center + leftPoint,
+                  1,
+                  1,
+                  cv::Scalar(255, 255, 0));
     }
     imshow(fileName, result_pic);
   }
 
+  void getRealPointByInnerMatrix(cv::Point2f point, cv::Point3f &realPoint, const float innerMatrix[3][3]) {
+    realPoint.x = (realPoint.z * point.x - innerMatrix[0][2] * realPoint.z) / innerMatrix[0][0];
+    realPoint.y = (realPoint.z * point.y - innerMatrix[1][2] * realPoint.z) / innerMatrix[1][1];
+  }
+
   float getDepthByRealSense(cv::Mat realSenseSrc, float x, float y) {
-    float z = 0;
-    float count = 0;
-    for (int i = 0; i < realSenseSrc.rows; i++) {
-      short *p = realSenseSrc.ptr<short>(i);
-      for (int j = 0; j < realSenseSrc.cols; j++) {
-        if ((i - x) * (i - x) + (j - y) * (j - y) < 10) {
-          if (isnanf((float) p[j]))
-            continue;
-          if (abs(p[j] > 4000))
-            continue;
-          z += (float) p[j];
-          count++;
-        }
-      }
-    }
-    if (count < 1)
-      return -1;
-    return z / count;
+//    float z = 0;
+//    float count = 0;
+//    for (int i = 0; i < realSenseSrc.rows; i++) {
+//      short *p = realSenseSrc.ptr<short>(i);
+//      for (int j = 0; j < realSenseSrc.cols; j++) {
+//        if ((i - x) * (i - x) + (j - y) * (j - y) < 10) {
+//          if (isnanf((float) p[j]))
+//            continue;
+//          if (abs(p[j] > 4000))
+//            continue;
+//          z += (float) p[j];
+//          count++;
+//        }
+//      }
+//    }
+//    if (count < 1)
+//      return -1;
+//    return z / count;
+
+    return realSenseSrc.at<ushort>((int) x, (int) y);
   }
  private:
   std::vector<cv::Mat> image_buffer_;
