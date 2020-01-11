@@ -133,7 +133,7 @@ namespace roborts_camera
             if(sensor_.get_info(RS2_CAMERA_INFO_NAME) == sensor_name)
             {
                 sensor_.set_option(option,value);
-                ROS_INFO("success");
+                ROS_INFO("set rs2_option success");
             }
         }
     }

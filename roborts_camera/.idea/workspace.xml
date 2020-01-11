@@ -8,34 +8,33 @@
       <config projectName="roborts_camera" targetName="tf_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="gmock_main" />
+      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="tf_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_py" />
       <config projectName="roborts_camera" targetName="gmock" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_py" />
       <config projectName="roborts_camera" targetName="realsense_driver" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="uvc_driver" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="std_msgs_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="tf_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_cpp" />
       <config projectName="roborts_camera" targetName="std_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="uvc_driver" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="actionlib_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="tf_generate_messages_py" />
       <config projectName="roborts_camera" targetName="roborts_camera_node" />
       <config projectName="roborts_camera" targetName="clean_test_results" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="roborts_camera_param" />
       <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_lisp" />
+      <config projectName="roborts_camera" targetName="tf_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="doxygen" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_py" />
       <config projectName="roborts_camera" targetName="std_msgs_generate_messages_nodejs" />
@@ -43,9 +42,8 @@
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_lisp" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="std_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="tf_generate_messages_nodejs" />
-      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_eus" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="gtest" />
       <config projectName="roborts_camera" targetName="gtest_main" />
       <config projectName="roborts_camera" targetName="tests" />
       <config projectName="roborts_camera" targetName="roscpp_generate_messages_nodejs" />
@@ -53,15 +51,17 @@
       <config projectName="roborts_camera" targetName="image_capture_test" />
       <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_lisp" />
-      <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_eus" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="roborts_camera" targetName="rosgraph_msgs_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="tf2_msgs_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="mvs_driver" />
-      <config projectName="roborts_camera" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_nodejs" />
+      <config projectName="roborts_camera" targetName="sensor_msgs_generate_messages_eus" />
       <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_py" />
-      <config projectName="roborts_camera" targetName="actionlib_msgs_generate_messages_eus" />
+      <config projectName="roborts_camera" targetName="actionlib_generate_messages_nodejs" />
       <config projectName="roborts_camera" targetName="actionlib_generate_messages_cpp" />
-      <config projectName="roborts_camera" targetName="gtest" />
-      <config projectName="roborts_camera" targetName="tf_generate_messages_py" />
+      <config projectName="roborts_camera" targetName="gmock_main" />
+      <config projectName="roborts_camera" targetName="std_msgs_generate_messages_eus" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -71,8 +71,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5002235a-fbeb-4186-899f-fb3aa6101972" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/realsense/realsense.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/realsense/realsense.h" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -182,10 +182,12 @@
           <entry key="project.closed" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -206,18 +208,19 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="1" value="1" />
+          <entry key="cc" value="1" />
           <entry key="cpp" value="10" />
           <entry key="h" value="24" />
           <entry key="hpp" value="4" />
           <entry key="proto" value="3" />
           <entry key="prototxt" value="3" />
-          <entry key="txt" value="2" />
+          <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="2" />
-          <entry key="ObjectiveC" value="38" />
+          <entry key="CMakeLists.txt" value="3" />
+          <entry key="ObjectiveC" value="39" />
           <entry key="PLAIN_TEXT" value="7" />
         </counts>
       </usages-collector>
@@ -228,26 +231,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1988">
-              <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+            <state relative-caret-position="1711">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1183">
-              <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mvs/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            <state relative-caret-position="522">
+              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -255,7 +249,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/include/librealsense2/hpp/rs_sensor.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
+            <state relative-caret-position="4118">
               <caret line="142" column="28" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
             </state>
           </provider>
@@ -264,7 +258,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/include/librealsense2/hpp/rs_options.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-118">
+            <state relative-caret-position="290">
               <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
             </state>
           </provider>
@@ -273,17 +267,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42804">
+            <state relative-caret-position="48546">
               <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
+            <state relative-caret-position="928">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#118#145#0" expanded="true" />
               </folding>
@@ -294,8 +288,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-89">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="870">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
               <folding>
                 <element signature="e#116#147#0" expanded="true" />
               </folding>
@@ -306,8 +300,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="899">
-              <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+            <state relative-caret-position="1334">
+              <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -319,6 +313,11 @@
               <caret line="45" column="44" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -366,7 +365,7 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="-4" />
     <option name="width" value="1920" />
-    <option name="height" value="1084" />
+    <option name="height" value="1021" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -436,6 +435,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../realsense-2.2.2/ddynamic_reconfigure/CMakeLists.txt" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -851,17 +851,19 @@
       <workItem from="1578480714192" duration="5125000" />
       <workItem from="1578487546492" duration="597000" />
       <workItem from="1578551897621" duration="16549000" />
+      <workItem from="1578662369971" duration="1276000" />
+      <workItem from="1578706527706" duration="420000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61348000" />
+    <option name="totallyTimeSpent" value="63044000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-4" width="1920" height="1084" extended-state="6" />
+    <frame x="-1" y="-11" width="1922" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25133404" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25667024" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1001,9 +1003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///opt/MVS/Samples_LinuxSDK/include/CameraParams.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="711">
@@ -1064,9 +1063,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
           <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
-          <folding>
-            <element signature="e#851#876#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,9 +1084,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
-          <folding>
-            <element signature="e#336#357#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1105,9 +1098,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
-          <folding>
-            <element signature="e#44#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1115,9 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
-          <folding>
-            <element signature="e#851#883#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1135,52 +1122,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/librealsense2/hpp/rs_options.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-118">
-          <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/librealsense2/hpp/rs_sensor.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="142" column="28" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1183">
-          <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mvs/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
-          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42804">
-          <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1988">
-          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+        <state relative-caret-position="1711">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/librealsense2/hpp/rs_sensor.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4118">
+          <caret line="142" column="28" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/librealsense2/hpp/rs_options.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48546">
+          <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#118#145#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-89">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="870">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
           <folding>
             <element signature="e#116#147#0" expanded="true" />
           </folding>
@@ -1189,8 +1179,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
-          <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+        <state relative-caret-position="1334">
+          <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1201,13 +1191,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
-          <folding>
-            <element signature="e#118#145#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="522">
+          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
