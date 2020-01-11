@@ -17,13 +17,14 @@ namespace roborts_camera {
         cv::Mat img_depth_src_;
         cv::Mat img_color_src_;
         cv::Mat img_depth_dst_;
+        cv::Mat img_color_dst_;
         int ratio_;//工业相机密集像素点个数/深度相机投影点个数
         cv::Mat intrinsicL_;
         cv::Mat intrinsicR_;
         cv::Mat extrinsic_;
         cv::Mat rotation_;
         cv::Mat translation_;
-
+        bool color_convert_enable;
         cv::Mat XYZ_;//world points result
         cv::Mat uv_;//transformed pixel result
         //x y z stands for real world coordinate
@@ -31,14 +32,25 @@ namespace roborts_camera {
         cv::Point3f point3fW_;
         //u v z stands for img on MVS: (u,v) depth =z
         cv::Point3f point3fP_;
+        typedef struct {
+            std::vector<cv::Point3f> pixel_points_in_color;
+            std::vector<cv::Point3i> pixel_points_color;
+        } pixel_points_color_;
+
         std::vector<cv::Point3f> pixel_points_;
         camera_convert()= default;
         virtual ~camera_convert()= default;
 
         camera_convert(cv::Mat &depth);
-        std::vector<cv::Point3f> get_pixel_points_(cv::Mat &img);
 
+        camera_convert(cv::Mat &depth, cv::Mat &color);
+
+        std::vector<cv::Point3f> get_pixel_points_(cv::Mat &depth);
+
+        pixel_points_color_ get_pixel_points_color_(cv::Mat &depth, cv::Mat &color);
         cv::Mat get_depth_dst_();
+
+        cv::Mat get_color_dst_();
     };
 
 }
