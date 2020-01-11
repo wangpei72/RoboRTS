@@ -24,6 +24,7 @@ namespace roborts_camera{
 
 CameraParam::CameraParam() {
   LoadCameraParam();
+    ROS_INFO("im here load");
 }
 
 void CameraParam::LoadCameraParam() {

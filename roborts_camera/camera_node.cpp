@@ -26,8 +26,11 @@ CameraNode::CameraNode(){
     depth_pubs_.resize(camera_num_);
   camera_threads_.resize(camera_num_);
   camera_driver_.resize(camera_num_);
+    color_pubs_convert_.resize(camera_num_);
+    depth_pubs_convert_.resize(camera_num_);
 
   for (unsigned int i = 0; i < camera_num_; i++) {
+      ROS_INFO("%d", i);
     auto camera_info = camera_param_.GetCameraParam()[i];
     nhs_.push_back(ros::NodeHandle(camera_info.camera_name));
     image_transport::ImageTransport it(nhs_.at(i));
@@ -43,7 +46,7 @@ CameraNode::CameraNode(){
     //create the selected camera driver
     camera_driver_[i] = roborts_common::AlgorithmFactory<CameraBase,CameraInfo>::CreateAlgorithm(camera_info.camera_type,camera_info);
   }
-
+    ROS_INFO("end of cameranode");
   StartThread();
 }
 

@@ -138,7 +138,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
             uv_.at<float>(2, 0) = 1;
-            float z = depth.at<float>(i, j);
+            float z = depth.at<ushort>(i, j);
             cv::Mat res = z * intrinsicL_.inv() * uv_;
             res = rotation_ * res + translation_;
             XYZ_ = res;
@@ -190,7 +190,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
     img_depth_dst_.create(height,width,CV_16UC1);
 
     for (const auto &pixelPoint : pixel_points_) {
-        img_depth_dst_.at<uchar>(pixelPoint.y,pixelPoint.x)= (uchar)pixelPoint.z;
+        img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = (ushort) pixelPoint.z;
     }
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
 
