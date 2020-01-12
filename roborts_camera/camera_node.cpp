@@ -30,7 +30,7 @@ CameraNode::CameraNode(){
     depth_pubs_convert_.resize(camera_num_);
 
   for (unsigned int i = 0; i < camera_num_; i++) {
-      ROS_INFO("%d", i);
+      ROS_INFO("camera num %d", i);
     auto camera_info = camera_param_.GetCameraParam()[i];
     nhs_.push_back(ros::NodeHandle(camera_info.camera_name));
     image_transport::ImageTransport it(nhs_.at(i));
@@ -92,17 +92,18 @@ void CameraNode::Update(const unsigned int index) {
           convert.img_depth_dst_ = convert.get_depth_dst_();
           convert.pixel_point_colors_ = convert.get_pixel_points_color_(depth, img);
           convert.img_color_dst_ = convert.get_color_dst_();
-          /* sensor_msgs::ImagePtr depth_msg_convert = cv_bridge::CvImage(std_msgs::Header(),
-                                                                        camera_param_.GetCameraParam()[index].depth_code,
+
+          sensor_msgs::ImagePtr depth_msg_convert = cv_bridge::CvImage(std_msgs::Header(),
+                                                                       sensor_msgs::image_encodings::TYPE_32FC1,
                                                                         convert.img_depth_dst_
            ).toImageMsg();
-           sensor_msgs::ImagePtr color_msg_convert = cv_bridge::CvImage(std_msgs::Header(),
+          /* sensor_msgs::ImagePtr color_msg_convert = cv_bridge::CvImage(std_msgs::Header(),
                                                                         camera_param_.GetCameraParam()[index].image_code,
                                                                         convert.img_color_dst_
            ).toImageMsg();*/
 
           depth_pubs_[index].publish(depth_msg);
-          /* depth_pubs_convert_[index].publish(depth_msg_convert);*/
+          depth_pubs_convert_[index].publish(depth_msg_convert);
           //ROS_INFO("depth publish");
       }
 

@@ -9,12 +9,12 @@ camera: {
   depth_code: "16UC1"
 
   camera_matrix {
-    data: 839.923052
+    data: 612.488
     data: 0.0
-    data: 340.780730
+    data: 325.411
     data: 0.0
-    data: 837.671081
-    data: 261.766523
+    data: 612.729
+    data: 246.753
     data: 0.0
     data: 0.0
     data: 1.0

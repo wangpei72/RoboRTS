@@ -1,63 +1,89 @@
 //
 // Created by wangpei on 2020/1/10.
 //
-
+/**  data: 612.488
+    data: 0.0
+    data: 325.411
+    data: 0.0
+    data: 612.729
+    data: 246.753
+    data: 0.0
+    data: 0.0
+    data: 1.0*/
 
 #include "camera_convert.h"
+
 roborts_camera::camera_convert::camera_convert(
         cv::Mat &depth) {
-    float intrinsicL[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
+    float intrinsicL[3][3] = {/*{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
                               {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
-                              {0.,                   0.,                   1},
+                              {0.,                   0.,                   1}*/
+            {612.488, 0.,      325.411},
+            {0.,      612.729, 246.753},
+            {0.,      0.,      1},
     };
-    float intrinsicR[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
+    float intrinsicR[3][3] = {/*{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
                               {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
-                              {0.,                   0.,                   1},
+                              {0.,                   0.,                   1},*/
+            {612.488, 0.,      325.411},
+            {0.,      612.729, 246.753},
+            {0.,      0.,      1},
     };
     //realsense and MVS extrinsic mat info
-    float extrinsic[3][4] = {{9.9930980513982504e-01,  3.5070411883416031e-02,
+    float extrinsic[3][4] = {/*{9.9930980513982504e-01,  3.5070411883416031e-02,
                                      1.2246614296712125e-02, -2.3640906380346682e-01},
                              {-3.6161562130512234e-02, 9.9384880431654243e-01,
                                      1.0467519086612581e-01, -2.6589124679310618e+00},
                              {-8.5002809180629770e-03, -1.0504580129118116e-01,
-                                     9.9443105585827696e-01, 3.4991621301756459e-01},
+                                     9.9443105585827696e-01, 3.4991621301756459e-01},*/
     };
     float rotation[3][3] = {
-            {9.9930980513982504e-01,  3.5070411883416031e-02,
-                    1.2246614296712125e-02},
-            {-3.6161562130512234e-02, 9.9384880431654243e-01,
-                    1.0467519086612581e-01},
-            {-8.5002809180629770e-03, -1.0504580129118116e-01,
-                    9.9443105585827696e-01},
+            /* {9.9930980513982504e-01,  3.5070411883416031e-02,
+                     1.2246614296712125e-02},
+             {-3.6161562130512234e-02, 9.9384880431654243e-01,
+                     1.0467519086612581e-01},
+             {-8.5002809180629770e-03, -1.0504580129118116e-01,
+                     9.9443105585827696e-01},*/
+            {1,  0., 0},
+            {0., 1,  0},
+            {0., 0., 1},
     };
-    float translation[3] = {
-            -2.3640906380346682e-01,
-            -2.6589124679310618e+00,
-            3.4991621301756459e-01,
+    float translation[3] = {0, 0, 0
+            /* -2.3640906380346682e-01,
+             -2.6589124679310618e+00,
+             3.4991621301756459e-01,*/
     };
     depth.copyTo(img_depth_src_);
     intrinsicL_ = cv::Mat(3,3,CV_32F,intrinsicL);
     intrinsicR_ = cv::Mat(3,3,CV_32F,intrinsicR);
-    extrinsic_ = cv::Mat(3,4,CV_32F,extrinsic);
+    cx_ = 325.411;
+    cy_ = 246.753;
+    fx_ = 612.488;
+    fy_ = 612.729;
+    /*intrinsicL_ = cv::Mat_<float>(3, 3)<< 1,0,0,0,1,0,0,0,1;*/
+//    extrinsic_ = cv::Mat(3,4,CV_32F,extrinsic);
     rotation_ = cv::Mat(3,3,CV_32F,rotation);
     translation_ = cv::Mat(3,1,CV_32F,translation);
     XYZ_ = cv::Mat::zeros(3,1,CV_32F);
     uv_  = cv::Mat::zeros(3,1,CV_32F);
-    world_points_.clear();
-    pixel_points_.clear();
+    world_points_.resize(600);
+    pixel_points_.resize(600);
     pixels_count = 0;
+    ratio_ = 0;
+    color_convert_enable = true;
     height_ = 2048;
-    width_ = 3072;
+    width_ = 3072;/*std::cout<<intrinsicL_.inv()<<std::endl;
+    std::cout<<intrinsicL_<<std::endl;*/
 }
 
-roborts_camera::camera_convert::camera_convert(
+/*roborts_camera::camera_convert::camera_convert(
         cv::Mat &depth, cv::Mat &color) {
-    float intrinsicL[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
-                              {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
+    float intrinsicL[3][3] = {{9.18732064958717, 0.,                   6.481170182761775},
+                              {0.,                   9.19093433238763, 3.70129208057065},
                               {0.,                   0.,                   1},
     };
-    float intrinsicR[3][3] = {{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
-                              {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
+    float intrinsicR[3][3] = {{9.18732064958717, 0.,                   6.481170182761775},
+                              {0.,                   9.19093433238763, 3.70129208057065},
                               {0.,                   0.,                   1},
     };
     //realsense and MVS extrinsic mat info
@@ -81,23 +107,25 @@ roborts_camera::camera_convert::camera_convert(
             -2.6589124679310618e+00,
             3.4991621301756459e-01,
     };
-    depth.copyTo(img_depth_src_);
-    color.copyTo(img_color_src_);
-    intrinsicL_ = cv::Mat(3, 3, CV_32F, intrinsicL);
+    //depth.copyTo(img_depth_src_);
+    //color.copyTo(img_color_src_);
+    intrinsicL_ = cv::Mat_<float>(3, 3)<< 1,0,0,0,1,0,0,0,1;
     intrinsicR_ = cv::Mat(3, 3, CV_32F, intrinsicR);
-    extrinsic_ = cv::Mat(3, 4, CV_32F, extrinsic);
+//    extrinsic_ = cv::Mat(3, 4, CV_32F, extrinsic);
     rotation_ = cv::Mat(3, 3, CV_32F, rotation);
     translation_ = cv::Mat(3, 1, CV_32F, translation);
     XYZ_ = cv::Mat::zeros(3, 1, CV_32F);
     uv_ = cv::Mat::zeros(3, 1, CV_32F);
-    world_points_.clear();
-    pixel_points_.clear();
+    world_points_.resize(600);
+    pixel_points_.resize(600);
     pixels_count = 0;
     color_convert_enable = true;
-    pixel_point_colors_.clear();
+    pixel_point_colors_.resize(600);
     height_ = 2048;
     width_ = 3072;
-}
+    std::cout<<intrinsicL_.inv()<<std::endl;
+    std::cout<<intrinsicL_<<std::endl;
+}*/
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::Mat &depth) {
     for (int i = 0; i < depth.rows; ++i) {
@@ -106,21 +134,27 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
            uv_.at<float>(1,0)=i;
            uv_.at<float>(2,0)=1;
             float z = depth.at<ushort>(i, j);
+            printf("z: %f\n", z);
             //test
-           cv::Mat res = z*intrinsicL_.inv()*uv_;
+            cv::Mat res = (z + 0.000001) * intrinsicL_.inv() * uv_;
+            /*std::cout<<intrinsicL_.inv()<<std::endl;
+            std::cout<<intrinsicL_<<std::endl;*/
            res = rotation_*res + translation_;
             XYZ_ = res;
            point3fW_.x = res.at<float>(0,0);
            point3fW_.y = res.at<float>(1,0);
             point3fW_.z = XYZ_.at<float>(2, 0);
-            /*if (point3fW_.z == z) {
-                printf("z eqauls to z");
-            } else printf("z not right");*/
+            /*  if (point3fW_.z == z) {
+                  printf("z eqauls to z");
+              } else printf("z not right");*/
            //uv_ get transformed
-           uv_ = intrinsicR_*res /z ;
+            uv_ = intrinsicR_ * res / (z + 0.000001);
+
            point3fP_.x = uv_.at<float>(0,0);
            point3fP_.y = uv_.at<float>(1,0);
            point3fP_.z = z ;
+//           printf("u: %f v: %f  z: %f  \n ",point3fP_.x,point3fP_.y,point3fP_.z);
+
            if(point3fP_.x >0 && point3fP_.y >0&&
            point3fP_.y<2048&&point3fP_.x<3072){
                pixels_count++;
@@ -148,10 +182,10 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             point3fW_.x = res.at<float>(0, 0);
             point3fW_.y = res.at<float>(1, 0);
             point3fW_.z = XYZ_.at<float>(2, 0);
-            if (point3fW_.z == z) {
-                printf("z eqauls to z");
+            /* if (point3fW_.z == z) {
+                 printf("z eqauls to z");
 
-            } else printf("z not right");
+             } else printf("z not right");*/
             //uv_ get transformed
             uv_ = intrinsicR_ * res / (z + 0.000000001);
             point3fP_.x = uv_.at<float>(0, 0);
@@ -196,7 +230,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
     }
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
 
-    cv::dilate(img_depth_dst_, img_depth_dst_, element);
+//    cv::dilate(img_depth_dst_, img_depth_dst_, element);
     return img_depth_dst_;
 }
 

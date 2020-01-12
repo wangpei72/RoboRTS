@@ -13,21 +13,24 @@ namespace roborts_camera {
 
     class camera_convert {
     public:
-        int pixels_count;
+        int pixels_count{};
         int width_;
         int height_;
         cv::Mat img_depth_src_;
         cv::Mat img_color_src_;
         cv::Mat img_depth_dst_;
         cv::Mat img_color_dst_;
-        int ratio_;//工业相机密集像素点个数/深度相机投影点个数
+        int ratio_{};//工业相机密集像素点个数/深度相机投影点个数
         cv::Mat intrinsicL_;
         cv::Mat intrinsicR_;
-        cv::Mat extrinsic_;
+        float cx_, cy_;
+        float fx_, fy_;
+//        cv::Mat extrinsic_;
         cv::Mat rotation_;
         cv::Mat translation_;
-        bool color_convert_enable;
-        cv::Mat XYZ_;//world points result
+        bool color_convert_enable{};
+        cv::Mat XYZ_C_;//convert result world point
+        cv::Mat XYZ_;//origin world point
         cv::Mat uv_;//transformed pixel result
         //x y z stands for real world coordinate
         std::vector<cv::Point3f> world_points_;
