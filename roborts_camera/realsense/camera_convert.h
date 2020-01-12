@@ -50,9 +50,9 @@ namespace roborts_camera {
 
         camera_convert(cv::Mat &depth);
 
-        camera_convert(cv::Mat &depth, cv::Mat &color);
+//        camera_convert(cv::Mat &depth, cv::Mat &color);
 
-        std::vector<cv::Point3f> get_pixel_points_(cv::Mat &depth);
+        std::vector<cv::Point3f> get_pixel_points_();
 
         pixelPointColors get_pixel_points_color_(cv::Mat &depth, cv::Mat &color);
         cv::Mat get_depth_dst_();
