@@ -12,7 +12,7 @@
     data: 1.0*/
 
 #include "camera_convert.h"
-
+#include <cmath>
 roborts_camera::camera_convert::camera_convert(
         cv::Mat &depth) {
     float intrinsicL[3][3] = {/*{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
@@ -238,14 +238,15 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
     if (ratio_ % 2 == 0) {
         ratio_ += 1;
     }
-    img_depth_dst_.create(height_, width_, CV_32F);
+    img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
 
     for (const auto &pixelPoint : pixel_points_) {
-        img_depth_dst_.at<float>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
+        if (int i = std::isnan(pixelPoint.z))continue;
+        img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
     }
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
 
-    cv::dilate(img_depth_dst_, img_depth_dst_, element);
+//    cv::erode(img_depth_dst_, img_depth_dst_, element);
     return img_depth_dst_;
 }
 
