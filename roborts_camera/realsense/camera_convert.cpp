@@ -84,6 +84,7 @@ roborts_camera::camera_convert::camera_convert(
     color.copyTo(img_color_src_);
     intrinsicL_ = cv::Mat(3, 3, CV_32F, intrinsicL);
     intrinsicR_ = cv::Mat(3, 3, CV_32F, intrinsicR);
+
     extrinsic_ = cv::Mat(3, 4, CV_32F, extrinsic);
     rotation_ = cv::Mat(3, 3, CV_32F, rotation);
     translation_ = cv::Mat(3, 1, CV_32F, translation);
@@ -110,11 +111,11 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_(cv::M
            point3fW_.x = res.at<float>(0,0);
            point3fW_.y = res.at<float>(1,0);
             point3fW_.z = XYZ_.at<float>(2, 0);
-            /*if (point3fW_.z == z) {
+/*            if (point3fW_.z == z) {
                 printf("z eqauls to z");
             } else printf("z not right");*/
            //uv_ get transformed
-           uv_ = intrinsicR_*res /z ;
+           uv_ = intrinsicR_*res /(z+0.00000001) ;
            point3fP_.x = uv_.at<float>(0,0);
            point3fP_.y = uv_.at<float>(1,0);
            point3fP_.z = z ;
