@@ -214,7 +214,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_new() {
         ratio_ += 1;
     }*/
     img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
-    auto ptr = (ushort *) img_depth_dst_.data;
+    ushort *ptr = (ushort *) img_depth_dst_.data;
     for (const auto &pixelPoint : pixel_point_colors_) {
         if (int i = std::isnan(pixelPoint.pixel_points_in_color.z))continue;
         /*  img_depth_dst_.at<ushort>(pixelPoint.pixel_points_in_color.y, pixelPoint.pixel_points_in_color.x)
@@ -229,24 +229,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_new() {
     return img_depth_dst_;
 }
 
-cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
 
-    /*ratio_ = (width_ * height_) / (pixel_points_.size());
-    ratio_ = pow(ratio_, 0.5);
-    if (ratio_ % 2 == 0) {
-        ratio_ += 1;
-    }*/
-    img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
-
-    for (const auto &pixelPoint : pixel_points_) {
-        if (int i = std::isnan(pixelPoint.z))continue;
-        img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
-    }
-//    cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
-
-//    cv::erode(img_depth_dst_, img_depth_dst_, element);
-    return img_depth_dst_;
-}
 cv::Mat roborts_camera::camera_convert::get_color_dst_() {
 
     /*   ratio_ = (width_ * height_) / (pixel_points_.size());
@@ -277,3 +260,22 @@ cv::Mat roborts_camera::camera_convert::get_color_dst_() {
     *///cv::GaussianBlur(img_depth_dst_, img_depth_dst_, cv::Size(ratio_, ratio_), 0);
     return img_color_dst_;
 }
+
+/*cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
+
+    *//*ratio_ = (width_ * height_) / (pixel_points_.size());
+    ratio_ = pow(ratio_, 0.5);
+    if (ratio_ % 2 == 0) {
+        ratio_ += 1;
+    }*//*
+    img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
+
+    for (const auto &pixelPoint : pixel_points_) {
+        if (int i = std::isnan(pixelPoint.z))continue;
+        img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
+    }
+//    cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+
+//    cv::erode(img_depth_dst_, img_depth_dst_, element);
+    return img_depth_dst_;
+}*/
