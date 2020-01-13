@@ -48,9 +48,9 @@ namespace roborts_camera {
         camera_convert()= default;
         virtual ~camera_convert()= default;
 
-        camera_convert(cv::Mat &depth);
+//        camera_convert(cv::Mat &depth);
 
-//        camera_convert(cv::Mat &depth, cv::Mat &color);
+        camera_convert(cv::Mat &depth, cv::Mat &color);
 
         std::vector<cv::Point3f> get_pixel_points_();
 

@@ -14,7 +14,7 @@
 #include "camera_convert.h"
 #include <cmath>
 roborts_camera::camera_convert::camera_convert(
-        cv::Mat &depth) {
+        cv::Mat &depth, cv::Mat &color) {
     float intrinsicL[3][3] = {/*{9.18732064958717e+02, 0.,                   6.481170182761775e+02},
                               {0.,                   9.19093433238763e+02, 3.70129208057065e+02},
                               {0.,                   0.,                   1}*/
@@ -138,8 +138,6 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
 //            printf("z: %f\n", z);
             //test *************************************************以下部分是修改开始******************
             cv::Mat res = cv::Mat(3, 1, CV_32F); /*= (z + 0.000001) * intrinsicL_.inv() * uv_*/
-            /*std::cout<<intrinsicL_.inv()<<std::endl;
-            std::cout<<intrinsicL_<<std::endl;*/
 //           res = rotation_*res + translation_;
 
             /*XYZ_ = res;*/
@@ -185,13 +183,13 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
 }
 
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_(
-        cv::Mat &depth, cv::Mat &color) {
-    for (int i = 0; i < depth.rows; ++i) {
-        for (int j = 0; j < depth.cols; ++j) {
+) {
+    for (int i = 0; i < img_depth_src_.rows; ++i) {
+        for (int j = 0; j < img_depth_src_.cols; ++j) {
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
             uv_.at<float>(2, 0) = 1;
-            float z = depth.at<ushort>(i, j);
+            float z = img_depth_src_.at<ushort>(i, j);
             cv::Mat res = z * intrinsicL_.inv() * uv_;
             res = rotation_ * res + translation_;
             XYZ_ = res;
@@ -214,9 +212,9 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
                 //get the pixel point in the color_img (u,v,z)
                 // pixel_point_colors_.pixel_points_in_color.push_back(point3fP_);
                 world_points_.push_back(point3fW_);
-                cv::Point3i pointRGB(color.at<cv::Vec3b>(i, j)[0],
-                                     color.at<cv::Vec3b>(i, j)[1],
-                                     color.at<cv::Vec3b>(i, j)[2]);
+                cv::Point3i pointRGB(img_color_src_.at<cv::Vec3b>(i, j)[0],
+                                     img_color_src_.at<cv::Vec3b>(i, j)[1],
+                                     img_color_src_.at<cv::Vec3b>(i, j)[2]);
                 //get the pixel point with rgb info in the color_img (b,g,r)
                 //pixel_point_colors_.pixel_points_rgb.push_back(pointRGB);
                 pixelPointColor pointColor;
