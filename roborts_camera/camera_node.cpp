@@ -109,7 +109,7 @@ void CameraNode::Update(const unsigned int index) {
 
 
 
-    else {
+    if(img.empty()) {
         ROS_ERROR("%s : %s fail to publish ",
                 camera_param_.GetCameraParam()[index].camera_type.c_str(),
                 camera_param_.GetCameraParam()[index].camera_name.c_str());
