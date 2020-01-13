@@ -66,7 +66,7 @@ namespace roborts_camera
     img.cols = stImageInfo.nWidth;
 
      free(ptr);
-    
+//    ROS_INFO("width: %d,height: %d",img.cols,img.rows);
 
     /*
     ROS_INFO("gain : %f",stImageInfo.fGain);

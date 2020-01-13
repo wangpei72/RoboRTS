@@ -36,7 +36,7 @@ namespace roborts_camera
         for (auto s : sensors_) {
             ROS_INFO("sensor %s ready,process: [xxxxxxxxxxxxx](100%) ", s.get_info(RS2_CAMERA_INFO_NAME));
         }
-        camera_setting(cameraInfo_);
+//        camera_setting(cameraInfo_);
 
         pipeline_.start(config_);
 
