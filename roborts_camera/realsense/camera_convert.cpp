@@ -68,7 +68,7 @@ roborts_camera::camera_convert::camera_convert(
     uv_  = cv::Mat::zeros(3,1,CV_32F);
     world_points_.resize(600);
     pixel_points_.resize(600);
-    pixels_count = 0;
+//    pixels_count = 0;
     ratio_ = 0;
     color_convert_enable = true;
     height_ = 480;
@@ -225,18 +225,18 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             } else continue;
         }
     }
-    printf("%d\n", pixels_count);
+    printf("pixel points cnt: %d\n", pixels_count);
     //get the struct we want
     return pixel_point_colors_;
 }
 
 cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
 
-    ratio_ = (width_ * height_) / (pixel_points_.size());
+    /*ratio_ = (width_ * height_) / (pixel_points_.size());
     ratio_ = pow(ratio_, 0.5);
     if (ratio_ % 2 == 0) {
         ratio_ += 1;
-    }
+    }*/
     img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
 
     for (const auto &pixelPoint : pixel_points_) {
@@ -251,13 +251,14 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
 
 cv::Mat roborts_camera::camera_convert::get_color_dst_() {
 
-    ratio_ = (width_ * height_) / (pixel_points_.size());
-    ratio_ = pow(ratio_, 0.5);
-    if (ratio_ % 2 == 0) {
-        ratio_ += 1;
-    }
+    /*   ratio_ = (width_ * height_) / (pixel_points_.size());
+       ratio_ = pow(ratio_, 0.5);
+       if (ratio_ % 2 == 0) {
+           ratio_ += 1;
+       }*/
     img_color_dst_.create(height_, width_, CV_8UC3);
     for (const auto &pointColor : pixel_point_colors_) {
+        if (int i = std::isnan(pointColor.pixel_points_in_color.z))continue;
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
                 = pointColor.pixel_points_rgb.x;
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[1]
