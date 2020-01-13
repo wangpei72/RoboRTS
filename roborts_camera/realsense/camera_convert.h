@@ -59,6 +59,7 @@ namespace roborts_camera {
         pixelPointColors get_pixel_points_color_();
         cv::Mat get_depth_dst_();
 
+        cv::Mat get_depth_dst_new();
         cv::Mat get_color_dst_();
     };
 
