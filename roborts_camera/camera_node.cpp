@@ -102,10 +102,11 @@ void CameraNode::Update(const unsigned int index) {
                                                                        convert.img_color_dst_
           ).toImageMsg();
 
-          depth_pubs_[index].publish(depth_msg);
+
           depth_pubs_convert_[index].publish(depth_msg_convert);
           color_pubs_convert_[index].publish(color_msg_convert);
           //ROS_INFO("depth publish");
+          depth_pubs_[index].publish(depth_msg);
       }
 
     if(img.empty()) {
