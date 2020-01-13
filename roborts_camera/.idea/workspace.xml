@@ -71,8 +71,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5002235a-fbeb-4186-899f-fb3aa6101972" name="Default Changelist" comment="">
+<<<<<<< Temporary merge branch 1
+=======
       <change beforePath="$PROJECT_DIR$/camera_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/camera_node.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/camera_param.prototxt" beforeDir="false" afterPath="$PROJECT_DIR$/config/camera_param.prototxt" afterDir="false" />
+>>>>>>> Temporary merge branch 2
       <change beforePath="$PROJECT_DIR$/realsense/realsense.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/realsense/realsense.h" beforeDir="false" afterPath="$PROJECT_DIR$/realsense/realsense.h" afterDir="false" />
     </list>
@@ -193,15 +196,24 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="1" value="5" />
+<<<<<<< Temporary merge branch 1
           <entry key="cpp" value="1904" />
           <entry key="h" value="703" />
+=======
+          <entry key="cpp" value="1813" />
+          <entry key="h" value="672" />
+>>>>>>> Temporary merge branch 2
           <entry key="proto" value="207" />
           <entry key="prototxt" value="148" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+<<<<<<< Temporary merge branch 1
           <entry key="ObjectiveC" value="2607" />
+=======
+          <entry key="ObjectiveC" value="2485" />
+>>>>>>> Temporary merge branch 2
           <entry key="PLAIN_TEXT" value="360" />
         </counts>
       </usages-collector>
@@ -209,91 +221,143 @@
         <counts>
           <entry key="1" value="1" />
           <entry key="cpp" value="10" />
+<<<<<<< Temporary merge branch 1
           <entry key="h" value="24" />
           <entry key="hpp" value="4" />
           <entry key="proto" value="3" />
           <entry key="prototxt" value="3" />
           <entry key="txt" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CMakeLists.txt" value="2" />
-          <entry key="ObjectiveC" value="38" />
-          <entry key="PLAIN_TEXT" value="7" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="381530749">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.31" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="1" value="5" />
-          <entry key="cpp" value="1813" />
-          <entry key="h" value="672" />
-          <entry key="proto" value="207" />
-          <entry key="prototxt" value="148" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="ObjectiveC" value="2485" />
-          <entry key="PLAIN_TEXT" value="360" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="1" value="1" />
-          <entry key="cpp" value="10" />
+=======
           <entry key="h" value="23" />
           <entry key="hpp" value="4" />
           <entry key="proto" value="2" />
           <entry key="prototxt" value="3" />
+>>>>>>> Temporary merge branch 2
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+<<<<<<< Temporary merge branch 1
+          <entry key="CMakeLists.txt" value="2" />
+          <entry key="ObjectiveC" value="38" />
+          <entry key="PLAIN_TEXT" value="7" />
+=======
           <entry key="ObjectiveC" value="37" />
           <entry key="PLAIN_TEXT" value="6" />
+>>>>>>> Temporary merge branch 2
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< Temporary merge branch 1
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1988">
+              <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+=======
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1488">
-              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+            <state relative-caret-position="419">
+              <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+>>>>>>> Temporary merge branch 2
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+<<<<<<< Temporary merge branch 1
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
+            <state relative-caret-position="1183">
+              <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+=======
+        <entry file="file:///usr/local/include/librealsense2/hpp/rs_sensor.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="142" column="28" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
+>>>>>>> Temporary merge branch 2
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< Temporary merge branch 1
+        <entry file="file://$PROJECT_DIR$/mvs/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+=======
+        <entry file="file:///usr/local/include/librealsense2/hpp/rs_device.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="78" column="33" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+>>>>>>> Temporary merge branch 2
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Temporary merge branch 1
+        <entry file="file:///usr/local/include/librealsense2/hpp/rs_sensor.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="142" column="28" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
+=======
+        <entry file="file:///usr/local/include/librealsense2/hpp/rs_options.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-118">
+              <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+>>>>>>> Temporary merge branch 2
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Temporary merge branch 1
+        <entry file="file:///usr/local/include/librealsense2/hpp/rs_options.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-118">
+              <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+=======
         <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="580">
-              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+              <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
+              <folding>
+                <element signature="e#118#145#0" expanded="true" />
+              </folding>
+>>>>>>> Temporary merge branch 2
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Temporary merge branch 1
+            <state relative-caret-position="42804">
+              <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
+=======
+            <state relative-caret-position="197">
+              <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+              <folding>
+                <element signature="e#44#73#0" expanded="true" />
+              </folding>
+>>>>>>> Temporary merge branch 2
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Temporary merge branch 1
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
               <folding>
                 <element signature="e#118#145#0" expanded="true" />
               </folding>
@@ -302,48 +366,20 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/camera_param.cpp">
+        <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="-89">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+>>>>>>> Temporary merge branch 2
               <folding>
-                <element signature="e#851#876#0" expanded="true" />
+                <element signature="e#116#147#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1218">
-              <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-              <folding>
-                <element signature="e#44#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45501">
-              <caret line="1569" column="48" selection-start-line="1569" selection-start-column="48" selection-end-line="1569" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.cc">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -351,8 +387,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="841">
-              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+<<<<<<< Temporary merge branch 1
+            <state relative-caret-position="899">
+              <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+=======
+            <state relative-caret-position="609">
+              <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+>>>>>>> Temporary merge branch 2
             </state>
           </provider>
         </entry>
@@ -360,11 +401,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
+<<<<<<< Temporary merge branch 1
+            <state relative-caret-position="1305">
+              <caret line="45" column="44" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
+=======
+            <state relative-caret-position="375">
+              <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
               <folding>
                 <element signature="e#851#883#0" expanded="true" />
               </folding>
+>>>>>>> Temporary merge branch 2
             </state>
           </provider>
         </entry>
@@ -377,9 +423,6 @@
         <option value="CMakeLists.txt" />
       </list>
     </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -897,11 +940,24 @@
       <workItem from="1577782259257" duration="407000" />
       <workItem from="1578042832514" duration="3000" />
       <workItem from="1578445268597" duration="1438000" />
+      <workItem from="1578447422357" duration="89000" />
+      <workItem from="1578447599411" duration="897000" />
+      <workItem from="1578480714192" duration="5125000" />
+      <workItem from="1578487546492" duration="597000" />
+<<<<<<< Temporary merge branch 1
+      <workItem from="1578551897621" duration="16549000" />
+=======
+      <workItem from="1578551897621" duration="15498000" />
+>>>>>>> Temporary merge branch 2
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38091000" />
+<<<<<<< Temporary merge branch 1
+    <option name="totallyTimeSpent" value="61348000" />
+=======
+    <option name="totallyTimeSpent" value="60297000" />
+>>>>>>> Temporary merge branch 2
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1920" height="1084" extended-state="6" />
@@ -1033,14 +1089,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/camera_base.h">
+    <entry file="file://$PROJECT_DIR$/uvc/CMakeLists.txt">
+<<<<<<< Temporary merge branch 1
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1334">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="87">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/realsense/CMakeLists.txt">
+=======
+>>>>>>> Temporary merge branch 2
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
@@ -1123,13 +1182,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/realsense/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/camera_node.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="598">
+          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
         </state>
       </provider>
     </entry>
+<<<<<<< Temporary merge branch 1
+=======
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="45" column="44" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> Temporary merge branch 2
     <entry file="file:///opt/ros/kinetic/include/sensor_msgs/CameraInfo.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -1139,8 +1208,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/camera_param.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        <state relative-caret-position="56">
+          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+          <folding>
+            <element signature="e#851#876#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1151,24 +1223,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
+    <entry file="file:///usr/local/include/librealsense2/h/rs_types.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1488">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        <state relative-caret-position="307">
+          <caret line="202" column="18" lean-forward="true" selection-start-line="202" selection-start-column="18" selection-end-line="202" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+    <entry file="file:///usr/local/include/librealsense2/h/rs_config.h">
+<<<<<<< Temporary merge branch 1
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="44" column="39" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
+        <state relative-caret-position="435">
+          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+          <folding>
+            <element signature="e#336#357#0" expanded="true" />
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+          <folding>
+            <element signature="e#336#357#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/librealsense2/hpp/rs_pipeline.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11931">
+          <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+          <folding>
+            <element signature="e#44#73#0" expanded="true" />
+>>>>>>> Temporary merge branch 2
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/librealsense2/hpp/rs_pipeline.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Temporary merge branch 1
+        <state relative-caret-position="-11931">
+          <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+=======
         <state relative-caret-position="580">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
+>>>>>>> Temporary merge branch 2
           <folding>
             <element signature="e#44#73#0" expanded="true" />
           </folding>
@@ -1213,23 +1325,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/camera_node.cpp">
+<<<<<<< Temporary merge branch 1
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
+        <state relative-caret-position="1183">
+          <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mvs/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.pb.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42804">
+          <caret line="1674" selection-start-line="1674" selection-end-line="1674" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1988">
+          <caret line="46" column="4" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-89">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
           <folding>
             <element signature="e#116#147#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.cpp">
+    <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1218">
-          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+        <state relative-caret-position="899">
+          <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/camera_param.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="45" column="44" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mvs/mvs_driver.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="20" column="52" selection-start-line="20" selection-start-column="52" selection-end-line="20" selection-end-column="52" />
           <folding>
-            <element signature="e#44#73#0" expanded="true" />
+            <element signature="e#118#145#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/config/camera_param.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realsense/realsense.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <folding>
+            <element signature="e#116#147#0" expanded="true" />
+>>>>>>> Temporary merge branch 2
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/realsense/realsense.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
         </state>
       </provider>
     </entry>

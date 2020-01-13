@@ -6,13 +6,13 @@
 
 namespace roborts_camera
 {
-    RS_Driver::RS_Driver(roborts_camera::CameraInfo cameraInfo_) : CameraBase(cameraInfo_),
-                                                                   align_to_color(RS2_STREAM_COLOR)
+    RS_Driver::RS_Driver(roborts_camera::CameraInfo cameraInfo_) : CameraBase(cameraInfo_),align_to_color(RS2_STREAM_COLOR)
     {
         rs2::context context;
-        ROS_INFO("realsnese device number : %d", context.query_devices().size());
+        ROS_INFO("realsnese device number : %d",context.query_devices().size());
 
-        if (context.query_devices().size() == 0) {
+        if( context.query_devices().size() == 0)
+        {
             ROS_ERROR("han pi , restart the realsense device ,plz");
             exit(-1);
         }
@@ -128,7 +128,7 @@ namespace roborts_camera
         for (auto sensor_ : sensors_) {
             if (sensor_.get_info(RS2_CAMERA_INFO_NAME) == sensor_name) {
                 sensor_.set_option(option, value);
-                ROS_INFO("success");
+                ROS_INFO("set rs2_option success");
             }
         }
     }

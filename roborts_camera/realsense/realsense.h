@@ -22,7 +22,15 @@ namespace  roborts_camera{
 
         void StartReadCamera(cv::Mat &img, cv::Mat &depth) override;
 
+        std::vector<cv::Point3f> DepthPixel2World(cv::Mat &img);
+
         void StartReadDepth(cv::Mat &img);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, int value);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, float value);
+
+        //void sensor_controls(std::string sensor_name, rs2_option option, bool value);
 
         //void sensor_controls(std::string sensor_name, rs2_option option, int value);
 
