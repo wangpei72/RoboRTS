@@ -45,6 +45,8 @@ namespace roborts_camera {
 
         pixelPointColors pixel_point_colors_;
         std::vector<cv::Point3f> pixel_points_;
+
+//        这个参数是转换后深度图和彩色图通用的带深度信息的像素点
         camera_convert()= default;
         virtual ~camera_convert()= default;
 
@@ -54,7 +56,7 @@ namespace roborts_camera {
 
         std::vector<cv::Point3f> get_pixel_points_();
 
-        pixelPointColors get_pixel_points_color_(cv::Mat &depth, cv::Mat &color);
+        pixelPointColors get_pixel_points_color_();
         cv::Mat get_depth_dst_();
 
         cv::Mat get_color_dst_();

@@ -182,8 +182,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
     return pixel_points_;
 }
 
-roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_(
-) {
+roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
     for (int i = 0; i < img_depth_src_.rows; ++i) {
         for (int j = 0; j < img_depth_src_.cols; ++j) {
             uv_.at<float>(0, 0) = j;
