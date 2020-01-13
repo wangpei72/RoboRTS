@@ -137,26 +137,28 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
 
             //ROS_INFO("z::%f",z);
             cv::Mat res(3, 1, CV_32F);
-            /* cv::Mat res = z * intrinsicL_.inv() * uv_;
-             res = rotation_ * res + translation_;
-             XYZ_ = res;*/
-            /*point3fW_.x = res.at<float>(0, 0);
-            point3fW_.y = res.at<float>(1, 0);
-            point3fW_.z = XYZ_.at<float>(2, 0);*/
-            //uv_ get transformed
-            /* point3fW_.x = z * (uv_.at<float>(0, 0) - cx_) / fx_;//算出x
-             point3fW_.y = z * (uv_.at<float>(1, 0) - cy_) / fy_;//算出y*/
+
             point3fW_.x = z * ((float) j - cx_) / fx_;
+
             point3fW_.y = z * ((float) i - cy_) / fy_;
-            point3fW_.z = z;//z
+
+            point3fW_.z = z;
+
             XYZ_.at<float>(0, 0) = point3fW_.x;
+
             XYZ_.at<float>(1, 0) = point3fW_.y;
+
             XYZ_.at<float>(2, 0) = point3fW_.z;
+
             XYZ_C_ = rotation_ * XYZ_ + translation_;
+
 //            uv_ = intrinsicR_ * res / (z + 0.000000001);
             auto uv_ptr_0 = uv_.ptr<float>(0);
+
             auto uv_ptr_1 = uv_.ptr<float>(1);
+
             float u = *uv_ptr_0;
+
             float v = *uv_ptr_1;
             /*float u = uv_.at<float>(0, 0);
             float v = uv_.at<float>(1, 0);*/
@@ -221,7 +223,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_new() {
 
 
 cv::Mat roborts_camera::camera_convert::get_color_dst_() {
-
+//i
     img_color_dst_ = cv::Mat::zeros(height_, width_, CV_8UC3);
     auto ptr = (cv::Vec3b *) img_color_dst_.data;
     for (const auto &pointColor : pixel_point_colors_) {
