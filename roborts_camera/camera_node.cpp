@@ -88,10 +88,10 @@ void CameraNode::Update(const unsigned int index) {
           camera_param_.GetCameraParam()[index].ros_camera_info->header.stamp = depth_msg->header.stamp;
 
           camera_convert convert = camera_convert(depth, img);
-          convert.pixel_points_ = convert.get_pixel_points_();
-//          ROS_ERROR("depth point %d",convert.pixel_points_.size());
+          // convert.pixel_points_ = convert.get_pixel_points_();
+          ROS_ERROR("depth point %d", convert.pixel_point_colors_.size());
           convert.pixel_point_colors_ = convert.get_pixel_points_color_();
-          convert.img_depth_dst_ = convert.get_depth_dst_();
+          convert.img_depth_dst_ = convert.get_depth_dst_new();
           convert.img_color_dst_ = convert.get_color_dst_();
 
           sensor_msgs::ImagePtr depth_msg_convert = cv_bridge::CvImage(std_msgs::Header(),

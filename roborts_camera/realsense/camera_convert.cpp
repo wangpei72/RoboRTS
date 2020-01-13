@@ -81,7 +81,7 @@ roborts_camera::camera_convert::camera_convert(
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
     for (int i = 0; i < img_depth_src_.rows; i += 3) {
-        auto *depth_src_rowptr = img_depth_src_.ptr<float>(i);
+        auto depth_src_rowptr = img_depth_src_.ptr<float>(i);
         for (int j = 0; j < img_depth_src_.cols; j += 1) {
            uv_.at<float>(0,0)=j;
            uv_.at<float>(1,0)=i;
@@ -105,8 +105,8 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
             XYZ_.at<float>(2, 0) = point3fW_.z;
             XYZ_C_ = rotation_ * XYZ_ + translation_;
             //不过暂时先不用rt后的xyz坐标
-            auto *uv_ptr_0 = uv_.ptr<float>(0);
-            auto *uv_ptr_1 = uv_.ptr<float>(1);
+            auto uv_ptr_0 = uv_.ptr<float>(0);
+            auto uv_ptr_1 = uv_.ptr<float>(1);
             /*float u = uv_.at<float>(0, 0);
             float v = uv_.at<float>(1, 0);*/
             float u = *uv_ptr_0;
@@ -138,7 +138,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
 
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
     for (int i = 0; i < img_depth_src_.rows; i += 3) {
-        auto *depth_src_rowptr = img_depth_src_.ptr<float>(i);
+        auto depth_src_rowptr = img_depth_src_.ptr<float>(i);
         for (int j = 0; j < img_depth_src_.cols; j += 1) {
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
@@ -162,8 +162,8 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             XYZ_.at<float>(2, 0) = point3fW_.z;
             XYZ_C_ = rotation_ * XYZ_ + translation_;
 //            uv_ = intrinsicR_ * res / (z + 0.000000001);
-            auto *uv_ptr_0 = uv_.ptr<float>(0);
-            auto *uv_ptr_1 = uv_.ptr<float>(1);
+            auto uv_ptr_0 = uv_.ptr<float>(0);
+            auto uv_ptr_1 = uv_.ptr<float>(1);
             float u = *uv_ptr_0;
             float v = *uv_ptr_1;
             /*float u = uv_.at<float>(0, 0);
@@ -214,11 +214,14 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_new() {
         ratio_ += 1;
     }*/
     img_depth_dst_ = cv::Mat::zeros(height_, width_, CV_16UC1);
-
+    auto ptr = (ushort *) img_depth_dst_.data;
     for (const auto &pixelPoint : pixel_point_colors_) {
         if (int i = std::isnan(pixelPoint.pixel_points_in_color.z))continue;
-        img_depth_dst_.at<ushort>(pixelPoint.pixel_points_in_color.y, pixelPoint.pixel_points_in_color.x)
+        /*  img_depth_dst_.at<ushort>(pixelPoint.pixel_points_in_color.y, pixelPoint.pixel_points_in_color.x)
+                  = pixelPoint.pixel_points_in_color.z;*/
+        ptr[(ushort) (pixelPoint.pixel_points_in_color.y * (float) width_ + pixelPoint.pixel_points_in_color.x)]
                 = pixelPoint.pixel_points_in_color.z;
+
     }
 //    cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
 
@@ -239,7 +242,7 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_() {
         if (int i = std::isnan(pixelPoint.z))continue;
         img_depth_dst_.at<ushort>(pixelPoint.y, pixelPoint.x) = pixelPoint.z;
     }
-    cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+//    cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
 
 //    cv::erode(img_depth_dst_, img_depth_dst_, element);
     return img_depth_dst_;
@@ -252,20 +255,25 @@ cv::Mat roborts_camera::camera_convert::get_color_dst_() {
            ratio_ += 1;
        }*/
     img_color_dst_ = cv::Mat::zeros(height_, width_, CV_8UC3);
+    auto ptr = (cv::Vec3b *) img_color_dst_.data;
     for (const auto &pointColor : pixel_point_colors_) {
         if (int i = std::isnan(pointColor.pixel_points_in_color.z))continue;
-        img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
+        ptr[(uchar) (pointColor.pixel_points_in_color.y * (float) width_ + pointColor.pixel_points_in_color.x)][0]
+                = pointColor.pixel_points_rgb.x;
+        ptr[(uchar) (pointColor.pixel_points_in_color.y * (float) width_ + pointColor.pixel_points_in_color.x)][1]
+                = pointColor.pixel_points_rgb.y;
+        ptr[(uchar) (pointColor.pixel_points_in_color.y * (float) width_ + pointColor.pixel_points_in_color.x)][2]
+                = pointColor.pixel_points_rgb.z;
+        /*img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
                 = pointColor.pixel_points_rgb.x;
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[1]
                 = pointColor.pixel_points_rgb.y;
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[2]
-                = pointColor.pixel_points_rgb.z;
+                = pointColor.pixel_points_rgb.z;*/
     }
 /*
     cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(ratio_, ratio_));
     cv::dilate(img_color_dst_, img_color_dst_, element);
     *///cv::GaussianBlur(img_depth_dst_, img_depth_dst_, cv::Size(ratio_, ratio_), 0);
-
     return img_color_dst_;
-
 }
