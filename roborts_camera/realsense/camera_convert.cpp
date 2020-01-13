@@ -1,15 +1,6 @@
 //
 // Created by wangpei on 2020/1/10.
 //
-/**  data: 612.488
-    data: 0.0
-    data: 325.411
-    data: 0.0
-    data: 612.729
-    data: 246.753
-    data: 0.0
-    data: 0.0
-    data: 1.0*/
 
 #include "camera_convert.h"
 #include <ros/ros.h>
@@ -66,8 +57,7 @@ roborts_camera::camera_convert::camera_convert(
     translation_ = cv::Mat(3,1,CV_32F,translation);
     XYZ_ = cv::Mat::zeros(3,1,CV_32F);
     uv_  = cv::Mat::zeros(3,1,CV_32F);
-    world_points_.resize(600);
-    pixel_points_.resize(600);
+
 //    pixels_count = 0;
     ratio_ = 0;
     color_convert_enable = true;
@@ -81,7 +71,7 @@ roborts_camera::camera_convert::camera_convert(
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
     for (int i = 0; i < img_depth_src_.rows; i += 3) {
-        auto depth_src_rowptr = img_depth_src_.ptr<float>(i);
+        auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
         for (int j = 0; j < img_depth_src_.cols; j += 1) {
            uv_.at<float>(0,0)=j;
            uv_.at<float>(1,0)=i;

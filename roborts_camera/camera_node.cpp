@@ -89,8 +89,9 @@ void CameraNode::Update(const unsigned int index) {
 
           camera_convert convert = camera_convert(depth, img);
           // convert.pixel_points_ = convert.get_pixel_points_();
-          ROS_ERROR("depth point %d", convert.pixel_point_colors_.size());
+
           convert.pixel_point_colors_ = convert.get_pixel_points_color_();
+          ROS_ERROR("depth point %d", convert.pixel_point_colors_.size());
           convert.img_depth_dst_ = convert.get_depth_dst_new();
           convert.img_color_dst_ = convert.get_color_dst_();
 
