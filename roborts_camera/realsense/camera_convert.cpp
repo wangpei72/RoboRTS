@@ -80,8 +80,8 @@ roborts_camera::camera_convert::camera_convert(
 
 
 std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
-    for (int i = 0; i < img_depth_src_.rows; ++i) {
-        for (int j = 0; j < img_depth_src_.cols; ++j) {
+    for (int i = 0; i < img_depth_src_.rows; i += 3) {
+        for (int j = 0; j < img_depth_src_.cols; j += 1) {
            uv_.at<float>(0,0)=j;
            uv_.at<float>(1,0)=i;
            uv_.at<float>(2,0)=1;
@@ -89,17 +89,7 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
 //            printf("z: %f\n", z);
             //test *************************************************以下部分是修改开始******************
             cv::Mat res = cv::Mat(3, 1, CV_32F); /*= (z + 0.000001) * intrinsicL_.inv() * uv_*/
-//           res = rotation_*res + translation_;
 
-            /*XYZ_ = res;*/
-            /*point3fW_.x = res.at<float>(0,0);
-            point3fW_.y = res.at<float>(1,0);
-             point3fW_.z = XYZ_.at<float>(2, 0);*/
-            /*  if (point3fW_.z == z) {
-                  printf("z eqauls to z");
-              } else printf("z not right");*/
-           //uv_ get transformed
-//           uv_ = intrinsicR_ * res / (z + 0.000001);
             point3fW_.x = z * (uv_.at<float>(0, 0) - cx_) / fx_;//算出x
             point3fW_.y = z * (uv_.at<float>(1, 0) - cy_) / fy_;//算出y
             point3fW_.z = z;//z
@@ -132,8 +122,9 @@ std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
 }
 
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
-    for (int i = 0; i < img_depth_src_.rows; ++i) {
-        for (int j = 0; j < img_depth_src_.cols; ++j) {
+    for (int i = 0; i < img_depth_src_.rows; i += 3) {
+
+        for (int j = 0; j < img_depth_src_.cols; j += 1) {
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
             uv_.at<float>(2, 0) = 1;
@@ -145,10 +136,6 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             /*point3fW_.x = res.at<float>(0, 0);
             point3fW_.y = res.at<float>(1, 0);
             point3fW_.z = XYZ_.at<float>(2, 0);*/
-            /* if (point3fW_.z == z) {
-                 printf("z eqauls to z");
-
-             } else printf("z not right");*/
             //uv_ get transformed
             point3fW_.x = z * (uv_.at<float>(0, 0) - cx_) / fx_;//算出x
             point3fW_.y = z * (uv_.at<float>(1, 0) - cy_) / fy_;//算出y
@@ -193,7 +180,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
         }
     }
 //    ROS_INFO("pixel points cnt: %d\n", pixels_count);
-    ROS_ERROR("depth Ppoint size: %d\n", pixel_points_.size());
+//    ROS_ERROR("depth Ppoint size: %d\n", pixel_points_.size());
     //get the struct we want
     return pixel_point_colors_;
 }
@@ -224,7 +211,7 @@ cv::Mat roborts_camera::camera_convert::get_color_dst_() {
        if (ratio_ % 2 == 0) {
            ratio_ += 1;
        }*/
-    img_color_dst_.create(height_, width_, CV_8UC3);
+    img_color_dst_ = cv::Mat::zeros(height_, width_, CV_8UC3);
     for (const auto &pointColor : pixel_point_colors_) {
         if (int i = std::isnan(pointColor.pixel_points_in_color.z))continue;
         img_color_dst_.at<cv::Vec3b>(pointColor.pixel_points_in_color.y, pointColor.pixel_points_in_color.x)[0]
