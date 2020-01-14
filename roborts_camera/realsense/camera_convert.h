@@ -9,6 +9,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <vector>
+
+
 namespace roborts_camera {
 
     class camera_convert {
@@ -37,12 +39,12 @@ namespace roborts_camera {
         cv::Point3f point3fW_;
         //u v z stands for img on MVS: (u,v) depth =z
         cv::Point3f point3fP_;
+
         typedef struct {
             cv::Point3f pixel_points_in_color;
             cv::Point3i pixel_points_rgb;
         } pixelPointColor;
         typedef std::vector<pixelPointColor> pixelPointColors;
-
         pixelPointColors pixel_point_colors_;
         std::vector<cv::Point3f> pixel_points_;
 
@@ -50,15 +52,8 @@ namespace roborts_camera {
         camera_convert()= default;
         virtual ~camera_convert()= default;
 
-//        camera_convert(cv::Mat &depth);
-
         camera_convert(cv::Mat &depth, cv::Mat &color);
-
-        std::vector<cv::Point3f> get_pixel_points_();
-
         pixelPointColors get_pixel_points_color_();
-        cv::Mat get_depth_dst_();
-
         cv::Mat get_depth_dst_new();
         cv::Mat get_color_dst_();
     };

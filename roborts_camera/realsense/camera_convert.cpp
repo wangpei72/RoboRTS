@@ -69,62 +69,6 @@ roborts_camera::camera_convert::camera_convert(
 
 
 
-std::vector<cv::Point3f> roborts_camera::camera_convert::get_pixel_points_() {
-    for (int i = 0; i < img_depth_src_.rows; i += 3) {
-        auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
-        for (int j = 0; j < img_depth_src_.cols; j += 1) {
-           uv_.at<float>(0,0)=j;
-           uv_.at<float>(1,0)=i;
-           uv_.at<float>(2,0)=1;
-// ×××          **************指针写法********************
-
-// ×××           float z = img_depth_src_.at<ushort>(i, j);
-            float z = depth_src_rowptr[j];
-//            printf("z: %f\n", z);
-            //test *************************************************以下部分是修改开始******************
-            cv::Mat res(3, 1, CV_32F); /*= (z + 0.000001) * intrinsicL_.inv() * uv_*/
-
-// ×××      point3fW_.x = z * (uv_.at<float>(0, 0) - cx_) / fx_;//算出x
-// ×××      point3fW_.y = z * (uv_.at<float>(1, 0) - cy_) / fy_;//算出y
-            point3fW_.x = z * ((float) j - cx_) / fx_;
-            point3fW_.y = z * ((float) i - cy_) / fy_;
-            point3fW_.z = z;//z
-// ×××
-            XYZ_.at<float>(0, 0) = point3fW_.x;
-            XYZ_.at<float>(1, 0) = point3fW_.y;
-            XYZ_.at<float>(2, 0) = point3fW_.z;
-            XYZ_C_ = rotation_ * XYZ_ + translation_;
-            //不过暂时先不用rt后的xyz坐标
-            auto uv_ptr_0 = uv_.ptr<float>(0);
-            auto uv_ptr_1 = uv_.ptr<float>(1);
-            /*float u = uv_.at<float>(0, 0);
-            float v = uv_.at<float>(1, 0);*/
-            float u = *uv_ptr_0;
-            float v = *uv_ptr_1;
-            float r11 = 1, r12 = 0, r13 = 0, r21 = 0, r22 = 1, r23 = 0, t1 = 0, t2 = 0, t3 = 0;
-            /*uv_.at<float>(0, 0) = cx_ + fx_ * (r11 * (u - cx_) / fx_ + r12 * (v - cy_) / fy_ + r13 + t1 / z) * z /
-                                        z;//注意这里其实时转换后的z被除以才可以
-            uv_.at<float>(1, 0) = cy_ + fy_ * (r21 * (u - cx_) / fx_ + r22 * (v - cy_) / fy_ + r23 + t2 / z) * z /
-                                        z;//注意这里其实时转换后的z被除以才可以*/
-            *uv_ptr_0 = cx_ + fx_ * (r11 * (u - cx_) / fx_ + r12 * (v - cy_) / fy_ + r13 + t1 / z) * z /
-                              z;
-            *uv_ptr_1 = cy_ + fy_ * (r21 * (u - cx_) / fx_ + r22 * (v - cy_) / fy_ + r23 + t2 / z) * z /
-                              z;
-            point3fP_.x = *uv_ptr_0;/*uv_.at<float>(0, 0);*///算出U
-            point3fP_.y = *uv_ptr_1;/*uv_.at<float>(1, 0);*///算出V
-            point3fP_.z = z;//带上深度信息z
-//           printf("u: %f v: %f  z: %f  \n ",point3fP_.x,point3fP_.y,point3fP_.z);
-           if(point3fP_.x >0 && point3fP_.y >0 &&
-              point3fP_.y < height_ && point3fP_.x < width_) {
-               pixels_count++;
-               pixel_points_.push_back(point3fP_);
-           }
-           world_points_.push_back(point3fW_);
-        }
-    }
-//    printf("%d\n",pixels_count);
-    return pixel_points_;
-}
 
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
     for (int i = 0; i < img_depth_src_.rows; ++i) {
@@ -217,7 +161,6 @@ cv::Mat roborts_camera::camera_convert::get_depth_dst_new() {
                 = (ushort)pixelPoint.pixel_points_in_color.z;
 
     }
-
     return img_depth_dst_;
 }
 
