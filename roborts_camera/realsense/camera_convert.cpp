@@ -1,7 +1,8 @@
 //
 // Created by wangpei on 2020/1/10.
 //
-
+#define FPS_12 2
+#define FPS_7 3
 #include "camera_convert.h"
 #include <ros/ros.h>
 #include <cmath>
@@ -74,6 +75,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
     for (int i = 0; i < img_depth_src_.rows; ++i) {
         auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
         for (int j = 0; j < img_depth_src_.cols; ++j) {
+
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
             uv_.at<float>(2, 0) = 1;
