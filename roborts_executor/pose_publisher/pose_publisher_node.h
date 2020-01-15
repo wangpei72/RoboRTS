@@ -40,7 +40,7 @@ class PosePublisher {
     try {
       geometry_msgs::PoseStamped chassis_pose;
       tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
-      tf_ptr_->transformPose("map", chassis_pose, chassis_map_pose_);
+      tf_ptr_->transformPose("odom", chassis_pose, chassis_map_pose_);
       ROS_WARN("chassis pose %lf", tf::getYaw(chassis_map_pose_.pose.orientation));
     }
     catch (tf::LookupException &ex) {
@@ -60,7 +60,7 @@ class PosePublisher {
     try {
       geometry_msgs::PoseStamped gimbal_pose;
       tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
-      tf_ptr_->transformPose("map", gimbal_pose, gimbal_map_pose_);
+      tf_ptr_->transformPose("odom", gimbal_pose, gimbal_map_pose_);
       ROS_WARN("gimbal pose %lf", tf::getYaw(gimbal_map_pose_.pose.orientation));
     }
     catch (tf::LookupException &ex) {

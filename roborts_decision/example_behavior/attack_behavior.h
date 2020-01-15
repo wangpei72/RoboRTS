@@ -29,6 +29,9 @@ class AttackBehavior {
                                            gimbal_executor_(gimbal_executor),
                                            blackboard_(blackboard) {
     ros::NodeHandle nh;
+
+    tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
+
 //    chassis_pose_sub_ =
 //        nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
 //                                                 &AttackBehavior::chassisPoseCallback, this);
@@ -44,7 +47,8 @@ class AttackBehavior {
 
   void Run(const double &gimbal_goal_map_pitch, const double &gimbal_goal_map_yaw) {
     ChassisRotationAction();
-    SetGimbalMapPose(gimbal_goal_map_pitch, gimbal_goal_map_yaw);
+//    SetGimbalMapPose(gimbal_goal_map_pitch, gimbal_goal_map_yaw);
+    SetGimbalOdomPose(gimbal_goal_map_pitch, gimbal_goal_map_yaw);
   }
 
   void SetGimbalMapPose(const double &gimbal_goal_map_pitch, const double &gimbal_goal_map_yaw) {
@@ -87,6 +91,28 @@ class AttackBehavior {
 //    gimbal_executor_->Execute(residual_gimbal_angle);
   }
 
+  void SetGimbalOdomPose(const double &gimbal_goal_map_pitch, const double &gimbal_goal_map_yaw) {
+
+    try {
+      geometry_msgs::PoseStamped gimbal_pose;
+      gimbal_pose.header.frame_id = "map";
+      gimbal_pose.header.stamp = ros::Time::now();
+      gimbal_pose.pose.orientation =
+          tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, gimbal_goal_map_yaw);
+
+      geometry_msgs::PoseStamped gimbal_odom_pose_;
+      tf_ptr_->transformPose("odom", gimbal_odom_pose_, gimbal_pose);
+      ROS_WARN("gimbal pose %lf", tf::getYaw(gimbal_odom_pose_.pose.orientation));
+      gimbal_executor_->Execute(gimbal_odom_pose_, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
+    }
+    catch (tf::LookupException &ex) {
+      ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+    }
+    catch (tf::TransformException &ex) {
+      ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+    }
+
+  }
   void ChassisRotationAction() {
 
     auto chassis_executor_state = ChassisExecutorUpdate();
@@ -145,6 +171,9 @@ class AttackBehavior {
   ~AttackBehavior() = default;
 
  private:
+
+  //! tf
+  std::shared_ptr<tf::TransformListener> tf_ptr_;
 
   //! executor
   ChassisExecutor *const chassis_executor_;
