@@ -9,6 +9,12 @@
     <node pkg="roborts_executor"
           name="gimbal_executor_action_node"
           type="gimbal_executor_action_node"
+          required="true">
+    </node>
+
+    <node pkg="roborts_executor"
+          name="pose_publisher_node"
+          type="pose_publisher_node"
           output="screen"
           required="true">
     </node>

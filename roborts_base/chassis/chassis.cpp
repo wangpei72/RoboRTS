@@ -109,7 +109,7 @@ void Chassis::ChassisInfoCallback(const std::shared_ptr<roborts_sdk::cmd_chassis
   geometry_msgs::PoseStamped chassis_map_pose_stamped;
   chassis_map_pose_stamped.header.stamp = odom_.header.stamp;
   chassis_map_pose_stamped.pose = odom_.pose.pose;
-  ros_chassis_map_pose_pub_.publish(chassis_map_pose_stamped);
+//  ros_chassis_map_pose_pub_.publish(chassis_map_pose_stamped);
 
   odom_tf_.header.stamp = current_time;
   odom_tf_.transform.translation.x = chassis_info->position_x_mm/1000.;

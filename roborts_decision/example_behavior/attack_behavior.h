@@ -29,9 +29,9 @@ class AttackBehavior {
                                            gimbal_executor_(gimbal_executor),
                                            blackboard_(blackboard) {
     ros::NodeHandle nh;
-    chassis_pose_sub_ =
-        nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
-                                                 &AttackBehavior::chassisPoseCallback, this);
+//    chassis_pose_sub_ =
+//        nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
+//                                                 &AttackBehavior::chassisPoseCallback, this);
   }
 
   void Start() {
@@ -52,8 +52,10 @@ class AttackBehavior {
     // TODO
     auto gimbal_executor_state = GimbalExecutorUpdate();
 
-    // TODO change the chassis_pose source
-    auto chassis_cur_map_yaw = tf::getYaw(chassis_pose_.pose.orientation);
+//    // TODO change the chassis_pose source
+//    auto chassis_cur_map_yaw = tf::getYaw(chassis_pose_.pose.orientation);
+
+    auto chassis_cur_map_yaw = tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation);
 
     // TODO rename
     int kscale = 0;
@@ -80,7 +82,7 @@ class AttackBehavior {
 
     geometry_msgs::PoseStamped residual_gimbal_angle;
     residual_gimbal_angle.pose.orientation =
-        tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, kscale * residual_yaw);
+        tf::createQuaternionMsgFromRollPitchYaw(0, 0, gimbal_goal_map_yaw);
     gimbal_executor_->Execute(residual_gimbal_angle, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
 //    gimbal_executor_->Execute(residual_gimbal_angle);
   }
@@ -136,9 +138,9 @@ class AttackBehavior {
     return gimbal_executor_->Update();
   }
 
-  void chassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-    this->chassis_pose_ = *msg;
-  }
+//  void chassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
+//    this->chassis_pose_ = *msg;
+//  }
 
   ~AttackBehavior() = default;
 
@@ -156,11 +158,11 @@ class AttackBehavior {
   //! chassis rotation points
   std::vector<geometry_msgs::PoseStamped> chassis_rot_points{};
 
-  //! subscriber
-  ros::Subscriber chassis_pose_sub_;
+//  //! subscriber
+//  ros::Subscriber chassis_pose_sub_;
 
-  //! chassis_pose
-  geometry_msgs::PoseStamped chassis_pose_;
+//  //! chassis_pose
+//  geometry_msgs::PoseStamped chassis_pose_;
 
 };
 }

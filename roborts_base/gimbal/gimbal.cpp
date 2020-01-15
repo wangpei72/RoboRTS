@@ -121,7 +121,7 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   geometry_msgs::PoseStamped cur_angle_between_chassis_gimbal;
   cur_angle_between_chassis_gimbal.pose.orientation =
       tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_cur_map_pitch, gimbal_cur_map_yaw);
-  gimbal_map_pose_pub_.publish(cur_angle_between_chassis_gimbal);
+//  gimbal_map_pose_pub_.publish(cur_angle_between_chassis_gimbal);
 
 }
 

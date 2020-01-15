@@ -43,6 +43,10 @@ add_executable(gimbal_executor_action_node
         ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
         )
 
+add_executable(pose_publisher_node
+        pose_publisher/pose_publisher_node.h
+        pose_publisher/pose_publisher_node.cpp
+        )
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(chassis_executor_action_node
@@ -50,5 +54,9 @@ target_link_libraries(chassis_executor_action_node
         )
 
 target_link_libraries(gimbal_executor_action_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(pose_publisher_node
         ${catkin_LIBRARIES}
         )
