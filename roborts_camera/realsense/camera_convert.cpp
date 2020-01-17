@@ -74,7 +74,9 @@ roborts_camera::camera_convert::camera_convert(
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
     for (int i = 0; i < img_depth_src_.rows; ++i) {
         auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
-        for (int j = 0; j < img_depth_src_.cols; ++j) {
+        for (int j = 0; j < img_depth_src_.cols; j+=13) {
+        for (int j = 0; j < img_depth_src_.cols; j+=13) {
+        for (int j = 0; j < img_depth_src_.cols; j+=13) {
 
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
@@ -101,6 +103,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
 //            uv_ = intrinsicR_ * res / (z + 0.000000001);
             auto uv_ptr_0 = uv_.ptr<float>(0);
 
+
             auto uv_ptr_1 = uv_.ptr<float>(1);
 
             float u = *uv_ptr_0;
@@ -109,7 +112,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             /*float u = uv_.at<float>(0, 0);
             float v = uv_.at<float>(1, 0);*/
             float r11 = 1, r12 = 0, r13 = 0, r21 = 0, r22 = 1, r23 = 0, t1 = 0, t2 = 0, t3 = 0;
-            *uv_ptr_0 = cx_ + fx_ * (r11 * (u - cx_) / fx_ + r12 * (v - cy_) / fy_ + r13 + t1 / z) * z /
+            *uv_ptr_0 = cx_ + fx_ * (r11 * (u -  cx_) / fx_ + r12 * (v - cy_) / fy_ + r13 + t1 / z) * z /
                               z;//注意这里其实时转换后的z被除以才可以
             *uv_ptr_1 = cy_ + fy_ * (r21 * (u - cx_) / fx_ + r22 * (v - cy_) / fy_ + r23 + t2 / z) * z /
                               z;//注意这里其实时转换后的z被除以才可以
