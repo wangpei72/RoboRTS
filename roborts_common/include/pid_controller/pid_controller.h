@@ -33,7 +33,7 @@ class PIDController {
 
   int8_t setTarget(double_t _target) {
     target = _target;
-    ierr = 0;
+//    ierr = 0;
     return 0;
   }
 
@@ -71,6 +71,9 @@ class PIDController {
   }
   void SetKd(double_t kd) {
     PIDController::kd = kd;
+  }
+  void SetIerr(double_t ierr) {
+    PIDController::ierr = ierr;
   }
 
  private:

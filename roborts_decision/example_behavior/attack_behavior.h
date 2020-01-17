@@ -96,14 +96,14 @@ class AttackBehavior {
     try {
       geometry_msgs::PoseStamped gimbal_pose;
       gimbal_pose.header.frame_id = "map";
-      gimbal_pose.header.stamp = ros::Time::now();
+      gimbal_pose.header.stamp = ros::Time();
       gimbal_pose.pose.orientation =
           tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, gimbal_goal_map_yaw);
 
       ROS_INFO("%lf %lf %lf %lf", gimbal_pose.pose.orientation.x, gimbal_pose.pose.orientation.y, gimbal_pose.pose.orientation.z, gimbal_pose.pose.orientation.w);
 
       geometry_msgs::PoseStamped gimbal_odom_pose_;
-      tf_ptr_->transformPose("odom", gimbal_odom_pose_, gimbal_pose);
+      tf_ptr_->transformPose("odom", gimbal_pose, gimbal_odom_pose_);
       ROS_WARN("gimbal pose %lf", tf::getYaw(gimbal_odom_pose_.pose.orientation));
       gimbal_executor_->Execute(gimbal_odom_pose_, GimbalExecutor::GoalMode::GOAL_MODE_USE_PID);
     }
