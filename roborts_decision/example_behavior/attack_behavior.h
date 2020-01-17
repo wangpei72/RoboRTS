@@ -100,6 +100,8 @@ class AttackBehavior {
       gimbal_pose.pose.orientation =
           tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_goal_map_pitch, gimbal_goal_map_yaw);
 
+      ROS_INFO("%lf %lf %lf %lf", gimbal_pose.pose.orientation.x, gimbal_pose.pose.orientation.y, gimbal_pose.pose.orientation.z, gimbal_pose.pose.orientation.w);
+
       geometry_msgs::PoseStamped gimbal_odom_pose_;
       tf_ptr_->transformPose("odom", gimbal_odom_pose_, gimbal_pose);
       ROS_WARN("gimbal pose %lf", tf::getYaw(gimbal_odom_pose_.pose.orientation));
@@ -109,7 +111,7 @@ class AttackBehavior {
       ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
     }
     catch (tf::TransformException &ex) {
-      ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+      ROS_ERROR("Transform Error gimbal pose: %s", ex.what());
     }
 
   }
