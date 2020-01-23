@@ -32,9 +32,6 @@ class AttackBehavior {
 
     tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
 
-//    chassis_pose_sub_ =
-//        nh.subscribe<geometry_msgs::PoseStamped>("/chassis_pose", 1,
-//                                                 &AttackBehavior::chassisPoseCallback, this);
   }
 
   void Start() {
@@ -55,9 +52,6 @@ class AttackBehavior {
 
     // TODO
     auto gimbal_executor_state = GimbalExecutorUpdate();
-
-//    // TODO change the chassis_pose source
-//    auto chassis_cur_map_yaw = tf::getYaw(chassis_pose_.pose.orientation);
 
     auto chassis_cur_map_yaw = tf::getYaw(blackboard_->GetChassisMapPose().pose.orientation);
 
@@ -164,10 +158,6 @@ class AttackBehavior {
     return gimbal_executor_->Update();
   }
 
-//  void chassisPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
-//    this->chassis_pose_ = *msg;
-//  }
-
   ~AttackBehavior() = default;
 
  private:
@@ -186,12 +176,6 @@ class AttackBehavior {
 
   //! chassis rotation points
   std::vector<geometry_msgs::PoseStamped> chassis_rot_points{};
-
-//  //! subscriber
-//  ros::Subscriber chassis_pose_sub_;
-
-//  //! chassis_pose
-//  geometry_msgs::PoseStamped chassis_pose_;
 
 };
 }
