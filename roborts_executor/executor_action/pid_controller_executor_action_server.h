@@ -68,7 +68,7 @@ class PIDControllerExecuteActionServer {
 
     pid_controller_toward_angular.setTarget(tf::getYaw(pid_controller_toward_angular_goal->goal.pose.orientation));
 
-    while (difference_yaw * (chassis_yaw - goal_yaw) > 0.01) {
+    while (difference_yaw * (chassis_yaw - goal_yaw) > 0.0) {
 
       if (!action_server_.isActive()) {
         break;
