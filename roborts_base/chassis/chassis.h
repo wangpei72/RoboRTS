@@ -98,8 +98,6 @@ class Chassis {
   ros::Publisher ros_odom_pub_;
   //! ros publisher for uwb information
   ros::Publisher ros_uwb_pub_;
-  //! ros publisher for chassis pose in map
-  ros::Publisher ros_chassis_map_pose_pub_;
 
 
   //! ros chassis odometry tf

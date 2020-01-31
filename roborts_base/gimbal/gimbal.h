@@ -124,8 +124,6 @@ class Gimbal {
   geometry_msgs::TransformStamped gimbal_tf_;
   //! ros gimbal tf broadcaster
   tf::TransformBroadcaster tf_broadcaster_;
-  //! ros publish gimbal pose in map
-  ros::Publisher gimbal_map_pose_pub_;
 };
 }
 #endif //ROBORTS_BASE_GIMBAL_H
