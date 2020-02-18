@@ -75,8 +75,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
     for (int i = 0; i < img_depth_src_.rows; ++i) {
         auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
         for (int j = 0; j < img_depth_src_.cols; j+=13) {
-        for (int j = 0; j < img_depth_src_.cols; j+=13) {
-        for (int j = 0; j < img_depth_src_.cols; j+=13) {
+
 
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
