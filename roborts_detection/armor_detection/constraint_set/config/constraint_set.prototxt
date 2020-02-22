@@ -12,11 +12,8 @@ threshold {
   armor_max_mean: 90
 
   color_thread: 100
-  #blue_thread: 90
-  #red_thread: 50
-  blue_thread: 180
-  red_thread: 250
-
+  blue_thread: 90
+  red_thread: 50
 }
 
 signal_recognization {
@@ -33,4 +30,4 @@ armor_size {
 using_hsv: false
 enable_debug: true
 enable_neon: false
-enemy_color: RED
+enemy_color: BLUE

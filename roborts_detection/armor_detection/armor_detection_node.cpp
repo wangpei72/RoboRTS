@@ -16,12 +16,11 @@
  ***************************************************************************/
 
 #include <unistd.h>
-#include <geometry_msgs/Point32.h>
 #include "armor_detection_node.h"
 
 namespace roborts_detection {
 
-ArmorDetectionNode::ArmorDetectionNode() :
+ArmorDetectionNode::ArmorDetectionNode():
     node_state_(roborts_common::IDLE),
     demensions_(3),
     initialized_(false),
@@ -42,12 +41,9 @@ ArmorDetectionNode::ArmorDetectionNode() :
 
 ErrorInfo ArmorDetectionNode::Init() {
   enemy_info_pub_ = enemy_nh_.advertise<roborts_msgs::GimbalAngle>("cmd_gimbal_angle", 100);
-
-  armor_info_pub_ = enemy_nh_.advertise<geometry_msgs::Point32>("/armor_detection/armor_point", 100);
   ArmorDetectionAlgorithms armor_detection_param;
 
-  std::string
-      file_name = ros::package::getPath("roborts_detection") + "/armor_detection/config/armor_detection.prototxt";
+  std::string file_name = ros::package::getPath("roborts_detection") + "/armor_detection/config/armor_detection.prototxt";
   bool read_state = roborts_common::ReadProtoFromTextFile(file_name, &armor_detection_param);
   if (!read_state) {
     ROS_ERROR("Cannot open %s", file_name.c_str());
@@ -57,17 +53,18 @@ ErrorInfo ArmorDetectionNode::Init() {
                        armor_detection_param.camera_gimbal_transform().offset_y(),
                        armor_detection_param.camera_gimbal_transform().offset_z(),
                        armor_detection_param.camera_gimbal_transform().offset_pitch(),
-                       armor_detection_param.camera_gimbal_transform().offset_yaw(),
+                       armor_detection_param.camera_gimbal_transform().offset_yaw(), 
                        armor_detection_param.projectile_model_info().init_v(),
                        armor_detection_param.projectile_model_info().init_k());
 
   //create the selected algorithms
   std::string selected_algorithm = armor_detection_param.selected_algorithm();
   // create image receiver
-  cv_toolbox_ = std::make_shared<CVToolbox>(armor_detection_param.camera_name());
+  cv_toolbox_ =std::make_shared<CVToolbox>(armor_detection_param.camera_name());
   // create armor detection algorithm
-  armor_detector_ = roborts_common::AlgorithmFactory<ArmorDetectionBase, std::shared_ptr<CVToolbox>>::CreateAlgorithm
+  armor_detector_ = roborts_common::AlgorithmFactory<ArmorDetectionBase,std::shared_ptr<CVToolbox>>::CreateAlgorithm
       (selected_algorithm, cv_toolbox_);
+
   undetected_armor_delay_ = armor_detection_param.undetected_armor_delay();
   if (armor_detector_ == nullptr) {
     ROS_ERROR("Create armor_detector_ pointer failed!");
@@ -81,9 +78,9 @@ void ArmorDetectionNode::ActionCB(const roborts_msgs::ArmorDetectionGoal::ConstP
   roborts_msgs::ArmorDetectionResult result;
   bool undetected_msg_published = false;
 
-  if (!initialized_) {
+  if(!initialized_){
     feedback.error_code = error_info_.error_code();
-    feedback.error_msg = error_info_.error_msg();
+    feedback.error_msg  = error_info_.error_msg();
     as_.publishFeedback(feedback);
     as_.setAborted(result, feedback.error_msg);
     ROS_INFO("Initialization Failed, Failed to execute action!");
@@ -91,18 +88,22 @@ void ArmorDetectionNode::ActionCB(const roborts_msgs::ArmorDetectionGoal::ConstP
   }
 
   switch (data->command) {
-    case 1:StartThread();
+    case 1:
+      StartThread();
       break;
-    case 2:PauseThread();
+    case 2:
+      PauseThread();
       break;
-    case 3:StopThread();
+    case 3:
+      StopThread();
       break;
-    default:break;
+    default:
+      break;
   }
   ros::Rate rate(25);
-  while (ros::ok()) {
+  while(ros::ok()) {
 
-    if (as_.isPreemptRequested()) {
+    if(as_.isPreemptRequested()) {
       as_.setPreempted();
       return;
     }
@@ -115,7 +116,7 @@ void ArmorDetectionNode::ActionCB(const roborts_msgs::ArmorDetectionGoal::ConstP
         feedback.error_msg = error_info_.error_msg();
 
         feedback.enemy_pos.header.frame_id = "camera0";
-        feedback.enemy_pos.header.stamp = ros::Time::now();
+        feedback.enemy_pos.header.stamp    = ros::Time::now();
 
         feedback.enemy_pos.pose.position.x = x_;
         feedback.enemy_pos.pose.position.y = y_;
@@ -123,13 +124,13 @@ void ArmorDetectionNode::ActionCB(const roborts_msgs::ArmorDetectionGoal::ConstP
         feedback.enemy_pos.pose.orientation.w = 1;
         as_.publishFeedback(feedback);
         undetected_msg_published = false;
-      } else if (!undetected_msg_published) {
+      } else if(!undetected_msg_published) {
         feedback.detected = false;
         feedback.error_code = error_info_.error_code();
         feedback.error_msg = error_info_.error_msg();
 
         feedback.enemy_pos.header.frame_id = "camera0";
-        feedback.enemy_pos.header.stamp = ros::Time::now();
+        feedback.enemy_pos.header.stamp    = ros::Time::now();
 
         feedback.enemy_pos.pose.position.x = 0;
         feedback.enemy_pos.pose.position.y = 0;
@@ -145,20 +146,12 @@ void ArmorDetectionNode::ActionCB(const roborts_msgs::ArmorDetectionGoal::ConstP
 
 void ArmorDetectionNode::ExecuteLoop() {
   undetected_count_ = undetected_armor_delay_;
-  while (running_) {
+
+  while(running_) {
     usleep(1);
     if (node_state_ == NodeState::RUNNING) {
       cv::Point3f target_3d;
-//      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
-      ErrorInfo error_info = armor_detector_->NewDetectArmor(detected_enemy_, target_3d);
-      geometry_msgs::Point32 target;
-      target.x = target_3d.x;
-      target.y = target_3d.y;
-      target.z = target_3d.z;
-      //发布消息,原框架中是Point3f调target_3d，后面再看是否要直接换成geometry_msgs类型
-      armor_info_pub_.publish(target);
-
-      //以下是原框架代码
+      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
       {
         std::lock_guard<std::mutex> guard(mutex_);
         x_ = target_3d.x;
@@ -166,6 +159,7 @@ void ArmorDetectionNode::ExecuteLoop() {
         z_ = target_3d.z;
         error_info_ = error_info;
       }
+
 //      if(detected_enemy_) {
 //        float pitch, yaw;
 //        gimbal_control_.Transform(target_3d, pitch, yaw);
@@ -203,7 +197,7 @@ void ArmorDetectionNode::StartThread() {
   ROS_INFO("Armor detection node started!");
   running_ = true;
   armor_detector_->SetThreadState(true);
-  if (node_state_ == NodeState::IDLE) {
+  if(node_state_ == NodeState::IDLE) {
     armor_detection_thread_ = std::thread(&ArmorDetectionNode::ExecuteLoop, this);
   }
   node_state_ = NodeState::RUNNING;
@@ -229,25 +223,22 @@ ArmorDetectionNode::~ArmorDetectionNode() {
 }
 } //namespace roborts_detection
 
-void SignalHandler(int signal) {
-  if (ros::isInitialized() && ros::isStarted() && ros::ok() && !ros::isShuttingDown()) {
+void SignalHandler(int signal){
+  if(ros::isInitialized() && ros::isStarted() && ros::ok() && !ros::isShuttingDown()){
     ros::shutdown();
   }
 }
 
 int main(int argc, char **argv) {
   signal(SIGINT, SignalHandler);
-  signal(SIGTERM, SignalHandler);
+  signal(SIGTERM,SignalHandler);
   ros::init(argc, argv, "armor_detection_node", ros::init_options::NoSigintHandler);
   roborts_detection::ArmorDetectionNode armor_detection;
   ros::AsyncSpinner async_spinner(1);
   async_spinner.start();
-//  ros::waitForShutdown();
-  armor_detection.StartThread();
-//  armor_detection.StopThread();
-  while (ros::ok()) {
-
-  }
+  ros::waitForShutdown();
+  armor_detection.StopThread();
+  return 0;
 }
 
 

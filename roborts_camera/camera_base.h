@@ -15,28 +15,40 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#ifndef ROBORTS_DETECTION_ARMOR_DETECTION_BASE_H
-#define ROBORTS_DETECTION_ARMOR_DETECTION_BASE_H
+#ifndef ROBORTS_CAMERA_CAMERA_BASE_H
+#define ROBORTS_CAMERA_CAMERA_BASE_H
 
 #include <vector>
+#include <opencv2/opencv.hpp>
+
 #include "state/error_code.h"
-#include "../util/cv_toolbox.h"
 
-namespace roborts_detection {
-
-using roborts_common::ErrorInfo;
-
-class ArmorDetectionBase {
+namespace roborts_camera
+{
+/**
+ * @brief Camera base class for the camera factory
+ */
+class CameraBase {
  public:
-  ArmorDetectionBase(std::shared_ptr<CVToolbox> cv_toolbox)
-      : cv_toolbox_(cv_toolbox) {};
-  virtual void LoadParam() = 0;
-  virtual ErrorInfo DetectArmor(bool &detected, cv::Point3f &target_3d) = 0;
-  virtual void SetThreadState(bool thread_state) = 0;
-  virtual ~ArmorDetectionBase() = default;
- protected:
-  std::shared_ptr<CVToolbox> cv_toolbox_;
-};
-} //namespace roborts_detection
+  /**
+   * @brief Constructor of CameraBase
+   * @param camera_info  Information and parameters of camera
+   */
+  explicit CameraBase(CameraInfo camera_info):camera_info_(camera_info),camera_initialized_(false){};
+  virtual ~CameraBase() = default;
+  /**
+   * @brief Start to read camera
+   * @param img Image data in form of cv::Mat to be read
+   */
+  virtual void StartReadCamera(cv::Mat &img) = 0;
 
-#endif //ROBORTS_DETECTION_ARMOR_DETECTION_BASE_H
+ protected:
+  //! flag for camera initialization
+  bool camera_initialized_;
+  //! information and parameters of camera
+  CameraInfo camera_info_;
+};
+} //namespace roborts_camera
+
+
+#endif //ROBORTS_CAMERA_CAMERA_BASE_H

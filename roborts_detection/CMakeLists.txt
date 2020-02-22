@@ -1,5 +1,5 @@
 project(roborts_detection)
-cmake_minimum_required(VERSION 3.5.1)
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_module)
 set(CMAKE_BUILD_TYPE Release)
@@ -30,9 +30,6 @@ include_directories(
         ../../../devel/include
 )
 
-include_directories("armor_detection" "util")
-
 add_subdirectory(util)
 add_subdirectory(armor_detection)
-add_subdirectory(image_publish)
 #add_subdirectory(color_detection)
