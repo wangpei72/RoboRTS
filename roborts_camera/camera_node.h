@@ -27,6 +27,8 @@
 #include <image_transport/image_transport.h>
 
 #include "uvc/uvc_driver.h"
+#include "mvs/mvs_driver.h"
+#include "realsense/realsense.h"
 
 #include "camera_param.h"
 #include "camera_base.h"
@@ -72,7 +74,9 @@ class CameraNode{
   std::vector<ros::NodeHandle> nhs_;
   //! ROS image transport camera publisher to publish image data
   std::vector<image_transport::CameraPublisher> img_pubs_;
-
+    std::vector<image_transport::Publisher> depth_pubs_;
+    std::vector<image_transport::Publisher> depth_pubs_convert_;
+    std::vector<image_transport::Publisher> color_pubs_convert_;
 };
 } //namespace roborts_camera
 
