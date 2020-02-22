@@ -107,7 +107,6 @@ class ArmorDetectionNode {
   ros::NodeHandle nh_;
   ros::NodeHandle enemy_nh_;
   ros::Publisher enemy_info_pub_;
-  ros::Publisher armor_info_pub_;
   std::shared_ptr<CVToolbox> cv_toolbox_;
   actionlib::SimpleActionServer<roborts_msgs::ArmorDetectionAction> as_;
   roborts_msgs::GimbalAngle gimbal_angle_;

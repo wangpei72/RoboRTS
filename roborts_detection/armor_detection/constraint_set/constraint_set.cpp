@@ -16,7 +16,6 @@
  ***************************************************************************/
 #include <Eigen/Core>
 #include <opencv2/core/eigen.hpp>
-#include <algorithm>
 
 #include "constraint_set.h"
 
@@ -25,8 +24,8 @@
 
 namespace roborts_detection {
 
-ConstraintSet::ConstraintSet(std::shared_ptr<CVToolbox> cv_toolbox) :
-    ArmorDetectionBase(cv_toolbox) {
+ConstraintSet::ConstraintSet(std::shared_ptr<CVToolbox> cv_toolbox):
+    ArmorDetectionBase(cv_toolbox){
   filter_x_count_ = 0;
   filter_y_count_ = 0;
   filter_z_count_ = 0;
@@ -37,12 +36,8 @@ ConstraintSet::ConstraintSet(std::shared_ptr<CVToolbox> cv_toolbox) :
   detection_time_ = 0;
   thread_running_ = false;
 
-  nh = ros::NodeHandle();
   LoadParam();
   error_info_ = ErrorInfo(roborts_common::OK);
-
-  state = SEARCHING_STATE;
-
 }
 
 void ConstraintSet::LoadParam() {
@@ -72,7 +67,7 @@ void ConstraintSet::LoadParam() {
   armor_max_aspect_ratio_ = constraint_set_config_.threshold().armor_max_aspect_ratio();
   armor_max_pixel_val_ = constraint_set_config_.threshold().armor_max_pixel_val();
   armor_max_stddev_ = constraint_set_config_.threshold().armor_max_stddev();
-  armor_max_mean_ = constraint_set_config_.threshold().armor_max_mean();
+  armor_max_mean_   = constraint_set_config_.threshold().armor_max_mean();
 
   color_thread_ = constraint_set_config_.threshold().color_thread();
   blue_thread_ = constraint_set_config_.threshold().blue_thread();
@@ -81,239 +76,20 @@ void ConstraintSet::LoadParam() {
   int get_intrinsic_state = -1;
   int get_distortion_state = -1;
 
-  //test
-//  while ((get_intrinsic_state < 0) || (get_distortion_state < 0)) {
-//    ROS_WARN("Wait for camera driver launch %d", get_intrinsic_state);
-//    usleep(50000);
-//    ros::spinOnce();
-//    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
-//    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
-//  }
-  getCameraInfo("Debug");
-}
-
-//暂时保留原框架的DetectArmor,所以命名NewDetectArmor,后期没有借鉴价值可以换名
-ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) {
-  //在此处同时更新工业相机和realSense深度图
-  src_industry_clone = src_industry_img_.clone();
-  src_realSense_depth_clone = src_realSense_depth_img_.clone();
-  src_realSense_RGB_clone = src_realSense_RGB_img_.clone();
-  switch (state) {
-    case SEARCHING_STATE:
-      SearchArmor(src_industry_clone,
-                  src_realSense_RGB_clone,
-                  src_realSense_depth_clone,
-                  src_industry_clone,
-                  detected,
-                  target_3d);
-      if (detected) {
-        tracker = cv::TrackerKCF::create();
-        //在较为清晰的工业相机进行init
-        tracker->init(src_industry_clone, possibleBox.rect);
-        state = TRACKING_STATE;
-        tracking_cnt = 0;
-      }
-      break;
-      //进入跟踪状态，执行跟踪函数
-    case TRACKING_STATE:
-      trackingTarget(src_industry_clone,
-                     src_realSense_RGB_clone,
-                     src_realSense_depth_clone,
-                     detected,
-                     target_3d);
-      //未找到或者跟踪时间过长
-      if (!detected || tracking_cnt++ == 100) {
-        state = SEARCHING_STATE;
-        tracking_cnt = 0;
-      } else {
-        tracker->init(src_industry_clone, possibleBox.rect);
-      }
-      break;
-    default:break;
-  }
-  //原框架中有ErrorInfo类，后面再看实际情况是否需要这部分
-  ErrorInfo error_info = ErrorInfo();
-  return
-      error_info;
-}
-
-//获取相机图片信息
-void ConstraintSet::getCameraInfo(std::string info) {
-  //如果采用debug模式，则使用realSense相机代替工业相机获取彩图信息
-  if (info == "Debug") {
-    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/image_raw",
-                                                                  1,
-                                                                  &ConstraintSet::getIndustryMat, this);
-  } else {
-    industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/image/bgr_image",
-                                                                  1,
-                                                                  &ConstraintSet::getIndustryMat, this);
-  }
-  realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/depth_raw",
-                                                                      1,
-                                                                      &ConstraintSet::getRealSenseDepthMat,
-                                                                      this);
-
-  realSenseRGBSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/image_raw",
-                                                                    1,
-                                                                    &ConstraintSet::getRealSenseRGBMat, this);
-
-  ros::Rate loop_rate(30);
-  while (ros::ok()) {
-    if (src_industry_img_.empty()) {
-      ROS_INFO("RGB image can't find");
-    }
-    if (src_realSense_depth_img_.empty()) {
-      ROS_INFO("depth image can't find");
-    } else {
-    }
-    if (!src_industry_img_.empty() && !src_realSense_depth_img_.empty()) {
-      break;
-    } else {
-      ROS_INFO("can't get rgb and depth");
-    }
+  while ((get_intrinsic_state < 0) || (get_distortion_state < 0)) {
+    ROS_WARN("Wait for camera driver launch %d", get_intrinsic_state);
+    usleep(50000);
     ros::spinOnce();
-    loop_rate.sleep();
+    get_intrinsic_state = cv_toolbox_->GetCameraMatrix(intrinsic_matrix_);
+    get_distortion_state = cv_toolbox_->GetCameraDistortion(distortion_coeffs_);
   }
 }
 
-void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
-  cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
-}
 
-void ConstraintSet::getRealSenseDepthMat(sensor_msgs::ImageConstPtr msg) {
-  try {
-    cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
-  } catch (cv_bridge::Exception &e) {
-    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
-  }
-}
 
-void ConstraintSet::getRealSenseRGBMat(sensor_msgs::ImageConstPtr msg) {
-  try {
-    cv::Mat src;
-    cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src);
-    cv::resize(src, src_realSense_RGB_img_, cv::Size(640, 480));
-  } catch (cv_bridge::Exception &e) {
-    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
-  }
-}
-
-//在追踪状态时候是裁剪的ROI，所以有左上角这个参数
-ErrorInfo ConstraintSet::SearchArmor(cv::Mat industrialImage,
-                                     cv::Mat realSenseRGBImage,
-                                     cv::Mat realSenseDepthImage,
-                                     cv::Mat imshowImage,
-                                     bool &detected,
-                                     cv::Point3f &target_3d,
-                                     cv::Point2f leftPoint) {
-  LightBlobs light_blobs;
-  ArmorBoxs armor_boxs;
-  std::string classFilePath = ros::package::getPath("roborts_detection") + \
-      "/armor_detection/para/";
-  Classifier classifier = Classifier(classFilePath);
-  if (!industrialImage.empty() && !realSenseRGBImage.empty()) {
-    cv::cvtColor(realSenseRGBImage, gray_img_, CV_BGR2GRAY);
-    cv::imshow("gray img", gray_img_);
-    DetectLights(realSenseRGBImage, light_blobs);
-    cv_toolbox_->imshowLightBlobs(imshowImage, light_blobs, "light_blobs", leftPoint);
-    PossibleArmors(realSenseRGBImage, light_blobs, armor_boxs);
-    cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "blank", leftPoint);
-    ArmorBoxs newArmorBoxs;
-    for (ArmorBox armor_box:armor_boxs) {
-      //分类器使用工业相机来识别
-      cv::Mat resizeClassifier = industrialImage(armor_box.rect).clone();
-      cv::resize(resizeClassifier, resizeClassifier, cv::Size(48, 36));
-      if ((armor_box.id = classifier(resizeClassifier) != 0)) {
-        newArmorBoxs.push_back(armor_box);
-      }
-    }
-    if (newArmorBoxs.size() != 0) {
-      detected = true;
-      //此时选择第一个识别的装甲板来作为可能的装甲板，由于前面状态机比较麻烦，暂时先记录最可能的装甲板，然后只发一个装甲板坐标消息
-      possibleBox = selectFinalArmor(newArmorBoxs);
-    } else {
-      detected = false;
-      possibleBox = ArmorBox();
-    }
-    cv_toolbox_->imshowArmorBoxs(imshowImage, newArmorBoxs, "classifier", leftPoint);
-    //加上裁剪的左上角坐标
-    possibleBox.center = possibleBox.center + leftPoint;
-
-    //返回坐标点
-    if (detected) {
-      ROS_INFO("center x is %lf center y is %lf",
-               possibleBox.center.x,
-               possibleBox.center.y);
-      target_3d.z =
-          cv_toolbox_->getDepthByRealSense(src_realSense_depth_img_, possibleBox.center.x, possibleBox.center.y);
-      ROS_INFO("get depth %lf", target_3d.z);
-      cv_toolbox_->getRealPointByInnerMatrix(possibleBox.center, target_3d, realSenseInnerMatrix);
-      ROS_INFO("real x is %lf y is %lf z is %lf ", target_3d.x, target_3d.y, target_3d.z);
-    } else {
-      target_3d = cv::Point3f(-1, -1, -1);
-    }
-    return error_info_;
-  } else {
-    ROS_INFO("can't get image");
-  }
-}
-
-//跟踪状态
-void ConstraintSet::trackingTarget(cv::Mat industrialImage,
-                                   cv::Mat realSenseRGBImage,
-                                   cv::Mat realSenseDepthImage,
-                                   bool &detected,
-                                   cv::Point3f &target_3d) {
-  auto pos = possibleBox.rect;
-  //使用KCFTracker进行跟踪
-  if (!tracker->update(industrialImage, pos)) {
-    possibleBox = ArmorBox();
-    detected = false;
-    ROS_INFO("Track fail!");
-  }
-  if ((pos & cv::Rect2d(0, 0, industrialImage.size().width, industrialImage.size().height)) != pos) {
-    possibleBox = ArmorBox();
-    detected = false;
-    ROS_INFO("Track out range!");
-  }
-  //此时跟踪没有问题
-  //获取相对于追踪区域两倍的矩形面积，进行重新搜索，来获取灯条信息
-  cv::Rect2d bigger_rect;
-  bigger_rect.x = pos.x - pos.width / 2.0;
-  bigger_rect.y = pos.y - pos.height / 2.0;
-  bigger_rect.height = pos.height * 2;
-  bigger_rect.width = pos.width * 2;
-  bigger_rect &= cv::Rect2d(0, 0, 640, 480);
-  //进行裁剪
-  cv::Mat industrialRoi = industrialImage(bigger_rect).clone();
-  cv::Mat realSenseRGBRoi = realSenseRGBImage(bigger_rect).clone();
-  //传入左上角坐标
-  SearchArmor(industrialRoi,
-              realSenseRGBRoi,
-              realSenseDepthImage,
-              industrialImage,
-              detected,
-              target_3d,
-              bigger_rect.tl());
-  //如果两倍区域没有找到，再全局寻找
-  if (!detected) {
-//    ROS_INFO("22222can't find in two region");
-    SearchArmor(industrialImage,
-                realSenseRGBImage,
-                realSenseDepthImage,
-                industrialImage,
-                detected,
-                target_3d);
-  } else {
-//    ROS_INFO("333333find in two region");
-  }
-}
-
-//原框架函数，以后可以删除
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
-  LightBlobs light_blobs;
-  ArmorBoxs armor_boxs;
+  std::vector<cv::RotatedRect> lights;
+  std::vector<ArmorInfo> armors;
 
   auto img_begin = std::chrono::high_resolution_clock::now();
   bool sleep_by_diff_flag = true;
@@ -338,7 +114,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
           continue;
         } else if (capture_time > detection_time_ && sleep_by_diff_flag) {
 //          ROS_WARN("time sleep %lf", (capture_time - detection_time_));
-          usleep((unsigned int) (capture_time - detection_time_));
+          usleep((unsigned int)(capture_time - detection_time_));
           sleep_by_diff_flag = false;
           continue;
         } else {
@@ -356,32 +132,32 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
 
   auto detection_begin = std::chrono::high_resolution_clock::now();
 
-  cv::cvtColor(src_img_, gray_img_, CV_BGR2GRAY);
-  if (enable_debug_) {
-    show_lights_before_filter_ = src_img_.clone();
-    show_lights_after_filter_ = src_img_.clone();
-    show_armors_befor_filter_ = src_img_.clone();
-    show_armors_after_filter_ = src_img_.clone();
-    cv::waitKey(1);
-  }
+    cv::cvtColor(src_img_, gray_img_, CV_BGR2GRAY);
+    if (enable_debug_) {
+      show_lights_before_filter_ = src_img_.clone();
+      show_lights_after_filter_ = src_img_.clone();
+      show_armors_befor_filter_ = src_img_.clone();
+      show_armors_after_filter_ = src_img_.clone();
+      cv::waitKey(1);
+    }
 
-  DetectLights(src_img_, light_blobs);
-  PossibleArmors(src_img_, light_blobs, armor_boxs);
-//  FilterArmors(armors);
-  if (!armor_boxs.empty()) {
-    detected = true;
-    //下面三行暂时注释 暂未实现下面两个函数
-//    ArmorInfo final_armor = selectFinalArmor(armors);
-//    cv_toolbox_->DrawRotatedRect(src_img_, armors[0].rect, cv::Scalar(0, 255, 0), 2);
-//    CalcControlInfo(final_armor, target_3d);
-  } else
-    detected = false;
-  if (enable_debug_) {
-    cv::imshow("relust_img_", src_img_);
-  }
+    DetectLights(src_img_, lights);
+    FilterLights(lights);
+    PossibleArmors(lights, armors);
+    FilterArmors(armors);
+    if(!armors.empty()) {
+      detected = true;
+      ArmorInfo final_armor = SlectFinalArmor(armors);
+      cv_toolbox_->DrawRotatedRect(src_img_, armors[0].rect, cv::Scalar(0, 255, 0), 2);
+      CalcControlInfo(final_armor, target_3d);
+    } else
+      detected = false;
+    if(enable_debug_) {
+      cv::imshow("relust_img_", src_img_);
+    }
 
-  light_blobs.clear();
-  armor_boxs.clear();
+  lights.clear();
+  armors.clear();
   cv_toolbox_->ReadComplete(read_index_);
   ROS_INFO("read complete");
   detection_time_ = std::chrono::duration<double, std::ratio<1, 1000000>>
@@ -390,47 +166,60 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   return error_info_;
 }
 
-void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
+void ConstraintSet::DetectLights(const cv::Mat &src, std::vector<cv::RotatedRect> &lights) {
   //std::cout << "********************************************DetectLights********************************************" << std::endl;
   cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
   cv::dilate(src, src, element, cv::Point(-1, -1), 1);
-  cv::Mat binary_color_img;
-  if (using_hsv_) {
+  cv::Mat binary_brightness_img, binary_light_img, binary_color_img;
+  if(using_hsv_) {
     binary_color_img = cv_toolbox_->DistillationColor(src, enemy_color_, using_hsv_);
-  } else {
-    cv::Mat rgb_channel = cv_toolbox_->DistillationColor(src, enemy_color_, using_hsv_);
+    cv::threshold(gray_img_, binary_brightness_img, color_thread_, 255, CV_THRESH_BINARY);
+  }else {
+    auto light = cv_toolbox_->DistillationColor(src, enemy_color_, using_hsv_);
+    cv::threshold(gray_img_, binary_brightness_img, color_thread_, 255, CV_THRESH_BINARY);
     float thresh;
     if (enemy_color_ == BLUE)
       thresh = blue_thread_;
     else
       thresh = red_thread_;
-    cv::threshold(rgb_channel, binary_color_img, thresh, 255, CV_THRESH_BINARY);
+    cv::threshold(light, binary_color_img, thresh, 255, CV_THRESH_BINARY);
+    if(enable_debug_)
+      cv::imshow("light", light);
   }
+  //binary_light_img = binary_color_img & binary_brightness_img;
   if (enable_debug_) {
+    cv::imshow("binary_brightness_img", binary_brightness_img);
+    //cv::imshow("binary_light_img", binary_light_img);
     cv::imshow("binary_color_img", binary_color_img);
-  } else {
-    ROS_INFO("debug can not");
   }
-  //在realSense彩图中，曝光比较高，用于识别灯管，再进行膨胀
-  cv::dilate(binary_color_img, binary_color_img, element, cv::Point(-1, -1), 1);
-  std::vector<std::vector<cv::Point>> light_contours;
-  std::vector<cv::Vec4i> hierarchy;
-  findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
-  std::vector<cv::RotatedRect> rotatedRects;
-  for (int i = 0; i < light_contours.size(); i++) {
-    //此时没有父轮廓，是最大的轮廓
-    if (hierarchy[i][2] == -1) {
-      cv::RotatedRect rect = minAreaRect(light_contours[i]);
-      if (LightBlob::isValidLightBlob(light_contours[i], rect)) {
-        rotatedRects.push_back(rect);
-        if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
-          light_blobs.emplace_back(rect,
-                                   LightBlob::areaRatio(light_contours[i], rect),
-                                   cv_toolbox_->get_rect_color(src, rect));
+
+  auto contours_light = cv_toolbox_->FindContours(binary_color_img);
+  auto contours_brightness = cv_toolbox_->FindContours(binary_brightness_img);
+
+  lights.reserve(contours_light.size());
+  lights_info_.reserve(contours_light.size());
+  // TODO: To be optimized
+  //std::vector<int> is_processes(contours_light.size());
+  for (unsigned int i = 0; i < contours_brightness.size(); ++i) {
+    for (unsigned int j = 0; j < contours_light.size(); ++j) {
+
+        if (cv::pointPolygonTest(contours_light[j], contours_brightness[i][0], false) >= 0.0) {
+          cv::RotatedRect single_light = cv::minAreaRect(contours_brightness[i]);
+          cv::Point2f vertices_point[4];
+          single_light.points(vertices_point);
+          LightInfo light_info(vertices_point);
+
+          if (enable_debug_)
+            cv_toolbox_->DrawRotatedRect(show_lights_before_filter_, single_light, cv::Scalar(0, 255, 0), 2, light_info.angle_);
+          single_light.angle = light_info.angle_;
+          lights.push_back(single_light);
+          break;
         }
-      }
     }
   }
+
+  if (enable_debug_)
+    cv::imshow("show_lights_before_filter", show_lights_before_filter_);
 
   auto c = cv::waitKey(1);
   if (c == 'a') {
@@ -438,43 +227,113 @@ void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
   }
 }
 
-//匹配可能的装甲板
-void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBoxs &armor_boxs) {
-  cv::Mat result_pic_blank = src.clone();
-  LightBlobs lightBlobsTemp;
-  lightBlobsTemp.swap(lightBlobs);
-  for (int i = 0; i < lightBlobsTemp.size(); i++) {
-    for (int j = i + 1; j < lightBlobsTemp.size(); j++) {
-      if (!ArmorBox::isCoupleLight(lightBlobsTemp.at(i), lightBlobsTemp.at(j), enemy_color_)) {
-        continue;
+
+void ConstraintSet::FilterLights(std::vector<cv::RotatedRect> &lights) {
+  //std::cout << "********************************************FilterLights********************************************" << std::endl;
+  std::vector<cv::RotatedRect> rects;
+  rects.reserve(lights.size());
+
+  for (const auto &light : lights) {
+    float angle;
+    auto light_aspect_ratio =
+        std::max(light.size.width, light.size.height) / std::min(light.size.width, light.size.height);
+    //https://stackoverflow.com/questions/15956124/minarearect-angles-unsure-about-the-angle-returned/21427814#21427814
+    if(light.size.width < light.size.height) {
+      angle = light.angle; // -light.angle
+    } else
+      angle = light.angle; // light.angle + 90
+    //std::cout << "light angle: " << angle << std::endl;
+    //std::cout << "light_aspect_ratio: " << light_aspect_ratio << std::endl;
+    //std::cout << "light_area: " << light.size.area() << std::endl;
+    if (light_aspect_ratio < light_max_aspect_ratio_ &&
+        light.size.area() >= light_min_area_) { //angle < light_max_angle_ &&
+          rects.push_back(light);
+      if (enable_debug_)
+        cv_toolbox_->DrawRotatedRect(show_lights_after_filter_, light, cv::Scalar(0, 255, 0), 2, angle);
+    }
+  }
+  if (enable_debug_)
+    cv::imshow("lights_after_filter", show_lights_after_filter_);
+
+  lights = rects;
+}
+
+void ConstraintSet::PossibleArmors(const std::vector<cv::RotatedRect> &lights, std::vector<ArmorInfo> &armors) {
+  //std::cout << "********************************************PossibleArmors********************************************" << std::endl;
+  for (unsigned int i = 0; i < lights.size(); i++) {
+    for (unsigned int j = i + 1; j < lights.size(); j++) {
+      cv::RotatedRect light1 = lights[i];
+      cv::RotatedRect light2 = lights[j];
+      auto edge1 = std::minmax(light1.size.width, light1.size.height);
+      auto edge2 = std::minmax(light2.size.width, light2.size.height);
+      auto lights_dis = std::sqrt((light1.center.x - light2.center.x) * (light1.center.x - light2.center.x) +
+          (light1.center.y - light2.center.y) * (light1.center.y - light2.center.y));
+      auto center_angle = std::atan(std::abs(light1.center.y - light2.center.y) / std::abs(light1.center.x - light2.center.x)) * 180 / CV_PI;
+      center_angle = center_angle > 90 ? 180 - center_angle : center_angle;
+      //std::cout << "center_angle: " << center_angle << std::endl;
+
+      cv::RotatedRect rect;
+      rect.angle = static_cast<float>(center_angle);
+      rect.center.x = (light1.center.x + light2.center.x) / 2;
+      rect.center.y = (light1.center.y + light2.center.y) / 2;
+      float armor_width = std::abs(static_cast<float>(lights_dis) - std::max(edge1.first, edge2.first));
+      float armor_height = std::max<float>(edge1.second, edge2.second);
+
+      rect.size.width = std::max<float>(armor_width, armor_height);
+      rect.size.height = std::min<float>(armor_width, armor_height);
+
+      float light1_angle = light1.angle; //light1.size.width < light1.size.height ? -light1.angle : light1.angle + 90
+      float light2_angle = light2.angle; //light2.size.width < light2.size.height ? -light2.angle : light2.angle + 90
+      //std::cout << "light1_angle: " << light1_angle << std::endl;
+      //std::cout << "light2_angle: " << light2_angle << std::endl;
+
+      if (enable_debug_) {
+        std::cout << "*******************************" << std::endl;
+        std::cout << "light_angle_diff_: " << std::abs(light1_angle - light2_angle) << std::endl;
+        std::cout << "radio: " << std::max<float>(edge1.second, edge2.second)/std::min<float>(edge1.second, edge2.second) << std::endl;
+        std::cout << "armor_angle_: " << std::abs(center_angle) << std::endl;
+        std::cout << "armor_aspect_ratio_: " << rect.size.width / (float) (rect.size.height) << std::endl;
+        std::cout << "armor_area_: " << std::abs(rect.size.area()) << std::endl;
+        std::cout << "armor_pixel_val_: " << (float)(gray_img_.at<uchar>(static_cast<int>(rect.center.y), static_cast<int>(rect.center.x))) << std::endl;
+        std::cout << "pixel_y" << static_cast<int>(rect.center.y) << std::endl;
+        std::cout << "pixel_x" << static_cast<int>(rect.center.x) << std::endl;
       }
-      cv::Rect2d rect_i = lightBlobsTemp.at(static_cast<unsigned long>(i)).rect.boundingRect();
-      cv::Rect2d rect_j = lightBlobsTemp.at(static_cast<unsigned long>(j)).rect.boundingRect();
-      double min_x, max_x, min_y, max_y;
-      min_x = fmin(rect_i.x, rect_j.x);
-      max_x = fmax(rect_i.x + rect_i.width, rect_j.x + rect_j.width);
-      min_y = fmin(rect_i.y, rect_j.y);
-      max_y = fmax(rect_i.y + rect_i.height, rect_j.y + rect_j.height);
-      double interpolation_y = max_y - min_y;
-      //扩大y的范围
-      min_y = min_y - interpolation_y / 2;
-      max_y = max_y + interpolation_y / 2;
-      if (min_x < 0 || max_x > src.cols || min_y < 0 || max_y > src.rows) {
-        continue;
+      //
+      auto angle_diff = std::abs(light1_angle - light2_angle);
+      // Avoid incorrect calculation at 180 and 0.
+      if (angle_diff > 175) {
+        angle_diff = 180 -angle_diff;
       }
-      lightBlobs.push_back(lightBlobsTemp.at(i));
-      lightBlobs.push_back(lightBlobsTemp.at(j));
-      LightBlobs pair_blobs = {lightBlobsTemp.at(i), lightBlobsTemp.at(j)};
-      ArmorBox armor_box = ArmorBox(cv::Rect2d(min_x, min_y, max_x - min_x, max_y - min_y), pair_blobs, enemy_color_);
-      if (armor_box.isMatchArmorBox()) {
-        armor_boxs.emplace_back(armor_box);
+
+      if (angle_diff < light_max_angle_diff_ &&
+          std::max<float>(edge1.second, edge2.second)/std::min<float>(edge1.second, edge2.second) < 2.0 &&
+          rect.size.width / (rect.size.height) < armor_max_aspect_ratio_ &&
+          std::abs(rect.size.area()) > armor_min_area_ &&
+          gray_img_.at<uchar>(static_cast<int>(rect.center.y), static_cast<int>(rect.center.x))
+              < armor_max_pixel_val_) { //std::abs(center_angle) < armor_max_angle_ &&
+
+        if (light1.center.x < light2.center.x) {
+          std::vector<cv::Point2f> armor_points;
+          CalcArmorInfo(armor_points, light1, light2);
+          armors.emplace_back(ArmorInfo(rect, armor_points));
+          if (enable_debug_)
+            cv_toolbox_->DrawRotatedRect(show_armors_befor_filter_, rect, cv::Scalar(0, 255, 0), 2);
+          armor_points.clear();
+        } else {
+          std::vector<cv::Point2f> armor_points;
+          CalcArmorInfo(armor_points, light2, light1);
+          armors.emplace_back(ArmorInfo(rect, armor_points));
+          if (enable_debug_)
+            cv_toolbox_->DrawRotatedRect(show_armors_befor_filter_, rect, cv::Scalar(0, 255, 0), 2);
+          armor_points.clear();
+        }
       }
     }
   }
-  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");
+  if (enable_debug_)
+    cv::imshow("armors_before_filter", show_armors_befor_filter_);
 }
 
-//原框架函数，以后可以删除
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
   //std::cout << "********************************************FilterArmors********************************************" << std::endl;
   cv::Mat mask = cv::Mat::zeros(gray_img_.size(), CV_8UC1);
@@ -534,79 +393,15 @@ void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
     cv::imshow("armors_after_filter", show_armors_after_filter_);
 }
 
-//之前想加一个过滤装甲板调函数，用于过滤如何两个装甲板有相交的情况，后面发现实际效果不是很好
-void ConstraintSet::FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs) {
-  cv::Mat result_pic_filter_armors = src.clone();
-  ArmorBoxs armorBoxsTemp;
-  armorBoxsTemp.swap(armor_boxs);
-  std::vector<int> needRemoveArmor;
-  ROS_INFO("test filter size%d", armorBoxsTemp.size());
-  for (int i = 0; i < armorBoxsTemp.size(); i++) {
-    for (int j = i + 1; j < armorBoxsTemp.size(); j++) {
-      float dx = armorBoxsTemp[i].center.x - armorBoxsTemp[j].center.x;
-      float dy = armorBoxsTemp[i].center.y - armorBoxsTemp[j].center.y;
-      float dis = std::sqrt(dx * dx + dy * dy);
-      //如果两个装甲板相交，则去除较大的
-      //乘1.2避免边线相交情况
-      if (dis * 1.2 < std::min(armorBoxsTemp[i].rect.width + armorBoxsTemp[j].rect.width,
-                               armorBoxsTemp[i].rect.height + armorBoxsTemp[j].rect.height)) {
-        bool flag = true;
-        if (armorBoxsTemp[i].rect.height * armorBoxsTemp[i].rect.width <
-            armorBoxsTemp[j].rect.height * armorBoxsTemp[j].rect.width) {
-          for (int t = 0; t < needRemoveArmor.size(); t++) {
-            if (needRemoveArmor[t] == j) {
-              flag = false;
-              break;
-            }
-          }
-          if (flag) {
-            needRemoveArmor.push_back(j);
-          }
-        } else {
-          for (int t = 0; t < needRemoveArmor.size(); t++) {
-            if (needRemoveArmor[t] == i) {
-              flag = false;
-              break;
-            }
-          }
-          if (flag) {
-            needRemoveArmor.push_back(i);
-          }
-        }
-      }
-    }
-    std::sort(needRemoveArmor.begin(), needRemoveArmor.end());
-    int t = 0;
-    for (int i = 0; i < armorBoxsTemp.size(); i++) {
-      if (t >= needRemoveArmor.size() || i != needRemoveArmor[t]) {
-        armor_boxs.push_back(armorBoxsTemp[i]);
-      } else {
-        t++;
-      }
-    }
-  }
-  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "filer armors");
+ArmorInfo ConstraintSet::SlectFinalArmor(std::vector<ArmorInfo> &armors) {
+  std::sort(armors.begin(),
+            armors.end(),
+            [](const ArmorInfo &p1, const ArmorInfo &p2) { return p1.rect.size.area() > p2.rect.size.area(); });
+
+  return armors[0];
 }
 
-//ArmorInfo ConstraintSet::selectFinalArmor(std::vector<ArmorInfo> &armors) {
-//  std::sort(armors.begin(),
-//            armors.end(),
-//            [](const ArmorInfo &p1, const ArmorInfo &p2) { return p1.rect.size.area() > p2.rect.size.area(); });
-//
-//  return armors[0];
-//}
-
-
-//前期为了方便，只选择了尺寸最大的装甲板
-ArmorBox ConstraintSet::selectFinalArmor(ArmorBoxs armorBoxs) {
-  std::sort(armorBoxs.begin(),
-            armorBoxs.end(),
-            [](const ArmorBox &p1, const ArmorBox &p2) { return p1.rect.area() > p2.rect.area(); });
-
-  return armorBoxs[0];
-}
-
-void ConstraintSet::CalcControlInfo(const ArmorInfo &armor, cv::Point3f &target_3d) {
+void ConstraintSet::CalcControlInfo(const ArmorInfo & armor, cv::Point3f &target_3d) {
   cv::Mat rvec;
   cv::Mat tvec;
   cv::solvePnP(armor_points_,
@@ -620,8 +415,8 @@ void ConstraintSet::CalcControlInfo(const ArmorInfo &armor, cv::Point3f &target_
 }
 
 void ConstraintSet::CalcArmorInfo(std::vector<cv::Point2f> &armor_points,
-                                  cv::RotatedRect left_light,
-                                  cv::RotatedRect right_light) {
+                                 cv::RotatedRect left_light,
+                                 cv::RotatedRect right_light) {
   cv::Point2f left_points[4], right_points[4];
   left_light.points(left_points);
   right_light.points(right_points);
@@ -653,14 +448,14 @@ void ConstraintSet::CalcArmorInfo(std::vector<cv::Point2f> &armor_points,
 
 void ConstraintSet::SolveArmorCoordinate(const float width,
                                          const float height) {
-  armor_points_.emplace_back(cv::Point3f(-width / 2, height / 2, 0.0));
-  armor_points_.emplace_back(cv::Point3f(width / 2, height / 2, 0.0));
-  armor_points_.emplace_back(cv::Point3f(width / 2, -height / 2, 0.0));
-  armor_points_.emplace_back(cv::Point3f(-width / 2, -height / 2, 0.0));
+  armor_points_.emplace_back(cv::Point3f(-width/2, height/2,  0.0));
+  armor_points_.emplace_back(cv::Point3f(width/2,  height/2,  0.0));
+  armor_points_.emplace_back(cv::Point3f(width/2,  -height/2, 0.0));
+  armor_points_.emplace_back(cv::Point3f(-width/2, -height/2, 0.0));
 }
 
 void ConstraintSet::SignalFilter(double &new_num, double &old_num, unsigned int &filter_count, double max_diff) {
-  if (fabs(new_num - old_num) > max_diff && filter_count < 2) {
+  if(fabs(new_num - old_num) > max_diff && filter_count < 2) {
     filter_count++;
     new_num += max_diff;
   } else {
