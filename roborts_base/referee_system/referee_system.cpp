@@ -186,6 +186,7 @@ void RefereeSystem::RobotShootCallback(const std::shared_ptr<roborts_sdk::cmd_sh
   robot_shoot.frequency = raw_robot_shoot->bullet_freq;
   robot_shoot.speed = raw_robot_shoot->bullet_speed;
   ros_robot_shoot_pub_.publish(robot_shoot);
+  ROS_ERROR("robot_shoot.speed = %lf  %lf", robot_shoot.speed, raw_robot_shoot->bullet_speed);
 }
 
 void RefereeSystem::ProjectileSupplyCallback(const roborts_msgs::ProjectileSupply::ConstPtr projectile_supply) {

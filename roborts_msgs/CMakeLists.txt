@@ -16,6 +16,7 @@ add_action_files(
     LocalPlanner.action
     GlobalPlanner.action
     ArmorDetection.action
+        PIDControllerTowardAngular.action
 )
 
 add_message_files(
