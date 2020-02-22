@@ -76,6 +76,7 @@ void Chassis::SDK_Init(){
 void Chassis::ROS_Init(){
   //ros publisher
   ros_odom_pub_ = ros_nh_.advertise<nav_msgs::Odometry>("odom", 30);
+  ros_chassis_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("chassis_pose",30);
   ros_uwb_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("uwb", 30);
   //ros subscriber
   ros_sub_cmd_chassis_vel_ = ros_nh_.subscribe("cmd_vel", 1, &Chassis::ChassisSpeedCtrlCallback, this);
@@ -104,6 +105,11 @@ void Chassis::ChassisInfoCallback(const std::shared_ptr<roborts_sdk::cmd_chassis
   odom_.twist.twist.linear.y = chassis_info->v_y_mm / 1000.0;
   odom_.twist.twist.angular.z = chassis_info->gyro_rate / 1800.0 * M_PI;
   ros_odom_pub_.publish(odom_);
+
+  geometry_msgs::PoseStamped chassis_map_pose_stamped;
+  chassis_map_pose_stamped.header.stamp = odom_.header.stamp;
+  chassis_map_pose_stamped.pose = odom_.pose.pose;
+//  ros_chassis_map_pose_pub_.publish(chassis_map_pose_stamped);
 
   odom_tf_.header.stamp = current_time;
   odom_tf_.transform.translation.x = chassis_info->position_x_mm/1000.;

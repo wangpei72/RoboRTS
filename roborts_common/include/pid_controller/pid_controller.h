@@ -33,7 +33,7 @@ class PIDController {
 
   int8_t setTarget(double_t _target) {
     target = _target;
-    ierr = 0;
+//    ierr = 0;
     return 0;
   }
 
@@ -57,14 +57,26 @@ class PIDController {
     return ans;
   }
 
+  void SetHasThreshold(bool has_threshold) {
+    PIDController::has_threshold = has_threshold;
+  }
+  void SetThreshold(double_t threshold) {
+    PIDController::threshold = threshold;
+  }
+  void SetKp(double_t kp) {
+    PIDController::kp = kp;
+  }
+  void SetKi(double_t ki) {
+    PIDController::ki = ki;
+  }
+  void SetKd(double_t kd) {
+    PIDController::kd = kd;
+  }
+  void SetIerr(double_t ierr) {
+    PIDController::ierr = ierr;
+  }
+
  private:
-
-  bool has_threshold;
-  double_t threshold;
-
-  double_t kp;
-  double_t ki;
-  double_t kd;
 
   double_t target;
 
@@ -73,6 +85,13 @@ class PIDController {
   double_t derr;
 
   double_t last_err;
+
+  bool has_threshold;
+  double_t threshold;
+
+  double_t kp;
+  double_t ki;
+  double_t kd;
 
 };
 

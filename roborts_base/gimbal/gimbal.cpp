@@ -59,8 +59,8 @@ void Gimbal::SDK_Init() {
                                                                               MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
   gimbal_mode_pub_ = handle_->CreatePublisher<roborts_sdk::gimbal_mode_e>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_MODE,
                                                                           MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
-  gimbal_speed_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimal_speed>(GIMBAL_CMD_SET,CMD_SET_GIMBAL_SPEED,
-                                                                              MANIFOLD2_ADDRESS,GIMBAL_ADDRESS);
+  gimbal_speed_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimal_speed>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_SPEED,
+                                                                             MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
   fric_wheel_pub_ =
       handle_->CreatePublisher<roborts_sdk::cmd_fric_wheel_speed>(GIMBAL_CMD_SET, CMD_SET_FRIC_WHEEL_SPEED,
                                                                   MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
@@ -84,6 +84,7 @@ void Gimbal::ROS_Init() {
 
   //ros subscriber
   ros_sub_cmd_gimbal_angle_ = ros_nh_.subscribe("cmd_gimbal_angle", 1, &Gimbal::GimbalAngleCtrlCallback, this);
+  ros_sub_cmd_gimbal_speed_ = ros_nh_.subscribe("cmd_gimbal_speed", 1, &Gimbal::GimbalSpeedCtrlCallback, this);
 
   //ros service
   ros_gimbal_mode_srv_ = ros_nh_.advertiseService("set_gimbal_mode", &Gimbal::SetGimbalModeService, this);
@@ -92,6 +93,8 @@ void Gimbal::ROS_Init() {
   //ros_message_init
   gimbal_tf_.header.frame_id = "base_link";
   gimbal_tf_.child_frame_id = "gimbal";
+
+  gimbal_map_pose_pub_ = ros_nh_.advertise<geometry_msgs::PoseStamped>("gimbal_pose",1);
 
 }
 
@@ -107,6 +110,18 @@ void Gimbal::GimbalInfoCallback(const std::shared_ptr<roborts_sdk::cmd_gimbal_in
   gimbal_tf_.transform.translation.y = 0;
   gimbal_tf_.transform.translation.z = 0.15;
   tf_broadcaster_.sendTransform(gimbal_tf_);
+
+  //Publish the cur difference angle between gimbal_map and chassis_map
+  double gimbal_cur_map_roll = 0, gimbal_cur_map_pitch = 0, gimbal_cur_map_yaw = 0;
+  tf::Matrix3x3 matrix_3_x_3(tf::Quaternion(q.x, q.y, q.z, q.w));
+  matrix_3_x_3.getEulerYPR(gimbal_cur_map_yaw, gimbal_cur_map_pitch, gimbal_cur_map_roll);
+
+//  ROS_WARN("pitch = %lf   yaw = %lf", gimbal_cur_map_pitch, gimbal_cur_map_yaw);
+
+  geometry_msgs::PoseStamped cur_angle_between_chassis_gimbal;
+  cur_angle_between_chassis_gimbal.pose.orientation =
+      tf::createQuaternionMsgFromRollPitchYaw(0, gimbal_cur_map_pitch, gimbal_cur_map_yaw);
+//  gimbal_map_pose_pub_.publish(cur_angle_between_chassis_gimbal);
 
 }
 
@@ -124,11 +139,14 @@ void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &
 
 void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) {
 
-    roborts_sdk::cmd_gimal_speed gimbal_speed;
-    gimbal_speed.pitch_speed = msg->linear.x;
-    gimbal_speed.yaw_speed = msg->linear.y;
+  roborts_sdk::cmd_gimbal_angle gimbal_angle;
+  gimbal_angle.ctrl.bit.pitch_mode = 1;
+  gimbal_angle.ctrl.bit.yaw_mode = 1;
+  gimbal_angle.pitch = msg->angular.y * 10;
+  gimbal_angle.yaw = msg->angular.z * 10;
 
-    gimbal_speed_pub_->Publish(gimbal_speed);
+  gimbal_angle_pub_->Publish(gimbal_angle);
+
 }
 
 bool Gimbal::SetGimbalModeService(roborts_msgs::GimbalMode::Request &req,
@@ -142,12 +160,13 @@ bool Gimbal::CtrlFricWheelService(roborts_msgs::FricWhl::Request &req,
                                   roborts_msgs::FricWhl::Response &res) {
   roborts_sdk::cmd_fric_wheel_speed fric_speed;
   if (req.open) {
-    fric_speed.left = 1240;
-    fric_speed.right = 1240;
+    fric_speed.left = req.speed;
+    fric_speed.right = req.speed;
   } else {
     fric_speed.left = 1000;
     fric_speed.right = 1000;
   }
+  
   fric_wheel_pub_->Publish(fric_speed);
   res.received = true;
   return true;

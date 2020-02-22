@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+    <node pkg="roborts_executor"
+          name="chassis_executor_action_node"
+          type="chassis_executor_action_node"
+          required="true">
+    </node>
+
+    <node pkg="roborts_executor"
+          name="gimbal_executor_action_node"
+          type="gimbal_executor_action_node"
+          required="true">
+    </node>
+
+    <node pkg="roborts_executor"
+          name="pose_publisher_node"
+          type="pose_publisher_node"
+          output="screen"
+          required="true">
+    </node>
+
+    <!--node pkg="roborts_decision"
+          name="behavior_test_node"
+          type="behavior_test_node"
+          output="screen"
+          required="true">
+    </node-->
+
+    <node pkg="dynamic_reconfigure"
+          name="dynparam_chassis"
+          type="dynparam"
+          args="load chassis_executor_action_node $(find roborts_executor)/param/chassis_executor_action.yaml">
+    </node>
+
+    <node pkg="dynamic_reconfigure"
+          name="dynparam_gimbal"
+          type="dynparam"
+          args="load gimbal_executor_action_node $(find roborts_executor)/param/gimbal_executor_action.yaml">
+
+    </node>
+
+</launch>

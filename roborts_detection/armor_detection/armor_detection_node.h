@@ -38,7 +38,7 @@
 #include "armor_detection_base.h"
 #include "proto/armor_detection.pb.h"
 #include "armor_detection_algorithms.h"
-#include "gimbal_control.h"
+#include "../../roborts_decision/executor/gimbal_control.h"
 
 namespace roborts_detection {
 

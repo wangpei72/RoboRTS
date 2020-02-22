@@ -59,7 +59,7 @@ class Gimbal {
    * @brief Gimbal speed control callback in ROS
    * @param msg Gimbal angle control data
    */
-    void GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg);
+  void GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg);
   /**
    * @brief Gimbal mode set service callback in ROS
    * @param req Gimbal mode set as request
@@ -84,6 +84,8 @@ class Gimbal {
    */
   bool CtrlShootService(roborts_msgs::ShootCmd::Request &req,
                         roborts_msgs::ShootCmd::Response &res);
+  void RampFunction();
+  //for yangzidai to me
 
   //! sdk handler
   std::shared_ptr<roborts_sdk::Handle> handle_;
@@ -111,6 +113,9 @@ class Gimbal {
   ros::NodeHandle ros_nh_;
   //! ros subscriber for gimbal angle control
   ros::Subscriber ros_sub_cmd_gimbal_angle_;
+
+  //! ros subscriber for gimbal speed control
+  ros::Subscriber ros_sub_cmd_gimbal_speed_;
   //! ros service server for gimbal mode set
   ros::ServiceServer ros_gimbal_mode_srv_;
   //! ros service server for friction wheel control
@@ -121,7 +126,8 @@ class Gimbal {
   geometry_msgs::TransformStamped gimbal_tf_;
   //! ros gimbal tf broadcaster
   tf::TransformBroadcaster tf_broadcaster_;
-
+  //! ros publish gimbal pose in map
+  ros::Publisher gimbal_map_pose_pub_;
 };
 }
 #endif //ROBORTS_BASE_GIMBAL_H
