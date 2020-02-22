@@ -163,28 +163,28 @@ void ArmorDetectionNode::ExecuteLoop() {
         z_ = target_3d.z;
         error_info_ = error_info;
       }
-      if (detected_enemy_) {
-        float pitch, yaw;
-        gimbal_control_.Transform(target_3d, pitch, yaw);
-
-        gimbal_angle_.yaw_mode = true;
-        gimbal_angle_.pitch_mode = false;
-        gimbal_angle_.yaw_angle = yaw * 0.7;
-        gimbal_angle_.pitch_angle = pitch;
-
-        std::lock_guard<std::mutex> guard(mutex_);
-        undetected_count_ = undetected_armor_delay_;
-        PublishMsgs();
-      } else if (undetected_count_ != 0) {
-
-        gimbal_angle_.yaw_mode = true;
-        gimbal_angle_.pitch_mode = false;
-        gimbal_angle_.yaw_angle = 0;
-        gimbal_angle_.pitch_angle = 0;
-
-        undetected_count_--;
-        PublishMsgs();
-      }
+//      if(detected_enemy_) {
+//        float pitch, yaw;
+//        gimbal_control_.Transform(target_3d, pitch, yaw);
+//
+//        gimbal_angle_.yaw_mode = true;
+//        gimbal_angle_.pitch_mode = false;
+//        gimbal_angle_.yaw_angle = yaw * 0.7;
+//        gimbal_angle_.pitch_angle = pitch;
+//
+//        std::lock_guard<std::mutex> guard(mutex_);
+//        undetected_count_ = undetected_armor_delay_;
+//        PublishMsgs();
+//      } else if(undetected_count_ != 0) {
+//
+//        gimbal_angle_.yaw_mode = true;
+//        gimbal_angle_.pitch_mode = false;
+//        gimbal_angle_.yaw_angle = 0;
+//        gimbal_angle_.pitch_angle = 0;
+//
+//        undetected_count_--;
+//        PublishMsgs();
+//      }
     } else if (node_state_ == NodeState::PAUSE) {
       std::unique_lock<std::mutex> lock(mutex_);
       condition_var_.wait(lock);
