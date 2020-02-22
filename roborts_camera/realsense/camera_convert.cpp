@@ -63,7 +63,10 @@ roborts_camera::camera_convert::camera_convert(
     ratio_ = 0;
     color_convert_enable = true;
     height_ = 480;
-    width_ = 640;/*std::cout<<intrinsicL_.inv()<<std::endl;
+    width_ = 640;
+    pixel_point_colors_.clear();
+    //pixel_points_.clear();
+    /*std::cout<<intrinsicL_.inv()<<std::endl;
     std::cout<<intrinsicL_<<std::endl;*/
     //hhh
 }
@@ -74,9 +77,9 @@ roborts_camera::camera_convert::camera_convert(
 roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert::get_pixel_points_color_() {
     for (int i = 0; i < img_depth_src_.rows; ++i) {
         auto depth_src_rowptr = img_depth_src_.ptr<ushort>(i);
-        for (int j = 0; j < img_depth_src_.cols; j+=13) {
+        for (int j = 0; j < img_depth_src_.cols; ++j) {
 
-
+            //ROS_ERROR("get ppoint func");
             uv_.at<float>(0, 0) = j;
             uv_.at<float>(1, 0) = i;
             uv_.at<float>(2, 0) = 1;
@@ -121,7 +124,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
             if (point3fP_.x > 0 && point3fP_.y > 0 &&
                 point3fP_.y < height_ && point3fP_.x < width_) {
                 pixels_count++;
-                pixel_points_.push_back(point3fP_);
+                //pixel_points_.push_back(point3fP_);
                 //get the pixel point in the color_img (u,v,z)
                 // pixel_point_colors_.pixel_points_in_color.push_back(point3fP_);
 
@@ -134,6 +137,7 @@ roborts_camera::camera_convert::pixelPointColors roborts_camera::camera_convert:
                 pointColor.pixel_points_in_color = point3fP_;
                 pointColor.pixel_points_rgb = *pointRGB;
                 pixel_point_colors_.push_back(pointColor);
+                world_points_.push_back(point3fW_);
                 delete pointRGB;
 
             } else {

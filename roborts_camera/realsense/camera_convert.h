@@ -41,12 +41,12 @@ namespace roborts_camera {
         cv::Point3f point3fP_;
 
         typedef struct {
-            cv::Point3f pixel_points_in_color;
-            cv::Point3i pixel_points_rgb;
+            cv::Point3f pixel_points_in_color;//包含信息 uv z
+            cv::Point3i pixel_points_rgb;//包含色彩三通道信息
         } pixelPointColor;
         typedef std::vector<pixelPointColor> pixelPointColors;
-        pixelPointColors pixel_point_colors_;
-        std::vector<cv::Point3f> pixel_points_;
+        pixelPointColors pixel_point_colors_;//装有带色彩信息的像素点uvz
+       // std::vector<cv::Point3f> pixel_points_;
 
 //        这个参数是转换后深度图和彩色图通用的带深度信息的像素点
         camera_convert()= default;
