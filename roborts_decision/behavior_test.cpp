@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   roborts_decision::firefly::AttackBehavior attack_behavior(chassis_executor, gimbal_executor, blackboard);
 
   auto command_thread = std::thread(Command);
-  ros::Rate rate(10);
+  ros::Rate rate(100);
   while (ros::ok()) {
     ros::spinOnce();
     switch (command) {
@@ -86,6 +86,7 @@ void Command() {
               << "4: search behavior" << std::endl
               << "5: escape behavior" << std::endl
               << "6: goal behavior" << std::endl
+              << "7: attack behavior" << std::endl
               << "esc: exit program" << std::endl;
     std::cout << "**************************************************************************************" << std::endl;
     std::cout << "> ";

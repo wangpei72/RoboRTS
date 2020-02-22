@@ -3,11 +3,14 @@
   <rosparam command="load" file="$(find roborts_base)/config/roborts_base_parameter.yaml" />
 
   <include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
-  <include file="$(find sanchi_driver)/launch/imu_100D2.launch" />
-  <include file="$(find cartographer_ros)/launch/icra_rplidar_a3.launch" />
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+  <include file="$(find cartographer_ros_launcher)/launch/tuning_2d_robomaster.launch" />
 
   <!-- Run the Base Node -->
-  <node pkg="roborts_base" type="roborts_base_node" name="roborts_base_node" output="screen" respawn="true" />
+  <node pkg="sync_d435i_imu_msg" type="sync_d435i_imu_msg_node" name="sync_d435i_imu_msg_node" output="screen" respawn="true" />
+
+  <!-- Run the Base Node -->
+  <node pkg="roborts_base" type="roborts_base_node" name="roborts_base_node" output="screen" respawn="false" />
 
   <!-- Run the global planner Node -->
   <node pkg="roborts_planning" type="global_planner_node" name="global_planner_node" respawn="false" output="screen"/>

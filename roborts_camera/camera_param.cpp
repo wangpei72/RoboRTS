@@ -24,6 +24,7 @@ namespace roborts_camera{
 
 CameraParam::CameraParam() {
   LoadCameraParam();
+    ROS_INFO("im here load");
 }
 
 void CameraParam::LoadCameraParam() {
@@ -41,12 +42,19 @@ void CameraParam::LoadCameraParam() {
     cameras_param_[index].camera_name = camera_info.camera(index).camera_name();
     cameras_param_[index].camera_type = camera_info.camera(index).camera_type();
     cameras_param_[index].camera_path = camera_info.camera(index).camera_path();
+    cameras_param_[index].image_code  = camera_info.camera(index).image_code();
 
     //camera resolution
     cameras_param_[index].resolution_width = camera_info.camera(index).resolution().width();
     cameras_param_[index].resolution_height = camera_info.camera(index).resolution().height();
     cameras_param_[index].width_offset = camera_info.camera(index).resolution().width_offset();
     cameras_param_[index].height_offset = camera_info.camera(index).resolution().height_offset();
+
+      cameras_param_[index].depth_resolution_width = camera_info.camera(index).depth_resolution().width();
+      cameras_param_[index].depth_resolution_height = camera_info.camera(index).depth_resolution().height();
+      cameras_param_[index].depth_enable = camera_info.camera(index).depth_enable();
+
+      cameras_param_[index].depth_code = camera_info.camera(index).depth_code();
 
     //fps
     cameras_param_[index].fps = camera_info.camera(index).fps();
