@@ -2,7 +2,6 @@
 
 #include "executor/chassis_executor.h"
 #include "executor/gimbal_executor.h"
-#include "blackboard/blackboard.h"
 
 #include "example_behavior/back_boot_area_behavior.h"
 #include "example_behavior/escape_behavior.h"
@@ -20,15 +19,6 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "behavior_test_node");
   std::string full_path = ros::package::getPath("roborts_decision") + "/config/decision.prototxt";
 
-  geometry_msgs::Point32 target_test;    //后面去调  仅调试用
-//  target_test.x=0.0;
-//  target_test.y=20.0;
-//  target_test.z=500.0;
-  roborts_msgs::GimbalAngle executor_gimbal_angle_test;
-  executor_gimbal_angle_test.pitch_angle=0.0;
-  executor_gimbal_angle_test.yaw_angle=0.0;
-  uint16_t target_num = 5, i = 0;
-
   auto chassis_executor = new roborts_decision::ChassisExecutor;
   auto gimbal_executor = new roborts_decision::GimbalExecutor;
   auto blackboard = new roborts_decision::Blackboard(full_path);
@@ -42,7 +32,7 @@ int main(int argc, char **argv) {
   roborts_decision::firefly::AttackBehavior attack_behavior(chassis_executor, gimbal_executor, blackboard);
 
   auto command_thread = std::thread(Command);
-  ros::Rate rate(100);
+  ros::Rate rate(10);
   while (ros::ok()) {
     ros::spinOnce();
     switch (command) {
@@ -70,19 +60,8 @@ int main(int argc, char **argv) {
           attack_behavior.Start();
           flag_restart_attack_behavior = false;
         }
-//        attack_behavior.Run(0., 0);
- //        target_test = GetEnemyArmorGoal();
-
-        target_test =  blackboard->enemy_armor_pose_target;
-
-        if(i < target_num){
-            attack_behavior.ShootAimed(target_test,executor_gimbal_angle_test);
-            i++;
-        }
-
-
+        attack_behavior.Run(0., 0);
         break;
-
       case 27:
         if (command_thread.joinable()) {
           command_thread.join();
@@ -107,7 +86,6 @@ void Command() {
               << "4: search behavior" << std::endl
               << "5: escape behavior" << std::endl
               << "6: goal behavior" << std::endl
-              << "7: attack behavior" << std::endl
               << "esc: exit program" << std::endl;
     std::cout << "**************************************************************************************" << std::endl;
     std::cout << "> ";
