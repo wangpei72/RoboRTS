@@ -22,6 +22,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "state/error_code.h"
+#include "camera_param.h"
 
 namespace roborts_camera
 {
@@ -40,7 +41,13 @@ class CameraBase {
    * @brief Start to read camera
    * @param img Image data in form of cv::Mat to be read
    */
-  virtual void StartReadCamera(cv::Mat &img) = 0;
+  virtual void StartReadCamera(cv::Mat &img, cv::Mat &depth) = 0;
+
+  virtual void StopReadCamera()  = 0;
+
+  //virtual void WriteParam() = 0;
+
+  //virtual void LoadParam() = 0;
 
  protected:
   //! flag for camera initialization
