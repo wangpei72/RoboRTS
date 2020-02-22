@@ -22,7 +22,6 @@
 #include <tf/transform_listener.h>
 #include <ros/ros.h>
 #include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/Point32.h>
 
 #include "roborts_msgs/ArmorDetectionAction.h"
 
@@ -60,10 +59,7 @@ class Blackboard {
     roborts_decision::DecisionConfig decision_config;
     roborts_common::ReadProtoFromTextFile(proto_file_path, &decision_config);
 
-      enemy_armor_sub_ =
-              nh.subscribe<geometry_msgs::Point32>("enemy_armor_pose", 1, &Blackboard::EnemyArmorPoseCallback, this);
-
-      if (!decision_config.simulate()) {
+    if (!decision_config.simulate()) {
 
       armor_detection_actionlib_client_.waitForServer();
 
@@ -138,20 +134,8 @@ class Blackboard {
     goal_ = *goal;
   }
 
-  void EnemyArmorPoseCallback(const geometry_msgs::Point32::ConstPtr &msg) {
-        new_goal_ = true;
-      enemy_armor_pose_target.x = msg->x;
-      enemy_armor_pose_target.y = msg->y;
-      enemy_armor_pose_target.z = msg->z;
-
-  }
-
   geometry_msgs::PoseStamped GetGoal() const {
     return goal_;
-
-  }
-  geometry_msgs::Point32 GetEnemyArmorGoal() const {
-        return enemy_armor_pose_target;
   }
 
   bool IsNewGoal() {
@@ -204,7 +188,6 @@ class Blackboard {
   const unsigned char *GetCharMap() {
     return charmap_;
   }
-  geometry_msgs::Point32 enemy_armor_pose_target;
 
  private:
   void UpdateChassisPose() {
@@ -245,10 +228,7 @@ class Blackboard {
   //! Enenmy detection
   ros::Subscriber enemy_sub_;
 
-    //! Enemy detection from gimbal_camera
-  ros::Subscriber enemy_armor_sub_;
-
-    //! Goal info
+  //! Goal info
   geometry_msgs::PoseStamped goal_;
   bool new_goal_{};
 
@@ -256,8 +236,7 @@ class Blackboard {
   actionlib::SimpleActionClient<roborts_msgs::ArmorDetectionAction> armor_detection_actionlib_client_;
   roborts_msgs::ArmorDetectionGoal armor_detection_goal_;
   geometry_msgs::PoseStamped enemy_pose_;
-
-    bool enemy_detected_;
+  bool enemy_detected_;
 
   //! cost map
   std::shared_ptr<CostMap> costmap_ptr_;

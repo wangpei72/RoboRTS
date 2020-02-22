@@ -20,7 +20,7 @@ add_executable(${PROJECT_NAME}_node
   ${ArmorDetectionProtoSrc}
   ${ArmorDetectionProtoHds}
   armor_detection_node.cpp
-        ../../roborts_decision/executor/gimbal_control.cpp
+  gimbal_control.cpp
 )
 
 target_link_libraries(armor_detection_node

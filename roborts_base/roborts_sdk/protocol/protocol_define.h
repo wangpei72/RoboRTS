@@ -152,11 +152,12 @@ typedef struct{
   int16_t yaw;
 }cmd_gimbal_angle;
 
+
 #define CMD_SET_GIMBAL_SPEED           (0x06)
-typedef struct {
-  uint16_t pitch_speed;
-  uint16_t yaw_speed;
-} cmd_gimal_speed;
+ typedef struct{
+    uint16_t pitch_speed;
+    uint16_t yaw_speed;
+}cmd_gimal_speed;
 
 #define CMD_SET_FRIC_WHEEL_SPEED       (0X04u)
 typedef struct{
