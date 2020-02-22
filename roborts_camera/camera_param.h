@@ -34,6 +34,12 @@ struct CameraInfo {
   std::string camera_type;
   //! path of camera, i.e. /dev/video0
   std::string camera_path;
+
+  std::string image_code;
+
+    bool depth_enable;
+
+    std::string depth_code;
   //! camera matrix
   cv::Mat camera_matrix;
   //! camera distortion matrix
@@ -41,13 +47,21 @@ struct CameraInfo {
 
   //! resolution width
   unsigned int resolution_width;
+
+    unsigned int depth_resolution_width;
   //! resolution height
   unsigned int resolution_height;
 
+    unsigned int depth_resolution_height;
+
   //! width offset for image crop
   unsigned int width_offset;
+
+    unsigned int depth_width_offset;
   //! height offset for image crop
   unsigned int height_offset;
+
+    unsigned int depth_height_offset;
 
   //! camera fps
   unsigned int fps;
