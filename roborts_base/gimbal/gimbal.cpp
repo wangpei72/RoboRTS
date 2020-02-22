@@ -57,10 +57,13 @@ void Gimbal::SDK_Init() {
 
   gimbal_angle_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimbal_angle>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_ANGLE,
                                                                               MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
+  
   gimbal_mode_pub_ = handle_->CreatePublisher<roborts_sdk::gimbal_mode_e>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_MODE,
                                                                           MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
-  gimbal_speed_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimal_speed>(GIMBAL_CMD_SET,CMD_SET_GIMBAL_SPEED,
-                                                                              MANIFOLD2_ADDRESS,GIMBAL_ADDRESS);
+
+  gimbal_speed_pub_ = handle_->CreatePublisher<roborts_sdk::cmd_gimal_speed>(GIMBAL_CMD_SET, CMD_SET_GIMBAL_SPEED,
+                                                                             MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
+
   fric_wheel_pub_ =
       handle_->CreatePublisher<roborts_sdk::cmd_fric_wheel_speed>(GIMBAL_CMD_SET, CMD_SET_FRIC_WHEEL_SPEED,
                                                                   MANIFOLD2_ADDRESS, GIMBAL_ADDRESS);
@@ -84,6 +87,7 @@ void Gimbal::ROS_Init() {
 
   //ros subscriber
   ros_sub_cmd_gimbal_angle_ = ros_nh_.subscribe("cmd_gimbal_angle", 1, &Gimbal::GimbalAngleCtrlCallback, this);
+  ros_sub_cmd_gimbal_speed_ = ros_nh_.subscribe("cmd_gimbal_speed", 1, &Gimbal::GimbalSpeedCtrlCallback, this);
 
   //ros service
   ros_gimbal_mode_srv_ = ros_nh_.advertiseService("set_gimbal_mode", &Gimbal::SetGimbalModeService, this);
@@ -92,6 +96,7 @@ void Gimbal::ROS_Init() {
   //ros_message_init
   gimbal_tf_.header.frame_id = "base_link";
   gimbal_tf_.child_frame_id = "gimbal";
+
 
 }
 
@@ -123,12 +128,14 @@ void Gimbal::GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &
 }
 
 void Gimbal::GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg) {
+  
+  roborts_sdk::cmd_gimbal_angle gimbal_angle;
+  gimbal_angle.ctrl.bit.pitch_mode = 1;
+  gimbal_angle.ctrl.bit.yaw_mode = 1;
+  gimbal_angle.pitch = msg->angular.y * 10;
+  gimbal_angle.yaw = msg->angular.z * 10;
 
-    roborts_sdk::cmd_gimal_speed gimbal_speed;
-    gimbal_speed.pitch_speed = msg->linear.x;
-    gimbal_speed.yaw_speed = msg->linear.y;
-
-    gimbal_speed_pub_->Publish(gimbal_speed);
+  gimbal_angle_pub_->Publish(gimbal_angle);
 }
 
 bool Gimbal::SetGimbalModeService(roborts_msgs::GimbalMode::Request &req,

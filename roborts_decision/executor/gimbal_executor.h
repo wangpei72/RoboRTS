@@ -1,5 +1,8 @@
 #ifndef ROBORTS_DECISION_GIMBAL_EXECUTOR_H
 #define ROBORTS_DECISION_GIMBAL_EXECUTOR_H
+#include <actionlib/client/simple_action_client.h>
+#include "roborts_msgs/PIDControllerTowardAngularAction.h"
+
 #include "ros/ros.h"
 
 #include "roborts_msgs/GimbalAngle.h"
@@ -11,6 +14,9 @@ namespace roborts_decision{
  * @brief Gimbal Executor to execute different abstracted task for gimbal module
  */
 class GimbalExecutor{
+
+  typedef actionlib::SimpleActionClient<roborts_msgs::PIDControllerTowardAngularAction> PIDControllerClient;
+
  public:
   /**
    * @brief Gimbal execution mode for different tasks
@@ -18,13 +24,23 @@ class GimbalExecutor{
   enum class ExcutionMode{
     IDLE_MODE,   ///< Default idle mode with no task
     ANGLE_MODE,  ///< Angle task mode
-    RATE_MODE    ///< Rate task mode
+    RATE_MODE,    ///< Rate task mode
+    PID_MODE
   };
+
+  enum class GoalMode {
+    GOAL_MODE_USE_GIMBAL_ANGLE,
+    GOAL_MODE_USE_GIMBAL_RATE,
+    GOAL_MODE_USE_PID
+  };
+
   /**
    * @brief Constructor of GimbalExecutor
    */
   GimbalExecutor();
   ~GimbalExecutor() = default;
+
+  void Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode _goal_mode);
   /***
    * @brief Execute the gimbal angle task with publisher
    * @param gimbal_angle Given gimbal angle
@@ -60,6 +76,11 @@ class GimbalExecutor{
   ros::Publisher cmd_gimbal_angle_pub_;
 
 
+  //! pid controller actionlib client
+  actionlib::SimpleActionClient<roborts_msgs::PIDControllerTowardAngularAction> pid_controller_client_;
+  roborts_msgs::PIDControllerTowardAngularGoal pid_controller_toward_angular_goal_;
+
+  void PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback);
 };
 }
 

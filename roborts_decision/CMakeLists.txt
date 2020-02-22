@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
         roborts_common
         roborts_msgs
         roborts_costmap
+        dynamic_reconfigure
         )
 
 find_package(Eigen3 REQUIRED)
@@ -35,6 +36,9 @@ rrts_protobuf_generate_cpp(${CMAKE_CURRENT_SOURCE_DIR}/proto
         DecisionProtoHds
         ${ProtoFiles}
         )
+generate_dynamic_reconfigure_options(
+        ../config/roborts_dynamic_cfg.cfg
+)
 
 catkin_package()
 
@@ -51,7 +55,10 @@ add_executable(behavior_test_node
         executor/chassis_executor.h
         executor/chassis_executor.cpp
         executor/gimbal_executor.h
-        executor/gimbal_executor.cpp)
+        executor/gimbal_executor.cpp
+        ../roborts_common/include/interface/dynamic_reconfigure_interface.h
+        ../roborts_common/include/interface/dynamic_reconfigure_interface.cpp
+        )
 
 target_link_libraries(behavior_test_node
         PRIVATE
@@ -59,5 +66,6 @@ target_link_libraries(behavior_test_node
         ${catkin_LIBRARIES}
         ${PROTOBUF_LIBRARIES}
         )
+
 add_dependencies(behavior_test_node
-        roborts_msgs_generate_messages)
+        roborts_msgs_generate_messages ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
