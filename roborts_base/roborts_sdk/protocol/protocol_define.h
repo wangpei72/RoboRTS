@@ -34,6 +34,7 @@ namespace roborts_sdk {
 #define COMPATIBLE_CMD_SET             (0x04u)
 
 
+
 #define REFEREE_GAME_CMD_SET           (0x40u)
 #define REFEREE_BATTLEFIELD_CMD_SET    (0x41u)
 #define REFEREE_ROBOT_CMD_SET          (0x42u)
@@ -150,6 +151,13 @@ typedef struct{
   int16_t pitch;
   int16_t yaw;
 }cmd_gimbal_angle;
+
+
+#define CMD_SET_GIMBAL_SPEED           (0x06)
+ typedef struct{
+    uint16_t pitch_speed;
+    uint16_t yaw_speed;
+}cmd_gimal_speed;
 
 #define CMD_SET_FRIC_WHEEL_SPEED       (0X04u)
 typedef struct{

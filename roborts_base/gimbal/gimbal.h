@@ -55,7 +55,11 @@ class Gimbal {
    * @param msg Gimbal angle control data
    */
   void GimbalAngleCtrlCallback(const roborts_msgs::GimbalAngle::ConstPtr &msg);
-
+  /**
+   * @brief Gimbal speed control callback in ROS
+   * @param msg Gimbal angle control data
+   */
+    void GimbalSpeedCtrlCallback(const geometry_msgs::Twist::ConstPtr &msg);
   /**
    * @brief Gimbal mode set service callback in ROS
    * @param req Gimbal mode set as request
@@ -94,6 +98,8 @@ class Gimbal {
 
   //! sdk publisher for gimbal angle control
   std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_gimbal_angle>> gimbal_angle_pub_;
+  //! sdk publisher for gimbal speed control
+  std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::cmd_gimal_speed>> gimbal_speed_pub_;
   //! sdk publisher for gimbal mode set
   std::shared_ptr<roborts_sdk::Publisher<roborts_sdk::gimbal_mode_e>> gimbal_mode_pub_;
   //! sdk publisher for frcition wheel control
