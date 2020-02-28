@@ -19,7 +19,7 @@ find_package(OpenCV REQUIRED)
 
 include_directories(/opt/MVS/include ${OpenCV_INCLUDE_DIRS})
 
-find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/bin)
+find_library(LIB_libMvCameraControl libMvCameraControl.so /opt/MVS/lib/64/)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
