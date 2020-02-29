@@ -24,40 +24,32 @@ class MyRobot {
   virtual ~MyRobot();
 
   RobotId GetId() const;
-  void SetId(RobotId id);
 
   int GetHp() const;
-  void SetHp(int hp);
 
   int GetCurrentHeat() const;
-  void SetCurrentHeat(int current_heat);
 
   int GetRemainingProjectiles() const;
-  void SetRemainingProjectiles(int remaining_projectiles);
+
+  bool IsSurvival() const;
+  void SetIsSurvival(bool is_survival);
 
   const std::vector<ArmorId> &GetArmorsUnderAttack() const;
-  void SetArmorsUnderAttack(const std::vector<ArmorId> &armors_under_attack);
 
   const roborts_msgs::ArmorsDetected &GetArmorsInEyes() const;
-  void SetArmorsInEyes(const roborts_msgs::ArmorsDetected &armors_in_eyes);
 
   const geometry_msgs::PoseStamped &GetChassisMapPose() const;
-  void SetChassisMapPose(const geometry_msgs::PoseStamped &chassis_map_pose);
 
   const geometry_msgs::PoseStamped &GetChassisOdomPose() const;
-  void SetChassisOdomPose(const geometry_msgs::PoseStamped &chassis_odom_pose);
 
   const geometry_msgs::PoseStamped &GetGimbalMapPose() const;
-  void SetGimbalMapPose(const geometry_msgs::PoseStamped &gimbal_map_pose);
 
   const geometry_msgs::PoseStamped &GetGimbalOdomPose() const;
-  void SetGimbalOdomPose(const geometry_msgs::PoseStamped &gimbal_odom_pose);
 
   const geometry_msgs::PoseStamped &GetCurrentGoal() const;
-  void SetCurrentGoal(const geometry_msgs::PoseStamped &current_goal);
 
-  RmRobotBehavior GetCurrentBehavior() const;
-  void SetCurrentBehavior(RmRobotBehavior current_behavior);
+  MyRobotBehavior GetCurrentBehavior() const;
+  void SetCurrentBehavior(MyRobotBehavior current_behavior);
 
   bool operator==(const MyRobot &rhs) const;
   bool operator!=(const MyRobot &rhs) const;
@@ -65,6 +57,7 @@ class MyRobot {
  private:
 
   ros::NodeHandle nh_;
+
   ros::Subscriber armors_under_attack_sub_;
   ros::Subscriber armors_in_eyes_sub_;
 
@@ -74,6 +67,7 @@ class MyRobot {
   int hp_;
   int current_heat_;
   int remaining_projectiles_;
+  bool is_survival_;
 
   std::vector<ArmorId> armors_under_attack_;
   roborts_msgs::ArmorsDetected armors_in_eyes_;
@@ -85,8 +79,7 @@ class MyRobot {
   geometry_msgs::PoseStamped gimbal_odom_pose_;
 
   geometry_msgs::PoseStamped current_goal_;
-  RmRobotBehavior current_behavior_;
-
+  MyRobotBehavior current_behavior_;
 };
 
 }

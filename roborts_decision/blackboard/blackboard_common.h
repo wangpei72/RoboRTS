@@ -11,7 +11,7 @@
 namespace roborts_decision {
 
 // TODO Add to roborts_common
-enum RmRobotBehavior {
+enum MyRobotBehavior {
   ATTACK,
   BACK_BOOT_AREA,
   CHASE,
@@ -28,11 +28,19 @@ enum ArmorId {
   LEFT = 3
 };
 
+enum BuffZoneStatus {
+  RESTORATION,
+  PROJECTILE_SUPPLIER,
+  NO_SHOOTING,
+  NO_MOVING
+};
+
 enum RobotId {
   RED1 = 3,
   RED2 = 4,
   BLUE1 = 13,
-  BLUE2 = 14
+  BLUE2 = 14,
+  UNKNOWN
 };
 
 enum Decision {
@@ -75,9 +83,14 @@ bool IsArmorsMsgEqual(const roborts_msgs::ArmorsDetected &armors1,
   if (armors1.armors.size() != armors2.armors.size()) {
     return false;
   }
+  int index = 0;
   for (auto armor : armors1.armors) {
-
+    if (!IsArmorMsgEqual(armor, armors2.armors.at(index))) {
+      return false;
+    }
+    index++;
   }
+  return true;
 }
 
 }
