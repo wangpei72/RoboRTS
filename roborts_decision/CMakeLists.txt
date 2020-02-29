@@ -19,15 +19,21 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Eigen3 REQUIRED)
 find_package(ProtoBuf REQUIRED)
+find_package(PCL REQUIRED COMPONENT common io)
 
 include_directories(
         include
         ${catkin_INCLUDE_DIRS}
+        ${EIGEN3_INCLUDE_DIR}
+        ${PCL_INCLUDE_DIRS}
 )
+
 # For clion symbol updates
 include_directories(
         ../../../devel/include
 )
+
+add_definitions(${PCL_DEFINITIONS})
 
 #generate proto files
 file(GLOB ProtoFiles "${CMAKE_CURRENT_SOURCE_DIR}/proto/*.proto")
@@ -41,6 +47,16 @@ generate_dynamic_reconfigure_options(
 )
 
 catkin_package()
+
+add_library(libblackboard
+        blackboard/blackboard.h
+        blackboard/blackboard.cpp
+        blackboard/my_robot.h
+        blackboard/my_robot.cpp blackboard/enemy_robot.cpp blackboard/enemy_robot.h blackboard/blackboard_common.h)
+
+target_link_libraries(libblackboard
+        ${catkin_INCLUDE_DIRS}
+        ${PCL_LIBRARIES})
 
 add_executable(behavior_test_node
         ${DecisionProtoHds}
@@ -65,6 +81,7 @@ target_link_libraries(behavior_test_node
         roborts_costmap
         ${catkin_LIBRARIES}
         ${PROTOBUF_LIBRARIES}
+        libblackboard
         )
 
 add_dependencies(behavior_test_node

@@ -1,0 +1,14 @@
+//
+// Created by kehan on 2020/2/28.
+//
+
+#ifndef ROBORTS_ROBORTS_DECISION_BLACKBOARD_ENEMY_ROBOT_H_
+#define ROBORTS_ROBORTS_DECISION_BLACKBOARD_ENEMY_ROBOT_H_
+
+namespace roborts_decision {
+class EnemyRobot {
+
+};
+}
+
+#endif //ROBORTS_ROBORTS_DECISION_BLACKBOARD_ENEMY_ROBOT_H_
