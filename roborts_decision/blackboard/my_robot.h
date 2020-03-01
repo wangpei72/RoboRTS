@@ -14,13 +14,15 @@
 #include <ros/ros.h>
 
 #include "blackboard_common.h"
+#include "../executor/gimbal_executor.h"
+#include "../executor/chassis_executor.h"
 
 namespace roborts_decision {
 
 class MyRobot {
  public:
 
-  explicit MyRobot(const ros::NodeHandle &nh = ros::NodeHandle("~"));
+  explicit MyRobot(RobotId id, const ros::NodeHandle &nh = ros::NodeHandle("~"));
   virtual ~MyRobot();
 
   RobotId GetId() const;
@@ -51,11 +53,14 @@ class MyRobot {
   MyRobotBehavior GetCurrentBehavior() const;
   void SetCurrentBehavior(MyRobotBehavior current_behavior);
 
+  const ChassisExecutor &GetChassisExecutor() const;
+
+  const GimbalExecutor &GetGimbalExecutor() const;
+
   bool operator==(const MyRobot &rhs) const;
   bool operator!=(const MyRobot &rhs) const;
 
  private:
-
   ros::NodeHandle nh_;
 
   ros::Subscriber armors_under_attack_sub_;
@@ -80,6 +85,9 @@ class MyRobot {
 
   geometry_msgs::PoseStamped current_goal_;
   MyRobotBehavior current_behavior_;
+
+  ChassisExecutor chassis_executor_;
+  GimbalExecutor gimbal_executor_;
 };
 
 }

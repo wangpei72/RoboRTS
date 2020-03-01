@@ -5,14 +5,16 @@
 #include "my_robot.h"
 using namespace roborts_decision;
 
-MyRobot::MyRobot(const ros::NodeHandle &nh) :
+MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
     nh_(nh),
+    id_(id),
     hp_(2000),
     current_heat_(0),
     is_survival_(true),
-    remaining_projectiles_(0) {
+    remaining_projectiles_(0),
+    chassis_executor_(nh_),
+    gimbal_executor_(nh_) {
 
-  id_ = RobotId::UNKNOWN;
 //  if (id_ == RED1 || id_ == BLUE1) {
 //    remaining_projectiles_ = 50;
 //  } else {
@@ -91,6 +93,14 @@ bool MyRobot::operator==(const MyRobot &rhs) const {
 
 bool MyRobot::operator!=(const MyRobot &rhs) const {
   return !(rhs == *this);
+}
+
+const ChassisExecutor &MyRobot::GetChassisExecutor() const {
+  return chassis_executor_;
+}
+
+const GimbalExecutor &MyRobot::GetGimbalExecutor() const {
+  return gimbal_executor_;
 }
 
 

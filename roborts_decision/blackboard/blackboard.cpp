@@ -5,7 +5,12 @@
 #include "blackboard.h"
 using namespace roborts_decision;
 
-Blackboard::Blackboard(const ros::NodeHandle &nh) : nh_(nh) {
+Blackboard::Blackboard(const ros::NodeHandle &nh)
+    : nh_(nh),
+      my_robot_1_(RobotId::MY_ROBOT_1, ros::NodeHandle("/my_robot_1")),
+      my_robot_2_(RobotId::MY_ROBOT_2, ros::NodeHandle("/my_robot_2")),
+      enemy_robot_1_(RobotId::ENEMY_ROBOT_1),
+      enemy_robot_2_(RobotId::ENEMY_ROBOT_2) {
 
 }
 

@@ -7,13 +7,15 @@
 
 namespace roborts_decision {
 
-ChassisExecutor::ChassisExecutor() : execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
-                                     global_planner_client_("global_planner_node_action", true),
-                                     local_planner_client_("local_planner_node_action", true),
-                                     pid_controller_client_("pid_planner_chassis_node_action", true) {
-  ros::NodeHandle nh;
-  cmd_vel_acc_pub_ = nh.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
-  cmd_vel_pub_ = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+ChassisExecutor::ChassisExecutor(const ros::NodeHandle &nh)
+    : nh_(nh),
+      execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
+      global_planner_client_("global_planner_node_action", true),
+      local_planner_client_("local_planner_node_action", true),
+      pid_controller_client_("pid_planner_chassis_node_action", true) {
+
+  cmd_vel_acc_pub_ = nh_.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
+  cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
   global_planner_client_.waitForServer();
   ROS_INFO("Global planer server start!");
   local_planner_client_.waitForServer();

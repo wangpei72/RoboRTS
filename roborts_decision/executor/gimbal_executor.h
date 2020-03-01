@@ -37,10 +37,10 @@ class GimbalExecutor{
   /**
    * @brief Constructor of GimbalExecutor
    */
-  GimbalExecutor();
+  explicit GimbalExecutor(const ros::NodeHandle &nh = ros::NodeHandle("~"));
   ~GimbalExecutor() = default;
 
-  void Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode _goal_mode);
+  void Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode goal_mode);
   /***
    * @brief Execute the gimbal angle task with publisher
    * @param gimbal_angle Given gimbal angle
@@ -62,6 +62,9 @@ class GimbalExecutor{
   void Cancel();
 
  private:
+
+  ros::NodeHandle nh_;
+
   //! execution mode of the executor
   ExcutionMode excution_mode_;
   //! execution state of the executor (same with behavior state)

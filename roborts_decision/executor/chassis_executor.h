@@ -42,7 +42,7 @@ class ChassisExecutor {
   /**
    * @brief Constructor of ChassisExecutor
    */
-  ChassisExecutor();
+  explicit ChassisExecutor(const ros::NodeHandle &nh = ros::NodeHandle("~"));
   ~ChassisExecutor() = default;
   /**
    * @brief Execute the goal-targeted task using global and local planner with actionlib
@@ -76,6 +76,8 @@ class ChassisExecutor {
   void Cancel();
 
  private:
+
+  ros::NodeHandle nh_;
   /***
    * @brief Global planner actionlib feedback callback function to send the global planner path to local planner
    * @param global_planner_feedback  Global planner actionlib feedback, which mainly consists of global planner path output

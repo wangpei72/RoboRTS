@@ -35,11 +35,18 @@ enum BuffZoneStatus {
   NO_MOVING
 };
 
+enum RobotType {
+  RED_1 = 3,
+  RED_2 = 4,
+  BLUE_1 = 13,
+  BLUE_2 = 14
+};
+
 enum RobotId {
-  RED1 = 3,
-  RED2 = 4,
-  BLUE1 = 13,
-  BLUE2 = 14,
+  MY_ROBOT_1,
+  MY_ROBOT_2,
+  ENEMY_ROBOT_1,
+  ENEMY_ROBOT_2,
   UNKNOWN
 };
 

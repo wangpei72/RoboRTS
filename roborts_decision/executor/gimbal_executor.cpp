@@ -1,11 +1,14 @@
 #include "gimbal_executor.h"
 namespace roborts_decision {
-GimbalExecutor::GimbalExecutor() : excution_mode_(ExcutionMode::IDLE_MODE),
-                                   execution_state_(BehaviorState::IDLE),
-                                   pid_controller_client_("pid_planner_gimbal_node_action", true) {
-  ros::NodeHandle nh;
-  cmd_gimbal_angle_pub_ = nh.advertise<roborts_msgs::GimbalAngle>("cmd_gimbal_angle", 1);
-  cmd_gimbal_rate_pub_ = nh.advertise<roborts_msgs::GimbalRate>("cmd_gimbal_rate", 1);
+GimbalExecutor::GimbalExecutor(const ros::NodeHandle &nh)
+    : nh_(nh),
+      excution_mode_(ExcutionMode::IDLE_MODE),
+      execution_state_(BehaviorState::IDLE),
+      pid_controller_client_("pid_planner_gimbal_node_action",
+                             true) {
+
+  cmd_gimbal_angle_pub_ = nh_.advertise<roborts_msgs::GimbalAngle>("cmd_gimbal_angle", 1);
+  cmd_gimbal_rate_pub_ = nh_.advertise<roborts_msgs::GimbalRate>("cmd_gimbal_rate", 1);
 
   pid_controller_client_.waitForServer();
   ROS_INFO("PID controller gimbal server start!");
@@ -32,9 +35,9 @@ void GimbalExecutor::Execute(const roborts_msgs::GimbalRate &gimbal_rate) {
   cmd_gimbal_rate_pub_.publish(gimbal_rate);
 }
 
-void GimbalExecutor::Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode _goal_mode) {
+void GimbalExecutor::Execute(const geometry_msgs::PoseStamped &gimbal_angle, GoalMode goal_mode) {
 
-  if (_goal_mode == GoalMode::GOAL_MODE_USE_PID) {
+  if (goal_mode == GoalMode::GOAL_MODE_USE_PID) {
 
     excution_mode_ = ExcutionMode::PID_MODE;
 
@@ -107,6 +110,7 @@ void GimbalExecutor::Cancel() {
   }
 
 }
+
 void GimbalExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback) {
   ROS_INFO("The differ angle between gimbal and goal is %lf", pid_controller_toward_angular_feedback->differ_angle);
   //TODO
