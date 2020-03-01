@@ -17,14 +17,24 @@ class EnemyRobot {
 
   RobotId GetId() const;
 
+  RobotType GetRobotType() const;
+  void SetRobotType(RobotType robot_type);
+
   bool IsSurvival() const;
   void SetIsSurvival(bool is_survival);
 
   const geometry_msgs::PoseStamped &GetPose() const;
+  void SetPose(const ros::Time &stamp, const geometry_msgs::Point &position);
+
+  bool IsDetected() const;
+  void SetIsDetected(bool is_detected);
 
  private:
   RobotId id_;
+  RobotType robot_type_;
+
   bool is_survival_;
+  bool is_detected_;
   geometry_msgs::PoseStamped pose_;
 };
 }
