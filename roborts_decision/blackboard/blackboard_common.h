@@ -28,18 +28,27 @@ enum ArmorId {
   LEFT = 3
 };
 
-enum BuffZoneStatus {
-  RESTORATION,
-  PROJECTILE_SUPPLIER,
-  NO_SHOOTING,
-  NO_MOVING
+enum BuffStatus {
+  RED_RESTORATION = 1,
+  RED_PROJECTILE_SUPPLIER = 2,
+  BLUE_RESTORATION = 3,
+  BLUE_PROJECTILE_SUPPLIER = 4,
+  NO_SHOOTING = 5,
+  NO_MOVING = 6,
+  UNKNOWN_STATUS = 7
+};
+
+struct BuffZoneStatus {
+  bool is_active_ = false;
+  BuffStatus buff_status_ = UNKNOWN_STATUS;
 };
 
 enum RobotType {
   RED_1 = 3,
   RED_2 = 4,
   BLUE_1 = 13,
-  BLUE_2 = 14
+  BLUE_2 = 14,
+  UNKNOWN_TYPE
 };
 
 enum RobotId {
@@ -47,7 +56,12 @@ enum RobotId {
   MY_ROBOT_2,
   ENEMY_ROBOT_1,
   ENEMY_ROBOT_2,
-  UNKNOWN
+};
+
+enum MyColor {
+  RED,
+  BLUE,
+  UNKNOWN_COLOR
 };
 
 enum Decision {

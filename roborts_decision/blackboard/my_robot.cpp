@@ -8,13 +8,15 @@ using namespace roborts_decision;
 MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
     nh_(nh),
     id_(id),
-    hp_(2000),
+    remaining_hp_(2000),
+    max_hp_(2000),
     current_heat_(0),
     is_survival_(true),
     remaining_projectiles_(0),
     chassis_executor_(nh_),
     gimbal_executor_(nh_) {
 
+  robot_type_ = RobotType::UNKNOWN_TYPE;
 //  if (id_ == RED1 || id_ == BLUE1) {
 //    remaining_projectiles_ = 50;
 //  } else {
@@ -23,16 +25,75 @@ MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
 
   // TODO
   current_behavior_ = MyRobotBehavior::SEARCH;
+
+  std::string armors_under_attack_topic("armors_under_attack");
+  nh_.param("armors_under_attack_topic", armors_under_attack_topic, armors_under_attack_topic);
+  armors_under_attack_sub_ =
+      nh_.subscribe<roborts_msgs::RobotDamage>(armors_under_attack_topic, 1, &MyRobot::ArmorsUnderAttackCallback, this);
+
+  std::string heat_topic("heat");
+  nh_.param("heat_topic", heat_topic, heat_topic);
+  heat_sub_ =
+      nh_.subscribe<roborts_msgs::RobotHeat>(heat_topic, 1, &MyRobot::HeatCallback, this);
+
+  std::string armors_in_eyes_topic("armors_in_eyes");
+  nh_.param("armors_in_eyes_topic", armors_in_eyes_topic, armors_in_eyes_topic);
+  armors_in_eyes_sub_ =
+      nh_.subscribe<roborts_msgs::ArmorsDetected>(heat_topic, 1, &MyRobot::ArmorsInEyesCallback, this);
+
+  std::string robot_status_topic("robot_status");
+  nh_.param("robot_status_topic", robot_status_topic, robot_status_topic);
+  robot_status_sub_ =
+      nh_.subscribe<roborts_msgs::RobotStatus>(heat_topic, 1, &MyRobot::RobotStatusCallback, this);
+
+  tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
+  tf_thread_ptr_ = std::make_shared<std::thread>([&]() {
+    ros::Rate loop_rate(50);
+    while (ros::ok()) {
+      UpdateChassisMapPose();
+      UpdateChassisOdomPose();
+      UpdateGimbalMapPose();
+      UpdateGimbalOdomPose();
+      loop_rate.sleep();
+    }
+  });
+  tf_thread_ptr_->detach();
 }
 
 MyRobot::~MyRobot() = default;
+
+void MyRobot::ArmorsUnderAttackCallback(const roborts_msgs::RobotDamage::ConstPtr &msg) {
+  // TODO
+}
+
+void MyRobot::HeatCallback(const roborts_msgs::RobotHeat::ConstPtr &msg) {
+  current_heat_ = msg->shooter_heat;
+}
+
+void MyRobot::RobotStatusCallback(const roborts_msgs::RobotStatus::ConstPtr &msg) {
+  robot_type_ = static_cast<RobotType>(msg->id);
+  remaining_hp_ = msg->remain_hp;
+  max_hp_ = msg->max_hp;
+}
+
+void MyRobot::ArmorsInEyesCallback(const roborts_msgs::ArmorsDetected::ConstPtr &msg) {
+  armors_in_eyes_ = *msg;
+}
 
 RobotId MyRobot::GetId() const {
   return id_;
 }
 
+RobotType MyRobot::GetRobotType() const {
+  return robot_type_;
+}
+
+void MyRobot::SetRobotType(RobotType robot_type) {
+  robot_type_ = robot_type;
+}
+
 int MyRobot::GetHp() const {
-  return hp_;
+  return remaining_hp_;
 }
 
 int MyRobot::GetCurrentHeat() const {
@@ -75,9 +136,9 @@ const geometry_msgs::PoseStamped &MyRobot::GetGimbalOdomPose() const {
   return gimbal_odom_pose_;
 }
 
-const geometry_msgs::PoseStamped &MyRobot::GetCurrentGoal() const {
-  return current_goal_;
-}
+// const geometry_msgs::PoseStamped &MyRobot::GetCurrentGoal() const {
+//   return current_goal_;
+// }
 
 MyRobotBehavior MyRobot::GetCurrentBehavior() const {
   return current_behavior_;
@@ -102,5 +163,71 @@ const ChassisExecutor &MyRobot::GetChassisExecutor() const {
 const GimbalExecutor &MyRobot::GetGimbalExecutor() const {
   return gimbal_executor_;
 }
+
+void MyRobot::UpdateChassisMapPose() {
+  tf::Stamped<tf::Pose> chassis_tf_pose;
+  chassis_tf_pose.setIdentity();
+
+  chassis_tf_pose.frame_id_ = "base_link";
+  chassis_tf_pose.stamp_ = ros::Time();
+  try {
+    geometry_msgs::PoseStamped chassis_pose;
+    tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
+    tf_ptr_->transformPose("map", chassis_pose, chassis_map_pose_);
+  }
+  catch (tf::LookupException &ex) {
+    ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+  }
+}
+
+void MyRobot::UpdateChassisOdomPose() {
+  tf::Stamped<tf::Pose> chassis_tf_pose;
+  chassis_tf_pose.setIdentity();
+
+  chassis_tf_pose.frame_id_ = "base_link";
+  chassis_tf_pose.stamp_ = ros::Time();
+  try {
+    geometry_msgs::PoseStamped chassis_pose;
+    tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
+    tf_ptr_->transformPose("odom", chassis_pose, chassis_odom_pose_);
+  }
+  catch (tf::LookupException &ex) {
+    ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+  }
+}
+
+void MyRobot::UpdateGimbalMapPose() {
+  tf::Stamped<tf::Pose> gimbal_tf_pose;
+  gimbal_tf_pose.setIdentity();
+
+  gimbal_tf_pose.frame_id_ = "gimbal";
+  gimbal_tf_pose.stamp_ = ros::Time();
+  try {
+    geometry_msgs::PoseStamped gimbal_pose;
+    tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
+    tf_ptr_->transformPose("map", gimbal_pose, gimbal_map_pose_);
+  }
+  catch (tf::LookupException &ex) {
+    ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+  }
+}
+
+void MyRobot::UpdateGimbalOdomPose() {
+  tf::Stamped<tf::Pose> gimbal_tf_pose;
+  gimbal_tf_pose.setIdentity();
+
+  gimbal_tf_pose.frame_id_ = "gimbal";
+  gimbal_tf_pose.stamp_ = ros::Time();
+  try {
+    geometry_msgs::PoseStamped gimbal_pose;
+    tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
+    tf_ptr_->transformPose("odom", gimbal_pose, gimbal_odom_pose_);
+  }
+  catch (tf::LookupException &ex) {
+    ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+  }
+}
+
+
 
 

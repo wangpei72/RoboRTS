@@ -6,12 +6,19 @@
 #define ROBORTS_ROBORTS_DECISION_BLACKBOARD_RMROBOT_H_
 
 #include <vector>
+#include <thread>
+#include <mutex>
 #include <geometry_msgs/PoseStamped.h>
+
 #include <roborts_msgs/ArmorsDetected.h>
+#include <roborts_msgs/RobotStatus.h>
+
 #include <actionlib/client/simple_action_client.h>
 #include <tf/tf.h>
 #include <tf/transform_listener.h>
 #include <ros/ros.h>
+#include <roborts_msgs/RobotHeat.h>
+#include <roborts_msgs/RobotDamage.h>
 
 #include "blackboard_common.h"
 #include "../executor/gimbal_executor.h"
@@ -26,6 +33,9 @@ class MyRobot {
   virtual ~MyRobot();
 
   RobotId GetId() const;
+
+  RobotType GetRobotType() const;
+  void SetRobotType(RobotType robot_type);
 
   int GetHp() const;
 
@@ -48,7 +58,7 @@ class MyRobot {
 
   const geometry_msgs::PoseStamped &GetGimbalOdomPose() const;
 
-  const geometry_msgs::PoseStamped &GetCurrentGoal() const;
+  // const geometry_msgs::PoseStamped &GetCurrentGoal() const;
 
   MyRobotBehavior GetCurrentBehavior() const;
   void SetCurrentBehavior(MyRobotBehavior current_behavior);
@@ -61,17 +71,36 @@ class MyRobot {
   bool operator!=(const MyRobot &rhs) const;
 
  private:
+  void ArmorsUnderAttackCallback(const roborts_msgs::RobotDamage::ConstPtr &msg);
+  void HeatCallback(const roborts_msgs::RobotHeat::ConstPtr &msg);
+  void RobotStatusCallback(const roborts_msgs::RobotStatus::ConstPtr &msg);
+  void ArmorsInEyesCallback(const roborts_msgs::ArmorsDetected::ConstPtr &msg);
+
+  void UpdateChassisMapPose();
+  void UpdateChassisOdomPose();
+  void UpdateGimbalMapPose();
+  void UpdateGimbalOdomPose();
+
   ros::NodeHandle nh_;
 
   ros::Subscriber armors_under_attack_sub_;
+  ros::Subscriber heat_sub_;
   ros::Subscriber armors_in_eyes_sub_;
+  ros::Subscriber robot_status_sub_;
 
   std::shared_ptr<tf::TransformListener> tf_ptr_;
+  std::shared_ptr<std::thread> tf_thread_ptr_;
 
   RobotId id_;
-  int hp_;
+  RobotType robot_type_;
+
+  int remaining_hp_;
+  int max_hp_;
   int current_heat_;
+
+  // TODO
   int remaining_projectiles_;
+
   bool is_survival_;
 
   std::vector<ArmorId> armors_under_attack_;
@@ -83,7 +112,7 @@ class MyRobot {
   geometry_msgs::PoseStamped gimbal_map_pose_;
   geometry_msgs::PoseStamped gimbal_odom_pose_;
 
-  geometry_msgs::PoseStamped current_goal_;
+  // geometry_msgs::PoseStamped current_goal_;
   MyRobotBehavior current_behavior_;
 
   ChassisExecutor chassis_executor_;
