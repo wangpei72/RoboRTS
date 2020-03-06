@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 
   auto chassis_executor = new roborts_decision::ChassisExecutor;
   auto gimbal_executor = new roborts_decision::GimbalExecutor;
-  auto blackboard = new roborts_decision::Blackboard(full_path);
+  auto blackboard = new roborts_decision::BlackboardRaw(full_path);
 
   roborts_decision::BackBootAreaBehavior back_boot_area_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::ChaseBehavior chase_behavior(chassis_executor, blackboard, full_path);

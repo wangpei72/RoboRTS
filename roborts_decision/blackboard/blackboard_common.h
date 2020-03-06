@@ -68,6 +68,7 @@ enum Decision {
   Offensive
 };
 
+/*
 bool IsPositionMsgEqual(const geometry_msgs::Point &position1,
                         const geometry_msgs::Point &position2) {
   return position1.x == position2.x &&
@@ -113,6 +114,7 @@ bool IsArmorsMsgEqual(const roborts_msgs::ArmorsDetected &armors1,
   }
   return true;
 }
+ */
 
 }
 

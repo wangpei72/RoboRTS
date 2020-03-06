@@ -4,7 +4,7 @@
 
 #include "io/io.h"
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "../executor/chassis_executor.h"
 #include "../behavior_tree/behavior_state.h"
 
@@ -13,7 +13,7 @@ namespace roborts_decision {
 class GoalBehavior {
  public:
   GoalBehavior(ChassisExecutor* &chassis_executor,
-               Blackboard* &blackboard) :
+               BlackboardRaw*&blackboard) :
       chassis_executor_(chassis_executor),
       blackboard_(blackboard) { }
 
@@ -38,7 +38,7 @@ class GoalBehavior {
   ChassisExecutor* const chassis_executor_;
 
   //! perception information
-  Blackboard* const blackboard_;
+  BlackboardRaw* const blackboard_;
 
   //! planning goal
   geometry_msgs::PoseStamped planning_goal_;

@@ -110,7 +110,7 @@ CostmapInterface::CostmapInterface(std::string map_name,
     cost_translation_table_[0] = 0;  // NO obstacle
     cost_translation_table_[253] = 99;  // INSCRIBED obstacle
     cost_translation_table_[254] = 100;  // LETHAL obstacle
-    cost_translation_table_[255] = -1;  // UNKNOWN
+    cost_translation_table_[255] = -1;  // UNKNOWN_TYPE
 
     // regular cost values scale the range 1 to 252 (inclusive) to fit
     // into 1 to 98 (inclusive).

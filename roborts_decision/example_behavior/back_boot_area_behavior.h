@@ -3,7 +3,7 @@
 
 #include "io/io.h"
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "../executor/chassis_executor.h"
 #include "../behavior_tree/behavior_state.h"
 #include "../proto/decision.pb.h"
@@ -14,8 +14,8 @@ namespace roborts_decision {
 class BackBootAreaBehavior {
  public:
   BackBootAreaBehavior(ChassisExecutor* &chassis_executor,
-                Blackboard* &blackboard,
-                const std::string & proto_file_path) : chassis_executor_(chassis_executor),
+                       BlackboardRaw*&blackboard,
+                       const std::string &proto_file_path) : chassis_executor_(chassis_executor),
                                                        blackboard_(blackboard) {
 
 
@@ -94,7 +94,7 @@ class BackBootAreaBehavior {
   ChassisExecutor* const chassis_executor_;
 
   //! perception information
-  Blackboard* const blackboard_;
+  BlackboardRaw* const blackboard_;
 
   //! boot position
   geometry_msgs::PoseStamped boot_position_;

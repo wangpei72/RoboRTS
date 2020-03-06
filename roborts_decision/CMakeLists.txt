@@ -49,10 +49,14 @@ generate_dynamic_reconfigure_options(
 catkin_package()
 
 add_library(libblackboard
-        blackboard/blackboard.h
-        blackboard/blackboard.cpp
+        blackboard/blackboard_raw.h
+        blackboard/blackboard_raw.cpp
         blackboard/my_robot.h
-        blackboard/my_robot.cpp blackboard/enemy_robot.cpp blackboard/enemy_robot.h blackboard/blackboard_common.h)
+        blackboard/my_robot.cpp
+        blackboard/enemy_robot.cpp
+        blackboard/enemy_robot.h
+        blackboard/blackboard.cpp
+        blackboard/blackboard.h)
 
 target_link_libraries(libblackboard
         ${catkin_INCLUDE_DIRS}
