@@ -161,6 +161,9 @@ void ConstraintSet::getCameraInfo(std::string info) {
         if (src_industry_img_.empty()) {
             ROS_INFO("RGB image can't find");
         }
+        if (src_realSense_RGB_img_.empty()) {
+            ROS_INFO("rgbd_rgb image can;t find");
+        }
         if (src_realSense_depth_img_.empty()) {
             ROS_INFO("depth image can't find");
         } else {
@@ -215,12 +218,18 @@ void ConstraintSet::getCameraInfo(std::string info) {
 }*/
 
     void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
-        cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
+        try {
+            ROS_INFO("geting camera rgb raw enc %s", msg->encoding.c_str());
+            cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image.copyTo(src_industry_img_);
+        } catch (cv_bridge::Exception &e) {
+            ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+        }
 }
 
 void ConstraintSet::getRealSenseDepthMat(sensor_msgs::ImageConstPtr msg) {
   try {
-    cv_bridge::toCvShare(msg, "16UC1")->image.copyTo(src_realSense_depth_img_);
+      ROS_INFO("getting cameradepth depth raw enc%s", msg->encoding.c_str());
+      cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::TYPE_32FC1)->image.copyTo(src_realSense_depth_img_);
   } catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
@@ -228,8 +237,9 @@ void ConstraintSet::getRealSenseDepthMat(sensor_msgs::ImageConstPtr msg) {
 
 void ConstraintSet::getRealSenseRGBMat(sensor_msgs::ImageConstPtr msg) {
   try {
+      ROS_INFO("getting cameradepth rgb raw enc%s", msg->encoding.c_str());
     cv::Mat src;
-    cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src);
+      cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image.copyTo(src);
     cv::resize(src, src_realSense_RGB_img_, cv::Size(640, 480));
   } catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
@@ -247,16 +257,18 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat industrialImage,
   LightBlobs light_blobs;
         TailBlobs tail_blobs;
   ArmorBoxs armor_boxs;
+        //分类器参数存放路径
   std::string classFilePath = ros::package::getPath("roborts_detection") + \
       "/armor_detection/para/";
   Classifier classifier = Classifier(classFilePath);
+        ROS_INFO("into search armor");
   if (!industrialImage.empty() && !realSenseRGBImage.empty()) {
       cv::imshow("mvs_img", industrialImage);
     cv::cvtColor(realSenseRGBImage, gray_img_, CV_BGR2GRAY);
       cv::imshow("gray_img", gray_img_);
       DetectLights(realSenseRGBImage, light_blobs, tail_blobs);//***************加了尾灯**************
     cv_toolbox_->imshowLightBlobs(imshowImage, light_blobs, "light_blobs", leftPoint);
-      cv_toolbox_->imshowTailBlobs(imshowImage, tail_blobs, "tailblobs", leftPoint);
+      //  cv_toolbox_->imshowTailBlobs(imshowImage, tail_blobs, "tail_blobs", leftPoint);
     PossibleArmors(realSenseRGBImage, light_blobs, armor_boxs);
     cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "blank", leftPoint);
       bool ifFoundTail = !tail_blobs.empty();
@@ -307,6 +319,7 @@ void ConstraintSet::trackingTarget(cv::Mat industrialImage,
                                    bool &detected,
                                    cv::Point3f &target_3d) {
   auto pos = possibleBox.rect;
+    ROS_INFO("into tracking target");
   //使用KCFTracker进行跟踪
   if (!tracker->update(industrialImage, pos)) {
     possibleBox = ArmorBox();
@@ -429,7 +442,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
 }
 
     void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs, TailBlobs &tail_blobs) {
-  //std::cout << "********************************************DetectLights********************************************" << std::endl;
+        std::cout << "******************DetectLights********************************************" << std::endl;
   cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
   cv::dilate(src, src, element, cv::Point(-1, -1), 1);
   cv::Mat binary_light_img, binary_color_img;
@@ -487,6 +500,7 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   cv::Mat result_pic_blank = src.clone();
   LightBlobs lightBlobsTemp;
   lightBlobsTemp.swap(lightBlobs);
+    ROS_INFO("into possiblearmors *********************");
   //TODO 增加置信度
   for (int i = 0; i < lightBlobsTemp.size(); i++) {
     for (int j = i + 1; j < lightBlobsTemp.size(); j++) {
@@ -516,10 +530,10 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
       }
     }
   }
-  for (ArmorBox armor_box1 : armor_boxs) {
-  }
-  cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");
+    /* for (ArmorBox armor_box1 : armor_boxs) {
+     }cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");*/
 }
+
 
     void ConstraintSet::setBoxOrientation(roborts_detection::TailBlobs &tail_blobs,
                                           roborts_detection::ArmorBoxs &armor_boxs, bool &found) {
@@ -544,7 +558,8 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
         }
 //所有有尾灯的图里会判断是尾端或侧边类型的装甲板，视野没有尾灯的装甲板默认为前端装甲板
     }
-void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
+
+    void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
   //std::cout << "********************************************FilterArmors********************************************" << std::endl;
   cv::Mat mask = cv::Mat::zeros(gray_img_.size(), CV_8UC1);
   for (auto armor_iter = armors.begin(); armor_iter != armors.end();) {

@@ -33,8 +33,9 @@ ArmorDetectionNode::ArmorDetectionNode() :
   if (Init().IsOK()) {
     initialized_ = true;
     node_state_ = roborts_common::IDLE;
+      ROS_INFO("armor_detection_node initialized succeeded!");
   } else {
-    ROS_ERROR("armor_detection_node initalized failed!");
+      ROS_ERROR("armor_detection_node initialized failed!");
     node_state_ = roborts_common::FAILURE;
   }
   as_.start();
@@ -42,11 +43,12 @@ ArmorDetectionNode::ArmorDetectionNode() :
 
 ErrorInfo ArmorDetectionNode::Init() {
   enemy_info_pub_ = enemy_nh_.advertise<roborts_msgs::GimbalAngle>("cmd_gimbal_angle", 100);
-
+//info_pub need to be changed ***************************
   armor_info_pub_ = enemy_nh_.advertise<geometry_msgs::Point32>("/armor_detection/armor_point", 100);
   ArmorDetectionAlgorithms armor_detection_param;
 
-  std::string
+
+    std::string
       file_name = ros::package::getPath("roborts_detection") + "/armor_detection/config/armor_detection.prototxt";
   bool read_state = roborts_common::ReadProtoFromTextFile(file_name, &armor_detection_param);
   if (!read_state) {
@@ -147,6 +149,7 @@ void ArmorDetectionNode::ExecuteLoop() {
   undetected_count_ = undetected_armor_delay_;
   while (running_) {
     usleep(1);
+      ROS_INFO("into the executeloop");
     if (node_state_ == NodeState::RUNNING) {
       cv::Point3f target_3d;
 //      ErrorInfo error_info = armor_detector_->DetectArmor(detected_enemy_, target_3d);
@@ -193,11 +196,13 @@ void ArmorDetectionNode::ExecuteLoop() {
 }
 
 void ArmorDetectionNode::PublishMsgs() {
+    ROS_INFO("into the publishmsgs");
   enemy_info_pub_.publish(gimbal_angle_);
 }
 
 void ArmorDetectionNode::StartThread() {
   ROS_INFO("Armor detection node started!");
+    ROS_INFO("into the startthread");
   running_ = true;
   armor_detector_->SetThreadState(true);
   if (node_state_ == NodeState::IDLE) {
