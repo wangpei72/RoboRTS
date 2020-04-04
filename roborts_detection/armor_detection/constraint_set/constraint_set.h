@@ -171,7 +171,7 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param src Input image
    * @param lights Output lights information
    */
-  void DetectLights(cv::Mat &src, LightBlobs &light_blobs);
+  void DetectLights(cv::Mat &src, LightBlobs &light_blobs, TailBlobs &tail_blobs);
   /**
    * @brief Finding possible armors.
    * @param lights Take lights information as input.
@@ -183,6 +183,13 @@ class ConstraintSet : public ArmorDetectionBase {
    * @param armors Result armors
    */
   void FilterArmors(std::vector<ArmorInfo> &armors);
+
+    /**
+     * @brief Set the FRONT,SIDE,BACK info for the boxs detected using the tailblob detected
+     * @param lightBlobs
+     * @param armor_boxs
+     */
+    void setBoxOrientation(TailBlobs &tail_blobs, ArmorBoxs &armor_boxs, bool &found);
 
   void FilterArmors(cv::Mat &src, ArmorBoxs &armor_boxs);
   /**

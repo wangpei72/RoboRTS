@@ -366,6 +366,28 @@ class CVToolbox {
     imshow(fileName, result_pic);
   }
 
+    void imshowTailBlobs(cv::Mat src,
+                         TailBlobs tail_blobs,
+                         std::string fileName,
+                         cv::Point2f leftPoint = cv::Point2f(0, 0)) {
+        cv::Mat result_pic(src.size().height, src.size().width, CV_8UC1, cv::Scalar(0));
+        CvPoint2D32f point[4];
+        cv::Point pt[4];
+        for (int i = 0; i < tail_blobs.size(); i++) {
+            cv::RotatedRect rect = tail_blobs[i].rect_;
+            cvBoxPoints(rect, point);
+            for (int j = 0; j < 4; j++) {
+                pt[j].x = (int) point[j].x + leftPoint.x;
+                pt[j].y = (int) point[j].y + leftPoint.y;
+            }
+            line(result_pic, pt[0], pt[1], cv::Scalar(255), 1);
+            line(result_pic, pt[1], pt[2], cv::Scalar(255), 1);
+            line(result_pic, pt[2], pt[3], cv::Scalar(255), 1);
+            line(result_pic, pt[3], pt[0], cv::Scalar(255), 1);
+        }
+        imshow(fileName, result_pic);
+    }
+
   void imshowArmorBoxs(cv::Mat src, ArmorBoxs armor_boxs, std::string fileName,
                        cv::Point2f leftPoint = cv::Point2f(0, 0)) {
     cv::Mat result_pic = src.clone();

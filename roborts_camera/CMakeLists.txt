@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(ProtoBuf REQUIRED)
 find_package(OpenCV 3 REQUIRED)
-
+find_package(Eigen3 REQUIRED)
 catkin_package(
   INCLUDE_DIRS
 )
@@ -49,6 +49,7 @@ target_link_libraries(roborts_camera_param
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
   ${PROTOBUF_LIBRARIES}
+        ${Eigen3_LIBRARIES}
 )
 
 target_include_directories(roborts_camera_param
@@ -69,12 +70,14 @@ target_link_libraries(${PROJECT_NAME}_node
   roborts_camera_param
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
-)
+        ${Eigen3_LIBRARIES}
+        )
 
 target_include_directories(${PROJECT_NAME}_node
   PRIVATE
   ${OpenCV_INCLUDE_DIRECTORIES}
   ${catkin_INCLUDE_DIRS}
+        ${Eigen_INCLUDE_DIRS}
 )
 
 #cap_img

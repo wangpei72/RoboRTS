@@ -137,6 +137,45 @@ ErrorInfo ConstraintSet::NewDetectArmor(bool &detected, cv::Point3f &target_3d) 
 }
 
 void ConstraintSet::getCameraInfo(std::string info) {
+    //如果采用debug模式，则使用realsense相机获取彩图信息
+    if (info == "Debug") {
+        industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/red2/camera_depth/rgb/image_raw",
+                                                                      1,
+                                                                      &ConstraintSet::getIndustryMat, this);
+    } else {
+        industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/red2/camera_rgb/image_raw",
+                                                                      1,
+                                                                      &ConstraintSet::getIndustryMat, this);
+    }
+    realSenseDepthSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/red2/camera_depth/depth/image_raw",
+                                                                        1,
+                                                                        &ConstraintSet::getRealSenseDepthMat,
+                                                                        this);
+
+    realSenseRGBSubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/red2/camera_depth/rgb/image_raw",
+                                                                      1,
+                                                                      &ConstraintSet::getRealSenseRGBMat, this);
+
+    ros::Rate loop_rate(30);
+    while (ros::ok()) {
+        if (src_industry_img_.empty()) {
+            ROS_INFO("RGB image can't find");
+        }
+        if (src_realSense_depth_img_.empty()) {
+            ROS_INFO("depth image can't find");
+        } else {
+        }
+        if (!src_industry_img_.empty() && !src_realSense_depth_img_.empty()) {
+            break;
+        } else {
+            ROS_INFO("can't get rgb and depth");
+        }
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+}
+
+/*void ConstraintSet::getCameraInfo(std::string info) {
   //如果采用debug模式，则使用realsense相机获取彩图信息
   if (info == "Debug") {
     industrySubscriber = nh.subscribe<sensor_msgs::ImageConstPtr>("/realsense_camera/image_raw",
@@ -173,10 +212,10 @@ void ConstraintSet::getCameraInfo(std::string info) {
     ros::spinOnce();
     loop_rate.sleep();
   }
-}
+}*/
 
-void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
-  cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
+    void ConstraintSet::getIndustryMat(sensor_msgs::ImageConstPtr msg) {
+        cv_bridge::toCvShare(msg, "bgr8")->image.copyTo(src_industry_img_);
 }
 
 void ConstraintSet::getRealSenseDepthMat(sensor_msgs::ImageConstPtr msg) {
@@ -206,18 +245,23 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat industrialImage,
                                      cv::Point3f &target_3d,
                                      cv::Point2f leftPoint) {
   LightBlobs light_blobs;
+        TailBlobs tail_blobs;
   ArmorBoxs armor_boxs;
   std::string classFilePath = ros::package::getPath("roborts_detection") + \
       "/armor_detection/para/";
   Classifier classifier = Classifier(classFilePath);
   if (!industrialImage.empty() && !realSenseRGBImage.empty()) {
-    cv::imshow("fuck", industrialImage);
+      cv::imshow("mvs_img", industrialImage);
     cv::cvtColor(realSenseRGBImage, gray_img_, CV_BGR2GRAY);
-    cv::imshow("gray img", gray_img_);
-    DetectLights(realSenseRGBImage, light_blobs);
+      cv::imshow("gray_img", gray_img_);
+      DetectLights(realSenseRGBImage, light_blobs, tail_blobs);//***************加了尾灯**************
     cv_toolbox_->imshowLightBlobs(imshowImage, light_blobs, "light_blobs", leftPoint);
+      cv_toolbox_->imshowTailBlobs(imshowImage, tail_blobs, "tailblobs", leftPoint);
     PossibleArmors(realSenseRGBImage, light_blobs, armor_boxs);
     cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "blank", leftPoint);
+      bool ifFoundTail = !tail_blobs.empty();
+      setBoxOrientation(tail_blobs, armor_boxs, ifFoundTail);
+      //*********************************这里设置了装甲板位置种类属性*************************************
     ArmorBoxs newArmorBoxs;
     for (ArmorBox armor_box:armor_boxs) {
       //分类器使用工业相机来识别
@@ -307,6 +351,7 @@ void ConstraintSet::trackingTarget(cv::Mat industrialImage,
 ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   LightBlobs light_blobs;
   ArmorBoxs armor_boxs;
+    TailBlobs tail_blobs;
 
   auto img_begin = std::chrono::high_resolution_clock::now();
   bool sleep_by_diff_flag = true;
@@ -358,7 +403,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
     cv::waitKey(1);
   }
 
-  DetectLights(src_img_, light_blobs);
+    DetectLights(src_img_, light_blobs, tail_blobs);//***********加了尾灯******************
   PossibleArmors(src_img_, light_blobs, armor_boxs);
 //  FilterArmors(armors);
   if (!armor_boxs.empty()) {
@@ -383,7 +428,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   return error_info_;
 }
 
-void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
+    void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs, TailBlobs &tail_blobs) {
   //std::cout << "********************************************DetectLights********************************************" << std::endl;
   cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
   cv::dilate(src, src, element, cv::Point(-1, -1), 1);
@@ -407,8 +452,9 @@ void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
   cv::dilate(binary_color_img, binary_color_img, element, cv::Point(-1, -1), 1);
   std::vector<std::vector<cv::Point>> light_contours;
   std::vector<cv::Vec4i> hierarchy;
-  findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
+        cv::findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
   std::vector<cv::RotatedRect> rotatedRects;
+        std::vector<cv::RotatedRect> tailRects;
   for (int i = 0; i < light_contours.size(); i++) {
     //此时没有父轮廓，是最大的轮廓
     if (hierarchy[i][2] == -1) {
@@ -420,6 +466,13 @@ void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs) {
                                    LightBlob::areaRatio(light_contours[i], rect),
                                    cv_toolbox_->get_rect_color(src, rect));
         }
+      }//******************************这里添加了搜查尾灯的功能****************************************************
+      else if (TailBlob::isValidTailBlob(light_contours[i], rect)) {
+          tailRects.push_back(rect);
+          if (cv_toolbox_->get_rect_color(binary_color_img, rect) != -1) {
+              tail_blobs.emplace_back(rect, TailBlob::area_ratio(light_contours[i], rect),
+                                      cv_toolbox_->get_rect_color(src, rect));
+          }
       }
     }
   }
@@ -468,6 +521,29 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
   cv_toolbox_->imshowArmorBoxs(src, armor_boxs, "blank");
 }
 
+    void ConstraintSet::setBoxOrientation(roborts_detection::TailBlobs &tail_blobs,
+                                          roborts_detection::ArmorBoxs &armor_boxs, bool &found) {
+        TailBlob mainBlob = tail_blobs[0];
+        for (auto tailblob1: tail_blobs) {
+            if (tailblob1.rect_.size.area() > mainBlob.rect_.size.area())mainBlob = tailblob1;
+        }
+        if (found && mainBlob.rect_.size.area() <= 40) {
+            for (auto armor1:armor_boxs) {
+                armor1.orientation = ArmorBox::FRONT;
+            }
+        } else if (!found) {
+            for (auto armor1:armor_boxs)armor1.orientation = ArmorBox::SIDE;
+        } else if (found && mainBlob.rect_.size.area() > 40) {
+            for (auto armor1 : armor_boxs) {
+                float xl = mainBlob.rect_.center.x;
+                float x = armor1.center.x;
+                if (x < xl && std::abs(x - xl) > 20)armor1.orientation = ArmorBox::SIDE;
+                if (std::abs(x - xl) <= 10)armor1.orientation = ArmorBox::BACK;
+                else if (x - xl > 20)armor1.orientation = ArmorBox::SIDE;
+            }
+        }
+//所有有尾灯的图里会判断是尾端或侧边类型的装甲板，视野没有尾灯的装甲板默认为前端装甲板
+    }
 void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {
   //std::cout << "********************************************FilterArmors********************************************" << std::endl;
   cv::Mat mask = cv::Mat::zeros(gray_img_.size(), CV_8UC1);

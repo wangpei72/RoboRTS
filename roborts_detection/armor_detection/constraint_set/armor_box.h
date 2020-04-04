@@ -7,6 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include "light_blob.h"
+#include "tail_blob.h"
 
 namespace roborts_detection {
 class ArmorBox {
@@ -19,9 +20,11 @@ class ArmorBox {
   cv::Rect2d rect;
   cv::Point2f center;
   roborts_detection::LightBlobs light_blobs;
+    roborts_detection::TailBlobs tail_blobs;
   uint8_t box_color;
   int id;
-
+    bool ifFoundTail;
+    int orientation;
   ArmorBox(cv::Rect2d rect_2_d, LightBlobs light_blobs1, uint8_t box_color_init,
            int id_init = -1);
 
@@ -39,6 +42,7 @@ class ArmorBox {
   static bool isCoupleLight(const LightBlob &light_blob_i, const LightBlob &light_blob_j, uint8_t enemy_color);
 
   bool isMatchArmorBox();
+
 };
 
 typedef std::vector<ArmorBox> ArmorBoxs;

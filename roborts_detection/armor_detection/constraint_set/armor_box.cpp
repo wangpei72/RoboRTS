@@ -52,6 +52,7 @@ bool roborts_detection::ArmorBox::isCoupleLight(const LightBlob &light_blob_i,
       angleJudge(light_blob_i, light_blob_j);
 }
 
+
 bool roborts_detection::ArmorBox::isMatchArmorBox() {
   //初步判断 长宽比例
   if (this->rect.height / this->rect.width > 1.5
@@ -60,6 +61,7 @@ bool roborts_detection::ArmorBox::isMatchArmorBox() {
   } else
     return true;
 }
+
 
 roborts_detection::ArmorBox::ArmorBox(cv::Rect2d rect_2_d,
                                       roborts_detection::LightBlobs light_blobs1,

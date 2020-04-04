@@ -19,7 +19,7 @@ add_library(constraint_set
         ${ConstraintSetProtoSrc}
         ${ConstraintSetProtoHds}
         constraint_set.cpp
-        light_blob.cpp light_blob.h armor_box.h armor_box.cpp ../classifier.cpp ../classifier.h)
+        light_blob.cpp light_blob.h armor_box.h armor_box.cpp ../classifier.cpp ../classifier.h tail_blob.cpp tail_blob.h)
 
 include_directories(../proto)
 add_library(detection::constraint_set ALIAS constraint_set)
@@ -36,3 +36,4 @@ target_include_directories(${PROJECT_NAME}
         PUBLIC
         ${catkin_INCLUDE_DIRS}
         )
+

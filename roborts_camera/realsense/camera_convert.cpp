@@ -1,8 +1,7 @@
 //
 // Created by wangpei on 2020/1/10.
 //
-#define FPS_12 2
-#define FPS_7 3
+
 #include "camera_convert.h"
 #include <ros/ros.h>
 #include <cmath>
