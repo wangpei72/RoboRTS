@@ -69,7 +69,7 @@ roborts_common::ErrorInfo LocalPlannerNode::Init() {
   std::string name;
   visual_frame_ = local_cost_->GetGlobalFrameID();
   visual_ = LocalVisualizationPtr(new LocalVisualization(local_planner_nh_, visual_frame_));
-  vel_pub_ = local_planner_nh_.advertise<roborts_msgs::TwistAccel>("/cmd_vel_acc", 5);
+  vel_pub_ = local_planner_nh_.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 5);
 
   return roborts_common::ErrorInfo(roborts_common::ErrorCode::OK);
 }
