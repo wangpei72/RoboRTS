@@ -1,9 +1,10 @@
 <launch>
   <group ns="/red2">
-    <param name="tf_prefix" value="red2"/>
+<!--    <param name="tf_prefix" value="red2"/>-->
     <arg name="map" value="icra2019"/>
     <master auto="start"/>
     <param name="/use_sim_time" value="true"/>
+<!--    <param name="tf_prefix" value="red2"/>-->
 
     <!--Load parameters for localization node  -->
     <rosparam command="load" file="$(find roborts_localization)/config/localization.yaml"/>
