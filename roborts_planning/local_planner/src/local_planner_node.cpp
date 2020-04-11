@@ -22,6 +22,7 @@
 namespace roborts_local_planner {
 
 using roborts_common::NodeState;
+
 LocalPlannerNode::LocalPlannerNode() :
     local_planner_nh_("~"),
     as_(local_planner_nh_, "local_planner_node_action", boost::bind(&LocalPlannerNode::ExcuteCB, this, _1), false),
@@ -54,8 +55,12 @@ roborts_common::ErrorInfo LocalPlannerNode::Init() {
   frequency_ = local_algorithms.frequency();
   tf_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
 
+  ros::NodeHandle ns_nh;
+  std::string config_dir;
+  ns_nh.getParam("config_dir", config_dir);
+  std::cout << "!!!! Get config_dir:" << config_dir << std::endl;
   std::string map_path = ros::package::getPath("roborts_costmap") + \
-      "/config/costmap_parameter_config_for_local_plan.prototxt";
+      "/config/" + config_dir + "/costmap_parameter_config_for_local_plan.prototxt";
   local_cost_ = std::make_shared<roborts_costmap::CostmapInterface>("local_costmap",
                                                                     *tf_,
                                                                     map_path.c_str());
@@ -252,7 +257,7 @@ void SignalHandler(int signal) {
   }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 
   signal(SIGINT, SignalHandler);
   signal(SIGTERM, SignalHandler);

@@ -9,8 +9,12 @@ roborts_decision::BlackboardRaw::BlackboardRaw(const std::string &proto_file_pat
     armor_detection_actionlib_client_("armor_detection_node_action", true) {
   tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
 
+  ros::NodeHandle ns_nh;
+  std::string config_dir;
+  ns_nh.getParam("config_dir", config_dir);
+  std::cout << "!!!! Get config_dir:" << config_dir << std::endl;
   std::string map_path = ros::package::getPath("roborts_costmap") + \
-      "/config/costmap_parameter_config_for_decision.prototxt";
+      "/config/" + config_dir + "/costmap_parameter_config_for_decision.prototxt";
   costmap_ptr_ = std::make_shared<CostMap>("decision_costmap", *tf_ptr_,
                                            map_path);
   charmap_ = costmap_ptr_->GetCostMap()->GetCharMap();

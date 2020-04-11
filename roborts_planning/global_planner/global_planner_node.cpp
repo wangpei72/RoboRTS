@@ -24,6 +24,7 @@ namespace roborts_global_planner {
 using roborts_common::ErrorCode;
 using roborts_common::ErrorInfo;
 using roborts_common::NodeState;
+
 GlobalPlannerNode::GlobalPlannerNode() :
     new_path_(false), pause_(false), node_state_(NodeState::IDLE), error_info_(ErrorCode::OK),
     as_(nh_, "global_planner_node_action", boost::bind(&GlobalPlannerNode::GoalCallback, this, _1), false) {
@@ -65,9 +66,13 @@ ErrorInfo GlobalPlannerNode::Init() {
   // Create tf listener
   tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
 
+  ros::NodeHandle ns_nh;
+  std::string config_dir;
+  ns_nh.getParam("config_dir", config_dir);
+  std::cout << "!!!! Get config_dir:" << config_dir << std::endl;
   // Create global costmap
   std::string map_path = ros::package::getPath("roborts_costmap") + \
-      "/config/costmap_parameter_config_for_global_plan.prototxt";
+      "/config/" + config_dir + "/costmap_parameter_config_for_global_plan.prototxt";
   costmap_ptr_ = std::make_shared<roborts_costmap::CostmapInterface>("global_costmap",
                                                                      *tf_ptr_,
                                                                      map_path.c_str());
@@ -333,7 +338,7 @@ GlobalPlannerNode::~GlobalPlannerNode() {
 
 } //namespace roborts_global_planner
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
 
   ros::init(argc, argv, "global_planner_node");
   roborts_global_planner::GlobalPlannerNode global_planner;
