@@ -61,7 +61,7 @@ roborts_common::ErrorInfo LocalPlannerNode::Init() {
                                                                     map_path.c_str());
   local_planner_ = roborts_common::AlgorithmFactory<LocalPlannerBase>::CreateAlgorithm(selected_algorithm_);
   if (local_planner_ == nullptr) {
-    ROS_ERROR("global planner algorithm instance can't be loaded");
+    ROS_ERROR("local planner algorithm instance can't be loaded");
     return roborts_common::ErrorInfo(roborts_common::ErrorCode::LP_INITILIZATION_ERROR,
                                      "local planner algorithm instance can't be loaded");
   }
