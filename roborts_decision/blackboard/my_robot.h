@@ -46,26 +46,31 @@ class MyRobot {
   bool IsSurvival() const;
   void SetIsSurvival(bool is_survival);
 
+  bool IsNoMove() const;
+  bool IsNoShoot() const;
+
   const std::vector<ArmorId> &GetArmorsUnderAttack() const;
 
   const roborts_msgs::ArmorsDetected &GetArmorsInEyes() const;
 
   const geometry_msgs::PoseStamped &GetChassisMapPose() const;
 
-  const geometry_msgs::PoseStamped &GetChassisOdomPose() const;
+  // const geometry_msgs::PoseStamped &GetChassisOdomPose() const;
 
-  const geometry_msgs::PoseStamped &GetGimbalMapPose() const;
+  // const geometry_msgs::PoseStamped &GetGimbalMapPose() const;
 
-  const geometry_msgs::PoseStamped &GetGimbalOdomPose() const;
+  // const geometry_msgs::PoseStamped &GetGimbalOdomPose() const;
 
   // const geometry_msgs::PoseStamped &GetCurrentGoal() const;
 
   MyRobotBehavior GetCurrentBehavior() const;
   void SetCurrentBehavior(MyRobotBehavior current_behavior);
 
-  const ChassisExecutor &GetChassisExecutor();
-
-  const GimbalExecutor &GetGimbalExecutor();
+  std::shared_ptr<ChassisExecutor> GetPChassisExecutor();
+  std::shared_ptr<GimbalExecutor> GetPGimbalExecutor();
+  // ChassisExecutor* GetChassisExecutor();
+  //
+  // GimbalExecutor* GetGimbalExecutor();
 
   bool operator==(const MyRobot &rhs) const;
   bool operator!=(const MyRobot &rhs) const;
@@ -76,10 +81,11 @@ class MyRobot {
   void RobotStatusCallback(const roborts_msgs::RobotStatus::ConstPtr &msg);
   void ArmorsInEyesCallback(const roborts_msgs::ArmorsDetected::ConstPtr &msg);
 
-  void UpdateChassisMapPose();
-  void UpdateChassisOdomPose();
-  void UpdateGimbalMapPose();
-  void UpdateGimbalOdomPose();
+  void ChassisMapPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg);
+  // void UpdateChassisMapPose();
+  // void UpdateChassisOdomPose();
+  // void UpdateGimbalMapPose();
+  // void UpdateGimbalOdomPose();
 
   ros::NodeHandle nh_;
 
@@ -87,9 +93,12 @@ class MyRobot {
   ros::Subscriber heat_sub_;
   ros::Subscriber armors_in_eyes_sub_;
   ros::Subscriber robot_status_sub_;
+  ros::Subscriber robot_map_pose_sub_;
 
   std::shared_ptr<tf::TransformListener> tf_ptr_;
   std::shared_ptr<std::thread> tf_thread_ptr_;
+
+  std::shared_ptr<std::thread> p_ros_spin_thread_;
 
   RobotId id_;
   RobotType robot_type_;
@@ -97,6 +106,9 @@ class MyRobot {
   int remaining_hp_;
   int max_hp_;
   int current_heat_;
+
+  bool no_move_;
+  bool no_shoot_;
 
   // TODO
   int remaining_projectiles_;
@@ -115,8 +127,8 @@ class MyRobot {
   // geometry_msgs::PoseStamped current_goal_;
   MyRobotBehavior current_behavior_;
 
-  ChassisExecutor chassis_executor_;
-  GimbalExecutor gimbal_executor_;
+  std::shared_ptr<ChassisExecutor> p_chassis_executor_;
+  std::shared_ptr<GimbalExecutor> p_gimbal_executor_;
 };
 
 }

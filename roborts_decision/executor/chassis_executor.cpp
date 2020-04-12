@@ -10,18 +10,18 @@ namespace roborts_decision {
 ChassisExecutor::ChassisExecutor(const ros::NodeHandle &nh)
     : nh_(nh),
       execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
-      global_planner_client_("global_planner_node_action", true),
-      local_planner_client_("local_planner_node_action", true),
-      pid_controller_client_("pid_planner_chassis_node_action", true) {
+      global_planner_client_(nh_.getNamespace() + "/global_planner_node_action", true),
+      local_planner_client_(nh_.getNamespace() + "/local_planner_node/local_planner_node_action", true),
+      pid_controller_client_(nh_.getNamespace() + "/pid_planner_chassis_node_action", true) {
 
-  cmd_vel_acc_pub_ = nh_.advertise<roborts_msgs::TwistAccel>("cmd_vel_acc", 100);
+  cmd_vel_acc_pub_ = nh_.advertise<roborts_msgs::TwistAccel>("local_planner_node/cmd_vel_acc", 100);
   cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
   global_planner_client_.waitForServer();
   ROS_INFO("Global planer server start!");
   local_planner_client_.waitForServer();
   ROS_INFO("Local planer server start!");
-  pid_controller_client_.waitForServer();
-  ROS_INFO("PID controller chassis server start!");
+  // pid_controller_client_.waitForServer();
+  // ROS_INFO("PID controller chassis server start!");
 
 //  if (!LoadParam(ros::package::getPath("roborts_decision") + "/config/chassis_executor.prototxt")) {
 //    ROS_ERROR("%s can't open file", __FUNCTION__);
@@ -55,6 +55,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
                                   GlobalActionClient::SimpleDoneCallback(),
                                   GlobalActionClient::SimpleActiveCallback(),
                                   boost::bind(&ChassisExecutor::GlobalPlannerFeedbackCallback, this, _1));
+  std::cout << "Has sent goal!" << std::endl;
 }
 
 void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal, GoalMode _goal_mode) {

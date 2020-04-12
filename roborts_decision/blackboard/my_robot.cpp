@@ -13,8 +13,8 @@ MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
     current_heat_(0),
     is_survival_(true),
     remaining_projectiles_(0),
-    chassis_executor_(nh_),
-    gimbal_executor_(nh_) {
+    no_move_(false),
+    no_shoot_(false) {
 
   robot_type_ = RobotType::UNKNOWN_TYPE;
 //  if (id_ == RED1 || id_ == BLUE1) {
@@ -22,6 +22,9 @@ MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
 //  } else {
 //    remaining_projectiles_ = 0;
 //  }
+
+  p_chassis_executor_ = std::make_shared<ChassisExecutor>(nh_);
+  // p_gimbal_executor_ = std::make_shared<GimbalExecutor>(nh_);
 
   // TODO
   current_behavior_ = MyRobotBehavior::GOAL;
@@ -39,25 +42,36 @@ MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
   std::string armors_in_eyes_topic("armors_in_eyes");
   nh_.param("armors_in_eyes_topic", armors_in_eyes_topic, armors_in_eyes_topic);
   armors_in_eyes_sub_ =
-      nh_.subscribe<roborts_msgs::ArmorsDetected>(heat_topic, 1, &MyRobot::ArmorsInEyesCallback, this);
+      nh_.subscribe<roborts_msgs::ArmorsDetected>(armors_in_eyes_topic, 1, &MyRobot::ArmorsInEyesCallback, this);
 
   std::string robot_status_topic("robot_status");
   nh_.param("robot_status_topic", robot_status_topic, robot_status_topic);
   robot_status_sub_ =
-      nh_.subscribe<roborts_msgs::RobotStatus>(heat_topic, 1, &MyRobot::RobotStatusCallback, this);
+      nh_.subscribe<roborts_msgs::RobotStatus>(robot_status_topic, 1, &MyRobot::RobotStatusCallback, this);
 
-  tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
-  tf_thread_ptr_ = std::make_shared<std::thread>([&]() {
-    ros::Rate loop_rate(50);
+  robot_map_pose_sub_ =
+      nh_.subscribe<geometry_msgs::PoseStamped>("amcl_pose", 1, &MyRobot::ChassisMapPoseCallback, this);
+
+  // tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
+  // tf_thread_ptr_ = std::make_shared<std::thread>([&]() {
+  //   ros::Rate loop_rate(30);
+  //   while (ros::ok()) {
+  //     UpdateChassisMapPose();
+  //     UpdateChassisOdomPose();
+  //     UpdateGimbalMapPose();
+  //     UpdateGimbalOdomPose();
+  //     loop_rate.sleep();
+  //   }
+  // });
+  // tf_thread_ptr_->detach();
+  p_ros_spin_thread_ = std::make_shared<std::thread>([&]() {
+    ros::Rate loop_rate(10);
     while (ros::ok()) {
-      UpdateChassisMapPose();
-      UpdateChassisOdomPose();
-      UpdateGimbalMapPose();
-      UpdateGimbalOdomPose();
+      ros::spinOnce();
       loop_rate.sleep();
     }
   });
-  tf_thread_ptr_->detach();
+  p_ros_spin_thread_->detach();
 }
 
 MyRobot::~MyRobot() = default;
@@ -74,6 +88,8 @@ void MyRobot::RobotStatusCallback(const roborts_msgs::RobotStatus::ConstPtr &msg
   robot_type_ = static_cast<RobotType>(msg->id);
   remaining_hp_ = msg->remain_hp;
   max_hp_ = msg->max_hp;
+  no_move_ = !msg->chassis_output;
+  no_shoot_ = !msg->shooter_output;
 }
 
 void MyRobot::ArmorsInEyesCallback(const roborts_msgs::ArmorsDetected::ConstPtr &msg) {
@@ -124,17 +140,17 @@ const geometry_msgs::PoseStamped &MyRobot::GetChassisMapPose() const {
   return chassis_map_pose_;
 }
 
-const geometry_msgs::PoseStamped &MyRobot::GetChassisOdomPose() const {
-  return chassis_odom_pose_;
-}
-
-const geometry_msgs::PoseStamped &MyRobot::GetGimbalMapPose() const {
-  return gimbal_map_pose_;
-}
-
-const geometry_msgs::PoseStamped &MyRobot::GetGimbalOdomPose() const {
-  return gimbal_odom_pose_;
-}
+// const geometry_msgs::PoseStamped &MyRobot::GetChassisOdomPose() const {
+//   return chassis_odom_pose_;
+// }
+//
+// const geometry_msgs::PoseStamped &MyRobot::GetGimbalMapPose() const {
+//   return gimbal_map_pose_;
+// }
+//
+// const geometry_msgs::PoseStamped &MyRobot::GetGimbalOdomPose() const {
+//   return gimbal_odom_pose_;
+// }
 
 // const geometry_msgs::PoseStamped &MyRobot::GetCurrentGoal() const {
 //   return current_goal_;
@@ -156,77 +172,97 @@ bool MyRobot::operator!=(const MyRobot &rhs) const {
   return !(rhs == *this);
 }
 
-const ChassisExecutor &MyRobot::GetChassisExecutor() {
-  return chassis_executor_;
+// ChassisExecutor* MyRobot::GetChassisExecutor() {
+//   return &chassis_executor_;
+// }
+//
+// GimbalExecutor* MyRobot::GetGimbalExecutor() {
+//   return &gimbal_executor_;
+// }
+
+// void MyRobot::UpdateChassisMapPose() {
+//   tf::Stamped<tf::Pose> chassis_tf_pose;
+//   chassis_tf_pose.setIdentity();
+//
+//   chassis_tf_pose.frame_id_ = "base_link";
+//   chassis_tf_pose.stamp_ = ros::Time();
+//   try {
+//     geometry_msgs::PoseStamped chassis_pose;
+//     tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
+//     tf_ptr_->transformPose("map", chassis_pose, chassis_map_pose_);
+//   }
+//   catch (tf::LookupException &ex) {
+//     ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+//   }
+// }
+
+void MyRobot::ChassisMapPoseCallback(const geometry_msgs::PoseStamped::ConstPtr &msg) {
+  chassis_map_pose_ = *msg;
 }
 
-const GimbalExecutor &MyRobot::GetGimbalExecutor() {
-  return gimbal_executor_;
+bool MyRobot::IsNoMove() const {
+  return no_move_;
 }
 
-void MyRobot::UpdateChassisMapPose() {
-  tf::Stamped<tf::Pose> chassis_tf_pose;
-  chassis_tf_pose.setIdentity();
-
-  chassis_tf_pose.frame_id_ = "base_link";
-  chassis_tf_pose.stamp_ = ros::Time();
-  try {
-    geometry_msgs::PoseStamped chassis_pose;
-    tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
-    tf_ptr_->transformPose("map", chassis_pose, chassis_map_pose_);
-  }
-  catch (tf::LookupException &ex) {
-    ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
-  }
+bool MyRobot::IsNoShoot() const {
+  return no_shoot_;
 }
 
-void MyRobot::UpdateChassisOdomPose() {
-  tf::Stamped<tf::Pose> chassis_tf_pose;
-  chassis_tf_pose.setIdentity();
-
-  chassis_tf_pose.frame_id_ = "base_link";
-  chassis_tf_pose.stamp_ = ros::Time();
-  try {
-    geometry_msgs::PoseStamped chassis_pose;
-    tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
-    tf_ptr_->transformPose("odom", chassis_pose, chassis_odom_pose_);
-  }
-  catch (tf::LookupException &ex) {
-    ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
-  }
+std::shared_ptr<ChassisExecutor> MyRobot::GetPChassisExecutor() {
+  return p_chassis_executor_;
 }
 
-void MyRobot::UpdateGimbalMapPose() {
-  tf::Stamped<tf::Pose> gimbal_tf_pose;
-  gimbal_tf_pose.setIdentity();
-
-  gimbal_tf_pose.frame_id_ = "gimbal";
-  gimbal_tf_pose.stamp_ = ros::Time();
-  try {
-    geometry_msgs::PoseStamped gimbal_pose;
-    tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
-    tf_ptr_->transformPose("map", gimbal_pose, gimbal_map_pose_);
-  }
-  catch (tf::LookupException &ex) {
-    ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
-  }
+std::shared_ptr<GimbalExecutor> MyRobot::GetPGimbalExecutor() {
+  return p_gimbal_executor_;
 }
 
-void MyRobot::UpdateGimbalOdomPose() {
-  tf::Stamped<tf::Pose> gimbal_tf_pose;
-  gimbal_tf_pose.setIdentity();
+// void MyRobot::UpdateChassisOdomPose() {
+//   tf::Stamped<tf::Pose> chassis_tf_pose;
+//   chassis_tf_pose.setIdentity();
+//
+//   chassis_tf_pose.frame_id_ = "base_link";
+//   chassis_tf_pose.stamp_ = ros::Time();
+//   try {
+//     geometry_msgs::PoseStamped chassis_pose;
+//     tf::poseStampedTFToMsg(chassis_tf_pose, chassis_pose);
+//     tf_ptr_->transformPose("odom", chassis_pose, chassis_odom_pose_);
+//   }
+//   catch (tf::LookupException &ex) {
+//     ROS_ERROR("Transform Error looking up chassis pose: %s", ex.what());
+//   }
+// }
 
-  gimbal_tf_pose.frame_id_ = "gimbal";
-  gimbal_tf_pose.stamp_ = ros::Time();
-  try {
-    geometry_msgs::PoseStamped gimbal_pose;
-    tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
-    tf_ptr_->transformPose("odom", gimbal_pose, gimbal_odom_pose_);
-  }
-  catch (tf::LookupException &ex) {
-    ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
-  }
-}
+// void MyRobot::UpdateGimbalMapPose() {
+//   tf::Stamped<tf::Pose> gimbal_tf_pose;
+//   gimbal_tf_pose.setIdentity();
+//
+//   gimbal_tf_pose.frame_id_ = "gimbal";
+//   gimbal_tf_pose.stamp_ = ros::Time();
+//   try {
+//     geometry_msgs::PoseStamped gimbal_pose;
+//     tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
+//     tf_ptr_->transformPose("map", gimbal_pose, gimbal_map_pose_);
+//   }
+//   catch (tf::LookupException &ex) {
+//     ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+//   }
+// }
+
+// void MyRobot::UpdateGimbalOdomPose() {
+//   tf::Stamped<tf::Pose> gimbal_tf_pose;
+//   gimbal_tf_pose.setIdentity();
+//
+//   gimbal_tf_pose.frame_id_ = "gimbal";
+//   gimbal_tf_pose.stamp_ = ros::Time();
+//   try {
+//     geometry_msgs::PoseStamped gimbal_pose;
+//     tf::poseStampedTFToMsg(gimbal_tf_pose, gimbal_pose);
+//     tf_ptr_->transformPose("odom", gimbal_pose, gimbal_odom_pose_);
+//   }
+//   catch (tf::LookupException &ex) {
+//     ROS_ERROR("Transform Error looking up gimbal pose: %s", ex.what());
+//   }
+// }
 
 
 

@@ -27,6 +27,8 @@ class RobotBehaviors {
 
  private:
   std::shared_ptr<MyRobot> p_my_robot_;
+  std::shared_ptr<Blackboard> p_blackboard_;
+
   std::shared_ptr<GoalBehavior> p_goal_behavior_;
   std::shared_ptr<EscapeBehavior> p_escape_behavior_;
   std::shared_ptr<SupplyBehavior> p_supply_behavior_;
