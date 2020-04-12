@@ -61,7 +61,6 @@ void ObstacleLayer::OnInitialize() {
   ros::NodeHandle ns_nh;
   std::string config_dir;
   ns_nh.getParam("config_dir", config_dir);
-  std::cout << "!!!! Get config_dir:" << config_dir << std::endl;
   std::string obstacle_map = ros::package::getPath("roborts_costmap") + \
       "/config/" + config_dir + "/obstacle_layer_config.prototxt";
   roborts_common::ReadProtoFromTextFile(obstacle_map.c_str(), &para_obstacle);

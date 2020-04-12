@@ -69,7 +69,6 @@ ErrorInfo GlobalPlannerNode::Init() {
   ros::NodeHandle ns_nh;
   std::string config_dir;
   ns_nh.getParam("config_dir", config_dir);
-  std::cout << "!!!! Get config_dir:" << config_dir << std::endl;
   // Create global costmap
   std::string map_path = ros::package::getPath("roborts_costmap") + \
       "/config/" + config_dir + "/costmap_parameter_config_for_global_plan.prototxt";

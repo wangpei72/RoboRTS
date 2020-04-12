@@ -12,4 +12,6 @@ message ParaStaticLayer {
     required string topic_name = 8;
     required bool is_raw_rosmessage = 9;
     required bool is_debug = 10;
+    required string robot_color = 11;
+    required double buff_zone_smaller = 12;
 }
