@@ -17,7 +17,7 @@ class GoalBehavior {
       chassis_executor_(chassis_executor),
       blackboard_(blackboard) { }
 
-  void Run() {
+  void Run(const geometry_msgs::PoseStamped& goal) {
     if(blackboard_->IsNewGoal()){
       chassis_executor_->Execute(blackboard_->GetGoal());
     }

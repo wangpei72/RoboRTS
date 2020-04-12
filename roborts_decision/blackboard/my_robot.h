@@ -63,9 +63,9 @@ class MyRobot {
   MyRobotBehavior GetCurrentBehavior() const;
   void SetCurrentBehavior(MyRobotBehavior current_behavior);
 
-  const ChassisExecutor &GetChassisExecutor() const;
+  const ChassisExecutor &GetChassisExecutor();
 
-  const GimbalExecutor &GetGimbalExecutor() const;
+  const GimbalExecutor &GetGimbalExecutor();
 
   bool operator==(const MyRobot &rhs) const;
   bool operator!=(const MyRobot &rhs) const;

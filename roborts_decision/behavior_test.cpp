@@ -15,7 +15,7 @@ void Command();
 char command = '0';
 bool flag_restart_attack_behavior = false;
 
-int main(int argc, char **argv) {
+int _main(int argc, char **argv) {
   ros::init(argc, argv, "behavior_test_node");
   std::string full_path = ros::package::getPath("roborts_decision") + "/config/decision.prototxt";
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   auto blackboard = new roborts_decision::BlackboardRaw(full_path);
 
   roborts_decision::BackBootAreaBehavior back_boot_area_behavior(chassis_executor, blackboard, full_path);
-  roborts_decision::ChaseBehavior chase_behavior(chassis_executor, blackboard, full_path);
+  roborts_decision::PursueAttackBehavior chase_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::SearchBehavior search_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::EscapeBehavior escape_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::PatrolBehavior patrol_behavior(chassis_executor, blackboard, full_path);

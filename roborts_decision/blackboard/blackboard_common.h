@@ -12,13 +12,10 @@ namespace roborts_decision {
 
 // TODO Add to roborts_common
 enum MyRobotBehavior {
-  ATTACK,
-  BACK_BOOT_AREA,
   CHASE,
   ESCAPE,
   GOAL,
-  PATROL,
-  SEARCH
+  SUPPLY
 };
 
 enum ArmorId {

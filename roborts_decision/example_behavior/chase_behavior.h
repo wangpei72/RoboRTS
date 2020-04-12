@@ -11,11 +11,11 @@
 #include "line_iterator.h"
 
 namespace roborts_decision {
-class ChaseBehavior {
+class PursueAttackBehavior {
  public:
-  ChaseBehavior(ChassisExecutor* &chassis_executor,
-                BlackboardRaw*&blackboard,
-                const std::string & proto_file_path) : chassis_executor_(chassis_executor),
+  PursueAttackBehavior(ChassisExecutor* &chassis_executor,
+                       BlackboardRaw*&blackboard,
+                       const std::string & proto_file_path) : chassis_executor_(chassis_executor),
                                                        blackboard_(blackboard) {
 
 
@@ -147,7 +147,7 @@ class ChaseBehavior {
     chase_goal_ = chase_goal;
   }
 
-  ~ChaseBehavior() = default;
+  ~PursueAttackBehavior() = default;
 
  private:
   //! executor

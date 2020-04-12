@@ -24,7 +24,7 @@ MyRobot::MyRobot(RobotId id, const ros::NodeHandle &nh) :
 //  }
 
   // TODO
-  current_behavior_ = MyRobotBehavior::SEARCH;
+  current_behavior_ = MyRobotBehavior::GOAL;
 
   std::string armors_under_attack_topic("armors_under_attack");
   nh_.param("armors_under_attack_topic", armors_under_attack_topic, armors_under_attack_topic);
@@ -156,11 +156,11 @@ bool MyRobot::operator!=(const MyRobot &rhs) const {
   return !(rhs == *this);
 }
 
-const ChassisExecutor &MyRobot::GetChassisExecutor() const {
+const ChassisExecutor &MyRobot::GetChassisExecutor() {
   return chassis_executor_;
 }
 
-const GimbalExecutor &MyRobot::GetGimbalExecutor() const {
+const GimbalExecutor &MyRobot::GetGimbalExecutor() {
   return gimbal_executor_;
 }
 

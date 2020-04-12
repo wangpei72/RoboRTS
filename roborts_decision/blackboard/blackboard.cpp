@@ -36,13 +36,23 @@ Blackboard::Blackboard(const ros::NodeHandle &nh)
   vec_buff_zone_status_.resize(7);
 }
 
+Blackboard::Blackboard(std::shared_ptr<MyRobot> &p_myrobot1,
+                       std::shared_ptr<MyRobot> &p_myrobot2,
+                       const ros::NodeHandle &nh) :
+    enemy_robot_1_(RobotId::ENEMY_ROBOT_1),
+    enemy_robot_2_(RobotId::ENEMY_ROBOT_2),
+    my_robot_1_(RobotId::MY_ROBOT_1, ros::NodeHandle("/my_robot_1")),
+    my_robot_2_(RobotId::MY_ROBOT_2, ros::NodeHandle("/my_robot_2")) {
+
+}
+
 Blackboard::~Blackboard() = default;
 
-const MyRobot &Blackboard::GetMyRobot1() const {
+const MyRobot &Blackboard::GetMyRobot1() {
   return my_robot_1_;
 }
 
-const MyRobot &Blackboard::GetMyRobot2() const {
+const MyRobot &Blackboard::GetMyRobot2() {
   return my_robot_2_;
 }
 
@@ -129,6 +139,7 @@ void Blackboard::GameSurvivorCallback(const roborts_msgs::GameSurvivor::ConstPtr
     enemy_robot_2_.SetIsSurvival(msg->red4);
   }
 }
+
 
 
 

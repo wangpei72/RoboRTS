@@ -20,10 +20,13 @@ namespace roborts_decision {
 class Blackboard {
  public:
   explicit Blackboard(const ros::NodeHandle &nh = ros::NodeHandle("~"));
+  explicit Blackboard(std::shared_ptr<MyRobot> &p_myrobot1,
+                      std::shared_ptr<MyRobot> &p_myrobot2,
+                      const ros::NodeHandle &nh = ros::NodeHandle("~"));
   virtual ~Blackboard();
 
-  const MyRobot &GetMyRobot1() const;
-  const MyRobot &GetMyRobot2() const;
+  const MyRobot &GetMyRobot1();
+  const MyRobot &GetMyRobot2();
 
   const EnemyRobot &GetEnemyRobot1() const;
   const EnemyRobot &GetEnemyRobot2() const;
@@ -54,6 +57,9 @@ class Blackboard {
   MyRobot my_robot_2_;
   EnemyRobot enemy_robot_1_;
   EnemyRobot enemy_robot_2_;
+
+  std::shared_ptr<MyRobot> p_my_robot1_;
+  std::shared_ptr<MyRobot> p_my_robot2_;
 };
 }
 
