@@ -227,18 +227,28 @@ class CVToolbox {
         return img_threshold_red;
       }
     } else {
-//      std::vector<cv::Mat> bgr;
-//      cv::split(src_img, bgr);
-//      if (color == 1) {
-//        cv::Mat result_img;
-//        cv::subtract(bgr[2], bgr[1], result_img);
-//        return result_img;
-//      } else if (color == 0) {
-//        cv::Mat result_img;
-//        cv::subtract(bgr[0], bgr[2], result_img);
-//        return result_img;
-//      }
-      std::vector<cv::Mat> channels;//通道拆分
+      cv::Mat img_rgb;
+      cv::Mat img_rgb;
+      src_img.copyTo(img_rgb);
+      if(color==0){
+          cv::Mat img_rgb_blue,img_threshold_blue;
+          //TODO
+          return img_threshold_blue;
+      }else{
+          cv::Mat img_rgb_red1,img_rgb_red2,img_threshold_red1,img_threshold_red2,img_threshold_red;
+          img_rgb_red1 = img_rgb.clone();
+          img_rgb_red2 = img_rgb.clone();
+          cv::Mat red1_low(cv::Scalar(0,0,101));
+          cv::Mat red1_higher(cv::Scalar(5,5,255));
+
+          cv::Mat red2_low(cv::Scalar(175,175,175));
+          cv::Mat red2_higher(cv::Scalar(195,195,195));
+          cv::inRange(img_rgb_red1,red1_low,red1_higher,img_threshold_red1);
+          cv::inRange(img_rgb_red2,red2_low,red2_higher,img_threshold_red2);
+          img_threshold_red = img_threshold_red1;//TODO
+          return img_threshold_red;
+      }
+    /*  std::vector<cv::Mat> channels;//通道拆分
       split(src_img, channels);
       cv::Mat color_channel;
       int thresh;
@@ -247,7 +257,7 @@ class CVToolbox {
       } else {
         color_channel = channels[0];
       }
-      return color_channel;
+      return color_channel;*/
     }
   }
   /**

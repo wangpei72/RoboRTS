@@ -459,7 +459,6 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
       cv::imshow("redchannel", rgb_channel);
   }
   if (enable_debug_) {
-
       cv::imshow("binary_color_img", binary_color_img);
   } else {
     ROS_INFO("debug can not");
@@ -570,6 +569,11 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
                 }
             }
 //所有有尾灯的图里会判断是尾端或侧边类型的装甲板，视野没有尾灯的装甲板默认为前端装甲板
+        } else{
+            for(auto armor1:armor_boxs){
+                armor1.orientation = ArmorBox::BoxOrientation::SIDE;
+                ROS_INFO("orientation(side): %d", armor1.orientation);
+            }
         }
     }
 

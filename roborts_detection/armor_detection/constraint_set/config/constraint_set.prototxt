@@ -15,13 +15,13 @@ threshold {
   #blue_thread: 90
   #red_thread: 50
   blue_thread: 180
-  red_thread: 145
-  r_thread_min:  180
-  g_thread_min:  20
-  b_thread_min:  20
-  r_thread_max:  180
-  g_thread_max:  40
-  b_thread_max:  40
+  red_thread: 100
+ # r_thread_min:  180
+ # g_thread_min:  20
+ # b_thread_min:  20
+  #r_thread_max:  180
+  #g_thread_max:  40
+  #b_thread_max:  40
 }
 
 signal_recognization {
