@@ -537,26 +537,38 @@ void ConstraintSet::PossibleArmors(cv::Mat &src, LightBlobs &lightBlobs, ArmorBo
 
     void ConstraintSet::setBoxOrientation(roborts_detection::TailBlobs &tail_blobs,
                                           roborts_detection::ArmorBoxs &armor_boxs, bool &found) {
-        TailBlob mainBlob = tail_blobs[0];
-        for (auto tailblob1: tail_blobs) {
+        ROS_INFO("into set orientation");
+        /*for (auto tailblob1: tail_blobs) {
             if (tailblob1.rect_.size.area() > mainBlob.rect_.size.area())mainBlob = tailblob1;
-        }
-        if (found && mainBlob.rect_.size.area() <= 40) {
-            for (auto armor1:armor_boxs) {
-                armor1.orientation = ArmorBox::FRONT;
+            }*/
+        if (found) {
+            TailBlob mainBlob = tail_blobs[0];
+            for (auto tailblob1:tail_blobs) {
+                if (tailblob1.rect_.size.area() > mainBlob.rect_.size.area())mainBlob = tailblob1;
             }
-        } else if (!found) {
-            for (auto armor1:armor_boxs)armor1.orientation = ArmorBox::SIDE;
-        } else if (found && mainBlob.rect_.size.area() > 40) {
-            for (auto armor1 : armor_boxs) {
-                float xl = mainBlob.rect_.center.x;
-                float x = armor1.center.x;
-                if (x < xl && std::abs(x - xl) > 20)armor1.orientation = ArmorBox::SIDE;
-                if (std::abs(x - xl) <= 10)armor1.orientation = ArmorBox::BACK;
-                else if (x - xl > 20)armor1.orientation = ArmorBox::SIDE;
+            if (mainBlob.rect_.size.area() <= 40) {
+                for (auto armor1:armor_boxs) {
+                    armor1.orientation = ArmorBox::BoxOrientation::FRONT;
+                    ROS_INFO("orietation(front): %d", armor1.orientation);
+                }
             }
-        }
+            if (mainBlob.rect_.size.area() > 40) {
+                for (auto armor1 : armor_boxs) {
+                    float xl = mainBlob.rect_.center.x;
+                    float x = armor1.center.x;
+                    if (x < xl && std::abs(x - xl) > 20)armor1.orientation = ArmorBox::BoxOrientation::SIDE;
+                    if (std::abs(x - xl) <= 10)armor1.orientation = ArmorBox::BoxOrientation::BACK;
+                    else if (x - xl > 20)armor1.orientation = ArmorBox::BoxOrientation::SIDE;
+                    ROS_INFO("orientation(sideback): %d", armor1.orientation);
+                }
+            } else {
+                for (auto armor1:armor_boxs) {
+                    armor1.orientation = ArmorBox::BoxOrientation::SIDE;
+                    ROS_INFO("orientation(side): %d", armor1.orientation);
+                }
+            }
 //所有有尾灯的图里会判断是尾端或侧边类型的装甲板，视野没有尾灯的装甲板默认为前端装甲板
+        }
     }
 
     void ConstraintSet::FilterArmors(std::vector<ArmorInfo> &armors) {

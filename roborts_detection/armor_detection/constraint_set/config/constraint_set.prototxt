@@ -15,7 +15,7 @@ threshold {
   #blue_thread: 90
   #red_thread: 50
   blue_thread: 180
-  red_thread: 250
+  red_thread: 145
 
 }
 
