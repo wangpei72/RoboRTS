@@ -296,6 +296,12 @@ class ConstraintSet : public ArmorDetectionBase {
   float color_thread_;
   float blue_thread_;
   float red_thread_;
+    float r_thread_min_;
+    float g_thread_min_;
+    float b_thread_min_;
+    float r_thread_max_;
+    float g_thread_max_;
+    float b_thread_max_;
 
   bool thread_running_;
 

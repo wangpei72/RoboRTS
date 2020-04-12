@@ -77,11 +77,11 @@ void ConstraintSet::LoadParam() {
   color_thread_ = constraint_set_config_.threshold().color_thread();
   blue_thread_ = constraint_set_config_.threshold().blue_thread();
   red_thread_ = constraint_set_config_.threshold().red_thread();
+//  r_thread_max_ = constraint_set_config_.threshold().
 
   int get_intrinsic_state = -1;
   int get_distortion_state = -1;
 
-  //test
 //  while ((get_intrinsic_state < 0) || (get_distortion_state < 0)) {
 //    ROS_WARN("Wait for camera driver launch %d", get_intrinsic_state);
 //    usleep(50000);
@@ -456,9 +456,11 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
     else
       thresh = red_thread_;
     cv::threshold(rgb_channel, binary_color_img, thresh, 255, CV_THRESH_BINARY);
+      cv::imshow("redchannel", rgb_channel);
   }
   if (enable_debug_) {
-    cv::imshow("binary_color_img", binary_color_img);
+
+      cv::imshow("binary_color_img", binary_color_img);
   } else {
     ROS_INFO("debug can not");
   }
