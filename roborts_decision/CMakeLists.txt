@@ -70,7 +70,7 @@ add_executable(behavior_test_node
     ${DecisionProtoSrc}
     example_behavior/escape_behavior.h
     example_behavior/back_boot_area_behavior.h
-    example_behavior/chase_behavior.h
+    example_behavior/pursue_attack_behavior.h
     example_behavior/patrol_behavior.h
     example_behavior/search_behavior.h
     example_behavior/attack_behavior.h

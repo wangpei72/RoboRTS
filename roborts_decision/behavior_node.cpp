@@ -5,7 +5,7 @@
 #include <ros/ros.h>
 
 #include "example_behavior/escape_behavior.h"
-#include "example_behavior/chase_behavior.h"
+#include "example_behavior/pursue_attack_behavior.h"
 #include "example_behavior/goal_behavior.h"
 #include "example_behavior/supply_behavior.h"
 
@@ -50,8 +50,10 @@ int main(int argc, char** argv) {
    *   RobotId hp_low_robot = MY_ROBOT_2;
    *   map_behaviors.at(hp_low_robot)->GetEscapeBehavior()->Run();
    */
+  ros::Rate loop_rate(10);
   while (ros::ok()) {
-    ros::spin();
+    std::cout << "behavior status: " << p_robot1_behaviors->GetStatusCode() << std::endl;
+    loop_rate.sleep();
   }
 }
 

@@ -31,3 +31,7 @@ const std::shared_ptr<SupplyBehavior> &roborts_decision::RobotBehaviors::GetSupp
 const std::shared_ptr<PursueAttackBehavior> &roborts_decision::RobotBehaviors::GetPursueAttackBehavior() {
   return p_pursue_attack_behavior_;
 }
+
+uint32_t RobotBehaviors::GetStatusCode() {
+  return p_my_robot_->GetStatusCode();
+}

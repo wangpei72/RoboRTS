@@ -75,6 +75,8 @@ class ChassisExecutor {
    */
   void Cancel();
 
+  uint32_t GetErrorCode() const;
+
  private:
 
   ros::NodeHandle nh_;
@@ -83,6 +85,8 @@ class ChassisExecutor {
    * @param global_planner_feedback  Global planner actionlib feedback, which mainly consists of global planner path output
    */
   void GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPlannerFeedbackConstPtr &global_planner_feedback);
+  void GlobalPlannerDoneCallback(const actionlib::SimpleClientGoalState &state,
+                                 const roborts_msgs::GlobalPlannerResultConstPtr &global_planner_result);
   void PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback);
   //! execution mode of the executor
   ExcutionMode execution_mode_;
@@ -112,6 +116,7 @@ class ChassisExecutor {
   //! zero twist with acceleration in form of ROS roborts_msgs::TwistAccel
   roborts_msgs::TwistAccel zero_twist_accel_;
 
+  uint32_t error_code_;
 //  bool LoadParam(const std::string &proto_file_path);
 //  double chassis_v2p_pid_kp;
 //  double chassis_v2p_pid_ki;

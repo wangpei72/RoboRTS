@@ -236,6 +236,7 @@ void StaticLayer::UpdateBuffZoneStatus(const roborts_msgs::BuffZoneStatus &new_b
       fill_buffer_zone(map_buff_zones_.at(i), LETHAL_OBSTACLE);
     }
   }
+  std::cout << "Update buff zone status successfully!" << std::endl;
 }
 
 unsigned char StaticLayer::InterpretValue(unsigned char value) {

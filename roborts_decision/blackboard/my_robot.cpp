@@ -216,6 +216,10 @@ std::shared_ptr<GimbalExecutor> MyRobot::GetPGimbalExecutor() {
   return p_gimbal_executor_;
 }
 
+uint32_t MyRobot::GetStatusCode() {
+  return p_chassis_executor_->GetErrorCode();
+}
+
 // void MyRobot::UpdateChassisOdomPose() {
 //   tf::Stamped<tf::Pose> chassis_tf_pose;
 //   chassis_tf_pose.setIdentity();

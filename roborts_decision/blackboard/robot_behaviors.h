@@ -10,7 +10,7 @@
 #include "../example_behavior/goal_behavior.h"
 #include "../example_behavior/escape_behavior.h"
 #include "../example_behavior/supply_behavior.h"
-#include "../example_behavior/chase_behavior.h"
+#include "../example_behavior/pursue_attack_behavior.h"
 #include <thread>
 
 namespace roborts_decision {
@@ -24,6 +24,9 @@ class RobotBehaviors {
   const std::shared_ptr<EscapeBehavior> &GetEscapeBehavior();
   const std::shared_ptr<SupplyBehavior> &GetSupplyBehavior();
   const std::shared_ptr<PursueAttackBehavior> &GetPursueAttackBehavior();
+
+  // RUNNING = 0, SUCCESS = 1, FAILURE = 2
+  uint32_t GetStatusCode();
 
  private:
   std::shared_ptr<MyRobot> p_my_robot_;

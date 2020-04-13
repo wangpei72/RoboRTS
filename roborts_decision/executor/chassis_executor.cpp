@@ -12,7 +12,8 @@ ChassisExecutor::ChassisExecutor(const ros::NodeHandle &nh)
       execution_mode_(ExcutionMode::IDLE_MODE), execution_state_(BehaviorState::IDLE),
       global_planner_client_(nh_.getNamespace() + "/global_planner_node_action", true),
       local_planner_client_(nh_.getNamespace() + "/local_planner_node/local_planner_node_action", true),
-      pid_controller_client_(nh_.getNamespace() + "/pid_planner_chassis_node_action", true) {
+      pid_controller_client_(nh_.getNamespace() + "/pid_planner_chassis_node_action", true),
+      error_code_(1) {
 
   cmd_vel_acc_pub_ = nh_.advertise<roborts_msgs::TwistAccel>("local_planner_node/cmd_vel_acc", 100);
   cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
@@ -52,9 +53,10 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
   execution_mode_ = ExcutionMode::GOAL_USE_PLANNER_MODE;
   global_planner_goal_.goal = goal;
   global_planner_client_.sendGoal(global_planner_goal_,
-                                  GlobalActionClient::SimpleDoneCallback(),
+                                  boost::bind(&ChassisExecutor::GlobalPlannerDoneCallback, this, _1, _2),
                                   GlobalActionClient::SimpleActiveCallback(),
                                   boost::bind(&ChassisExecutor::GlobalPlannerFeedbackCallback, this, _1));
+  error_code_ = 0;  // RUNNING
   std::cout << "Has sent goal!" << std::endl;
 }
 
@@ -106,6 +108,7 @@ void ChassisExecutor::Execute(const geometry_msgs::Twist &twist) {
   }
   execution_mode_ = ExcutionMode::SPEED_MODE;
   cmd_vel_pub_.publish(twist);
+  error_code_ = 0;  // RUNNING
 }
 
 void ChassisExecutor::Execute(const roborts_msgs::TwistAccel &twist_accel) {
@@ -118,6 +121,7 @@ void ChassisExecutor::Execute(const roborts_msgs::TwistAccel &twist_accel) {
   execution_mode_ = ExcutionMode::SPEED_WITH_ACCEL_MODE;
 
   cmd_vel_acc_pub_.publish(twist_accel);
+  error_code_ = 0;  // RUNNING
 }
 
 BehaviorState ChassisExecutor::Update() {
@@ -216,10 +220,28 @@ void ChassisExecutor::GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPl
     local_planner_goal_.route = global_planner_feedback->path;
     local_planner_client_.sendGoal(local_planner_goal_);
   }
+  error_code_ = global_planner_feedback->error_code;
+  if (error_code_ == 2) {
+    std::cout << "Global planner find path failed!" << std::endl;
+    this->Cancel();
+  }
 }
 
 void ChassisExecutor::PIDControllerFeedbackCallback(const roborts_msgs::PIDControllerTowardAngularFeedbackConstPtr &pid_controller_toward_angular_feedback) {
 //  printf("The differ angle is %lf \n", pid_controller_toward_angular_feedback->differ_angle);
+}
+
+uint32_t ChassisExecutor::GetErrorCode() const {
+  return error_code_;
+}
+
+void ChassisExecutor::GlobalPlannerDoneCallback(
+    const actionlib::SimpleClientGoalState &state,
+    const roborts_msgs::GlobalPlannerResultConstPtr &global_planner_result) {
+  error_code_ = global_planner_result->error_code;
+  if (error_code_ == 2) {
+    this->Cancel();
+  }
 }
 
 }
