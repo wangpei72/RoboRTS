@@ -441,8 +441,8 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   return error_info_;
 }
 
-    void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs, TailBlobs &tail_blobs) {
-        std::cout << "******************DetectLights********************************************" << std::endl;
+void ConstraintSet::DetectLights(cv::Mat &src, LightBlobs &light_blobs, TailBlobs &tail_blobs) {
+  std::cout << "******************DetectLights********************************************" << std::endl;
   cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
   cv::dilate(src, src, element, cv::Point(-1, -1), 1);
   cv::Mat binary_light_img, binary_color_img;
@@ -456,7 +456,7 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
     else
       thresh = red_thread_;
     cv::threshold(rgb_channel, binary_color_img, thresh, 255, CV_THRESH_BINARY);
-      cv::imshow("redchannel", rgb_channel);
+//      cv::imshow("redchannel", rgb_channel);
   }
   if (enable_debug_) {
       cv::imshow("binary_color_img", binary_color_img);
@@ -466,9 +466,9 @@ ErrorInfo ConstraintSet::DetectArmor(bool &detected, cv::Point3f &target_3d) {
   cv::dilate(binary_color_img, binary_color_img, element, cv::Point(-1, -1), 1);
   std::vector<std::vector<cv::Point>> light_contours;
   std::vector<cv::Vec4i> hierarchy;
-        cv::findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
+  cv::findContours(binary_color_img, light_contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_NONE);
   std::vector<cv::RotatedRect> rotatedRects;
-        std::vector<cv::RotatedRect> tailRects;
+  std::vector<cv::RotatedRect> tailRects;
   for (int i = 0; i < light_contours.size(); i++) {
     //此时没有父轮廓，是最大的轮廓
     if (hierarchy[i][2] == -1) {

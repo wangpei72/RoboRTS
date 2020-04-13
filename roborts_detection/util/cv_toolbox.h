@@ -228,11 +228,19 @@ class CVToolbox {
       }
     } else {
       cv::Mat img_rgb;
-      cv::Mat img_rgb;
       src_img.copyTo(img_rgb);
       if(color==0){
-          cv::Mat img_rgb_blue,img_threshold_blue;
-          //TODO
+          cv::Mat img_rgb_blue1,img_rgb_blue2,img_threshold_blue1,img_threshold_blue2,img_threshold_blue;
+          img_rgb_blue1 = img_rgb.clone();
+          img_rgb_blue2 = img_rgb.clone();
+          cv::Mat blue1_low(cv::Scalar(100,0,0));
+          cv::Mat blue1_higher(cv::Scalar(255,6,6));
+
+          cv::Mat blue2_low(cv::Scalar(180,180,180));
+          cv::Mat blue2_higher(cv::Scalar(185,185,185));
+          cv::inRange(img_rgb_blue1,blue1_low,blue1_higher,img_threshold_blue1);
+          cv::inRange(img_rgb_blue2,blue2_low,blue2_higher,img_threshold_blue2);
+          img_threshold_blue = img_threshold_blue1;
           return img_threshold_blue;
       }else{
           cv::Mat img_rgb_red1,img_rgb_red2,img_threshold_red1,img_threshold_red2,img_threshold_red;

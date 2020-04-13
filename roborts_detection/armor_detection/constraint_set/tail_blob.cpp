@@ -21,6 +21,6 @@ double roborts_detection::TailBlob::area_ratio(const std::vector<cv::Point> &con
 
 bool roborts_detection::TailBlob::isValidTailBlob(const std::vector<cv::Point> &contour, const cv::RotatedRect &rect) {
     return (0 < lw_rate(rect) && lw_rate(rect) < 0.25) &&
-           ((rect.size.area() < 110 && area_ratio(contour, rect) > 0.4) ||
-            (rect.size.area() >= 110 && area_ratio(contour, rect) > 0.6));
+           ((rect.size.area() < 90 && area_ratio(contour, rect) > 0.4) ||
+            (rect.size.area() >= 90 && area_ratio(contour, rect) > 0.6));
 }

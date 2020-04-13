@@ -28,10 +28,12 @@ bool roborts_detection::ArmorBox::lengthJudge(const LightBlob &lightBlob_i, cons
 bool roborts_detection::ArmorBox::angleJudge(const LightBlob &lightBlob_i,
                                              const LightBlob &lightBlob_j) {
   float angle_i = lightBlob_i.rect.size.width > lightBlob_i.rect.size.height ? lightBlob_i.rect.angle :
-                  lightBlob_i.rect.angle - 90;
+                  lightBlob_i.rect.angle-90 ;
+  printf("i angleorigin/angle :%f / %f",lightBlob_i.rect.angle,angle_i);
   float angle_j = lightBlob_j.rect.size.width > lightBlob_j.rect.size.height ? lightBlob_j.rect.angle :
-                  lightBlob_j.rect.angle - 90;
-  bool judge = abs(angle_i - angle_j) < 20;
+                  lightBlob_j.rect.angle-90;
+  bool judge = abs(angle_i - angle_j) < 10;
+  printf("j angleorigin/angle :%f / %f",lightBlob_j.rect.angle,angle_j);
   if (!judge) {
 //    printf("angleNot ");
   }
