@@ -246,6 +246,74 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
+          blue1/odom:
+            blue1/base_footprint:
+              blue1/reverse_base_link:
+                blue1/backarmour_link:
+                  {}
+                blue1/base_link:
+                  {}
+                blue1/bl_wheel_link:
+                  {}
+                blue1/br_wheel_link:
+                  {}
+                blue1/fl_wheel_link:
+                  {}
+                blue1/fr_wheel_link:
+                  {}
+                blue1/frontarmour_link:
+                  {}
+                blue1/led_link:
+                  {}
+                blue1/leftarmour_link:
+                  {}
+                blue1/rightarmour_link:
+                  {}
+                blue1/yaw_link:
+                  blue1/camera_link:
+                    blue1/camera_depth_link:
+                      {}
+                    blue1/imu_link:
+                      {}
+                  blue1/laser_link:
+                    {}
+                  blue1/pitch_link:
+                    blue1/shoot_link:
+                      {}
+          blue2/odom:
+            blue2/base_footprint:
+              blue2/reverse_base_link:
+                blue2/backarmour_link:
+                  {}
+                blue2/base_link:
+                  {}
+                blue2/bl_wheel_link:
+                  {}
+                blue2/br_wheel_link:
+                  {}
+                blue2/fl_wheel_link:
+                  {}
+                blue2/fr_wheel_link:
+                  {}
+                blue2/frontarmour_link:
+                  {}
+                blue2/led_link:
+                  {}
+                blue2/leftarmour_link:
+                  {}
+                blue2/rightarmour_link:
+                  {}
+                blue2/yaw_link:
+                  blue2/camera_link:
+                    blue2/camera_depth_link:
+                      {}
+                    blue2/imu_link:
+                      {}
+                  blue2/laser_link:
+                    {}
+                  blue2/pitch_link:
+                    blue2/shoot_link:
+                      {}
           red1/odom:
             red1/base_footprint:
               red1/reverse_base_link:
@@ -407,33 +475,33 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 15.0820351
+      Distance: 6.80389118
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0772009492
-        Y: -2.03102803
+        X: 0.195495084
+        Y: -1.38262928
         Z: 9.53674316e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.00100000005
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.53479636
+      Pitch: 1.56979632
       Target Frame: map
       Value: ThirdPersonFollower (rviz)
-      Yaw: 4.71261549
+      Yaw: 4.70261431
     Saved: ~
 Window Geometry:
   Displays:
-    collapsed: false
-  Height: 534
-  Hide Left Dock: false
+    collapsed: true
+  Height: 482
+  Hide Left Dock: true
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a000001b1fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006300fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000002540000011a00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000042000001b1000000de00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000353000000af0000006300ffffff000000010000010f00000272fc0200000002fb0000000a00560069006500770073000000002800000272000000b900fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004fc0000003efc0100000002fb0000000800540069006d00650000000000000004fc0000028800fffffffb0000000800540069006d00650100000000000004500000000000000000000002a5000001b100000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a000001b1fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006300fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000002540000011a00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730000000042000001b1000000de00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730000000353000000af0000006300ffffff000000010000010f00000272fc0200000002fb0000000a00560069006500770073000000002800000272000000b900fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004fc0000003efc0100000002fb0000000800540069006d00650000000000000004fc0000028800fffffffb0000000800540069006d00650100000000000004500000000000000000000003e60000017d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -442,6 +510,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1045
-  X: 866
-  Y: 570
+  Width: 998
+  X: 913
+  Y: 546

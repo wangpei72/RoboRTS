@@ -54,19 +54,19 @@ robot_type {
     type: POINT
     robot_vertices {
         x: 0.3
-        y: 0.3
+        y: 0.225
     }
     robot_vertices {
         x: -0.3
-        y: 0.3
+        y: 0.225
     }
     robot_vertices {
         x: -0.3
-        y: -0.3
+        y: -0.225
     }
     robot_vertices {
         x: 0.3
-        y: -0.3
+        y: -0.225
     }
 }
 

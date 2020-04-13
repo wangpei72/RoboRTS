@@ -1,5 +1,5 @@
 opt_frame {
-    odom_frame: "red1/odom"
+    odom_frame: "blue1/odom"
     map_frame: "map"
 }
 
