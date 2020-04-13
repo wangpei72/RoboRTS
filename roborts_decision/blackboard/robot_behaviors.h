@@ -10,7 +10,7 @@
 #include "../example_behavior/goal_behavior.h"
 #include "../example_behavior/escape_behavior.h"
 #include "../example_behavior/supply_behavior.h"
-#include "../example_behavior/pursue_attack_behavior.h"
+#include "../example_behavior/pursue_and_attack_behavior.h"
 #include <thread>
 
 namespace roborts_decision {
@@ -23,7 +23,7 @@ class RobotBehaviors {
   const std::shared_ptr<GoalBehavior> &GetGoalBehavior();
   const std::shared_ptr<EscapeBehavior> &GetEscapeBehavior();
   const std::shared_ptr<SupplyBehavior> &GetSupplyBehavior();
-  const std::shared_ptr<PursueAttackBehavior> &GetPursueAttackBehavior();
+  const std::shared_ptr<PursueAndAttackBehavior> &GetPursueAttackBehavior();
 
   // RUNNING = 0, SUCCESS = 1, FAILURE = 2
   uint32_t GetStatusCode();
@@ -35,7 +35,7 @@ class RobotBehaviors {
   std::shared_ptr<GoalBehavior> p_goal_behavior_;
   std::shared_ptr<EscapeBehavior> p_escape_behavior_;
   std::shared_ptr<SupplyBehavior> p_supply_behavior_;
-  std::shared_ptr<PursueAttackBehavior> p_pursue_attack_behavior_;
+  std::shared_ptr<PursueAndAttackBehavior> p_pursue_attack_behavior_;
 };
 
 }

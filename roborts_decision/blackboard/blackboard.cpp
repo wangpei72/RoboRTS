@@ -11,7 +11,9 @@ Blackboard::Blackboard(std::shared_ptr<MyRobot> &p_myrobot1,
     nh_(nh),
     enemy_robot_1_(RobotId::ENEMY_ROBOT_1),
     enemy_robot_2_(RobotId::ENEMY_ROBOT_2),
-    my_color_(UNKNOWN_COLOR) {
+    my_color_(UNKNOWN_COLOR),
+    p_my_robot1_(p_myrobot1),
+    p_my_robot2_(p_myrobot2) {
 
   std::string outpost_camera_topic("/outpost_camera");
   nh_.param("outpost_camera_topic", outpost_camera_topic, outpost_camera_topic);
@@ -32,6 +34,19 @@ Blackboard::Blackboard(std::shared_ptr<MyRobot> &p_myrobot1,
   nh_.param("game_survivor_topic", game_survivor_topic, game_survivor_topic);
   game_survivor_sub_ =
       nh_.subscribe<roborts_msgs::GameSurvivor>(game_survivor_topic, 1, &Blackboard::GameSurvivorCallback, this);
+
+  blue1_gt_sub_ =
+      nh_.subscribe<nav_msgs::Odometry>("/blue1/ground_truth/state", 1, &Blackboard::Blue1GroundTruthCallback, this);
+  blue2_gt_sub_ =
+      nh_.subscribe<nav_msgs::Odometry>("/blue2/ground_truth/state", 1, &Blackboard::Blue2GroundTruthCallback, this);
+
+  {
+    my_color_ = RED;
+    p_my_robot1_->SetRobotType(RED_1);
+    p_my_robot1_->SetRobotType(RED_2);
+    enemy_robot_1_.SetRobotType(BLUE_1);
+    enemy_robot_2_.SetRobotType(BLUE_2);
+  }
 
   vec_buff_zone_status_.resize(7);
 }
@@ -98,21 +113,21 @@ void Blackboard::BuffZoneStatusCallback(const roborts_msgs::BuffZoneStatus::Cons
 }
 
 void Blackboard::MyColorCallback(const roborts_msgs::RobotStatus::ConstPtr &msg) {
-  if (msg->id == RED_1 || msg->id == RED_2) {
-    my_color_ = RED;
-    p_my_robot1_->SetRobotType(RED_1);
-    p_my_robot1_->SetRobotType(RED_2);
-    enemy_robot_1_.SetRobotType(BLUE_1);
-    enemy_robot_2_.SetRobotType(BLUE_2);
-  } else if (msg->id == BLUE_1 || msg->id == BLUE_2) {
-    my_color_ = BLUE;
-    p_my_robot1_->SetRobotType(BLUE_1);
-    p_my_robot1_->SetRobotType(BLUE_2);
-    enemy_robot_1_.SetRobotType(RED_1);
-    enemy_robot_2_.SetRobotType(RED_2);
-  } else {
-    my_color_ = UNKNOWN_COLOR;
-  }
+  // if (msg->id == RED_1 || msg->id == RED_2) {
+  my_color_ = RED;
+  p_my_robot1_->SetRobotType(RED_1);
+  p_my_robot1_->SetRobotType(RED_2);
+  enemy_robot_1_.SetRobotType(BLUE_1);
+  enemy_robot_2_.SetRobotType(BLUE_2);
+  // } else if (msg->id == BLUE_1 || msg->id == BLUE_2) {
+  //   my_color_ = BLUE;
+  //   p_my_robot1_->SetRobotType(BLUE_1);
+  //   p_my_robot1_->SetRobotType(BLUE_2);
+  //   enemy_robot_1_.SetRobotType(RED_1);
+  //   enemy_robot_2_.SetRobotType(RED_2);
+  // } else {
+  //   my_color_ = UNKNOWN_COLOR;
+  // }
 }
 
 void Blackboard::GameSurvivorCallback(const roborts_msgs::GameSurvivor::ConstPtr &msg) {
@@ -128,6 +143,14 @@ void Blackboard::GameSurvivorCallback(const roborts_msgs::GameSurvivor::ConstPtr
     enemy_robot_1_.SetIsSurvival(msg->red3);
     enemy_robot_2_.SetIsSurvival(msg->red4);
   }
+}
+
+void Blackboard::Blue1GroundTruthCallback(const nav_msgs::Odometry::ConstPtr &msg) {
+  enemy_robot_1_.SetPose(msg->header.stamp, msg->pose.pose.position);
+}
+
+void Blackboard::Blue2GroundTruthCallback(const nav_msgs::Odometry::ConstPtr &msg) {
+  enemy_robot_2_.SetPose(msg->header.stamp, msg->pose.pose.position);
 }
 
 

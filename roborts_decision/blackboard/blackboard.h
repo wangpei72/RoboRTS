@@ -41,12 +41,16 @@ class Blackboard {
   void BuffZoneStatusCallback(const roborts_msgs::BuffZoneStatus::ConstPtr &msg);
   void MyColorCallback(const roborts_msgs::RobotStatus::ConstPtr &msg);
   void GameSurvivorCallback(const roborts_msgs::GameSurvivor::ConstPtr &msg);
+  void Blue1GroundTruthCallback(const nav_msgs::Odometry::ConstPtr &msg);
+  void Blue2GroundTruthCallback(const nav_msgs::Odometry::ConstPtr &msg);
 
   ros::NodeHandle nh_;
   ros::Subscriber outpose_camera_sub_;
   ros::Subscriber buff_zone_sub_;
   ros::Subscriber color_sub_;
   ros::Subscriber game_survivor_sub_;
+  ros::Subscriber blue1_gt_sub_;
+  ros::Subscriber blue2_gt_sub_;
 
   std::vector<BuffZoneStatus> vec_buff_zone_status_;
 

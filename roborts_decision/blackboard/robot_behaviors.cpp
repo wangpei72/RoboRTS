@@ -13,7 +13,8 @@ roborts_decision::RobotBehaviors::RobotBehaviors(std::shared_ptr<MyRobot> p_my_r
     p_my_robot_(std::move(p_my_robot)),
     p_blackboard_(std::move(p_blackboard)) {
   p_goal_behavior_ = std::make_shared<GoalBehavior>(p_my_robot_->GetPChassisExecutor());
-
+  p_pursue_attack_behavior_ = std::make_shared<PursueAndAttackBehavior>(
+      p_my_robot_->GetPChassisExecutor(), p_blackboard_, p_my_robot_);
 }
 
 const std::shared_ptr<GoalBehavior> &roborts_decision::RobotBehaviors::GetGoalBehavior() {
@@ -28,7 +29,7 @@ const std::shared_ptr<SupplyBehavior> &roborts_decision::RobotBehaviors::GetSupp
   return p_supply_behavior_;
 }
 
-const std::shared_ptr<PursueAttackBehavior> &roborts_decision::RobotBehaviors::GetPursueAttackBehavior() {
+const std::shared_ptr<PursueAndAttackBehavior> &roborts_decision::RobotBehaviors::GetPursueAttackBehavior() {
   return p_pursue_attack_behavior_;
 }
 

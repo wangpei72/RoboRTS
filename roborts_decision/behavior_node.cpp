@@ -5,8 +5,7 @@
 #include <ros/ros.h>
 
 #include "example_behavior/escape_behavior.h"
-#include "example_behavior/pursue_attack_behavior.h"
-#include "example_behavior/goal_behavior.h"
+#include "example_behavior/pursue_and_attack_behavior.h"
 #include "example_behavior/supply_behavior.h"
 
 #include "blackboard/robot_behaviors.h"
@@ -25,13 +24,17 @@ int main(int argc, char** argv) {
   auto p_robot1_behaviors = std::make_shared<RobotBehaviors>(p_my_robot1, p_blackboard);
   auto p_robot2_behaviors = std::make_shared<RobotBehaviors>(p_my_robot2, p_blackboard);
 
-  std::cout << "Start send goal..." << std::endl;
-  geometry_msgs::PoseStamped goal;
-  goal.pose.position.x = -3.4;
-  goal.pose.position.y = -1.7;
-  goal.pose.position.z = 0;
-  goal.pose.orientation.w = 1;
-  p_robot1_behaviors->GetGoalBehavior()->Run(goal);
+  // std::cout << "Start send goal..." << std::endl;
+  // geometry_msgs::PoseStamped goal;
+  // goal.pose.position.x = -3.4;
+  // goal.pose.position.y = -0.0;
+  // goal.pose.position.z = 0;
+  // goal.pose.orientation.w = 1;
+  // p_robot1_behaviors->GetGoalBehavior()->Run(goal);
+
+  sleep(3);
+  std::cout << "Start pursue and attack..." << std::endl;
+  p_robot1_behaviors->GetPursueAttackBehavior()->Run(ENEMY_ROBOT_1, 1.2);
 
   /*
    * Example:
