@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
 
   sleep(3);
   std::cout << "Start pursue and attack..." << std::endl;
-  p_robot1_behaviors->GetPursueAttackBehavior()->Run(ENEMY_ROBOT_1, 1.2);
+  // p_robot1_behaviors->GetPursueAttackBehavior()->Run(ENEMY_ROBOT_1, 1.2);
 
   /*
    * Example:

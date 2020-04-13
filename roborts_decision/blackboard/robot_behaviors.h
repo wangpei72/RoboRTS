@@ -25,7 +25,7 @@ class RobotBehaviors {
   const std::shared_ptr<SupplyBehavior> &GetSupplyBehavior();
   const std::shared_ptr<PursueAndAttackBehavior> &GetPursueAttackBehavior();
 
-  // RUNNING = 0, SUCCESS = 1, FAILURE = 2
+  // OK = 0, Error = 1, FAILURE >= 2
   uint32_t GetStatusCode();
 
  private:

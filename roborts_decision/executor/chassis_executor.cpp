@@ -13,7 +13,7 @@ ChassisExecutor::ChassisExecutor(const ros::NodeHandle &nh)
       global_planner_client_(nh_.getNamespace() + "/global_planner_node_action", true),
       local_planner_client_(nh_.getNamespace() + "/local_planner_node/local_planner_node_action", true),
       pid_controller_client_(nh_.getNamespace() + "/pid_planner_chassis_node_action", true),
-      error_code_(1) {
+      error_code_(0) {
 
   cmd_vel_acc_pub_ = nh_.advertise<roborts_msgs::TwistAccel>("local_planner_node/cmd_vel_acc", 100);
   cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 1);
@@ -27,6 +27,11 @@ ChassisExecutor::ChassisExecutor(const ros::NodeHandle &nh)
 //  if (!LoadParam(ros::package::getPath("roborts_decision") + "/config/chassis_executor.prototxt")) {
 //    ROS_ERROR("%s can't open file", __FUNCTION__);
 //  }
+
+  update_thread_ = std::thread([&]() {
+    this->Update();
+  });
+  update_thread_.detach();
 }
 
 //bool ChassisExecutor::LoadParam(const std::string &proto_file_path) {
@@ -56,7 +61,7 @@ void ChassisExecutor::Execute(const geometry_msgs::PoseStamped &goal) {
                                   boost::bind(&ChassisExecutor::GlobalPlannerDoneCallback, this, _1, _2),
                                   GlobalActionClient::SimpleActiveCallback(),
                                   boost::bind(&ChassisExecutor::GlobalPlannerFeedbackCallback, this, _1));
-  error_code_ = 0;  // RUNNING
+  error_code_ = 0;  // OK
   std::cout << "Has sent goal!" << std::endl;
 }
 
@@ -146,10 +151,11 @@ BehaviorState ChassisExecutor::Update() {
       } else if (state == actionlib::SimpleClientGoalState::ABORTED) {
         ROS_INFO("%s : ABORTED", __FUNCTION__);
         execution_state_ = BehaviorState::FAILURE;
-
+        error_code_ = 2;
       } else {
         ROS_ERROR("Error: %s", state.toString().c_str());
         execution_state_ = BehaviorState::FAILURE;
+        error_code_ = 2;
       }
       break;
 
@@ -221,7 +227,7 @@ void ChassisExecutor::GlobalPlannerFeedbackCallback(const roborts_msgs::GlobalPl
     local_planner_client_.sendGoal(local_planner_goal_);
   }
   error_code_ = global_planner_feedback->error_code;
-  if (error_code_ == 2) {
+  if (error_code_ >= 1) {
     std::cout << "Global planner find path failed!" << std::endl;
     this->Cancel();
   }
@@ -239,7 +245,7 @@ void ChassisExecutor::GlobalPlannerDoneCallback(
     const actionlib::SimpleClientGoalState &state,
     const roborts_msgs::GlobalPlannerResultConstPtr &global_planner_result) {
   error_code_ = global_planner_result->error_code;
-  if (error_code_ == 2) {
+  if (error_code_ >= 1) {
     this->Cancel();
   }
 }

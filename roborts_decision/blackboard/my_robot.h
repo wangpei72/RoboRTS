@@ -55,7 +55,7 @@ class MyRobot {
 
   const geometry_msgs::PoseStamped &GetChassisMapPose() const;
 
-  // RUNNING = 0, SUCCESS = 1, FAILURE = 2
+  // OK = 0, Error = 1, FAILURE >= 2
   uint32_t GetStatusCode();
 
   // const geometry_msgs::PoseStamped &GetChassisOdomPose() const;

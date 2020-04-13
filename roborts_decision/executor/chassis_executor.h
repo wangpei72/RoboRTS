@@ -13,6 +13,8 @@
 #include "../behavior_tree/behavior_state.h"
 #include "pid_controller/pid_controller.h"
 
+#include <thread>
+
 namespace roborts_decision {
 /***
  * @brief Chassis Executor to execute different abstracted task for chassis module
@@ -117,6 +119,8 @@ class ChassisExecutor {
   roborts_msgs::TwistAccel zero_twist_accel_;
 
   uint32_t error_code_;
+
+  std::thread update_thread_;
 //  bool LoadParam(const std::string &proto_file_path);
 //  double chassis_v2p_pid_kp;
 //  double chassis_v2p_pid_ki;
