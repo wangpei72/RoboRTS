@@ -9,7 +9,7 @@
 #include "io/terminal_io.h"
 #include "pid_controller/pid_controller.h"
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "../executor/chassis_executor.h"
 #include "../executor/gimbal_executor.h"
 #include "../behavior_tree/behavior_state.h"
@@ -25,9 +25,9 @@ class AttackBehavior {
  public:
   AttackBehavior(ChassisExecutor *&chassis_executor,
                  GimbalExecutor *&gimbal_executor,
-                 Blackboard *blackboard) : chassis_executor_(chassis_executor),
-                                           gimbal_executor_(gimbal_executor),
-                                           blackboard_(blackboard) {
+                 BlackboardRaw* blackboard) : chassis_executor_(chassis_executor),
+                                              gimbal_executor_(gimbal_executor),
+                                              blackboard_(blackboard) {
     ros::NodeHandle nh;
 
     tf_ptr_ = std::make_shared<tf::TransformListener>(ros::Duration(10));
@@ -172,7 +172,7 @@ class AttackBehavior {
   GimbalExecutor *const gimbal_executor_;
 
   //! perception information
-  Blackboard *const blackboard_;
+  BlackboardRaw* const blackboard_;
 
   //! chassis rotation points
   std::vector<geometry_msgs::PoseStamped> chassis_rot_points{};

@@ -1,5 +1,5 @@
-odom_frame        : "odom"
-base_frame        : "base_link"
+odom_frame        : "blue1/odom"
+base_frame        : "blue1/base_link"
 global_frame      : "map"
 laser_topic_name     : "scan"
 map_topic_name       : "map"
@@ -7,9 +7,9 @@ init_pose_topic_name : "initialpose"
 transform_tolerance  : 0.1
 #8.40 #1.0
 #14.35 #1.0
-initial_pose_x : 1
-initial_pose_y : 1 
-initial_pose_a : 3.14
+initial_pose_x : -3.486985
+initial_pose_y : 1.655670
+initial_pose_a : 3.14159
 initial_cov_xx : 0.1
 initial_cov_yy : 0.1
 initial_cov_aa : 0.1

@@ -56,8 +56,17 @@
 #include "io/io.h"
 #include "map_common.h"
 #include "costmap_layer.h"
+#include <roborts_msgs/BuffZoneStatus.h>
+#include <map>
 
 namespace roborts_costmap {
+
+struct BuffZone {
+  double min_x_;
+  double max_x_;
+  double min_y_;
+  double max_y_;
+};
 
 class StaticLayer : public CostmapLayer {
 
@@ -75,7 +84,8 @@ class StaticLayer : public CostmapLayer {
 
  private:
   void InComingMap(const nav_msgs::OccupancyGridConstPtr& new_map);
-//  void IncomingUpdate(const map_msgs::OccupancyGridUpdateConstPtr& update);
+  void UpdateBuffZoneStatus(const roborts_msgs::BuffZoneStatus& new_buff_zone_status);
+  //  void IncomingUpdate(const map_msgs::OccupancyGridUpdateConstPtr& update);
   unsigned char InterpretValue(unsigned char value);
   std::string global_frame_;
   std::string map_frame_;
@@ -90,6 +100,11 @@ class StaticLayer : public CostmapLayer {
   bool first_map_only_;
   bool trinary_costmap_;
   ros::Subscriber map_sub_, map_update_sub_;
+  ros::Subscriber buff_zone_sub_;
+
+  std::map<int, BuffZone> map_buff_zones_;
+  std::string robot_color_;
+  double buff_zone_smaller_;
 };
 
 

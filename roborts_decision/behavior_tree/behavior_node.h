@@ -22,7 +22,7 @@
 #include <thread>
 #include <vector>
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "behavior_state.h"
 
 namespace roborts_decision{

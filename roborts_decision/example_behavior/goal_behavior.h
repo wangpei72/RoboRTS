@@ -1,44 +1,37 @@
 #ifndef ROBORTS_DECISION_GOAL_BEHAVIOR_H
 #define ROBORTS_DECISION_GOAL_BEHAVIOR_H
 
+#include <utility>
 
 #include "io/io.h"
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "../executor/chassis_executor.h"
 #include "../behavior_tree/behavior_state.h"
-
 
 namespace roborts_decision {
 class GoalBehavior {
  public:
-  GoalBehavior(ChassisExecutor* &chassis_executor,
-               Blackboard* &blackboard) :
-      chassis_executor_(chassis_executor),
-      blackboard_(blackboard) { }
+  explicit GoalBehavior(std::shared_ptr<ChassisExecutor> p_chassis_executor) :
+      p_chassis_executor_(std::move(p_chassis_executor)) {}
 
-  void Run() {
-    if(blackboard_->IsNewGoal()){
-      chassis_executor_->Execute(blackboard_->GetGoal());
-    }
+  void Run(const geometry_msgs::PoseStamped &goal) {
+    p_chassis_executor_->Execute(goal);
   }
 
   void Cancel() {
-    chassis_executor_->Cancel();
+    p_chassis_executor_->Cancel();
   }
 
   BehaviorState Update() {
-    return chassis_executor_->Update();
+    return p_chassis_executor_->Update();
   }
 
   ~GoalBehavior() = default;
 
  private:
   //! executor
-  ChassisExecutor* const chassis_executor_;
-
-  //! perception information
-  Blackboard* const blackboard_;
+  std::shared_ptr<ChassisExecutor>  p_chassis_executor_;
 
   //! planning goal
   geometry_msgs::PoseStamped planning_goal_;

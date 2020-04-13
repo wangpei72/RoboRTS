@@ -5,7 +5,7 @@
 
 #include "example_behavior/back_boot_area_behavior.h"
 #include "example_behavior/escape_behavior.h"
-#include "example_behavior/chase_behavior.h"
+#include "example_behavior/pursue_and_attack_behavior.h"
 #include "example_behavior/search_behavior.h"
 #include "example_behavior/patrol_behavior.h"
 #include "example_behavior/goal_behavior.h"
@@ -15,16 +15,16 @@ void Command();
 char command = '0';
 bool flag_restart_attack_behavior = false;
 
-int main(int argc, char **argv) {
+int _main(int argc, char **argv) {
   ros::init(argc, argv, "behavior_test_node");
   std::string full_path = ros::package::getPath("roborts_decision") + "/config/decision.prototxt";
 
   auto chassis_executor = new roborts_decision::ChassisExecutor;
   auto gimbal_executor = new roborts_decision::GimbalExecutor;
-  auto blackboard = new roborts_decision::Blackboard(full_path);
+  auto blackboard = new roborts_decision::BlackboardRaw(full_path);
 
   roborts_decision::BackBootAreaBehavior back_boot_area_behavior(chassis_executor, blackboard, full_path);
-  roborts_decision::ChaseBehavior chase_behavior(chassis_executor, blackboard, full_path);
+  roborts_decision::PursueAttackBehavior chase_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::SearchBehavior search_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::EscapeBehavior escape_behavior(chassis_executor, blackboard, full_path);
   roborts_decision::PatrolBehavior patrol_behavior(chassis_executor, blackboard, full_path);

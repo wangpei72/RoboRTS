@@ -4,7 +4,7 @@
 #include "io/io.h"
 #include "roborts_msgs/TwistAccel.h"
 
-#include "../blackboard/blackboard.h"
+#include "../blackboard/blackboard_raw.h"
 #include "../executor/chassis_executor.h"
 #include "../behavior_tree/behavior_state.h"
 #include "../proto/decision.pb.h"
@@ -15,7 +15,7 @@ namespace roborts_decision{
 class EscapeBehavior {
  public:
   EscapeBehavior(ChassisExecutor* &chassis_executor,
-                 Blackboard* &blackboard,
+                 BlackboardRaw*&blackboard,
                  const std::string & proto_file_path) : chassis_executor_(chassis_executor),
                                                         blackboard_(blackboard) {
 
@@ -184,7 +184,7 @@ class EscapeBehavior {
   float right_random_min_x_, right_random_max_x_;
 
   //! perception information
-  Blackboard* const blackboard_;
+  BlackboardRaw* const blackboard_;
 
   //! whirl velocity
 //  geometry_msgs::Twist whirl_vel_;
