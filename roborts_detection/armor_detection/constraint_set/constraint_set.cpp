@@ -268,9 +268,10 @@ ErrorInfo ConstraintSet::SearchArmor(cv::Mat industrialImage,
       cv::imshow("gray_img", gray_img_);
       DetectLights(realSenseRGBImage, light_blobs, tail_blobs);//***************加了尾灯**************
     cv_toolbox_->imshowLightBlobs(imshowImage, light_blobs, "light_blobs", leftPoint);
-      //  cv_toolbox_->imshowTailBlobs(imshowImage, tail_blobs, "tail_blobs", leftPoint);
+    cv_toolbox_->imshowTailBlobs(imshowImage, tail_blobs, "tail_blobs", leftPoint);
     PossibleArmors(realSenseRGBImage, light_blobs, armor_boxs);
-    cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "blank", leftPoint);
+    cv_toolbox_->imshowArmorBoxs(imshowImage, armor_boxs, "armors", leftPoint);
+    cv_toolbox_->imshowArmorBoxs(realSenseDepthImage,armor_boxs,"armors_in_depth",leftPoint);
       bool ifFoundTail = !tail_blobs.empty();
       setBoxOrientation(tail_blobs, armor_boxs, ifFoundTail);
       //*********************************这里设置了装甲板位置种类属性*************************************
